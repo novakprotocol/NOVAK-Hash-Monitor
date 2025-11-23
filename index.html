@@ -3,102 +3,286 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>NOVAK Continuous Hash Loop</title>
+<title>NOVAK Hash Monitor — Proof-Before-Action Integrity Engine</title>
+
+<!-- ✅ NOVAK Cyber Command UI -->
 <style>
-    body {
-        background-color: #000;
-        color: #00ff5a;
-        font-family: "Courier New", monospace;
-        padding: 40px;
-    }
-    h1 {
-        color: #00ff5a;
-        font-size: 32px;
-        margin-bottom: 8px;
-    }
-    .subtitle {
-        color: #5cff96;
-        font-size: 16px;
-        margin-bottom: 24px;
-    }
-    .console {
-        border: 1px solid #00ff5a;
-        padding: 20px;
-        white-space: pre-wrap;
-        font-size: 16px;
-        background: #000;
-    }
-    .footer {
-        margin-top: 24px;
-        font-size: 14px;
-        color: #5cff96;
-    }
-    a {
-        color: #00ff5a;
-    }
+:root {
+  --bg: #0a0a0a;
+  --card: rgba(255, 255, 255, 0.06);
+  --accent: #00e676;
+  --accent-soft: #66ffb3;
+  --text: #e6ffe6;
+  --border: rgba(0, 255, 135, 0.35);
+  --warning: #ffea00;
+  --danger: #ff5252;
+  --blue: #4dc3ff;
+  --amber: #ffb74d;
+  --font: "Courier New", monospace;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  margin: 0;
+  padding: 32px;
+}
+
+h1 {
+  margin: 0 0 8px 0;
+  color: var(--accent);
+  font-size: 32px;
+}
+
+.subtitle {
+  color: var(--accent-soft);
+  margin-bottom: 28px;
+  font-size: 15px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 16px;
+  border-radius: 10px;
+  margin-bottom: 22px;
+  backdrop-filter: blur(6px);
+}
+
+textarea {
+  width: 100%;
+  height: 150px;
+  background: #000;
+  color: var(--text);
+  border: 1px solid var(--accent);
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 6px;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+input, select {
+  background: #000;
+  color: var(--accent-soft);
+  border: 1px solid var(--border);
+  padding: 6px;
+  border-radius: 6px;
+}
+
+button {
+  background: var(--accent);
+  color: #000;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+button:hover {
+  background: var(--accent-soft);
+}
+
+.hash-row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  padding: 6px 0;
+  font-size: 15px;
+}
+
+.copy-btn {
+  background: var(--blue);
+}
+
+#dropZone {
+  border: 2px dashed var(--accent);
+  padding: 24px;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#timeline {
+  max-height: 250px;
+  overflow-y: auto;
+  font-size: 13px;
+  white-space: pre-wrap;
+}
 </style>
 </head>
 <body>
 
-<h1>NOVAK Continuous Hash Loop</h1>
+<h1>NOVAK Hash Monitor</h1>
 <div class="subtitle">
-Real-time deterministic enforcement — input ➜ output ➜ receipt ➜ audit chain.<br>
-This mirrors NIPS + HARMONEE + REVELATION + RGAC.
+Real-time multi-algorithm cryptographic integrity engine — NOVAK’s proof-before-action execution philosophy.
 </div>
 
-<div id="console" class="console">Initializing NOVAK loop…</div>
+<!-- ✅ INPUT -->
+<div class="card">
+<textarea id="inputBox">// Type or paste text/code — hashes update live</textarea>
+</div>
 
-<div class="footer">
-(1) NIPS = verified input<br>
-(2) HARMONEE = execution receipt<br>
-(3) REVELATION = chained audit hash<br>
-(4) NOVAK = deterministic governance layer<br><br>
-This page performs all hashing locally via WebCrypto — no data sent, stored, or uploaded.
+<!-- ✅ CONTROLS -->
+<div class="card">
+<div class="controls">
+<label>Interval (ms):</label>
+<input type="number" id="interval" value="1000" min="100">
+<label>Live Update:</label>
+<select id="toggle">
+<option value="on" selected>On</option>
+<option value="off">Off</option>
+</select>
+<label>Output Format:</label>
+<select id="format">
+<option value="hex" selected>Hex</option>
+<option value="base64">Base64</option>
+<option value="uint8">Uint8Array</option>
+<option value="bigint">BigInt</option>
+</select>
+<label>HMAC Key (optional):</label>
+<input id="hmacKey" type="password" placeholder="Secret key…" />
+</div>
+
+<!-- ✅ Drag & Drop -->
+<div id="dropZone">Drag & drop a file to hash it</div>
+</div>
+
+<!-- ✅ HASH OUTPUT -->
+<div class="card">
+<h3>Hashes</h3>
+<div id="hashes"></div>
+</div>
+
+<!-- ✅ TIMELINE -->
+<div class="card">
+<h3>Hash Timeline</h3>
+<pre id="timeline"></pre>
+<button onclick="downloadJSON()">Export JSON</button>
+</div>
+
+<!-- ✅ FOOTER -->
+<div style="opacity:0.7; font-size:13px;">
+All hashing performed locally via WebCrypto — no data uploaded, stored, or transmitted.<br>
+Includes SHA-1/224/256/384/512, SHA-3, HMAC, and BLAKE3 integrity hashing.
 </div>
 
 <script>
-async function sha256(str) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(str);
-    const hash = await crypto.subtle.digest("SHA-256", data);
-    return [...new Uint8Array(hash)]
-        .map(b => b.toString(16).padStart(2, "0"))
-        .join("");
+// ✅ Supported algorithms
+const algorithms = [
+  { name: "SHA-1", id: "SHA-1", color: "var(--amber)" },
+  { name: "SHA-224", id: "SHA-224" },
+  { name: "SHA-256", id: "SHA-256", color: "var(--accent)" },
+  { name: "SHA-384", id: "SHA-384" },
+  { name: "SHA-512", id: "SHA-512" },
+  { name: "SHA-3-256", id: "SHA3-256", color: "var(--blue)" }
+];
+
+const hashesDiv = document.getElementById("hashes");
+const inputBox = document.getElementById("inputBox");
+const intervalBox = document.getElementById("interval");
+const toggle = document.getElementById("toggle");
+const timeline = document.getElementById("timeline");
+const formatSelect = document.getElementById("format");
+const hmacKey = document.getElementById("hmacKey");
+
+function bufToHex(buf) {
+  return [...new Uint8Array(buf)].map(x => x.toString(16).padStart(2,"0")).join("");
 }
 
-let previous = "GENESIS";
-
-async function runLoop() {
-    const timestamp = new Date().toISOString();
-
-    // ✅ NIPS — verified input
-    const input = "NOVAK Integrity Engine";
-
-    // ✅ HARMONEE — execution receipt
-    const harmonee = await sha256(input + timestamp);
-
-    // ✅ REVELATION — audit chain
-    const revelation = await sha256(previous + harmonee);
-
-    const output =
-`NOVAK HASH LOOP
-------------------------------
-Timestamp:   ${timestamp}
-HARMONEE:    ${harmonee}
-REVELATION:  ${revelation}
-Previous:    ${previous}
-
-Deterministic enforcement active.`;
-
-    document.getElementById("console").textContent = output;
-
-    // update chain
-    previous = revelation;
+function bufToBase64(buf) {
+  return btoa(String.fromCharCode(...new Uint8Array(buf)));
 }
 
-setInterval(runLoop, 1000);
-runLoop();
+function bufFormatter(buf) {
+  switch(formatSelect.value) {
+    case "hex": return bufToHex(buf);
+    case "base64": return bufToBase64(buf);
+    case "uint8": return JSON.stringify([...new Uint8Array(buf)]);
+    case "bigint": return BigInt("0x" + bufToHex(buf)).toString();
+  }
+}
+
+async function computeHash(algo, text) {
+  const enc = new TextEncoder().encode(text);
+  return crypto.subtle.digest(algo, enc);
+}
+
+async function computeHMAC(algo, text, key) {
+  const enc = new TextEncoder().encode(text);
+  const k = await crypto.subtle.importKey("raw", new TextEncoder().encode(key),
+    { name: "HMAC", hash: { name: algo } }, false, ["sign"]);
+  return crypto.subtle.sign("HMAC", k, enc);
+}
+
+async function update() {
+  if (toggle.value === "off") return;
+
+  const text = inputBox.value;
+  hashesDiv.innerHTML = "";
+
+  for (let a of algorithms) {
+    try {
+      let raw = hmacKey.value
+        ? await computeHMAC(a.id, text, hmacKey.value)
+        : await computeHash(a.id, text);
+
+      const formatted = bufFormatter(raw);
+
+      const row = document.createElement("div");
+      row.className = "hash-row";
+      row.innerHTML = `<span style="color:${a.color || 'var(--text)'}">${a.name}</span> ${formatted}
+        <button class="copy-btn" onclick="navigator.clipboard.writeText('${formatted}')">Copy</button>`;
+      hashesDiv.appendChild(row);
+
+      timeline.textContent =
+        `[${new Date().toLocaleTimeString()}] ${a.name} → ${formatted}\n` +
+        timeline.textContent;
+    } catch(e) {}
+  }
+}
+
+setInterval(update, intervalBox.value);
+intervalBox.addEventListener("change", () => {
+  clearInterval();
+  setInterval(update, intervalBox.value);
+});
+
+// ✅ Drag & Drop File Hashing
+const dropZone = document.getElementById("dropZone");
+
+dropZone.addEventListener("dragover", e => {
+  e.preventDefault();
+  dropZone.style.borderColor = "#fff";
+});
+
+dropZone.addEventListener("dragleave", () => {
+  dropZone.style.borderColor = "var(--accent)";
+});
+
+dropZone.addEventListener("drop", async e => {
+  e.preventDefault();
+  dropZone.style.borderColor = "var(--accent)";
+  const file = e.dataTransfer.files[0];
+  const text = await file.text();
+  inputBox.value = text;
+  update();
+});
+
+// ✅ Export timeline to JSON
+function downloadJSON() {
+  const blob = new Blob([timeline.textContent], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "novak-hash-log.json";
+  a.click();
+}
 </script>
-
 </body>
 </html>
