@@ -1,288 +1,352 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>NOVAK Hash Monitor — Proof-Before-Action Integrity Engine</title>
+<title>NOVAK Hash Monitor</title>
 
-<!-- ✅ NOVAK Cyber Command UI -->
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet" />
+
 <style>
-:root {
-  --bg: #0a0a0a;
-  --card: rgba(255, 255, 255, 0.06);
-  --accent: #00e676;
-  --accent-soft: #66ffb3;
-  --text: #e6ffe6;
-  --border: rgba(0, 255, 135, 0.35);
-  --warning: #ffea00;
-  --danger: #ff5252;
-  --blue: #4dc3ff;
-  --amber: #ffb74d;
-  --font: "Courier New", monospace;
+/* ---------- GLOBAL RESET ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "JetBrains Mono", monospace;
 }
 
+/* ---------- THEME VARIABLES ---------- */
+:root {
+  --bg-dark: #0d0f12;
+  --bg-light: #f5f7fa;
+  --card-dark: rgba(17, 21, 27, 0.92);
+  --card-light: rgba(255, 255, 255, 0.85);
+  --primary-green: #00ff84;
+  --accent-blue: #4ecbff;
+  --accent-orange: #ffb547;
+  --accent-purple: #c17dff;
+  --accent-red: #ff5c72;
+  --border-dark: #222830;
+  --border-light: #d3dae4;
+  --text-dark: #e9eef5;
+  --text-light: #0d0f12;
+}
+
+html[data-theme="dark"] {
+  --bg: var(--bg-dark);
+  --card: var(--card-dark);
+  --border: var(--border-dark);
+  --text: var(--text-dark);
+}
+
+html[data-theme="light"] {
+  --bg: var(--bg-light);
+  --card: var(--card-light);
+  --border: var(--border-light);
+  --text: var(--text-light);
+}
+
+/* ---------- PAGE LAYOUT ---------- */
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: var(--font);
-  margin: 0;
-  padding: 32px;
+  padding: 30px;
 }
 
-h1 {
-  margin: 0 0 8px 0;
-  color: var(--accent);
-  font-size: 32px;
+.container {
+  max-width: 1150px;
+  margin: auto;
 }
 
-.subtitle {
-  color: var(--accent-soft);
-  margin-bottom: 28px;
-  font-size: 15px;
+/* ---------- HEADER ---------- */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
 }
 
+.title {
+  font-size: 34px;
+  font-weight: 600;
+  color: var(--primary-green);
+}
+
+/* ---------- THEME TOGGLE BUTTON ---------- */
+.theme-toggle {
+  cursor: pointer;
+  padding: 7px 15px;
+  border-radius: 6px;
+  border: 1px solid var(--primary-green);
+  color: var(--primary-green);
+  background: transparent;
+  transition: 0.25s ease;
+}
+
+.theme-toggle:hover {
+  background: var(--primary-green);
+  color: #000;
+}
+
+/* ---------- INPUT CARD ---------- */
 .card {
   background: var(--card);
-  border: 1px solid var(--border);
-  padding: 16px;
+  padding: 20px;
   border-radius: 10px;
+  border: 1px solid var(--border);
   margin-bottom: 22px;
-  backdrop-filter: blur(6px);
 }
 
 textarea {
   width: 100%;
-  height: 150px;
-  background: #000;
-  color: var(--text);
-  border: 1px solid var(--accent);
-  padding: 10px;
-  font-size: 15px;
+  height: 180px;
+  background: transparent;
+  border: 1px solid var(--border);
   border-radius: 6px;
+  padding: 12px;
+  resize: vertical;
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
 }
 
+/* ---------- CONTROLS ---------- */
 .controls {
   display: flex;
+  gap: 16px;
+  margin-top: 12px;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 14px;
 }
 
-input, select {
-  background: #000;
-  color: var(--accent-soft);
+select,
+input {
+  padding: 6px 10px;
+  border-radius: 6px;
   border: 1px solid var(--border);
-  padding: 6px;
-  border-radius: 6px;
+  background: transparent;
+  color: var(--text);
 }
 
-button {
-  background: var(--accent);
-  color: #000;
-  border: none;
-  padding: 6px 14px;
-  border-radius: 6px;
+/* ---------- FILE DROP ZONE ---------- */
+.dropzone {
+  border: 2px dashed var(--primary-green);
+  border-radius: 10px;
+  padding: 35px;
+  text-align: center;
+  margin-top: 20px;
   cursor: pointer;
+  transition: 0.2s;
 }
-button:hover {
-  background: var(--accent-soft);
+
+.dropzone:hover {
+  background: rgba(0, 255, 132, 0.08);
+}
+
+/* ---------- HASH OUTPUT ---------- */
+.hash-list {
+  margin-top: 10px;
 }
 
 .hash-row {
   display: flex;
   justify-content: space-between;
+  padding: 9px 12px;
   border-bottom: 1px solid var(--border);
-  padding: 6px 0;
-  font-size: 15px;
+}
+
+.hash-label {
+  font-weight: 600;
 }
 
 .copy-btn {
-  background: var(--blue);
-}
-
-#dropZone {
-  border: 2px dashed var(--accent);
-  padding: 24px;
-  text-align: center;
-  border-radius: 10px;
   cursor: pointer;
+  border: 1px solid var(--primary-green);
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  transition: 0.25s;
 }
 
-#timeline {
-  max-height: 250px;
+.copy-btn:hover {
+  background: var(--primary-green);
+  color: black;
+}
+
+/* ---------- TIMELINE ---------- */
+.timeline {
+  max-height: 260px;
   overflow-y: auto;
-  font-size: 13px;
-  white-space: pre-wrap;
+  font-size: 12px;
+  border: 1px solid var(--border);
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 6px;
+  background: rgba(0, 255, 132, 0.04);
 }
 </style>
 </head>
+
 <body>
+<div class="container">
 
-<h1>NOVAK Hash Monitor</h1>
-<div class="subtitle">
-Real-time multi-algorithm cryptographic integrity engine — NOVAK’s proof-before-action execution philosophy.
-</div>
+  <!-- HEADER -->
+  <div class="header">
+    <div class="title">NOVAK Hash Monitor</div>
+    <button class="theme-toggle" onclick="toggleTheme()">Light/Dark</button>
+  </div>
 
-<!-- ✅ INPUT -->
-<div class="card">
-<textarea id="inputBox">// Type or paste text/code — hashes update live</textarea>
-</div>
+  <!-- DESCRIPTION -->
+  <p>
+    Real-time multi-algorithm cryptographic integrity engine — originating from
+    <strong>NIPS (Verified Input Layer)</strong>,
+    <strong>HARMONEE (Execution Receipt Layer)</strong>,
+    <strong>REVELATION (Audit Chain Layer)</strong>, and evolving into the
+    <strong>NOVAK Deterministic Governance System</strong>.
+  </p>
 
-<!-- ✅ CONTROLS -->
-<div class="card">
-<div class="controls">
-<label>Interval (ms):</label>
-<input type="number" id="interval" value="1000" min="100">
-<label>Live Update:</label>
-<select id="toggle">
-<option value="on" selected>On</option>
-<option value="off">Off</option>
-</select>
-<label>Output Format:</label>
-<select id="format">
-<option value="hex" selected>Hex</option>
-<option value="base64">Base64</option>
-<option value="uint8">Uint8Array</option>
-<option value="bigint">BigInt</option>
-</select>
-<label>HMAC Key (optional):</label>
-<input id="hmacKey" type="password" placeholder="Secret key…" />
-</div>
+  <!-- TEXT INPUT -->
+  <div class="card">
+    <textarea id="input" placeholder="// Type or paste text, code, JSON, or logs — hashes update live"></textarea>
 
-<!-- ✅ Drag & Drop -->
-<div id="dropZone">Drag & drop a file to hash it</div>
-</div>
+    <div id="binaryWarning" style="color: var(--accent-red); margin-top: 8px; display: none;">
+      Binary data detected — use file drop zone instead.
+    </div>
 
-<!-- ✅ HASH OUTPUT -->
-<div class="card">
-<h3>Hashes</h3>
-<div id="hashes"></div>
-</div>
+    <!-- CONTROLS -->
+    <div class="controls">
+      <label>Interval (ms):
+        <input id="interval" type="number" value="1000" min="100" />
+      </label>
 
-<!-- ✅ TIMELINE -->
-<div class="card">
-<h3>Hash Timeline</h3>
-<pre id="timeline"></pre>
-<button onclick="downloadJSON()">Export JSON</button>
-</div>
+      <label>Live Update:
+        <select id="live">
+          <option value="on" selected>On</option>
+          <option value="off">Off</option>
+        </select>
+      </label>
 
-<!-- ✅ FOOTER -->
-<div style="opacity:0.7; font-size:13px;">
-All hashing performed locally via WebCrypto — no data uploaded, stored, or transmitted.<br>
-Includes SHA-1/224/256/384/512, SHA-3, HMAC, and BLAKE3 integrity hashing.
+      <label>Output Format:
+        <select id="format">
+          <option value="hex">Hex</option>
+          <option value="base64">Base64</option>
+        </select>
+      </label>
+
+      <label>HMAC Key:
+        <input id="hmac" placeholder="optional secret key" />
+      </label>
+    </div>
+
+    <!-- FILE DROP ZONE -->
+    <div id="dropzone" class="dropzone">
+      Drag & drop a file here to hash it
+    </div>
+  </div>
+
+  <!-- HASH OUTPUT -->
+  <div class="card">
+    <h3>Hashes</h3>
+    <div id="hashes" class="hash-list"></div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="card">
+    <h3>Hash Timeline</h3>
+    <div id="timeline" class="timeline"></div>
+  </div>
+
 </div>
 
 <script>
-// ✅ Supported algorithms
-const algorithms = [
-  { name: "SHA-1", id: "SHA-1", color: "var(--amber)" },
-  { name: "SHA-224", id: "SHA-224" },
-  { name: "SHA-256", id: "SHA-256", color: "var(--accent)" },
-  { name: "SHA-384", id: "SHA-384" },
-  { name: "SHA-512", id: "SHA-512" },
-  { name: "SHA-3-256", id: "SHA3-256", color: "var(--blue)" }
-];
-
-const hashesDiv = document.getElementById("hashes");
-const inputBox = document.getElementById("inputBox");
-const intervalBox = document.getElementById("interval");
-const toggle = document.getElementById("toggle");
-const timeline = document.getElementById("timeline");
-const formatSelect = document.getElementById("format");
-const hmacKey = document.getElementById("hmacKey");
-
-function bufToHex(buf) {
-  return [...new Uint8Array(buf)].map(x => x.toString(16).padStart(2,"0")).join("");
+/* THEME TOGGLE */
+function toggleTheme() {
+  const html = document.documentElement;
+  html.dataset.theme = html.dataset.theme === "dark" ? "light" : "dark";
 }
 
-function bufToBase64(buf) {
-  return btoa(String.fromCharCode(...new Uint8Array(buf)));
+/* BINARY DETECTION */
+function isBinary(str) {
+  return /[\x00-\x08\x0E-\x1F]/.test(str);
 }
 
-function bufFormatter(buf) {
-  switch(formatSelect.value) {
-    case "hex": return bufToHex(buf);
-    case "base64": return bufToBase64(buf);
-    case "uint8": return JSON.stringify([...new Uint8Array(buf)]);
-    case "bigint": return BigInt("0x" + bufToHex(buf)).toString();
+/* HASHING CONFIG */
+const algorithms = ["SHA-1", "SHA-256", "SHA-384", "SHA-512"];
+
+/* UPDATE LOOP */
+async function updateHashes() {
+  if (document.getElementById("live").value === "off") return;
+
+  const text = document.getElementById("input").value;
+
+  if (isBinary(text)) {
+    document.getElementById("binaryWarning").style.display = "block";
+    return;
+  } else {
+    document.getElementById("binaryWarning").style.display = "none";
   }
-}
 
-async function computeHash(algo, text) {
-  const enc = new TextEncoder().encode(text);
-  return crypto.subtle.digest(algo, enc);
-}
+  const format = document.getElementById("format").value;
+  const hmacKey = document.getElementById("hmac").value.trim();
 
-async function computeHMAC(algo, text, key) {
-  const enc = new TextEncoder().encode(text);
-  const k = await crypto.subtle.importKey("raw", new TextEncoder().encode(key),
-    { name: "HMAC", hash: { name: algo } }, false, ["sign"]);
-  return crypto.subtle.sign("HMAC", k, enc);
-}
+  let hashOutput = "";
 
-async function update() {
-  if (toggle.value === "off") return;
+  for (const algo of algorithms) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(text);
 
-  const text = inputBox.value;
-  hashesDiv.innerHTML = "";
+    let hash = await crypto.subtle.digest(algo, data);
+    let bytes = new Uint8Array(hash);
 
-  for (let a of algorithms) {
-    try {
-      let raw = hmacKey.value
-        ? await computeHMAC(a.id, text, hmacKey.value)
-        : await computeHash(a.id, text);
+    let result = format === "hex"
+      ? [...bytes].map(b => b.toString(16).padStart(2, "0")).join("")
+      : btoa(String.fromCharCode(...bytes));
 
-      const formatted = bufFormatter(raw);
-
-      const row = document.createElement("div");
-      row.className = "hash-row";
-      row.innerHTML = `<span style="color:${a.color || 'var(--text)'}">${a.name}</span> ${formatted}
-        <button class="copy-btn" onclick="navigator.clipboard.writeText('${formatted}')">Copy</button>`;
-      hashesDiv.appendChild(row);
-
-      timeline.textContent =
-        `[${new Date().toLocaleTimeString()}] ${a.name} → ${formatted}\n` +
-        timeline.textContent;
-    } catch(e) {}
+    hashOutput += `
+      <div class="hash-row">
+        <span class="hash-label">${algo}</span>
+        <span>${result}</span>
+        <button class="copy-btn" onclick="copyText(\`${result}\`)">Copy</button>
+      </div>`;
   }
+
+  document.getElementById("hashes").innerHTML = hashOutput;
+
+  const t = new Date().toLocaleTimeString();
+  document.getElementById("timeline").innerHTML += `[${t}] Hashes updated...\n`;
 }
 
-setInterval(update, intervalBox.value);
-intervalBox.addEventListener("change", () => {
-  clearInterval();
-  setInterval(update, intervalBox.value);
+/* COPY SUPPORT */
+function copyText(t) {
+  navigator.clipboard.writeText(t);
+}
+
+/* INTERVAL ENGINE */
+setInterval(updateHashes, document.getElementById("interval").value);
+document.getElementById("interval").addEventListener("change", () => {
+  clearInterval(updateHashes);
+  setInterval(updateHashes, document.getElementById("interval").value);
 });
 
-// ✅ Drag & Drop File Hashing
-const dropZone = document.getElementById("dropZone");
-
-dropZone.addEventListener("dragover", e => {
+/* FILE HASHING */
+document.getElementById("dropzone").addEventListener("dragover", e => {
   e.preventDefault();
-  dropZone.style.borderColor = "#fff";
 });
 
-dropZone.addEventListener("dragleave", () => {
-  dropZone.style.borderColor = "var(--accent)";
-});
-
-dropZone.addEventListener("drop", async e => {
+document.getElementById("dropzone").addEventListener("drop", async e => {
   e.preventDefault();
-  dropZone.style.borderColor = "var(--accent)";
   const file = e.dataTransfer.files[0];
-  const text = await file.text();
-  inputBox.value = text;
-  update();
-});
+  if (!file) return;
 
-// ✅ Export timeline to JSON
-function downloadJSON() {
-  const blob = new Blob([timeline.textContent], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "novak-hash-log.json";
-  a.click();
-}
+  const buf = await file.arrayBuffer();
+  const bytes = new Uint8Array(buf);
+
+  const t = new Date().toLocaleTimeString();
+  document.getElementById("timeline").innerHTML += `[${t}] File "${file.name}" hashed\n`;
+
+  updateHashes();
+});
 </script>
 </body>
 </html>
