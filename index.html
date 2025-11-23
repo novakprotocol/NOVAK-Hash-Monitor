@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>NOVAK Integrity Verification Demo</title>
 
-<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
 
 <style>
@@ -44,7 +43,6 @@ body{
  padding:36px;
 }
 
-/* LAYOUT */
 .container{max-width:900px;margin:auto}
 
 /* HEADER */
@@ -54,7 +52,6 @@ body{
  align-items:center;
  margin-bottom:16px;
 }
-
 .logo{
  font-size:34px;
  font-weight:700;
@@ -163,10 +160,26 @@ textarea{
 .hash-row{
  display:flex;
  justify-content:space-between;
- padding:10px 0;
+ align-items:center;
+ gap:8px;
+ padding:8px 0;
  border-bottom:1px solid var(--border);
  font-family:"JetBrains Mono",monospace;
  font-size:13px;
+}
+.hash-label{
+ flex:0 0 90px;
+}
+.hash-value{
+ flex:1;
+ overflow:hidden;
+ text-overflow:ellipsis;
+ white-space:nowrap;
+}
+.hash-controls{
+ display:flex;
+ gap:6px;
+ align-items:center;
 }
 .copy{
  cursor:pointer;
@@ -174,6 +187,7 @@ textarea{
  border-radius:5px;
  padding:2px 8px;
  transition:.22s;
+ font-size:12px;
 }
 .copy:hover{
  background:var(--blue);
@@ -186,14 +200,14 @@ textarea{
  gap:10px;
  overflow-x:auto;
  padding:10px 0;
- margin-top:14px;
+ margin-top:8px;
 }
 .block{
- padding:10px 16px;
+ padding:8px 10px;
  border:1px solid var(--blue);
  border-radius:6px;
  font-family:"JetBrains Mono",monospace;
- font-size:12px;
+ font-size:11px;
  white-space:nowrap;
 }
 
@@ -214,6 +228,7 @@ textarea{
 /* BUTTONS */
 .action-btn{
  margin-top:14px;
+ margin-right:8px;
  padding:8px 16px;
  border-radius:6px;
  border:none;
@@ -227,6 +242,32 @@ textarea{
  background:var(--blue-hover);
 }
 
+/* COMPARISON BOX */
+.compare-box{
+ margin-top:10px;
+ border:1px solid var(--border);
+ border-radius:6px;
+ padding:10px;
+ font-size:12px;
+ font-family:"JetBrains Mono",monospace;
+ background:rgba(15,23,42,0.3);
+}
+.compare-row{
+ display:flex;
+ justify-content:space-between;
+ gap:12px;
+ margin-bottom:4px;
+}
+.compare-label{
+ flex:0 0 80px;
+}
+.compare-before,.compare-after{
+ flex:1;
+ overflow:hidden;
+ text-overflow:ellipsis;
+ white-space:nowrap;
+}
+
 /* FOOTER */
 .footer{
  margin-top:36px;
@@ -236,6 +277,7 @@ textarea{
 }
 </style>
 </head>
+
 <body>
 <div class="container">
 
@@ -248,7 +290,7 @@ textarea{
   <!-- DESCRIPTION -->
   <p id="description" style="font-size:15px;margin-bottom:20px;">
     NOVAK generates a mathematical fingerprint of data.  
-    If the data changes — even slightly — the fingerprint changes instantly.
+    If the data changes — even slightly — the fingerprint changes instantly. Try it below.
   </p>
 
   <!-- AUDIENCE NAVIGATION -->
@@ -283,18 +325,34 @@ textarea{
     </div>
 
     <button class="action-btn" onclick="tamperTest()">Run Tamper Test</button>
-    <button class="action-btn" onclick="compareMode()">Before/After Comparison</button>
+    <button class="action-btn" onclick="toggleCompareMode()" id="compareBtn">Start Before/After Capture</button>
   </div>
 
   <!-- HASH OUTPUT -->
   <div class="card">
-    <h3 id="hashHeader">Integrity Fingerprint</h3>
+    <h3 id="hashHeader">Integrity Fingerprints</h3>
+    <p style="font-size:13px;margin-bottom:6px;">All major hashes are shown. Select which one you want to treat as the primary.</p>
     <div id="hashes"></div>
+
+    <p style="font-size:13px;margin-top:8px;">
+      Primary Hash for certificate:
+      <span id="primaryLabel" style="font-weight:600;">SHA-256</span>
+    </p>
 
     <!-- RGAC VISUALIZER -->
     <h4 style="margin-top:16px;">RGAC Chain (conceptual demo):</h4>
     <div id="rgac" class="rgac"></div>
-<button class="action-btn" onclick="exportCertificate()">Export Integrity Certificate (PDF)</button>
+
+    <button class="action-btn" onclick="exportCertificate()">Export Integrity Certificate (PDF)</button>
+  </div>
+
+  <!-- BEFORE/AFTER COMPARISON -->
+  <div class="card">
+    <h3>Before/After Comparison</h3>
+    <p style="font-size:13px;margin-bottom:8px;">
+      Click “Start Before/After Capture”, then modify the input, then click the button again to see the difference.
+    </p>
+    <div id="comparison" class="compare-box" style="display:none;"></div>
   </div>
 
   <!-- TIMELINE -->
@@ -306,43 +364,45 @@ textarea{
   <!-- FOOTER -->
   <div class="footer">
     NOVAK Protocol — Patent Pending © 2025.  
-    Demonstration only — no stored data, 100% local hashing.
+    Demonstration only — no data stored or transmitted off this device.
   </div>
 
 </div>
 
 <script>
-/* ==== ELEMENT REFERENCES ==== */
 const input = document.getElementById("input");
-const hashes = document.getElementById("hashes");
-const rgac = document.getElementById("rgac");
+const hashesDiv = document.getElementById("hashes");
+const rgacDiv = document.getElementById("rgac");
 const timeline = document.getElementById("timeline");
 const dropzone = document.getElementById("dropzone");
+const primaryLabel = document.getElementById("primaryLabel");
+const comparisonBox = document.getElementById("comparison");
+const compareBtn = document.getElementById("compareBtn");
 
-/* ==== AUDIENCE MESSAGING ==== */
+/* Audience messaging */
 const audienceText = {
   public:{
-    desc:"NOVAK generates a mathematical fingerprint of data. If anything changes—even slightly—the fingerprint changes instantly.",
-    hash:"Integrity Fingerprint",
+    desc:"NOVAK generates a mathematical fingerprint of data. If anything changes—even slightly—the fingerprint changes instantly. Try it below.",
+    hash:"Integrity Fingerprints",
     timeline:"Proof History"
   },
   government:{
     desc:"NOVAK enforces cryptographic proof-before-action — ensuring records, claims, and automated decisions cannot be altered without detection.",
-    hash:"Regulatory Integrity Verification",
+    hash:"Regulatory Integrity Fingerprints",
     timeline:"Audit & Compliance Trail"
   },
   investor:{
-    desc:"NOVAK prevents fraud, tampering, and unauthorized automation — reducing liability across healthcare, finance, defense & government.",
-    hash:"Business Integrity Output",
+    desc:"NOVAK prevents fraud, tampering, and unauthorized automation — reducing risk across healthcare, finance, defense & government.",
+    hash:"Business Integrity Outputs",
     timeline:"Accountability Timeline"
   },
   cyber:{
-    desc:"Real-time hashing for SOC, DFIR, DevSecOps, file integrity monitoring, and incident detection.",
-    hash:"Cryptographic Hash Output",
+    desc:"Real-time hashing for SOC, DFIR, DevSecOps, file integrity monitoring, and tamper detection.",
+    hash:"Cryptographic Hash Outputs",
     timeline:"Security Event Timeline"
   },
   academic:{
-    desc:"Hashes are deterministic, collision-resistant mathematical fingerprints — foundational to cryptography & distributed systems.",
+    desc:"Hashes are deterministic, collision-resistant mathematical functions — foundational to cryptography & distributed systems.",
     hash:"Cryptographic Fingerprints",
     timeline:"Research Log"
   }
@@ -352,12 +412,11 @@ function setAudience(a){
   document.getElementById("description").innerText = audienceText[a].desc;
   document.getElementById("hashHeader").innerText = audienceText[a].hash;
   document.getElementById("timelineHeader").innerText = audienceText[a].timeline;
-
-  document.querySelectorAll(".nav button").forEach(btn => btn.classList.remove("active"));
+  document.querySelectorAll(".nav button").forEach(btn=>btn.classList.remove("active"));
   document.getElementById(`btn-${a}`).classList.add("active");
 }
 
-/* ==== EXAMPLE DATASETS ==== */
+/* Example datasets */
 const examples = {
   va:`Veteran: John Sample
 Claim Type: Degenerative Joint Disease
@@ -392,92 +451,140 @@ function loadExample(type){
   compute();
 }
 
-/* ==== HASH ENGINE (SHA-256) ==== */
+/* Hash algorithms to show */
+const algorithms = ["SHA-1","SHA-256","SHA-384","SHA-512"];
+let lastHashes = {};
+let primaryHash = "SHA-256";
+
+/* Core hashing */
 async function compute(){
   const encoder = new TextEncoder();
   const data = encoder.encode(input.value);
-  const digest = await crypto.subtle.digest("SHA-256", data);
-  const hashHex = [...new Uint8Array(digest)]
-      .map(b => b.toString(16).padStart(2,"0")).join("");
+  let rows = "";
+  lastHashes = {};
 
-  hashes.innerHTML = `
-    <div class="hash-row">
-      <span>SHA-256</span>
-      <span>${hashHex}</span>
-      <button class="copy" onclick="navigator.clipboard.writeText('${hashHex}')">Copy</button>
-    </div>`;
+  for(const algo of algorithms){
+    const digest = await crypto.subtle.digest(algo,data);
+    const hex = [...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,"0")).join("");
+    lastHashes[algo] = hex;
 
-  updateRGAC(hashHex);
-  addTimeline("Hash updated");
+    rows += `
+      <div class="hash-row">
+        <span class="hash-label">${algo}</span>
+        <span class="hash-value">${hex}</span>
+        <div class="hash-controls">
+          <label style="font-size:11px;">
+            <input type="radio" name="primary" value="${algo}" ${algo===primaryHash?'checked':''}
+                   onclick="setPrimary('${algo}')"> primary
+          </label>
+          <button class="copy" onclick="navigator.clipboard.writeText('${hex}')">Copy</button>
+        </div>
+      </div>
+    `;
+  }
+
+  hashesDiv.innerHTML = rows;
+  primaryLabel.innerText = primaryHash;
+
+  updateRGAC(lastHashes[primaryHash]);
+  addTimeline("Hashes updated");
 }
 
-input.addEventListener("input", compute);
+/* Primary hash selector */
+function setPrimary(algo){
+  primaryHash = algo;
+  primaryLabel.innerText = primaryHash;
+  addTimeline(`Primary hash set to ${primaryHash}`);
+}
 
-/* ==== RGAC MINI-CHAIN SIMULATION ==== */
+/* RGAC mini-chain */
 let rgacBlocks = [];
 function updateRGAC(hash){
+  if(!hash) return;
   rgacBlocks.push(hash.slice(0,10));
-  if(rgacBlocks.length > 6) rgacBlocks.shift();
-
-  rgac.innerHTML = rgacBlocks
-    .map(h => `<div class="block">${h}</div>`)
-    .join("");
+  if(rgacBlocks.length>6) rgacBlocks.shift();
+  rgacDiv.innerHTML = rgacBlocks.map(h=>`<div class="block">${h}</div>`).join("");
 }
 
-/* ==== TIMELINE LOGGER ==== */
+/* Timeline logger */
 function addTimeline(msg){
   timeline.innerText += `[${new Date().toLocaleTimeString()}] ${msg}\n`;
   timeline.scrollTop = timeline.scrollHeight;
 }
 
-/* ==== FILE DROP HASHING ==== */
+/* Typing triggers compute */
+input.addEventListener("input", compute);
+
+/* File drop */
 dropzone.addEventListener("dragover",e=>e.preventDefault());
 dropzone.addEventListener("drop",async e=>{
   e.preventDefault();
   const file = e.dataTransfer.files[0];
   if(!file) return;
-
   input.value = await file.text();
   addTimeline(`File loaded: ${file.name}`);
   compute();
 });
 
-/* ==== TAMPER TEST ==== */
+/* Tamper test */
 function tamperTest(){
-  input.value += "\n\n*** UNAUTHORIZED CHANGE DETECTED ***";
+  input.value += "\n\n*** UNAUTHORIZED CHANGE FLAGGED ***";
   addTimeline("Tamper test applied");
   compute();
 }
 
-/* ==== BEFORE/AFTER COMPARISON MODE ==== */
-let beforeState = "";
-function compareMode(){
-  if(!beforeState){
-    beforeState = input.value;
-    addTimeline("Saved BEFORE state — modify text now");
+/* Before/After comparison (inline, no popup) */
+let beforeSnapshot = null;
+function toggleCompareMode(){
+  if(!beforeSnapshot){
+    beforeSnapshot = {
+      input: input.value,
+      hashes: {...lastHashes},
+      time: new Date().toLocaleTimeString()
+    };
+    compareBtn.innerText = "Complete Before/After Comparison";
+    addTimeline("Captured BEFORE state — modify input, then click comparison again.");
   } else {
-    const afterHash = hashes.innerText;
-    alert("COMPARE MODE COMPLETE:\n\nBefore:\n" + beforeState + "\n\nAfter:\n" + input.value);
-    beforeState = "";
+    const after = {
+      input: input.value,
+      hashes: {...lastHashes},
+      time: new Date().toLocaleTimeString()
+    };
+
+    let html = `<div><strong>BEFORE:</strong> ${beforeSnapshot.time}<br><strong>AFTER:</strong> ${after.time}</div><hr style="margin:6px 0;" />`;
+    for(const algo of algorithms){
+      const before = beforeSnapshot.hashes[algo] || "";
+      const afterVal = after.hashes[algo] || "";
+      const changed = before !== afterVal;
+      html += `
+        <div class="compare-row">
+          <span class="compare-label">${algo}</span>
+          <span class="compare-before">${before || "(none)"}</span>
+          <span class="compare-after" style="color:${changed?'#dc2626':''};">${afterVal || "(none)"}</span>
+        </div>
+      `;
+    }
+
+    comparisonBox.innerHTML = html;
+    comparisonBox.style.display = "block";
+    addTimeline("Before/After comparison completed.");
+    compareBtn.innerText = "Start Before/After Capture";
+    beforeSnapshot = null;
   }
 }
 
-/* ==== LIGHT/DARK THEME ==== */
+/* Theme toggle */
 function toggleTheme(){
   const html = document.documentElement;
   html.dataset.theme = html.dataset.theme === "dark" ? "light" : "dark";
   addTimeline(`Theme changed to ${html.dataset.theme}`);
 }
 
-/* ==== INITIALIZE ==== */
-setAudience("public");
-compute();
-
- /* ==== EXPORT INTEGRITY CERTIFICATE (PDF) ==== */
+/* Export Integrity Certificate (PDF) */
 function exportCertificate(){
-  const html = document.documentElement;
-
   const certificateWindow = window.open("", "_blank");
+  const primaryHashValue = lastHashes[primaryHash] || "";
+
   certificateWindow.document.write(`
     <html>
     <head>
@@ -503,11 +610,14 @@ function exportCertificate(){
     <body>
       <h1>NOVAK Integrity Verification Certificate</h1>
 
-      <p>This certificate confirms the computed cryptographic integrity fingerprint<br>
+      <p>This certificate confirms the computed cryptographic integrity fingerprint
       of the provided dataset at the time of export.</p>
 
-      <h3>SHA-256 Fingerprint:</h3>
-      <p class="mono">${hashes.innerText.replace("Copy","").trim()}</p>
+      <h3>Primary Hash Algorithm:</h3>
+      <p>${primaryHash}</p>
+
+      <h3>Primary Hash Value:</h3>
+      <p class="mono">${primaryHashValue}</p>
 
       <h3>Sampled RGAC Chain:</h3>
       <div class="rgac">
@@ -535,5 +645,9 @@ function exportCertificate(){
   certificateWindow.print();
 }
 
- 
+/* INIT */
+setAudience("public");
+compute();
 </script>
+</body>
+</html>
