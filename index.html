@@ -5,16 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>NOVAK Integrity Verification Demo</title>
 
+<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
 
 <style>
-/* GLOBAL RESET */
 *{margin:0;padding:0;box-sizing:border-box;font-family:"Inter",sans-serif}
 
 /* THEME COLORS */
 :root{
  --blue:#1a4fb3;
- --blue-hover:#103b87;
+ --blue-hover:#0f357f;
  --bg-light:#f8fafc;
  --bg-dark:#0f172a;
  --text-light:#0b1326;
@@ -48,25 +48,47 @@ body{
 .container{max-width:900px;margin:auto}
 
 /* HEADER */
-h1{
- font-size:33px;
+.header{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-bottom:16px;
+}
+
+.logo{
+ font-size:34px;
  font-weight:700;
- margin-bottom:10px;
  color:var(--blue);
 }
 
-/* AUDIENCE NAVIGATION */
+/* THEME TOGGLE */
+.theme-toggle{
+ cursor:pointer;
+ font-size:14px;
+ border:1px solid var(--blue);
+ padding:6px 12px;
+ border-radius:6px;
+ color:var(--blue);
+ background:transparent;
+ transition:.25s;
+}
+.theme-toggle:hover{
+ background:var(--blue);
+ color:white;
+}
+
+/* AUDIENCE NAV */
 .nav{
  display:flex;
  justify-content:center;
- gap:18px;
- margin:22px 0;
  flex-wrap:wrap;
+ gap:12px;
+ margin:22px 0;
 }
 .nav button{
  border:1px solid var(--blue);
  background:transparent;
- padding:7px 18px;
+ padding:8px 16px;
  border-radius:6px;
  font-size:14px;
  cursor:pointer;
@@ -79,37 +101,40 @@ h1{
  color:white;
 }
 
-/* THEME TOGGLE */
-.theme-toggle{
- position:absolute;
- top:28px;
- right:32px;
- cursor:pointer;
- font-size:14px;
- border:1px solid var(--blue);
- padding:5px 12px;
- border-radius:6px;
- color:var(--blue);
- transition:.25s;
-}
-.theme-toggle:hover{
- background:var(--blue);
- color:white;
-}
-
-/* CARDS */
+/* CARD */
 .card{
  background:var(--card);
  border:1px solid var(--border);
  border-radius:10px;
  padding:22px;
- margin-top:22px;
+ margin-top:24px;
 }
 
-/* TEXT AREA */
+/* EXAMPLE CARDS */
+.example-grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+ gap:18px;
+ margin-top:14px;
+}
+.example{
+ border:1px solid var(--border);
+ padding:14px;
+ border-radius:8px;
+ cursor:pointer;
+ transition:.25s;
+ background:var(--card);
+ font-size:14px;
+}
+.example:hover{
+ background:rgba(26,79,179,.08);
+ border-color:var(--blue);
+}
+
+/* TEXT INPUT */
 textarea{
  width:100%;
- height:160px;
+ height:170px;
  border:1px solid var(--border);
  border-radius:6px;
  padding:12px;
@@ -120,7 +145,7 @@ textarea{
  resize:vertical;
 }
 
-/* DROP ZONE */
+/* DROPZONE */
 .dropzone{
  margin-top:18px;
  border:2px dashed var(--blue);
@@ -134,7 +159,7 @@ textarea{
  background:rgba(26,79,179,.07);
 }
 
-/* HASH LIST */
+/* HASH ROW */
 .hash-row{
  display:flex;
  justify-content:space-between;
@@ -155,10 +180,27 @@ textarea{
  color:white;
 }
 
+/* RGAC MINI VIS */
+.rgac{
+ display:flex;
+ gap:10px;
+ overflow-x:auto;
+ padding:10px 0;
+ margin-top:14px;
+}
+.block{
+ padding:10px 16px;
+ border:1px solid var(--blue);
+ border-radius:6px;
+ font-family:"JetBrains Mono",monospace;
+ font-size:12px;
+ white-space:nowrap;
+}
+
 /* TIMELINE */
 .timeline{
  margin-top:12px;
- height:180px;
+ height:160px;
  overflow-y:auto;
  font-size:12px;
  border:1px solid var(--border);
@@ -168,133 +210,330 @@ textarea{
  white-space:pre-wrap;
  background:rgba(26,79,179,.05);
 }
+
+/* BUTTONS */
+.action-btn{
+ margin-top:14px;
+ padding:8px 16px;
+ border-radius:6px;
+ border:none;
+ cursor:pointer;
+ background:var(--blue);
+ color:white;
+ font-size:14px;
+ transition:.25s;
+}
+.action-btn:hover{
+ background:var(--blue-hover);
+}
+
+/* FOOTER */
+.footer{
+ margin-top:36px;
+ font-size:12px;
+ text-align:center;
+ opacity:.75;
+}
 </style>
 </head>
-
 <body>
-<button class="theme-toggle" onclick="toggleTheme()">Light/Dark</button>
-
 <div class="container">
-<h1>NOVAK Integrity Verification Demo</h1>
 
-<p id="description">
-NOVAK generates a mathematical fingerprint of data.  
-If the data changes — even slightly — the fingerprint changes instantly.  
-Try it below.
-</p>
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">NOVAK Protocol</div>
+    <button class="theme-toggle" onclick="toggleTheme()">Light/Dark</button>
+  </div>
 
-<!-- AUDIENCE SWITCHER -->
-<div class="nav">
- <button onclick="setAudience('public')" class="active" id="btn-public">Public</button>
- <button onclick="setAudience('government')" id="btn-government">Government</button>
- <button onclick="setAudience('investor')" id="btn-investor">Investor</button>
- <button onclick="setAudience('cyber')" id="btn-cyber">Cybersecurity</button>
- <button onclick="setAudience('academic')" id="btn-academic">Academic</button>
-</div>
+  <!-- DESCRIPTION -->
+  <p id="description" style="font-size:15px;margin-bottom:20px;">
+    NOVAK generates a mathematical fingerprint of data.  
+    If the data changes — even slightly — the fingerprint changes instantly.
+  </p>
 
-<!-- INPUT AREA -->
-<div class="card">
- <textarea id="input" placeholder="Type, paste text, or drop a file..."></textarea>
- <div id="dropzone" class="dropzone">⬇️ Drop a file here to verify integrity</div>
-</div>
+  <!-- AUDIENCE NAVIGATION -->
+  <div class="nav">
+    <button onclick="setAudience('public')" class="active" id="btn-public">Public</button>
+    <button onclick="setAudience('government')" id="btn-government">Government</button>
+    <button onclick="setAudience('investor')" id="btn-investor">Investor</button>
+    <button onclick="setAudience('cyber')" id="btn-cyber">Cybersecurity</button>
+    <button onclick="setAudience('academic')" id="btn-academic">Academic</button>
+  </div>
 
-<!-- HASH OUTPUT -->
-<div class="card">
- <h3 id="hashHeader">Integrity Fingerprint</h3>
- <div id="hashes"></div>
-</div>
+  <!-- EXAMPLE DATASETS -->
+  <div class="card">
+    <h3>Select an example dataset:</h3>
 
-<!-- HISTORY -->
-<div class="card" id="timelineCard">
- <h3 id="timelineHeader">Proof History</h3>
- <div id="timeline" class="timeline"></div>
-</div>
+    <div class="example-grid">
+      <div class="example" onclick="loadExample('va')">VA Disability Claim Summary</div>
+      <div class="example" onclick="loadExample('medical')">Clinical Note (Healthcare)</div>
+      <div class="example" onclick="loadExample('finance')">Financial Transaction Record</div>
+      <div class="example" onclick="loadExample('ai')">AI Decision Output Log</div>
+      <div class="example" onclick="loadExample('robotics')">Autonomous Robotics Command</div>
+      <div class="example" onclick="loadExample('legal')">Legal/Policy Directive</div>
+    </div>
+  </div>
+
+  <!-- INPUT AREA -->
+  <div class="card">
+    <textarea id="input" placeholder="Type, paste, or modify data here..."></textarea>
+
+    <div id="dropzone" class="dropzone">
+      ⬇️ Drag & drop a file here to verify integrity
+    </div>
+
+    <button class="action-btn" onclick="tamperTest()">Run Tamper Test</button>
+    <button class="action-btn" onclick="compareMode()">Before/After Comparison</button>
+  </div>
+
+  <!-- HASH OUTPUT -->
+  <div class="card">
+    <h3 id="hashHeader">Integrity Fingerprint</h3>
+    <div id="hashes"></div>
+
+    <!-- RGAC VISUALIZER -->
+    <h4 style="margin-top:16px;">RGAC Chain (conceptual demo):</h4>
+    <div id="rgac" class="rgac"></div>
+<button class="action-btn" onclick="exportCertificate()">Export Integrity Certificate (PDF)</button>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="card" id="timelineCard">
+    <h3 id="timelineHeader">Proof History</h3>
+    <div id="timeline" class="timeline"></div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    NOVAK Protocol — Patent Pending © 2025.  
+    Demonstration only — no stored data, 100% local hashing.
+  </div>
+
 </div>
 
 <script>
-const input=document.getElementById("input");
-const timeline=document.getElementById("timeline");
-const dropzone=document.getElementById("dropzone");
+/* ==== ELEMENT REFERENCES ==== */
+const input = document.getElementById("input");
+const hashes = document.getElementById("hashes");
+const rgac = document.getElementById("rgac");
+const timeline = document.getElementById("timeline");
+const dropzone = document.getElementById("dropzone");
 
-/* AUDIENCE TEXT MODES */
-const audienceText={
- public:{
-  desc:"NOVAK generates a mathematical fingerprint of data. If anything changes—even slightly—the fingerprint changes instantly.",
-  hash:"Integrity Fingerprint",
-  timeline:"Proof History"
- },
- government:{
-  desc:"NOVAK enforces cryptographic proof-before-action, ensuring records, claims, and automated decisions cannot be altered without detection.",
-  hash:"Regulatory Integrity Verification",
-  timeline:"Audit & Compliance Trail"
- },
- investor:{
-  desc:"NOVAK prevents fraud, tampering, and unauthorized automation across healthcare, finance, defense, logistics, and government.",
-  hash:"Business Integrity Output",
-  timeline:"Accountability Timeline"
- },
- cyber:{
-  desc:"Real-time hashing for SOC workflows, DFIR, DevSecOps, file integrity monitoring, and tamper detection.",
-  hash:"Cryptographic Hash Output",
-  timeline:"Security Event Timeline"
- },
- academic:{
-  desc:"Hashes are deterministic, collision-resistant mathematical functions foundational to cryptography & distributed systems.",
-  hash:"Cryptographic Fingerprints",
-  timeline:"Research Log"
- }
+/* ==== AUDIENCE MESSAGING ==== */
+const audienceText = {
+  public:{
+    desc:"NOVAK generates a mathematical fingerprint of data. If anything changes—even slightly—the fingerprint changes instantly.",
+    hash:"Integrity Fingerprint",
+    timeline:"Proof History"
+  },
+  government:{
+    desc:"NOVAK enforces cryptographic proof-before-action — ensuring records, claims, and automated decisions cannot be altered without detection.",
+    hash:"Regulatory Integrity Verification",
+    timeline:"Audit & Compliance Trail"
+  },
+  investor:{
+    desc:"NOVAK prevents fraud, tampering, and unauthorized automation — reducing liability across healthcare, finance, defense & government.",
+    hash:"Business Integrity Output",
+    timeline:"Accountability Timeline"
+  },
+  cyber:{
+    desc:"Real-time hashing for SOC, DFIR, DevSecOps, file integrity monitoring, and incident detection.",
+    hash:"Cryptographic Hash Output",
+    timeline:"Security Event Timeline"
+  },
+  academic:{
+    desc:"Hashes are deterministic, collision-resistant mathematical fingerprints — foundational to cryptography & distributed systems.",
+    hash:"Cryptographic Fingerprints",
+    timeline:"Research Log"
+  }
 };
 
 function setAudience(a){
- document.getElementById("description").innerText=audienceText[a].desc;
- document.getElementById("hashHeader").innerText=audienceText[a].hash;
- document.getElementById("timelineHeader").innerText=audienceText[a].timeline;
+  document.getElementById("description").innerText = audienceText[a].desc;
+  document.getElementById("hashHeader").innerText = audienceText[a].hash;
+  document.getElementById("timelineHeader").innerText = audienceText[a].timeline;
 
- document.querySelectorAll(".nav button").forEach(btn=>btn.classList.remove("active"));
- document.getElementById(`btn-${a}`).classList.add("active");
+  document.querySelectorAll(".nav button").forEach(btn => btn.classList.remove("active"));
+  document.getElementById(`btn-${a}`).classList.add("active");
 }
 
-/* THEME TOGGLE */
-function toggleTheme(){
- const html=document.documentElement;
- html.dataset.theme=html.dataset.theme==="dark"?"light":"dark";
+/* ==== EXAMPLE DATASETS ==== */
+const examples = {
+  va:`Veteran: John Sample
+Claim Type: Degenerative Joint Disease
+Status: Pending C&P Review
+Evidence: MRI confirming L5-S1 disc narrowing
+Requested Rating Increase: 10% → 40%`,
+  medical:`Patient DOB: 1978-02-14
+Diagnosis: Atrial fibrillation
+Medication Change: Metoprolol 25mg BID
+Follow-Up: 6 weeks`,
+  finance:`Transaction ID: 9938172-AX
+Account: Commercial Checking
+Amount: $248,932.17
+Purpose: Federal subcontract payment`,
+  ai:`Autonomous System Output:
+Confidence: 0.92
+Recommended Action: Approve
+Input Source: Document classifier model`,
+  robotics:`Command ID: R-2043
+Unit: Surgical Robot Arm
+Instruction: Move 3.2mm posterior
+Safety Flag: TRUE`,
+  legal:`Directive ID: SEC-782-A
+Policy: Data Tamper Prevention
+Effective: March 2025
+Applies To: All automated systems`
+};
+
+function loadExample(type){
+  input.value = examples[type];
+  addTimeline(`Loaded example dataset: ${type}`);
+  compute();
 }
 
-/* HASH ENGINE */
+/* ==== HASH ENGINE (SHA-256) ==== */
 async function compute(){
- const text=input.value;
- const enc=new TextEncoder();
- const data=enc.encode(text);
- const digest=await crypto.subtle.digest("SHA-256",data);
- const hex=[...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,"0")).join("");
+  const encoder = new TextEncoder();
+  const data = encoder.encode(input.value);
+  const digest = await crypto.subtle.digest("SHA-256", data);
+  const hashHex = [...new Uint8Array(digest)]
+      .map(b => b.toString(16).padStart(2,"0")).join("");
 
- document.getElementById("hashes").innerHTML=
- `<div class="hash-row">
-   <span>SHA-256</span>
-   <span>${hex}</span>
-   <button class="copy" onclick="navigator.clipboard.writeText('${hex}')">Copy</button>
- </div>`;
+  hashes.innerHTML = `
+    <div class="hash-row">
+      <span>SHA-256</span>
+      <span>${hashHex}</span>
+      <button class="copy" onclick="navigator.clipboard.writeText('${hashHex}')">Copy</button>
+    </div>`;
 
- timeline.innerHTML+=`[${new Date().toLocaleTimeString()}] Updated\n`;
- timeline.scrollTop=timeline.scrollHeight;
+  updateRGAC(hashHex);
+  addTimeline("Hash updated");
 }
 
-/* LIVE TYPING */
-input.addEventListener("input",compute);
+input.addEventListener("input", compute);
 
-/* DROP FILE HASHING */
+/* ==== RGAC MINI-CHAIN SIMULATION ==== */
+let rgacBlocks = [];
+function updateRGAC(hash){
+  rgacBlocks.push(hash.slice(0,10));
+  if(rgacBlocks.length > 6) rgacBlocks.shift();
+
+  rgac.innerHTML = rgacBlocks
+    .map(h => `<div class="block">${h}</div>`)
+    .join("");
+}
+
+/* ==== TIMELINE LOGGER ==== */
+function addTimeline(msg){
+  timeline.innerText += `[${new Date().toLocaleTimeString()}] ${msg}\n`;
+  timeline.scrollTop = timeline.scrollHeight;
+}
+
+/* ==== FILE DROP HASHING ==== */
 dropzone.addEventListener("dragover",e=>e.preventDefault());
 dropzone.addEventListener("drop",async e=>{
- e.preventDefault();
- const file=e.dataTransfer.files[0];
- if(!file)return;
- input.value=await file.text();
- timeline.innerHTML+=`[${new Date().toLocaleTimeString()}] File loaded: ${file.name}\n`;
- compute();
+  e.preventDefault();
+  const file = e.dataTransfer.files[0];
+  if(!file) return;
+
+  input.value = await file.text();
+  addTimeline(`File loaded: ${file.name}`);
+  compute();
 });
 
-/* START */
+/* ==== TAMPER TEST ==== */
+function tamperTest(){
+  input.value += "\n\n*** UNAUTHORIZED CHANGE DETECTED ***";
+  addTimeline("Tamper test applied");
+  compute();
+}
+
+/* ==== BEFORE/AFTER COMPARISON MODE ==== */
+let beforeState = "";
+function compareMode(){
+  if(!beforeState){
+    beforeState = input.value;
+    addTimeline("Saved BEFORE state — modify text now");
+  } else {
+    const afterHash = hashes.innerText;
+    alert("COMPARE MODE COMPLETE:\n\nBefore:\n" + beforeState + "\n\nAfter:\n" + input.value);
+    beforeState = "";
+  }
+}
+
+/* ==== LIGHT/DARK THEME ==== */
+function toggleTheme(){
+  const html = document.documentElement;
+  html.dataset.theme = html.dataset.theme === "dark" ? "light" : "dark";
+  addTimeline(`Theme changed to ${html.dataset.theme}`);
+}
+
+/* ==== INITIALIZE ==== */
+setAudience("public");
 compute();
+
+ /* ==== EXPORT INTEGRITY CERTIFICATE (PDF) ==== */
+function exportCertificate(){
+  const html = document.documentElement;
+
+  const certificateWindow = window.open("", "_blank");
+  certificateWindow.document.write(`
+    <html>
+    <head>
+      <title>NOVAK Integrity Certificate</title>
+      <style>
+        body{ font-family: Inter, sans-serif; padding:40px; }
+        h1{ color:#1a4fb3; font-size:28px; margin-bottom:8px; }
+        h3{ margin-top:22px; }
+        .mono{ font-family:"JetBrains Mono",monospace;font-size:13px; }
+        .rgac{ margin-top:8px; }
+        .block{
+          display:inline-block;
+          border:1px solid #1a4fb3;
+          padding:6px 10px;
+          margin-right:6px;
+          border-radius:5px;
+          font-family:"JetBrains Mono",monospace;
+          font-size:11px;
+        }
+        footer{ margin-top:40px;font-size:12px;opacity:.7; }
+      </style>
+    </head>
+    <body>
+      <h1>NOVAK Integrity Verification Certificate</h1>
+
+      <p>This certificate confirms the computed cryptographic integrity fingerprint<br>
+      of the provided dataset at the time of export.</p>
+
+      <h3>SHA-256 Fingerprint:</h3>
+      <p class="mono">${hashes.innerText.replace("Copy","").trim()}</p>
+
+      <h3>Sampled RGAC Chain:</h3>
+      <div class="rgac">
+        ${rgacBlocks.map(h=>`<span class="block">${h}</span>`).join("")}
+      </div>
+
+      <h3>Timestamp:</h3>
+      <p>${new Date().toLocaleString()}</p>
+
+      <h3>Audience Context:</h3>
+      <p>${document.querySelector(".nav .active").innerText}</p>
+
+      <h3>Input Data:</h3>
+      <pre class="mono">${input.value.replace(/</g,"&lt;")}</pre>
+
+      <footer>
+        NOVAK Protocol — Patent Pending © 2025<br>
+        Demonstration only — no data retained or transmitted.
+      </footer>
+    </body>
+    </html>
+  `);
+
+  certificateWindow.document.close();
+  certificateWindow.print();
+}
+
+ 
 </script>
-</body>
-</html>
