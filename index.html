@@ -1,353 +1,300 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>NOVAK Hash Monitor</title>
+<title>NOVAK Integrity Verification Demo</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
 
 <style>
-* {
-  margin: 0; padding: 0; box-sizing: border-box;
-  font-family: "Inter", sans-serif;
-}
+/* GLOBAL RESET */
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Inter",sans-serif}
 
 /* THEME COLORS */
-:root {
-  --blue: #2463eb;
-  --blue-light: #3b82f6;
-  --blue-dark: #1e3a8a;
-  --bg-dark: #0d1117;
-  --bg-light: #f7f9fc;
-  --card-dark: #161b22;
-  --card-light: #ffffff;
-  --border-dark: #2d333b;
-  --border-light: #d3dae4;
-  --text-dark: #e6edf3;
-  --text-light: #0d1117;
+:root{
+ --blue:#1a4fb3;
+ --blue-hover:#103b87;
+ --bg-light:#f8fafc;
+ --bg-dark:#0f172a;
+ --text-light:#0b1326;
+ --text-dark:#e6edf5;
+ --card-light:#ffffff;
+ --card-dark:#1e293b;
+ --border-light:#d4d8e1;
+ --border-dark:#334155;
 }
 
-html[data-theme="dark"] {
-  --bg: var(--bg-dark);
-  --card: var(--card-dark);
-  --border: var(--border-dark);
-  --text: var(--text-dark);
-  --accent: var(--blue-light);
+html[data-theme="light"]{
+ --bg:var(--bg-light);
+ --text:var(--text-light);
+ --card:var(--card-light);
+ --border:var(--border-light);
+}
+html[data-theme="dark"]{
+ --bg:var(--bg-dark);
+ --text:var(--text-dark);
+ --card:var(--card-dark);
+ --border:var(--border-dark);
 }
 
-html[data-theme="light"] {
-  --bg: var(--bg-light);
-  --card: var(--card-light);
-  --border: var(--border-light);
-  --text: var(--text-light);
-  --accent: var(--blue-dark);
+body{
+ background:var(--bg);
+ color:var(--text);
+ padding:36px;
 }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  padding: 32px;
+/* LAYOUT */
+.container{max-width:900px;margin:auto}
+
+/* HEADER */
+h1{
+ font-size:33px;
+ font-weight:700;
+ margin-bottom:10px;
+ color:var(--blue);
 }
 
-.container {
-  max-width: 1150px;
-  margin: auto;
+/* AUDIENCE NAVIGATION */
+.nav{
+ display:flex;
+ justify-content:center;
+ gap:18px;
+ margin:22px 0;
+ flex-wrap:wrap;
+}
+.nav button{
+ border:1px solid var(--blue);
+ background:transparent;
+ padding:7px 18px;
+ border-radius:6px;
+ font-size:14px;
+ cursor:pointer;
+ transition:.25s;
+ color:var(--blue);
+}
+.nav button.active,
+.nav button:hover{
+ background:var(--blue);
+ color:white;
 }
 
-/* Header */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
+/* THEME TOGGLE */
+.theme-toggle{
+ position:absolute;
+ top:28px;
+ right:32px;
+ cursor:pointer;
+ font-size:14px;
+ border:1px solid var(--blue);
+ padding:5px 12px;
+ border-radius:6px;
+ color:var(--blue);
+ transition:.25s;
+}
+.theme-toggle:hover{
+ background:var(--blue);
+ color:white;
 }
 
-.title {
-  font-size: 32px;
-  font-weight: 600;
-  color: var(--accent);
+/* CARDS */
+.card{
+ background:var(--card);
+ border:1px solid var(--border);
+ border-radius:10px;
+ padding:22px;
+ margin-top:22px;
 }
 
-/* Buttons */
-.btn, select {
-  cursor: pointer;
-  padding: 6px 14px;
-  border-radius: 6px;
-  border: 1px solid var(--accent);
-  background: transparent;
-  color: var(--accent);
-  font-size: 14px;
-  transition: 0.25s;
+/* TEXT AREA */
+textarea{
+ width:100%;
+ height:160px;
+ border:1px solid var(--border);
+ border-radius:6px;
+ padding:12px;
+ background:transparent;
+ font-family:"JetBrains Mono",monospace;
+ font-size:14px;
+ color:var(--text);
+ resize:vertical;
 }
 
-.btn:hover, select:hover {
-  background: var(--accent);
-  color: white;
+/* DROP ZONE */
+.dropzone{
+ margin-top:18px;
+ border:2px dashed var(--blue);
+ padding:36px;
+ text-align:center;
+ border-radius:10px;
+ cursor:pointer;
+ transition:.22s;
+}
+.dropzone:hover{
+ background:rgba(26,79,179,.07);
 }
 
-/* Cards */
-.card {
-  background: var(--card);
-  padding: 20px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  margin-bottom: 22px;
+/* HASH LIST */
+.hash-row{
+ display:flex;
+ justify-content:space-between;
+ padding:10px 0;
+ border-bottom:1px solid var(--border);
+ font-family:"JetBrains Mono",monospace;
+ font-size:13px;
+}
+.copy{
+ cursor:pointer;
+ border:1px solid var(--blue);
+ border-radius:5px;
+ padding:2px 8px;
+ transition:.22s;
+}
+.copy:hover{
+ background:var(--blue);
+ color:white;
 }
 
-/* Text Input */
-textarea {
-  width: 100%;
-  height: 170px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 12px;
-  background: transparent;
-  resize: vertical;
-  color: var(--text);
-  font-family: "JetBrains Mono", monospace;
-  font-size: 14px;
-}
-
-/* Controls */
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-top: 12px;
-}
-
-.controls input, .controls select {
-  font-family: inherit;
-}
-
-/* Dropzone */
-.dropzone {
-  margin-top: 20px;
-  border: 2px dashed var(--accent);
-  padding: 40px;
-  text-align: center;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.25s;
-}
-
-.dropzone:hover {
-  background: rgba(36, 99, 235, 0.08);
-}
-
-/* Hash Rows */
-.hash-row {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--border);
-  padding: 8px 0;
-  font-family: "JetBrains Mono", monospace;
-}
-
-.copy {
-  border: 1px solid var(--accent);
-  border-radius: 4px;
-  padding: 2px 10px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.copy:hover {
-  background: var(--accent);
-  color: white;
-}
-
-/* Timeline */
-.timeline {
-  height: 220px;
-  overflow-y: auto;
-  padding: 10px;
-  font-size: 12px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  background: rgba(36, 99, 235, 0.06);
-  font-family: "JetBrains Mono", monospace;
+/* TIMELINE */
+.timeline{
+ margin-top:12px;
+ height:180px;
+ overflow-y:auto;
+ font-size:12px;
+ border:1px solid var(--border);
+ padding:10px;
+ border-radius:6px;
+ font-family:"JetBrains Mono",monospace;
+ white-space:pre-wrap;
+ background:rgba(26,79,179,.05);
 }
 </style>
 </head>
 
 <body>
+<button class="theme-toggle" onclick="toggleTheme()">Light/Dark</button>
+
 <div class="container">
+<h1>NOVAK Integrity Verification Demo</h1>
 
-<!-- HEADER -->
-<div class="header">
-  <div class="title">NOVAK Hash Monitor</div>
-
-  <div style="display:flex; gap:8px;">
-    <select id="audience" class="btn" onchange="updateAudience()">
-      <option value="public" selected>Public View</option>
-      <option value="government">Government / Regulatory</option>
-      <option value="investor">Investor / Leadership</option>
-      <option value="cyber">Cybersecurity / IT</option>
-      <option value="academic">Academic / Research</option>
-    </select>
-
-    <button class="btn" onclick="toggleTheme()">Light/Dark</button>
-  </div>
-</div>
-
-<!-- Dynamic Description -->
-<p id="description" style="margin-bottom:18px; font-size:15px;">
-  This tool generates a unique digital fingerprint of any text or file. If anything changes—even a single character—the fingerprint changes instantly.
+<p id="description">
+NOVAK generates a mathematical fingerprint of data.  
+If the data changes — even slightly — the fingerprint changes instantly.  
+Try it below.
 </p>
 
-<!-- TEXT INPUT -->
-<div class="card">
-  <textarea id="input" placeholder="Try it — type or paste something here..."></textarea>
-
-  <div class="controls">
-    <label>Interval (ms): <input id="interval" type="number" value="800" min="100" /></label>
-    <label>Live Update: 
-      <select id="live"><option value="on" selected>On</option><option value="off">Off</option></select>
-    </label>
-    <label>Output Format:
-      <select id="format"><option value="hex" selected>Hex</option><option value="base64">Base64</option></select>
-    </label>
-    <label id="hmacLabel" style="display:none;">HMAC Key:
-      <input id="hmac" placeholder="optional" />
-    </label>
-  </div>
-
-  <div id="dropzone" class="dropzone">
-    Drag & drop a file here to hash it
-  </div>
+<!-- AUDIENCE SWITCHER -->
+<div class="nav">
+ <button onclick="setAudience('public')" class="active" id="btn-public">Public</button>
+ <button onclick="setAudience('government')" id="btn-government">Government</button>
+ <button onclick="setAudience('investor')" id="btn-investor">Investor</button>
+ <button onclick="setAudience('cyber')" id="btn-cyber">Cybersecurity</button>
+ <button onclick="setAudience('academic')" id="btn-academic">Academic</button>
 </div>
 
-<!-- HASHES -->
+<!-- INPUT AREA -->
 <div class="card">
-  <h3 id="hashHeader">Integrity Fingerprint</h3>
-  <div id="hashes"></div>
+ <textarea id="input" placeholder="Type, paste text, or drop a file..."></textarea>
+ <div id="dropzone" class="dropzone">⬇️ Drop a file here to verify integrity</div>
 </div>
 
-<!-- TIMELINE -->
+<!-- HASH OUTPUT -->
+<div class="card">
+ <h3 id="hashHeader">Integrity Fingerprint</h3>
+ <div id="hashes"></div>
+</div>
+
+<!-- HISTORY -->
 <div class="card" id="timelineCard">
-  <h3 id="timelineHeader">Proof History</h3>
-  <div id="timeline" class="timeline"></div>
+ <h3 id="timelineHeader">Proof History</h3>
+ <div id="timeline" class="timeline"></div>
 </div>
-
 </div>
 
 <script>
-const input = document.getElementById("input");
-const timeline = document.getElementById("timeline");
-const formatSelect = document.getElementById("format");
-const live = document.getElementById("live");
-const intervalField = document.getElementById("interval");
+const input=document.getElementById("input");
+const timeline=document.getElementById("timeline");
+const dropzone=document.getElementById("dropzone");
 
-/* Audience Mode Descriptions */
-const audienceContent = {
-  public: {
-    desc: "This tool generates a unique digital fingerprint of any text or file. If anything changes—even a single character—the fingerprint changes instantly.",
-    hash: "Integrity Fingerprint",
-    timeline: "Proof History",
-    showAdvanced: false
-  },
-  government: {
-    desc: "Demonstrates NOVAK’s proof-before-action compliance — ensuring records, claims, or system decisions cannot be altered without detection.",
-    hash: "Regulatory Integrity Verification",
-    timeline: "Audit & Compliance Trail",
-    showAdvanced: true
-  },
-  investor: {
-    desc: "NOVAK prevents fraud, data manipulation, and unauthorized automated actions — across healthcare, finance, defense, and government.",
-    hash: "Business Integrity Output",
-    timeline: "Accountability Timeline",
-    showAdvanced: false
-  },
-  cyber: {
-    desc: "Real-time hashing for SOC, DFIR, DevSecOps, file integrity monitoring, and tamper detection.",
-    hash: "Cryptographic Hash Output",
-    timeline: "Security Event Timeline",
-    showAdvanced: true
-  },
-  academic: {
-    desc: "Hashes are collision-resistant, deterministic mathematical functions — foundational to cryptography and distributed systems.",
-    hash: "Cryptographic Fingerprints",
-    timeline: "Research Log",
-    showAdvanced: true
-  }
+/* AUDIENCE TEXT MODES */
+const audienceText={
+ public:{
+  desc:"NOVAK generates a mathematical fingerprint of data. If anything changes—even slightly—the fingerprint changes instantly.",
+  hash:"Integrity Fingerprint",
+  timeline:"Proof History"
+ },
+ government:{
+  desc:"NOVAK enforces cryptographic proof-before-action, ensuring records, claims, and automated decisions cannot be altered without detection.",
+  hash:"Regulatory Integrity Verification",
+  timeline:"Audit & Compliance Trail"
+ },
+ investor:{
+  desc:"NOVAK prevents fraud, tampering, and unauthorized automation across healthcare, finance, defense, logistics, and government.",
+  hash:"Business Integrity Output",
+  timeline:"Accountability Timeline"
+ },
+ cyber:{
+  desc:"Real-time hashing for SOC workflows, DFIR, DevSecOps, file integrity monitoring, and tamper detection.",
+  hash:"Cryptographic Hash Output",
+  timeline:"Security Event Timeline"
+ },
+ academic:{
+  desc:"Hashes are deterministic, collision-resistant mathematical functions foundational to cryptography & distributed systems.",
+  hash:"Cryptographic Fingerprints",
+  timeline:"Research Log"
+ }
 };
 
-function updateAudience() {
-  const mode = document.getElementById("audience").value;
-  const config = audienceContent[mode];
+function setAudience(a){
+ document.getElementById("description").innerText=audienceText[a].desc;
+ document.getElementById("hashHeader").innerText=audienceText[a].hash;
+ document.getElementById("timelineHeader").innerText=audienceText[a].timeline;
 
-  document.getElementById("description").innerText = config.desc;
-  document.getElementById("hashHeader").innerText = config.hash;
-  document.getElementById("timelineHeader").innerText = config.timeline;
-
-  document.getElementById("hmacLabel").style.display = config.showAdvanced ? "inline-block" : "none";
-  document.getElementById("timelineCard").style.display = config.showAdvanced ? "block" : "none";
+ document.querySelectorAll(".nav button").forEach(btn=>btn.classList.remove("active"));
+ document.getElementById(`btn-${a}`).classList.add("active");
 }
 
-function toggleTheme() {
-  const html = document.documentElement;
-  html.dataset.theme = html.dataset.theme === "dark" ? "light" : "dark";
+/* THEME TOGGLE */
+function toggleTheme(){
+ const html=document.documentElement;
+ html.dataset.theme=html.dataset.theme==="dark"?"light":"dark";
 }
 
-/* Hash algorithms shown by default */
-const algorithms = ["SHA-256"];
+/* HASH ENGINE */
+async function compute(){
+ const text=input.value;
+ const enc=new TextEncoder();
+ const data=enc.encode(text);
+ const digest=await crypto.subtle.digest("SHA-256",data);
+ const hex=[...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,"0")).join("");
 
-async function generateHashes() {
-  if (live.value === "off") return;
+ document.getElementById("hashes").innerHTML=
+ `<div class="hash-row">
+   <span>SHA-256</span>
+   <span>${hex}</span>
+   <button class="copy" onclick="navigator.clipboard.writeText('${hex}')">Copy</button>
+ </div>`;
 
-  const text = input.value;
-  const format = formatSelect.value;
-  let output = "";
-
-  for (const algo of algorithms) {
-    const data = new TextEncoder().encode(text);
-    const hash = await crypto.subtle.digest(algo, data);
-    const bytes = new Uint8Array(hash);
-
-    const result = format === "hex"
-      ? [...bytes].map(b => b.toString(16).padStart(2,"0")).join("")
-      : btoa(String.fromCharCode(...bytes));
-
-    output += `
-      <div class="hash-row">
-        <span>${algo}</span>
-        <span>${result}</span>
-        <button class="copy" onclick="navigator.clipboard.writeText('${result}')">Copy</button>
-      </div>
-    `;
-  }
-
-  document.getElementById("hashes").innerHTML = output;
-  timeline.innerHTML += `[${new Date().toLocaleTimeString()}] Updated\n`;
+ timeline.innerHTML+=`[${new Date().toLocaleTimeString()}] Updated\n`;
+ timeline.scrollTop=timeline.scrollHeight;
 }
 
-/* TYPE-INSTANT HASHING */
-input.addEventListener("input", generateHashes);
+/* LIVE TYPING */
+input.addEventListener("input",compute);
 
-/* LOOP UPDATE */
-let hashInterval = setInterval(generateHashes, intervalField.value);
-intervalField.addEventListener("change", () => {
-  clearInterval(hashInterval);
-  hashInterval = setInterval(generateHashes, intervalField.value);
+/* DROP FILE HASHING */
+dropzone.addEventListener("dragover",e=>e.preventDefault());
+dropzone.addEventListener("drop",async e=>{
+ e.preventDefault();
+ const file=e.dataTransfer.files[0];
+ if(!file)return;
+ input.value=await file.text();
+ timeline.innerHTML+=`[${new Date().toLocaleTimeString()}] File loaded: ${file.name}\n`;
+ compute();
 });
 
-/* FILE DROP */
-dropzone.addEventListener("dragover", e => e.preventDefault());
-dropzone.addEventListener("drop", async e => {
-  e.preventDefault();
-  const file = e.dataTransfer.files[0];
-  if (!file) return;
-
-  input.value = await file.text();
-  timeline.innerHTML += `[${new Date().toLocaleTimeString()}] File loaded: ${file.name}\n`;
-  generateHashes();
-});
-
-/* INIT */
-updateAudience();
-generateHashes();
+/* START */
+compute();
 </script>
 </body>
 </html>
