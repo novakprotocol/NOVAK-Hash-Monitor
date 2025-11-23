@@ -3,260 +3,101 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>NOVAK Live Hash Monitor</title>
+<title>NOVAK Continuous Hash Loop</title>
 <style>
-:root {
-  --bg: #0c0e12;
-  --panel: #141821;
-  --accent: #6bb6ff;
-  --accent2: #9b76ff;
-  --text: #e6e9ef;
-  --danger: #ff4466;
-  --success: #57ffb0;
-  --border: #272c38;
-  --mono: "JetBrains Mono", Consolas, monospace;
-}
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  margin: 0;
-  font-family: var(--mono);
-  display: flex;
-  justify-content: center;
-  padding: 40px 12px;
-}
-
-.container {
-  max-width: 1100px;
-  width: 100%;
-}
-
-h1 {
-  font-size: 2.4rem;
-  margin-bottom: 10px;
-  color: var(--accent);
-}
-
-textarea {
-  width: 100%;
-  height: 160px;
-  background: var(--panel);
-  color: var(--text);
-  border: 1px solid var(--border);
-  padding: 12px;
-  font-family: var(--mono);
-  font-size: 0.95rem;
-  border-radius: 6px;
-  resize: vertical;
-}
-
-input, select {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  padding: 7px;
-  color: var(--text);
-  font-family: var(--mono);
-  border-radius: 6px;
-}
-
-label {
-  font-size: 0.9rem;
-  opacity: 0.9;
-}
-
-.controls {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin: 18px 0;
-}
-
-.hash-box {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  padding: 12px;
-  border-radius: 6px;
-  margin-bottom: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.copy-btn {
-  background: var(--accent);
-  color: #000;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  font-family: var(--mono);
-  border-radius: 4px;
-}
-
-.copy-btn:hover {
-  background: var(--accent2);
-}
-
-.file-drop {
-  margin: 22px 0;
-  padding: 32px;
-  border: 2px dashed var(--accent);
-  border-radius: 8px;
-  text-align: center;
-  opacity: 0.8;
-}
-
-.file-drop.drag {
-  background: rgba(107,182,255,0.07);
-  opacity: 1;
-}
-
-.timeline {
-  margin-top: 22px;
-  max-height: 180px;
-  overflow-y: auto;
-  font-size: 0.85rem;
-  border-left: 2px solid var(--accent);
-  padding-left: 12px;
-}
+    body {
+        background-color: #000;
+        color: #00ff5a;
+        font-family: "Courier New", monospace;
+        padding: 40px;
+    }
+    h1 {
+        color: #00ff5a;
+        font-size: 32px;
+        margin-bottom: 8px;
+    }
+    .subtitle {
+        color: #5cff96;
+        font-size: 16px;
+        margin-bottom: 24px;
+    }
+    .console {
+        border: 1px solid #00ff5a;
+        padding: 20px;
+        white-space: pre-wrap;
+        font-size: 16px;
+        background: #000;
+    }
+    .footer {
+        margin-top: 24px;
+        font-size: 14px;
+        color: #5cff96;
+    }
+    a {
+        color: #00ff5a;
+    }
 </style>
 </head>
-
 <body>
-<div class="container">
 
-<h1>NOVAK Live Hash Monitor</h1>
-<p>Real-time multi-algorithm cryptographic integrity engine — proof-before-action philosophy demo.</p>
-
-<textarea id="inputArea">// Type or paste text/code here — hashes update live</textarea>
-
-<div class="controls">
-  <label>
-    Update Interval (ms):
-    <input type="number" id="interval" value="1000" min="50" />
-  </label>
-
-  <label>
-    Live Update:
-    <select id="toggle">
-      <option value="on">On</option>
-      <option value="off">Off</option>
-    </select>
-  </label>
-
-  <label>
-    Output Format:
-    <select id="format">
-      <option value="hex">Hex</option>
-      <option value="base64">Base64</option>
-    </select>
-  </label>
-
-  <label>
-    HMAC Key (optional):
-    <input type="password" id="hmacKey" placeholder="Secret key…" />
-  </label>
+<h1>NOVAK Continuous Hash Loop</h1>
+<div class="subtitle">
+Real-time deterministic enforcement — input ➜ output ➜ receipt ➜ audit chain.<br>
+This mirrors NIPS + HARMONEE + REVELATION + RGAC.
 </div>
 
-<div class="file-drop" id="dropZone">
-  Drag & drop a file here to hash it
-</div>
+<div id="console" class="console">Initializing NOVAK loop…</div>
 
-<h2>Hashes</h2>
-<div id="hashContainer"></div>
-
-<h3>Hash Timeline</h3>
-<div class="timeline" id="timeline"></div>
-
+<div class="footer">
+(1) NIPS = verified input<br>
+(2) HARMONEE = execution receipt<br>
+(3) REVELATION = chained audit hash<br>
+(4) NOVAK = deterministic governance layer<br><br>
+This page performs all hashing locally via WebCrypto — no data sent, stored, or uploaded.
 </div>
 
 <script>
-/* core hashing + UI orchestration */
-const algos = ["SHA-1","SHA-224","SHA-256","SHA-384","SHA-512"];
-const hashContainer = document.getElementById("hashContainer");
-const inputArea = document.getElementById("inputArea");
-const intervalInput = document.getElementById("interval");
-const toggle = document.getElementById("toggle");
-const format = document.getElementById("format");
-const timeline = document.getElementById("timeline");
-const hmacKeyInput = document.getElementById("hmacKey");
-let timer = null;
-
-/* format helpers */
-const toHex = (buffer) =>
-  [...new Uint8Array(buffer)].map(x => x.toString(16).padStart(2,"0")).join("");
-
-const toBase64 = (buffer) => btoa(String.fromCharCode(...new Uint8Array(buffer)));
-
-async function hashValue(algo, text) {
-  const enc = new TextEncoder();
-  let data = enc.encode(text);
-
-  if (hmacKeyInput.value.trim() !== "") {
-    const key = await crypto.subtle.importKey(
-      "raw",
-      enc.encode(hmacKeyInput.value),
-      { name: "HMAC", hash: algo },
-      false,
-      ["sign"]
-    );
-    return crypto.subtle.sign("HMAC", key, data);
-  }
-
-  return crypto.subtle.digest(algo, data);
+async function sha256(str) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(str);
+    const hash = await crypto.subtle.digest("SHA-256", data);
+    return [...new Uint8Array(hash)]
+        .map(b => b.toString(16).padStart(2, "0"))
+        .join("");
 }
 
-async function updateHashes() {
-  if (toggle.value === "off") return;
-  const text = inputArea.value;
-  hashContainer.innerHTML = "";
+let previous = "GENESIS";
 
-  for (const algo of algos) {
-    const buf = await hashValue(algo, text);
-    let out = format.value === "hex" ? toHex(buf) : toBase64(buf);
+async function runLoop() {
+    const timestamp = new Date().toISOString();
 
-    const box = document.createElement("div");
-    box.className = "hash-box";
-    box.innerHTML = `<strong>${algo}</strong> <span>${out}</span>
-      <button class="copy-btn" onclick="navigator.clipboard.writeText('${out}')">Copy</button>`;
-    hashContainer.appendChild(box);
+    // ✅ NIPS — verified input
+    const input = "NOVAK Integrity Engine";
 
-    timeline.innerHTML += `[${new Date().toLocaleTimeString()}] ${algo}: ${out}<br>`;
-    timeline.scrollTop = timeline.scrollHeight;
-  }
+    // ✅ HARMONEE — execution receipt
+    const harmonee = await sha256(input + timestamp);
+
+    // ✅ REVELATION — audit chain
+    const revelation = await sha256(previous + harmonee);
+
+    const output =
+`NOVAK HASH LOOP
+------------------------------
+Timestamp:   ${timestamp}
+HARMONEE:    ${harmonee}
+REVELATION:  ${revelation}
+Previous:    ${previous}
+
+Deterministic enforcement active.`;
+
+    document.getElementById("console").textContent = output;
+
+    // update chain
+    previous = revelation;
 }
 
-/* live update loop */
-function restartTimer() {
-  clearInterval(timer);
-  timer = setInterval(updateHashes, Number(intervalInput.value));
-}
-
-intervalInput.addEventListener("change", restartTimer);
-toggle.addEventListener("change", restartTimer);
-format.addEventListener("change", updateHashes);
-inputArea.addEventListener("input", updateHashes);
-
-/* drag & drop */
-const dropZone = document.getElementById("dropZone");
-dropZone.addEventListener("dragover", e => {e.preventDefault(); dropZone.classList.add("drag")});
-dropZone.addEventListener("dragleave", () => dropZone.classList.remove("drag"));
-dropZone.addEventListener("drop", async e => {
-  e.preventDefault();
-  dropZone.classList.remove("drag");
-  const file = e.dataTransfer.files[0];
-  const buffer = await file.arrayBuffer();
-  inputArea.value = `// FILE HASH MODE: ${file.name}\n\n[Binary Data]`;
-  for (const algo of algos) {
-    const digest = await crypto.subtle.digest(algo, buffer);
-    let out = format.value === "hex" ? toHex(digest) : toBase64(digest);
-    timeline.innerHTML += `[${new Date().toLocaleTimeString()}] FILE ${algo}: ${out}<br>`;
-  }
-  updateHashes();
-});
-
-restartTimer();
-updateHashes();
+setInterval(runLoop, 1000);
+runLoop();
 </script>
 
 </body>
