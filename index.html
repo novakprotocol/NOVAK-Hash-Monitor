@@ -457,11 +457,14 @@ function toggleHowWorks() {
     </div>
 
     <!-- EXPLAINER BUTTONS -->
+<!-- EXPLAINER BUTTONS -->
 <div style="margin-top:18px; display:flex; flex-wrap:wrap; gap:12px;">
   <button class="action-btn" onclick="toggleSimpleExplain()">I still don't get it</button>
   <button class="action-btn" onclick="explainGovSavings()">Could this save the government money?</button>
   <button class="action-btn" onclick="toggleHowWorks()">Show Me How This Works</button>
+  <button class="action-btn" onclick="toggleKeyExplain()">Explain the Key Analogy</button>
 </div>
+
 
 <!-- COLLAPSIBLE “HOW IT WORKS” SECTION -->
 <div id="howWorksBox" class="card" style="margin-top:12px; display:none;">
@@ -844,6 +847,41 @@ function toggleHowWorks() {
       box.style.display = "block";
       addTimeline("User clicked: Could this save the government money? (gov savings explanation shown)");
     }
+
+    <!-- KEY ANALOGY SECTION -->
+<div id="keyExplainBox" class="card" style="margin-top:12px; display:none;">
+  <h3>NOVAK as a Key — The Simple Analogy 🔑</h3>
+
+  <p style="margin-top:10px; font-size:15px; line-height:1.55;">
+    You have different keys for different things:
+  </p>
+
+  <ul style="margin-left:18px; margin-top:6px; font-size:15px; line-height:1.55;">
+    <li><strong>Diary key</strong> — protects privacy</li>
+    <li><strong>Bike lock key</strong> — prevents theft</li>
+    <li><strong>House key</strong> — controls access</li>
+    <li><strong>Car key</strong> — allows operation only when authorized</li>
+  </ul>
+
+  <p style="margin-top:14px; font-size:15px; line-height:1.55;">
+    NOVAK works the same way — but for automation, data, AI decisions, payments, records,
+    and government systems.
+  </p>
+
+  <p style="margin-top:14px; font-size:15px; line-height:1.55;">
+    Instead of a metal key, NOVAK generates a <strong>cryptographic key-match</strong>.
+    If the data changes even slightly, the “key” no longer fits — and the system refuses to act.
+  </p>
+
+  <p style="margin-top:14px; font-size:15px; font-weight:600;">
+    Wrong key? No access. No execution. No harm.
+  </p>
+
+  <p style="margin-top:14px; font-size:14px; opacity:.75;">
+    That’s Proof-Before-Action — the lock only opens when everything matches.
+  </p>
+</div>
+
 
     /* Hide onboarding banner */
     function dismissInstruction() {
