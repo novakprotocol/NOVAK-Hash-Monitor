@@ -248,3 +248,195 @@ html[data-theme="dark"] {
 <!-- ✅ MAIN CONTENT START -->
 <div class="container">
 
+<!-- ✅ PART 2 — Audience Selector + Dynamic Messaging + Why NOVAK -->
+
+<!-- ✅ AUDIENCE SELECTOR -->
+<div id="audienceNav" style="display:flex; gap:10px; margin-top:32px; flex-wrap:wrap;">
+  <button id="btn-public" class="aud-btn" onclick="setAudience('public')">🌍 Public</button>
+  <button id="btn-government" class="aud-btn" onclick="setAudience('government')">🏛 Government</button>
+  <button id="btn-investor" class="aud-btn" onclick="setAudience('investor')">💼 Investor</button>
+  <button id="btn-cyber" class="aud-btn" onclick="setAudience('cyber')">🛡 Cybersecurity</button>
+  <button id="btn-academic" class="aud-btn" onclick="setAudience('academic')">🎓 Academic</button>
+</div>
+
+<!-- ✅ AUDIENCE MESSAGING OUTPUT -->
+<div id="audienceContent"
+     class="card"
+     style="margin-top:18px; font-size:16px; line-height:1.55;">
+</div>
+
+<!-- ✅ RESTORE WHY NOVAK BUTTON -->
+<div style="display:flex; justify-content:center; margin-top:10px;">
+  <button id="restoreWhyBtn"
+    onclick="restoreWhyNovakSection()"
+    style="
+      display:none;
+      padding:8px 18px;
+      border-radius:8px;
+      border:1px solid var(--border);
+      background:var(--btn-bg);
+      cursor:pointer;
+      font-size:14px;
+    ">
+    🔄 Show “Why NOVAK — Why Now?”
+  </button>
+</div>
+
+<!-- ✅ WHY NOVAK — WHY NOW? -->
+<div id="whyNovakCard" class="card" style="margin-top:28px; position:relative;">
+  <h2 class="section-title">Why NOVAK — Why Now?</h2>
+
+  <p>
+    Automation now approves mortgages, denies veterans’ benefits, sets insurance rates, steers vehicles,
+    recommends surgeries, and moves trillions of dollars — often without proof of correctness, legality, or integrity.
+  </p>
+
+  <p style="margin-top:12px;">
+    NOVAK changes this — requiring mathematical proof <strong>before</strong> any automated action occurs.
+  </p>
+
+  <ul style="margin-top:12px; margin-left:20px;">
+    <li>If data changes → NOVAK detects instantly</li>
+    <li>If rule is wrong → NOVAK blocks execution</li>
+    <li>If fraud occurs → NOVAK produces evidence</li>
+    <li>If system glitches → NOVAK prevents harm</li>
+  </ul>
+
+  <p style="margin-top:14px; font-weight:600;">
+    No blockchain. No cryptocurrency. No central authority. Just cryptographic integrity.
+  </p>
+
+  <!-- ✅ Top-right close button -->
+  <button onclick="dismissWhyNovak()"
+    style="
+      position:absolute;
+      top:14px;
+      right:14px;
+      background:none;
+      border:none;
+      font-size:20px;
+      cursor:pointer;
+    "
+    aria-label="Hide Why NOVAK section">
+    ✕
+  </button>
+
+  <!-- ✅ Confirm hide -->
+  <button onclick="dismissWhyNovak()" class="action-btn" style="margin-top:18px;">
+    ✅ Got it — Hide
+  </button>
+</div>
+
+<!-- ✅ EXPLAINER BUTTONS -->
+<div style="margin-top:26px; display:flex; flex-wrap:wrap; gap:12px;">
+  <button class="explain-btn" onclick="showExplain('simple')">🤯 I don't get it</button>
+  <button class="explain-btn" onclick="showExplain('milkshake')">🥤 Milkshake Analogy</button>
+  <button class="explain-btn" onclick="showExplain('pencil')">🖍️ Colored Pencil Analogy</button>
+  <button class="explain-btn" onclick="showExplain('key')">🔑 Key Analogy</button>
+  <button class="explain-btn" onclick="showExplain('gov')">🏛 Government Savings</button>
+  <button class="explain-btn" onclick="showExplain('how')">👁️ Show Me How This Works</button>
+</div>
+
+<!-- ✅ ANALOGY OUTPUT -->
+<div id="explainerOutput" class="card" style="display:none; margin-top:22px;"></div>
+
+<!-- ✅ PART 3 — What Changes With NOVAK -->
+<div id="whatChangesCard" class="card" style="margin-top:32px; position:relative;">
+  <h2 class="section-title">What Changes With NOVAK?</h2>
+
+  <p>
+    Most systems today rely on logging <strong>after</strong> something already happened.
+    NOVAK requires proof <strong>before</strong> action.
+  </p>
+
+  <div style="margin-top:14px;">
+    <p style="color:var(--red); font-weight:600; margin-bottom:6px;">❌ Without NOVAK</p>
+    <p style="margin-bottom:14px;">
+      System executes even if data is wrong — Hash exists but cannot stop harm — Fraud discovered weeks or years later —
+      No mathematical guarantee of legality — Human trust required.
+    </p>
+
+    <p style="color:var(--green); font-weight:600; margin-bottom:6px;">✅ With NOVAK</p>
+    <p>
+      Proof required before action — Data, rules & output cryptographically bound —
+      Fraud blocked instantly — Evidence auto-generated —
+      Trust replaced with math.
+    </p>
+  </div>
+
+  <!-- ✅ Close X -->
+  <button onclick="dismissWhatChanges()" style="
+    position:absolute;
+    top:14px;
+    right:14px;
+    font-size:20px;
+    background:none;
+    border:none;
+    cursor:pointer;
+  ">✕</button>
+
+  <button class="action-btn" onclick="dismissWhatChanges()" style="margin-top:18px;">
+    ✅ Got it — Hide
+  </button>
+</div>
+
+<!-- ✅ Restore button -->
+<div style="display:flex; justify-content:center; margin-top:10px;">
+  <button id="restoreWhatBtn"
+    onclick="restoreWhatChangesSection()"
+    style="
+      display:none;
+      padding:8px 18px;
+      border-radius:8px;
+      border:1px solid var(--border);
+      background:var(--btn-bg);
+      cursor:pointer;
+      font-size:14px;
+    ">
+    🔄 Show “What Changes With NOVAK?”
+  </button>
+</div>
+
+<!-- ✅ PART 4 — Live Hash Engine w/ Algorithm Selector -->
+<div class="card" style="margin-top:32px;">
+  <h2 class="section-title">Try It — Prove Integrity Yourself</h2>
+  <p>
+    Type, paste, or edit anything below. Hashes update instantly using real cryptography —
+    nothing is stored, logged, or transmitted.
+  </p>
+
+  <textarea id="novakInput"
+    placeholder="Example: VA claim, invoice, medical note, VIN, contract, JSON, SQL, XML..."
+    style="width:100%; height:170px; margin-top:16px; font-family:'JetBrains Mono', monospace;
+           font-size:14px; padding:12px;"></textarea>
+
+  <!-- ✅ Algorithm selector -->
+  <div style="margin-top:14px; display:flex; gap:14px; flex-wrap:wrap;">
+    <label><input type="checkbox" class="hashAlgo" value="SHA-256" checked> SHA-256</label>
+    <label><input type="checkbox" class="hashAlgo" value="SHA-512" checked> SHA-512</label>
+    <label><input type="checkbox" class="hashAlgo" value="SHA-384"> SHA-384</label>
+    <label><input type="checkbox" class="hashAlgo" value="SHA3-256"> SHA-3-256</label>
+  </div>
+</div>
+
+<!-- ✅ HASH OUTPUT -->
+<div class="card" style="margin-top:20px;">
+  <h3 class="section-title" style="font-size:20px;">Cryptographic Hashes</h3>
+  <div id="hashOutputList"
+       style="margin-top:10px; font-family:'JetBrains Mono', monospace; font-size:14px;">
+    <em>Waiting for input from above...</em>
+  </div>
+</div>
+
+<!-- ✅ RGAC Visualization -->
+<div class="card" style="margin-top:20px;">
+  <h3 class="section-title" style="font-size:20px;">RGAC — Recursive Global Audit Chain</h3>
+  <p style="margin-bottom:12px;">
+    Each output becomes input to the next verification — forming an unstoppable integrity chain.
+  </p>
+  <div id="rgac" style="font-family:'JetBrains Mono', monospace; font-size:14px;">
+    <em>Provide input to begin...</em>
+  </div>
+</div>
+
+  
