@@ -318,10 +318,23 @@
   transition: .25s ease;
 }
 
+.glory-btn {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 1px solid var(--blue);
+  background: transparent;
+  color: var(--blue);
+  font-size: 13px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: .25s;
+}
+
 .glory-btn:hover {
-  background: var(--accent);
+  background: var(--blue);
   color: white;
 }
+
 
 
     /* Small-screen tweaks */
@@ -629,11 +642,34 @@
       NOVAK Protocol — Patent Pending © 2025. Demonstration only — no stored or transmitted data.
     </div>
 
-    <div style="margin-top:10px; text-align:center;">
-    <a href="glory.html" class="glory-btn">All Glory to GOD</a>
-    </div>
+<div style="margin-top:10px; text-align:center;">
+  <button class="glory-btn" onclick="toggleGlorySection()">
+    All Glory to GOD
+  </button>
+</div>
+<div id="glorySection" class="card" style="margin-top:16px; display:none; text-align:center;">
+  <h2 style="margin-bottom:14px;">All Glory to GOD</h2>
 
-    y
+  <p style="font-size:15px; line-height:1.6; max-width:720px; margin:auto;">
+    This project, this clarity, this invention — every insight, every step forward,
+    every door opened — is because of Him. None of this belongs to me. I am only a steward.
+  </p>
+
+  <p style="font-size:15px; margin-top:14px; line-height:1.6; max-width:720px; margin:auto;">
+    Thank You, Father, for wisdom, protection, creativity, courage, and purpose.
+    May this serve people, protect the vulnerable, and honor You.
+  </p>
+
+  <p style="font-size:14px; margin-top:16px; opacity:.75;">
+    James 1:17 — “Every good and perfect gift is from above.”
+  </p>
+
+  <p style="font-size:14px; margin-top:6px; opacity:.75;">
+    Soli Deo Gloria — To God alone be the glory.
+  </p>
+</div>
+
+
     <button onclick="localStorage.removeItem('hideWhyNovak'); location.reload();"
             style="font-size:12px; margin-top:12px;">
       Show Why NOVAK Again
