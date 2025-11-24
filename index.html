@@ -266,4 +266,80 @@ aria-label="Dismiss Why Novak section">
 
 
 <!-- ✅ END PART 2 — CONTINUE WITH PART 3 NEXT -->
-  
+
+<!-- ✅ PART 3 of 9 — EXPLAINERS + WITH/WITHOUT NOVAK COMPARISON + AUDIENCE TEXT ENGINE -->
+
+
+<!-- ✅ EXPLAINER OUTPUT AREA (dynamic content inserted via JS) -->
+<div id="explainerOutput" class="card" style="display:none; margin-top:22px;"></div>
+
+
+<!-- ✅ WITH vs WITHOUT NOVAK — VISUAL COMPARISON CARD -->
+<div id="comparisonCard" class="card" style="margin-top:28px;">
+<h2 class="section-title">What Changes With NOVAK?</h2>
+<p style="margin-bottom:16px;">
+Most systems today rely on logging <em>after</em> something already happened. NOVAK requires proof <em>before</em> action.
+</p>
+
+
+<div class="compare-card">
+<!-- WITHOUT NOVAK -->
+<div>
+<h3 style="color:var(--red); margin-bottom:10px;">❌ Without NOVAK</h3>
+<div class="comparePanel">
+- System executes even if data is wrong
+- Hash exists but cannot stop harm
+- Fraud discovered weeks or years later
+- No mathematical guarantee of legality
+- Human trust required
+</div>
+</div>
+
+
+<!-- WITH NOVAK -->
+<div>
+<h3 style="color:var(--green); margin-bottom:10px;">✅ With NOVAK</h3>
+<div class="comparePanel">
+- Proof required before action
+- Data, rules & output cryptographically bound
+- Fraud blocked instantly
+- Evidence auto-generated
+- Trust replaced with math
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- ✅ AUDIENCE-BASED CONTENT TEXTS -->
+<script>
+const audienceMessages = {
+public: `NOVAK protects everyday people — ensuring decisions about healthcare, housing, credit, prices, education,
+safety, transportation, and employment cannot be corrupted, miscalculated, or executed without proof.`,
+
+
+government: `NOVAK reduces fraud, waste, improper payments, wrongful denials, and mission-threatening automation
+failure — without requiring new agencies, new infrastructure, or new laws. Execution integrity becomes default.`,
+
+
+investor: `NOVAK creates a new global integrity layer — reducing enterprise risk, increasing claim defensibility, enabling
+provable AI products, and unlocking trillion-dollar modernization markets in government, finance & healthcare.`,
+
+
+cyber: `NOVAK adds a missing pillar to cybersecurity — prevention. No blockchain, no consensus, no latency. Just
+mathematical proof that data, rules & output have not changed — before execution is allowed.`,
+
+
+academic: `NOVAK applies deterministic computation, cryptographic binding, verifiable receipts, and recursive
+auditability to eliminate epistemic uncertainty in automated decision systems — at global scale.`
+};
+</script>
+
+
+<!-- ✅ SECTION THAT WILL UPDATE BASED ON AUDIENCE MODE -->
+<div id="audienceContent" class="card" style="margin-top:28px; font-size:15px;"></div>
+
+
+<!-- ✅ END PART 3 — CONTINUE WITH PART 4 NEXT -->
+
+
