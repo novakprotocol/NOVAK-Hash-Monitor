@@ -707,4 +707,101 @@ const file = e.target.files[0];
 if (!file) return;
 <!-- ✅ END PART 7 — CONTINUE WITH PART 8 NEXT -->
 
+<!-- ✅ PART 8 of 9 — ONBOARDING STORY MODE + FEDERAL BRIEFING SHEET EXPORT -->
+
+
+<!-- ✅ AUTO-SCROLL STORYTELLING / GUIDED DEMO MODE -->
+<div class="card" style="margin-top:36px;">
+<h2 class="section-title">Guided NOVAK Walkthrough</h2>
+<p>Let NOVAK teach itself — step-by-step, automatically.</p>
+<button class="action-btn" onclick="startStoryMode()" style="margin-top:12px;">▶ Begin Guided Demo</button>
+</div>
+
+
+<!-- ✅ STORY MODE TEXT PANEL -->
+<div id="storyPanel" class="card" style="display:none; margin-top:20px; font-size:15px; line-height:1.6;"></div>
+
+
+<!-- ✅ DOJ / FEDERAL BRIEFING SHEET GENERATOR -->
+<div class="card" style="margin-top:36px;">
+<h2 class="section-title">Generate Federal Briefing Sheet</h2>
+<p>Exports a clean, formal one-page NOVAK summary for policymakers, agency leadership, or executive briefings.</p>
+<button class="action-btn" onclick="exportBriefing()" style="margin-top:12px;">📄 Export Briefing Sheet</button>
+</div>
+
+
+<script>
+// ✅ Guided Storytelling Script
+const storySlides = [
+"Welcome — NOVAK fixes the world's most dangerous hidden problem: automation without proof.",
+"Today, software approves loans, surgeries, veteran benefits, procurement, sentencing — without verification.",
+"NOVAK requires mathematical integrity — BEFORE execution — preventing irreversible harm.",
+"Hashes alone don't stop fraud. NOVAK chains data, rules & outputs into a verifiable execution receipt.",
+"If anything changes — fraud, glitch, bias, breach — NOVAK refuses to execute.",
+"That means government, AI, banking, healthcare & defense systems become provably trustworthy.",
+"Now try entering data above — NOVAK proves it instantly.",
+"NOVAK doesn't replace systems — it protects them.",
+"Proof-before-action becomes the new global safety standard."
+];
+
+
+let storyIndex = 0;
+let storyInterval;
+
+
+function startStoryMode() {
+const panel = document.getElementById('storyPanel');
+panel.style.display = 'block';
+storyIndex = 0;
+panel.textContent = storySlides[storyIndex];
+storyInterval = setInterval(() => {
+storyIndex++;
+if (storyIndex >= storySlides.length) {
+clearInterval(storyInterval);
+return;
+}
+panel.textContent = storySlides[storyIndex];
+panel.scrollIntoView({ behavior: "smooth" });
+}, 4500);
+}
+
+
+// ✅ Export One-Page Federal Briefing Sheet
+function exportBriefing() {
+const audience = currentAudience || 'public';
+const text = `NOVAK Protocol — Executive Briefing\n\n` +
+`Mission: Eliminate catastrophic automated decisions by requiring mathematical proof-before-action.\n\n` +
+`Why It Matters:\n` +
+`• Prevents wrongful benefit denials, medical errors, procurement fraud, and security breaches.\n` +
+`• Saves billions in improper payments and litigation.\n` +
+`• Enables safe, auditable AI adoption across government.\n\n` +
+`How NOVAK Works:\n` +
+`1. Hashes input, governing rule, and output.\n` +
+`2. Cryptographically binds them together.\n` +
+`3. Generates an execution receipt.\n` +
+`4. Blocks execution if anything is altered.\n\n` +
+`Not a blockchain. Not a cryptocurrency. No mining. No latency.\n\n` +
+`Applicable to:\n` +
+`• VA, DoD, CMS, SSA, DOJ, DHS, IRS, Treasury\n` +
+`• Banking, insurance, healthcare, logistics\n` +
+`• Robotics, autonomous vehicles, critical infrastructure\n\n` +
+`National Security Impact:\n` +
+`• Eliminates silent automated sabotage & insider manipulation.\n` +
+`• Establishes global execution integrity.\n\n` +
+`Status: Patent pending — NOVAK Protocol™`;
+
+
+const blob = new Blob([text], { type: 'text/plain' });
+const url = URL.createObjectURL(blob);
+const a = document.createElement('a');
+a.href = url;
+a.download = 'NOVAK_Federal_Briefing.txt';
+a.click();
+URL.revokeObjectURL(url);
+}
+</script>
+
+
+<!-- ✅ END PART 8 — CONTINUE WITH PART 9 NEXT -->
+
 
