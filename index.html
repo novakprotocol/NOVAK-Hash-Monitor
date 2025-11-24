@@ -1032,6 +1032,12 @@ document.addEventListener("DOMContentLoaded", () => {
   setAudience?.("public");
   updateHashes?.();
 });
+
+  function toggleMobileMenu() {
+  const m = document.getElementById("mobileMenuPanel");
+  m.style.display = m.style.display === "flex" ? "none" : "flex";
+}
+
 </script>
 
 </div> <!-- end container -->
