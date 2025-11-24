@@ -1018,12 +1018,17 @@ function dismissWhyNovak() {
 }
 
 /* Check on load */
-(function(){
+function dismissWhyNovak() {
+  document.getElementById("whyNovakCard").style.display = "none";
+  localStorage.setItem("hideWhyNovak", "true");
+}
+
+window.addEventListener("DOMContentLoaded", () => {
   if (localStorage.getItem("hideWhyNovak") === "true") {
-    const card = document.getElementById("whyNovakCard");
-    if (card) card.style.display = "none";
+    document.getElementById("whyNovakCard").style.display = "none";
   }
-})();
+});
+
 
 /* INIT */
 setAudience("public");
