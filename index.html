@@ -642,9 +642,262 @@ html[data-theme="dark"] {
 
 <!-- ✅ FULL JAVASCRIPT ENGINE -->
 <script>
-/* ✅ All JS needed for Part 1 & 2 continues here — audience engine, dismiss/restore,
-   explainers, SHA selector hashing, RGAC, VIN, file verify, games, transparency,
-   receipts, story mode, theme, mobile menu, initialization */
+
+// ================================================================
+// ✅ GLOBAL STATE
+// ================================================================
+let currentAudience = "public";
+let soundEnabled = false;
+let storyIndex = 0;
+let storyInterval;
+
+// ================================================================
+// ✅ THEME TOGGLE
+// ================================================================
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.getAttribute("data-theme") === "light" ? "dark" : "light";
+  html.setAttribute("data-theme", next);
+  localStorage.setItem("novakTheme", next);
+}
+
+(function () {
+  const saved = localStorage.getItem("novakTheme");
+  if (saved) document.documentElement.setAttribute("data-theme", saved);
+})();
+
+// ================================================================
+// ✅ MOBILE MENU
+// ================================================================
+function toggleMobileMenu() {
+  const menu = document.getElementById("mobileMenuPanel");
+  menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+}
+
+// ================================================================
+// ✅ AUDIENCE ENGINE
+// ================================================================
+const audienceMessages = {
+  public: `NOVAK protects everyday people — ensuring decisions about healthcare, housing, credit, prices,
+education, safety, transportation, employment — cannot be corrupted, miscalculated, or executed without proof.`,
+
+  government: `NOVAK reduces fraud, wrongful denials, improper payments, litigation exposure,
+mission-threatening automation failure — without new infrastructure, agencies, or laws.`,
+
+  investor: `NOVAK establishes a new global execution-integrity layer — reducing enterprise risk,
+unlocking defensible AI, enabling trillion-dollar modernization markets across finance,
+government, and healthcare.`,
+
+  cyber: `Cybersecurity prevents intrusion — NOVAK prevents automated harm. Mathematical proof-before-action
+ensures compromised systems still cannot execute corruption or fraud.`,
+
+  academic: `NOVAK operationalizes deterministic computation, cryptographic binding, recursive auditability,
+and execution receipts — eliminating epistemic uncertainty in automated decision systems.`
+};
+
+function setAudience(type) {
+  currentAudience = type;
+  const box = document.getElementById("audienceContent");
+  box.textContent = audienceMessages[type];
+
+  document.querySelectorAll(".aud-btn").forEach(btn =>
+    btn.classList.toggle("active", btn.id === `btn-${type}`)
+  );
+}
+
+// ================================================================
+// ✅ WHY NOVAK — DISMISS & RESTORE
+// ================================================================
+function dismissWhyNovak() {
+  document.getElementById("whyNovakCard").style.display = "none";
+  document.getElementById("restoreWhyBtn").style.display = "inline-flex";
+  localStorage.setItem("whyNovakDismissed", "true");
+}
+
+function restoreWhyNovakSection() {
+  document.getElementById("whyNovakCard").style.display = "block";
+  document.getElementById("restoreWhyBtn").style.display = "none";
+  localStorage.removeItem("whyNovakDismissed");
+}
+
+function restoreWhyNovakOnLoad() {
+  if (localStorage.getItem("whyNovakDismissed") === "true") dismissWhyNovak();
+}
+
+// ================================================================
+// ✅ WHAT CHANGES WITH NOVAK — DISMISS & RESTORE
+// ================================================================
+function dismissWhatChanges() {
+  document.getElementById("whatChangesCard").style.display = "none";
+  document.getElementById("restoreWhatBtn").style.display = "inline-flex";
+  localStorage.setItem("whatChangesDismissed", "true");
+}
+
+function restoreWhatChangesSection() {
+  document.getElementById("whatChangesCard").style.display = "block";
+  document.getElementById("restoreWhatBtn").style.display = "none";
+  localStorage.removeItem("whatChangesDismissed");
+}
+
+function restoreWhatChangesOnLoad() {
+  if (localStorage.getItem("whatChangesDismissed") === "true") dismissWhatChanges();
+}
+
+// ================================================================
+// ✅ EXPLAINER ENGINE
+// ================================================================
+const explainTexts = {
+  simple: "NOVAK is like requiring a receipt BEFORE spending. Systems must prove correctness first.",
+  milkshake: "If a milkshake spills, you see it — but in computers, corruption is invisible. NOVAK reveals it instantly.",
+  pencil: "Once you color a page, you can’t erase without evidence. NOVAK ensures digital changes leave fingerprints.",
+  key: "A key doesn’t open every door — NOVAK ensures only correct data unlocks execution.",
+  gov: "NOVAK prevents billions in improper payments by verifying legality BEFORE funds move.",
+  how: "NOVAK cryptographically binds input, rule, and output — execution only happens if all 3 match."
+};
+
+function showExplain(key) {
+  const box = document.getElementById("explainerOutput");
+  box.style.display = "block";
+  box.textContent = explainTexts[key] || "Explanation unavailable.";
+  box.scrollIntoView({ behavior: "smooth" });
+}
+
+// ================================================================
+// ✅ HASH ENGINE + ALGORITHM SELECTOR
+// ================================================================
+async function computeHash(algorithm, value) {
+  const data = new TextEncoder().encode(value);
+  const digest = await crypto.subtle.digest(algorithm, data);
+  return [...new Uint8Array(digest)]
+    .map(b => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
+async function updateHashes() {
+  const input = document.getElementById("novakInput").value.trim();
+  const output = document.getElementById("hashOutputList");
+
+  if (!input) {
+    output.innerHTML = "<em>Waiting for input from above...</em>";
+    document.getElementById("rgac").innerHTML = "<em>Provide input to begin...</em>";
+    return;
+  }
+
+  const chosen = [...document.querySelectorAll(".hashAlgo:checked")]
+    .map(a => a.value);
+
+  if (chosen.length === 0) {
+    output.innerHTML = "<em>Select at least one hashing algorithm.</em>";
+    return;
+  }
+
+  output.innerHTML = "";
+
+  for (const algo of chosen) {
+    const hash = await computeHash(algo, input);
+    output.innerHTML += `
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+        <strong>${algo}:</strong>
+        <span style="font-family:'JetBrains Mono', monospace;">${hash}</span>
+        <button onclick="navigator.clipboard.writeText('${hash}')"
+                style="padding:2px 6px;">Copy</button>
+      </div>`;
+  }
+
+  updateRGAC(input);
+}
+
+document.getElementById("novakInput")?.addEventListener("input", updateHashes);
+document.querySelectorAll(".hashAlgo").forEach(cb =>
+  cb.addEventListener("change", updateHashes)
+);
+
+// ================================================================
+// ✅ RGAC DEMO
+// ================================================================
+function updateRGAC(value) {
+  const rgac = document.getElementById("rgac");
+  if (!value) return;
+
+  rgac.innerHTML = `
+    Data ➜ SHA ➜ Rule ➜ SHA ➜ Output ➜ SHA ➜ Receipt
+  `;
+}
+
+// ================================================================
+// ✅ FILE HASH VERIFICATION
+// ================================================================
+const dropzone = document.getElementById("dropzone");
+const fileInput = document.getElementById("fileInput");
+const fileHashResult = document.getElementById("fileHashResult");
+
+dropzone?.addEventListener("click", () => fileInput.click());
+
+dropzone?.addEventListener("dragover", e => {
+  e.preventDefault();
+  dropzone.style.background = "rgba(26,79,179,.08)";
+});
+
+dropzone?.addEventListener("dragleave", () =>
+  dropzone.style.background = "transparent"
+);
+
+dropzone?.addEventListener("drop", e => {
+  e.preventDefault();
+  dropzone.style.background = "transparent";
+  handleFileHash(e.dataTransfer.files[0]);
+});
+
+fileInput?.addEventListener("change", e =>
+  handleFileHash(e.target.files[0])
+);
+
+async function handleFileHash(file) {
+  if (!file) return;
+  const buffer = await file.arrayBuffer();
+  const hash = await computeHash("SHA-256", buffer);
+  fileHashResult.innerHTML = `✅ <strong>${file.name}</strong><br>SHA-256: ${hash}`;
+}
+
+// ================================================================
+// ✅ VIN MODAL
+// ================================================================
+function openVinModal() {
+  document.getElementById("vinModal").style.display = "flex";
+}
+
+function closeVinModal() {
+  document.getElementById("vinModal").style.display = "none";
+}
+
+document.getElementById("vinInput")?.addEventListener("input", () => {
+  const vin = vinInput.value.trim().toUpperCase();
+  if (vin.length !== 17) {
+    vinResult.innerHTML = "❌ VIN must be 17 characters";
+    return;
+  }
+  vinResult.innerHTML = `<pre>${vin}</pre>`;
+});
+
+// ================================================================
+// ✅ GLORY TO GOD EXPANDER
+// ================================================================
+function toggleGlorySection() {
+  const box = document.getElementById("glorySection");
+  box.style.display = box.style.display === "none" ? "block" : "none";
+  if (box.style.display === "block") box.scrollIntoView({ behavior: "smooth" });
+}
+
+// ================================================================
+// ✅ INIT ON LOAD
+// ================================================================
+document.addEventListener("DOMContentLoaded", () => {
+  setAudience("public");
+  restoreWhyNovakOnLoad();
+  restoreWhatChangesOnLoad();
+  updateHashes();
+});
+
 
 </script>
 
