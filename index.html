@@ -377,5 +377,710 @@
     </p>
   </section>
 
-  
-  
+  </div> <!-- end .container -->
+
+<script>
+"use strict";
+
+/* ========= DOM HOOKS ========= */
+const input          = document.getElementById("input");
+const hashesDiv      = document.getElementById("hashes");
+const primaryLabel   = document.getElementById("primaryLabel");
+const rgacDiv        = document.getElementById("rgac");
+const comparisonBox  = document.getElementById("comparison");
+const compareBtn     = document.getElementById("compareBtn");
+const dropzone       = document.getElementById("dropzone");
+const proofHistory   = document.getElementById("proofHistory");
+const themeToggleBtn = document.getElementById("themeToggle");
+const gameBox        = document.getElementById("gameBox");
+
+/* ========= STATE ========= */
+let lastHashes   = {};
+let primaryHash  = "SHA-256";
+let beforeSnap   = null;
+let rgacBlocks   = [];
+let soundEnabled = false; // can toggle later if you want
+let gameScore    = 0;
+
+/* ========= SIMPLE SFX (optional; off by default) ========= */
+const sCorrect = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3");
+const sWrong   = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-buzz-960.mp3");
+
+function playSound(kind) {
+  if (!soundEnabled) return;
+  try {
+    if (kind === "correct") sCorrect.play();
+    if (kind === "wrong")   sWrong.play();
+  } catch(e) {
+    // ignore autoplay errors
+  }
+}
+
+/* ========= THEME ========= */
+function applySavedTheme() {
+  const saved = localStorage.getItem("novakTheme");
+  if (saved === "dark" || saved === "light") {
+    document.documentElement.dataset.theme = saved;
+  }
+}
+
+function toggleTheme() {
+  const html = document.documentElement;
+  html.dataset.theme = html.dataset.theme === "dark" ? "light" : "dark";
+  localStorage.setItem("novakTheme", html.dataset.theme);
+  addTimeline(`Theme switched to ${html.dataset.theme}`);
+}
+if (themeToggleBtn) {
+  themeToggleBtn.addEventListener("click", toggleTheme);
+}
+
+/* ========= AUDIENCE TEXT ========= */
+const audienceText = {
+  public: {
+    desc: "NOVAK proves data integrity instantly — no tech degree required.",
+    hash: "Integrity Fingerprints",
+    timeline: "Proof History"
+  },
+  government: {
+    desc: "NOVAK enforces proof-before-payment, stopping improper or illegal decisions.",
+    hash: "Regulatory Integrity Fingerprints",
+    timeline: "Audit & Compliance Trail"
+  },
+  investor: {
+    desc: "Tampering becomes mathematically impossible to hide — reducing financial and operational risk.",
+    hash: "Business Integrity Outputs",
+    timeline: "Accountability Timeline"
+  },
+  cyber: {
+    desc: "Ideal for SOC, DFIR, CI/CD, file integrity monitoring and zero-trust enforcement.",
+    hash: "Cryptographic Hash Outputs",
+    timeline: "Security Event Timeline"
+  },
+  academic: {
+    desc: "Deterministic, collision-resistant hash demonstrations suitable for coursework and research.",
+    hash: "Cryptographic Fingerprints",
+    timeline: "Research Log"
+  }
+};
+
+function setAudience(key) {
+  const cfg = audienceText[key] || audienceText.public;
+  document.getElementById("description").innerText  = cfg.desc;
+  document.getElementById("hashHeader").innerText   = cfg.hash;
+  document.getElementById("timelineHeader").innerText = cfg.timeline;
+
+  document.querySelectorAll(".nav button").forEach(btn => btn.classList.remove("active"));
+  const btn = document.getElementById(`btn-${key}`);
+  if (btn) btn.classList.add("active");
+
+  addTimeline(`Audience switched to: ${key}`);
+}
+
+/* ========= WHY NOVAK PERSISTENCE ========= */
+function dismissWhyNovak() {
+  const card = document.getElementById("whyNovakCard");
+  if (card) card.style.display = "none";
+  localStorage.setItem("hideWhyNovak", "1");
+  addTimeline("Why NOVAK card dismissed");
+}
+
+/* ========= EXPLAINER CONTENT ========= */
+const explainerContent = {
+  exp1: `
+    <h3>What does NOVAK actually do?</h3>
+    <p>
+      Imagine every time a system wants to do something important — pay a claim,
+      change a record, move money, steer a robot — it must first print a
+      <strong>mathematical receipt</strong> proving the action is allowed.
+    </p>
+    <p>
+      NOVAK builds that receipt from:
+      <strong>(1) the rule</strong> being applied,
+      <strong>(2) the data</strong> being used, and
+      <strong>(3) the decision</strong> it wants to execute.
+      That receipt is a cryptographic fingerprint.
+    </p>
+    <p>
+      If <em>anything</em> changes — the data, the rule, or the output —
+      the fingerprint no longer matches and NOVAK says:
+      <strong>“Stop. Prove this again before acting.”</strong>
+    </p>
+  `,
+  exp2: `
+    <h3>I’m still not getting it — step by step</h3>
+    <ol>
+      <li>You type or load data into the box below.</li>
+      <li>NOVAK computes one or more <strong>hashes</strong> — mathematical fingerprints of that exact data.</li>
+      <li>Those fingerprints are extremely sensitive: change one character, they all change.</li>
+      <li>Before a system acts, NOVAK checks: “Does the current data still match the approved fingerprint?”</li>
+      <li>If yes → action allowed. If no → action blocked or paused for review.</li>
+    </ol>
+    <p style="margin-top:10px;">
+      That’s the whole idea: <strong>proof-before-action</strong>, instead of “do something first and hope we can audit it later.”
+    </p>
+  `,
+  expColor: `
+    <h3>Box of Colored Pencils Analogy 🖍️</h3>
+    <p>
+      Imagine a classroom box of 64 colored pencils. One of them is a
+      <strong>special pink pencil</strong> that students must always have.
+    </p>
+    <p>
+      At the start of the day, the teacher counts the pencils, confirms the
+      special pink one is present, and then seals the box with tamper-evident tape.
+      That seal is like a <strong>hash</strong>.
+    </p>
+    <p>
+      If someone removes a pencil, swaps one, or sharpens one down and tries to hide it:
+    </p>
+    <ul>
+      <li>The count is wrong.</li>
+      <li>The seal is broken or different.</li>
+      <li>The teacher knows instantly that something changed.</li>
+    </ul>
+    <p>
+      NOVAK works like that seal <em>and</em> the inventory:
+      it remembers exactly what was inside the “box” (data + rules + decision),
+      and if anything is missing, added, or altered, the cryptographic “seal” no longer matches.
+    </p>
+    <p><strong>Wrong pencils, broken seal, no class activity.</strong> That’s proof-before-action.</p>
+  `,
+  expKey: `
+    <h3>Key Analogy 🔑</h3>
+    <p>
+      You have different keys for different things: a house key, car key, office key.
+      The wrong key simply does not turn the lock.
+    </p>
+    <p>
+      NOVAK acts like a <strong>cryptographic key-lock pair</strong> for automation:
+      the combination of rule + data + output must produce the one correct fingerprint
+      or the “lock” refuses to open.
+    </p>
+    <p>
+      Change the data (like trying to unlock with the wrong key), and the fingerprint
+      changes. NOVAK sees it immediately:
+      <strong>wrong key, no access, no execution, no harm.</strong>
+    </p>
+  `,
+  expGov: `
+    <h3>Government Savings — Where Does NOVAK Help? 🏛️</h3>
+    <ul>
+      <li><strong>Stops bad payments before they go out:</strong> systems must prove a claim is valid <em>before</em> funds move.</li>
+      <li><strong>Reduces fraud and manipulation:</strong> if someone edits data after approval, the fingerprints no longer match.</li>
+      <li><strong>Lowers rework and appeals:</strong> every automated decision has a clear, tamper-evident proof trail.</li>
+      <li><strong>Cheaper audits:</strong> auditors verify math instead of digging through screenshots and emails.</li>
+      <li><strong>Protects agencies and leadership:</strong> “Here’s the exact cryptographic proof we used” is powerful in oversight and hearings.</li>
+    </ul>
+    <p style="margin-top:8px;">
+      NOVAK doesn’t replace existing systems — it is a <strong>gatekeeper in front of them</strong>.
+      That’s where most of the savings come from.
+    </p>
+  `,
+  expHow: `
+    <h3>Show Me How This Works 👀</h3>
+    <ol>
+      <li>Pick a sample dataset (VA claim, clinical note, transaction, etc.).</li>
+      <li>Watch NOVAK compute multiple fingerprints (hashes) instantly.</li>
+      <li>Type in the box — even a one-character change updates every fingerprint.</li>
+      <li>Click <strong>Run Tamper Test</strong> to simulate an unauthorized change.</li>
+      <li>Use <strong>Start Before/After Capture</strong> to record a “before” state, edit the data, then compare hashes side by side.</li>
+      <li>Export a <strong>PDF Integrity Certificate</strong> using your chosen primary hash.</li>
+    </ol>
+    <p style="margin-top:8px;">
+      That’s exactly how NOVAK would sit in front of a real system: no receipt, no match, no execution.
+    </p>
+  `
+};
+
+function toggleExplainer(id) {
+  const panels = document.querySelectorAll(".explainer");
+  panels.forEach(panel => {
+    if (panel.id !== id) {
+      panel.style.display = "none";
+    }
+  });
+
+  const box = document.getElementById(id);
+  if (!box) return;
+
+  const currentlyVisible = box.style.display === "block";
+  if (currentlyVisible) {
+    box.style.display = "none";
+    return;
+  }
+
+  // Inject content fresh each time
+  box.innerHTML = explainerContent[id] || "<p>Coming soon.</p>";
+  box.style.display = "block";
+  box.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+/* ========= HASHING ========= */
+const algorithms = ["SHA-1", "SHA-256", "SHA-384", "SHA-512", "SHA3-256", "SHA3-512"];
+
+async function compute() {
+  if (!window.crypto || !window.crypto.subtle) {
+    hashesDiv.innerHTML = "<p>Your browser does not support Web Crypto / SubtleCrypto.</p>";
+    return;
+  }
+
+  const encoder = new TextEncoder();
+  const data    = encoder.encode(input.value || "");
+  lastHashes    = {};
+  let html      = "";
+
+  for (const algo of algorithms) {
+    try {
+      const digest = await crypto.subtle.digest(algo, data);
+      const hex = [...new Uint8Array(digest)]
+        .map(b => b.toString(16).padStart(2, "0"))
+        .join("");
+      lastHashes[algo] = hex;
+
+      html += `
+        <div class="hash-row">
+          <span class="hash-label">${algo}</span>
+          <span class="hash-value">${hex}</span>
+          <label style="font-size:11px;margin-left:6px;">
+            <input type="radio" name="primary" value="${algo}"
+              ${algo === primaryHash ? "checked" : ""}
+              onclick="setPrimary('${algo}')">
+            primary
+          </label>
+        </div>
+      `;
+    } catch (err) {
+      html += `
+        <div class="hash-row">
+          <span class="hash-label">${algo}</span>
+          <span class="hash-value">Not supported in this browser</span>
+        </div>
+      `;
+    }
+  }
+
+  hashesDiv.innerHTML = html;
+  primaryLabel.textContent = primaryHash;
+  updateRGAC(lastHashes[primaryHash]);
+}
+
+/* ========= PRIMARY HASH SELECT ========= */
+function setPrimary(algo) {
+  primaryHash = algo;
+  primaryLabel.textContent = algo;
+  addTimeline(`Primary hash set to ${algo}`);
+}
+
+/* ========= RGAC MINI-CHAIN ========= */
+function updateRGAC(hash) {
+  if (!hash) return;
+  rgacBlocks.push(hash.slice(0, 10));
+  if (rgacBlocks.length > 7) rgacBlocks.shift();
+  rgacDiv.innerHTML = rgacBlocks
+    .map(h => `<span class="block">${h}</span>`)
+    .join("");
+}
+
+/* ========= TIMELINE ========= */
+function addTimeline(msg) {
+  if (!proofHistory) return;
+  const line = `[${new Date().toLocaleTimeString()}] ${msg}\n`;
+  proofHistory.textContent += line;
+  proofHistory.scrollTop = proofHistory.scrollHeight;
+}
+
+/* ========= BEFORE / AFTER CAPTURE ========= */
+function toggleCompareMode() {
+  if (!beforeSnap) {
+    beforeSnap = {
+      time:   new Date().toLocaleTimeString(),
+      hashes: { ...lastHashes }
+    };
+    compareBtn.textContent = "Finish Before/After Comparison";
+    addTimeline("Captured BEFORE snapshot for comparison");
+    return;
+  }
+
+  const afterSnap = {
+    time:   new Date().toLocaleTimeString(),
+    hashes: { ...lastHashes }
+  };
+
+  let html = `
+    <div><strong>BEFORE:</strong> ${beforeSnap.time}<br>
+    <strong>AFTER:</strong> ${afterSnap.time}</div>
+    <hr style="margin:8px 0;">
+  `;
+
+  for (const algo of algorithms) {
+    const beforeVal = beforeSnap.hashes[algo] || "";
+    const afterVal  = afterSnap.hashes[algo]  || "";
+    const changed   = beforeVal !== afterVal;
+
+    html += `
+      <div class="compare-row" style="display:grid;grid-template-columns:110px 1fr 1fr;gap:6px;padding:4px 0;border-bottom:1px dashed var(--border);">
+        <span><strong>${algo}</strong></span>
+        <span style="color:#64748b;">${beforeVal || "(none)"}</span>
+        <span style="color:${changed ? "#c42121" : "#159b4c"};">${afterVal || "(none)"}</span>
+      </div>
+    `;
+  }
+
+  comparisonBox.innerHTML = html;
+  comparisonBox.style.display = "block";
+  beforeSnap = null;
+  compareBtn.textContent = "Start Before/After Capture";
+  addTimeline("Completed BEFORE/AFTER comparison");
+}
+
+/* ========= TAMPER TEST ========= */
+function tamperTest() {
+  input.value += "\n\n*** UNAUTHORIZED CHANGE FLAGGED ***";
+  compute();
+  addTimeline("Tamper Test appended simulated unauthorized change");
+}
+
+/* ========= FILE DROP HASHING ========= */
+if (dropzone) {
+  dropzone.addEventListener("dragover", e => {
+    e.preventDefault();
+    dropzone.style.background = "rgba(26,79,179,0.10)";
+  });
+  dropzone.addEventListener("dragleave", () => {
+    dropzone.style.background = "transparent";
+  });
+  dropzone.addEventListener("drop", async e => {
+    e.preventDefault();
+    dropzone.style.background = "transparent";
+    const file = e.dataTransfer.files[0];
+    if (!file) return;
+    input.value = await file.text();
+    addTimeline(`File loaded into input: ${file.name}`);
+    compute();
+  });
+}
+
+/* ========= EXAMPLE DATASETS ========= */
+const examples = {
+  va: `Veteran: John Sample
+Claim Type: Degenerative Joint Disease
+Status: Pending C&P Review
+Evidence: MRI confirming L5-S1 disc narrowing
+Requested Rating Increase: 10% → 40%`,
+  medical: `Patient: 54M
+Diagnosis: Atrial fibrillation
+Medication Change: Metoprolol 25mg BID
+Follow-Up: 6 weeks`,
+  finance: `Transaction ID: 9938172-AX
+Account: Commercial Checking
+Amount: $248,932.17
+Purpose: Federal subcontract payment`,
+  ai: `Autonomous Decision Log
+Model: Document Classifier v3.4
+Input: Veteran Claim Packet #88472
+Confidence: 0.92
+Recommended Action: Approve`,
+  robot: `Command ID: R-2043
+Unit: Surgical Robot Arm
+Instruction: Move 3.2mm posterior
+Safety Flag: TRUE`,
+  legal: `Directive ID: SEC-782-A
+Policy: Data Tamper Prevention
+Effective: March 2025
+Applies To: All automated systems`
+};
+
+function loadExample(key) {
+  if (!examples[key]) return;
+  input.value = examples[key];
+  compute();
+  addTimeline(`Loaded example dataset: ${key}`);
+}
+
+/* ========= CERTIFICATE EXPORT ========= */
+function exportCertificate() {
+  const cert = window.open("", "_blank");
+  const primaryValue = lastHashes[primaryHash] || "(none)";
+  const audience = document.querySelector(".nav .active")?.innerText || "Public";
+
+  cert.document.write(`
+    <html>
+    <head>
+      <title>NOVAK Integrity Certificate</title>
+      <style>
+        body{font-family:Inter,system-ui,sans-serif;padding:40px;line-height:1.55;}
+        h1{color:#1a4fb3;font-size:28px;margin-bottom:6px;}
+        h3{margin-top:20px;}
+        .mono{font-family:"JetBrains Mono",monospace;font-size:13px;}
+        .rgac span{
+          display:inline-block;
+          border:1px solid #1a4fb3;
+          padding:4px 8px;
+          border-radius:6px;
+          margin-right:4px;
+          margin-top:4px;
+          font-size:11px;
+        }
+      </style>
+    </head>
+    <body>
+      <h1>NOVAK Integrity Verification Certificate</h1>
+      <p>This document records a cryptographic fingerprint of the dataset present in the NOVAK demo at the time of export.</p>
+
+      <h3>Primary Hash Algorithm</h3>
+      <p>${primaryHash}</p>
+
+      <h3>Primary Hash Value</h3>
+      <p class="mono">${primaryValue}</p>
+
+      <h3>RGAC Chain Snapshot</h3>
+      <div class="rgac">
+        ${rgacBlocks.map(h => `<span>${h}</span>`).join("")}
+      </div>
+
+      <h3>Timestamp</h3>
+      <p>${new Date().toLocaleString()}</p>
+
+      <h3>Audience Context</h3>
+      <p>${audience}</p>
+
+      <h3>Input Data</h3>
+      <pre class="mono">${input.value.replace(/</g,"&lt;")}</pre>
+
+      <footer style="margin-top:40px;font-size:12px;opacity:.7;">
+        NOVAK Protocol — Patent Pending © 2025 • Demonstration only — no data stored or transmitted.
+      </footer>
+    </body>
+    </html>
+  `);
+  cert.document.close();
+  cert.print();
+  addTimeline("Exported Integrity Certificate (PDF print dialogue opened)");
+}
+
+/* ========= EXECUTIVE ONE-PAGER ========= */
+function printOnePager() {
+  const win = window.open("", "_blank");
+  win.document.write(`
+    <html>
+    <head>
+      <title>NOVAK One-Pager</title>
+      <style>
+        body{font-family:Inter,system-ui,sans-serif;padding:40px;line-height:1.6;}
+        h1{font-size:30px;color:#1a4fb3;margin-bottom:10px;}
+        h3{margin-top:20px;}
+        ul{margin-left:20px;}
+      </style>
+    </head>
+    <body>
+      <h1>NOVAK Protocol — Executive Overview</h1>
+      <p>
+        NOVAK is a cryptographic proof-before-action gate for automated systems.
+        It forces machines to generate tamper-evident justification
+        <strong>before</strong> money moves, records change, or decisions execute.
+      </p>
+
+      <h3>What Problem Does NOVAK Address?</h3>
+      <ul>
+        <li>Opaque automated decisions with no clear proof trail</li>
+        <li>Post-hoc auditing that happens long after harm or payment</li>
+        <li>Silent data tampering and configuration drift</li>
+        <li>Inconsistent or non-deterministic system behavior</li>
+      </ul>
+
+      <h3>Core NOVAK Components (with legacy names)</h3>
+      <ul>
+        <li>Execution Identity Receipt (formerly NIPS)</li>
+        <li>Recursive Global Audit Chain (formerly REVELATION)</li>
+        <li>NOVAK Safety Gate (formerly HARMONEE)</li>
+        <li>Formal proof of legality over time (ℕ)</li>
+      </ul>
+
+      <h3>Where It Applies</h3>
+      <ul>
+        <li>U.S. Federal and state benefits & claims (VA, DoD, SSA)</li>
+        <li>Healthcare decision support and clinical automation</li>
+        <li>Defense, robotics, and safety-critical control systems</li>
+        <li>Banking, fintech, and high-risk financial workflows</li>
+      </ul>
+
+      <footer style="margin-top:40px;font-size:12px;opacity:.7;">
+        NOVAK Protocol — Patent Pending © 2025
+      </footer>
+    </body>
+    </html>
+  `);
+  win.document.close();
+  win.print();
+  addTimeline("Opened Executive One-Pager for print/export");
+}
+
+/* ========= MINI-GAMES ========= */
+
+function startTamperGame() {
+  gameScore = 0;
+  gameBox.style.display = "block";
+  gameBox.innerHTML = `
+    <h3>Spot the Tampered Claim 🕵️</h3>
+    <p>Two VA disability claims look almost identical. One was altered.</p>
+    <pre style="font-family:'JetBrains Mono',monospace;font-size:12px;white-space:pre-wrap;margin-top:8px;">
+Claim A:
+Veteran: John Sample
+Rating: 40%
+Condition: Lumbar Disc Disease
+
+Claim B:
+Veteran: John Sample
+Rating: 60%
+Condition: Lumbar Disc Disease
+    </pre>
+    <p>Which claim would NOVAK flag as changed?</p>
+    <div style="margin-top:8px;display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="action-btn" onclick="tamperGameAnswer('A')">Claim A</button>
+      <button class="action-btn" onclick="tamperGameAnswer('B')">Claim B</button>
+    </div>
+    <div id="tamperGameFeedback" style="margin-top:10px;font-size:14px;"></div>
+  `;
+  gameBox.scrollIntoView({ behavior: "smooth", block: "center" });
+  addTimeline("Started mini-game: Spot the Tamper");
+}
+
+function tamperGameAnswer(choice) {
+  const fb = document.getElementById("tamperGameFeedback");
+  if (!fb) return;
+  if (choice === "B") {
+    gameScore++;
+    playSound("correct");
+    fb.innerHTML = "✅ Correct. The rating changed from 40% → 60%. NOVAK would see the fingerprint change immediately.";
+  } else {
+    playSound("wrong");
+    fb.innerHTML = "❌ Not quite. Claim B is the altered one — the rating was modified.";
+  }
+}
+
+/* Hash Match Memory – text-based stub */
+function startHashMatch() {
+  gameScore = 0;
+  gameBox.style.display = "block";
+  gameBox.innerHTML = `
+    <h3>Hash Match Memory 🧩</h3>
+    <p>
+      Below are two short datasets and three fingerprints. Try to guess which
+      fingerprint belongs to which dataset. In a real game, these would be
+      interactive flip-cards.
+    </p>
+    <pre style="font-family:'JetBrains Mono',monospace;font-size:12px;margin-top:8px;">
+Dataset 1: "Pay veteran $200 for travel reimbursement."
+Dataset 2: "Pay veteran $220 for travel reimbursement."
+    </pre>
+    <p style="margin-top:8px;">Question: Do these datasets ever share the same fingerprint?</p>
+    <div style="margin-top:8px;display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="action-btn" onclick="hashMatchAnswer('yes')">Yes</button>
+      <button class="action-btn" onclick="hashMatchAnswer('no')">No</button>
+    </div>
+    <div id="hashMatchFeedback" style="margin-top:10px;font-size:14px;"></div>
+  `;
+  gameBox.scrollIntoView({ behavior: "smooth", block: "center" });
+  addTimeline("Started mini-game: Hash Match Memory");
+}
+
+function hashMatchAnswer(ans) {
+  const fb = document.getElementById("hashMatchFeedback");
+  if (!fb) return;
+  if (ans === "no") {
+    gameScore++;
+    playSound("correct");
+    fb.innerHTML = "✅ Correct. A one-character change (“200” → “220”) produces a completely different fingerprint.";
+  } else {
+    playSound("wrong");
+    fb.innerHTML = "❌ No. Even tiny text changes produce different hashes in practice.";
+  }
+}
+
+/* Key game */
+function startKeyGame() {
+  gameBox.style.display = "block";
+  gameBox.innerHTML = `
+    <h3>Find the Valid Key 🔐</h3>
+    <p>
+      Only one dataset matches the approved fingerprint. Which one should be
+      allowed to execute?
+    </p>
+    <ol style="margin-top:8px;">
+      <li>Dataset A: Original, approved claim.</li>
+      <li>Dataset B: Same claim, but payment amount increased.</li>
+      <li>Dataset C: Same claim, but diagnosis text changed.</li>
+    </ol>
+    <p style="margin-top:8px;">Which dataset keeps the original NOVAK key?</p>
+    <div style="margin-top:8px;display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="action-btn" onclick="keyGameAnswer('A')">Dataset A</button>
+      <button class="action-btn" onclick="keyGameAnswer('B')">Dataset B</button>
+      <button class="action-btn" onclick="keyGameAnswer('C')">Dataset C</button>
+    </div>
+    <div id="keyGameFeedback" style="margin-top:10px;font-size:14px;"></div>
+  `;
+  gameBox.scrollIntoView({ behavior: "smooth", block: "center" });
+  addTimeline("Started mini-game: Find the Valid Key");
+}
+
+function keyGameAnswer(choice) {
+  const fb = document.getElementById("keyGameFeedback");
+  if (!fb) return;
+  if (choice === "A") {
+    gameScore++;
+    playSound("correct");
+    fb.innerHTML = "✅ Correct. Only the untouched dataset keeps the original key. Any change means a new fingerprint.";
+  } else {
+    playSound("wrong");
+    fb.innerHTML = "❌ Incorrect. Once data changes, the NOVAK key no longer fits, and execution must be blocked.";
+  }
+}
+
+/* Fraud Detective */
+function startFraudDetective() {
+  gameBox.style.display = "block";
+  gameBox.innerHTML = `
+    <h3>Fraud Detective Mode 🚨</h3>
+    <p>
+      Type in the main input box above to simulate subtle changes:
+      add a zero, change a date, tweak a diagnosis. Watch all the
+      fingerprints change in real time.
+    </p>
+    <p style="margin-top:8px;">
+      Your job: think like a fraudster. NOVAK’s job: make their work
+      mathematically impossible to hide.
+    </p>
+    <p style="margin-top:8px;font-size:13px;opacity:.8;">
+      Hint: Try changing just one number in a dollar amount and watch
+      how every hash reacts.
+    </p>
+  `;
+  gameBox.scrollIntoView({ behavior: "smooth", block: "center" });
+  addTimeline("Started mini-game: Fraud Detective");
+}
+
+/* ========= GLORY TO GOD TOGGLE ========= */
+function toggleGlory() {
+  const box = document.getElementById("glorySection");
+  if (!box) return;
+  const show = box.style.display !== "block";
+  box.style.display = show ? "block" : "none";
+  if (show) box.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+/* ========= INIT ========= */
+document.addEventListener("DOMContentLoaded", () => {
+  applySavedTheme();
+
+  if (localStorage.getItem("hideWhyNovak") === "1") {
+    const card = document.getElementById("whyNovakCard");
+    if (card) card.style.display = "none";
+  }
+
+  setAudience("public");
+  compute();
+  addTimeline("NOVAK demo initialized");
+});
+</script>
+</body>
+</html>
