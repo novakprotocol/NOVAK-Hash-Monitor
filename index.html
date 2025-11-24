@@ -1,387 +1,593 @@
+<!-- ✅ NOVAK Protocol — Final Public Demo Build (PART 1 of 3) -->
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>NOVAK Protocol — Proof-Before-Action Integrity</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NOVAK Protocol — Proof-Before-Action Integrity</title>
 
-<meta name="description"
-  content="NOVAK Protocol — mathematical proof-before-action execution integrity preventing fraud, automation failure, mispayment, wrongful denial, cyber manipulation, and evidence tampering." />
+  <meta name="description"
+        content="NOVAK Protocol — execution integrity, fraud prevention, cryptographic proof-before-action verification for government, finance, healthcare, AI, robotics, and national security." />
 
-<link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="icon" type="image/png" href="favicon.png" />
 
-<!-- ✅ Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono&display=swap"
-      rel="stylesheet" />
+  <!-- ✅ Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono&display=swap"
+        rel="stylesheet" />
 
-<style>
-/* ============================================================================ */
-/* ✅ GLOBAL RESET + BASE TYPOGRAPHY */
-/* ============================================================================ */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Inter", sans-serif;
-}
+  <style>
+    /* ====================================================================== */
+    /* ✅ GLOBAL RESET + TYPOGRAPHY                                           */
+    /* ====================================================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", sans-serif;
+    }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.55;
-  -webkit-font-smoothing: antialiased;
-  font-size: 16px;
-  overflow-x: hidden;
-}
+    body {
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      font-size: 16px;
+    }
 
-/* Ensures nothing hides under sticky header */
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 28px;
-  position: relative;
-  z-index: 1;
-}
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+    }
 
-/* ============================================================================ */
-/* ✅ COLOR VARIABLES + THEMES */
-/* ============================================================================ */
-:root {
-  --blue: #1a4fb3;
-  --blue-hover: #0f357f;
-  --green: #059669;
-  --red: #dc2626;
-  --yellow: #e8b400;
+    /* ====================================================================== */
+    /* ✅ COLOR SYSTEM — THEME VARIABLES                                      */
+    /* ====================================================================== */
+    :root {
+      --blue: #1a4fb3;
+      --blue-hover: #0f357f;
+      --green: #059669;
+      --red: #dc2626;
+      --yellow: #e8b400;
 
-  --bg-light: #f8fafc;
-  --bg-dark: #0f172a;
+      --bg-light: #f8fafc;
+      --bg-dark: #0f172a;
 
-  --text-light: #0b1326;
-  --text-dark: #e6edf5;
+      --text-light: #0b1326;
+      --text-dark: #e6edf5;
 
-  --card-light: #ffffff;
-  --card-dark: #1e293b;
+      --card-light: #ffffff;
+      --card-dark: #1e293b;
 
-  --border-light: #d4d8e1;
-  --border-dark: #334155;
-}
+      --border-light: #d4d8e1;
+      --border-dark: #334155;
+    }
 
-/* Light */
-html[data-theme="light"] {
-  --bg: var(--bg-light);
-  --text: var(--text-light);
-  --card: var(--card-light);
-  --border: var(--border-light);
-}
+    /* Light Mode */
+    html[data-theme="light"] {
+      --bg: var(--bg-light);
+      --text: var(--text-light);
+      --card: var(--card-light);
+      --border: var(--border-light);
+    }
 
-/* Dark */
-html[data-theme="dark"] {
-  --bg: var(--bg-dark);
-  --text: var(--text-dark);
-  --card: var(--card-dark);
-  --border: var(--border-dark);
-}
+    /* Dark Mode */
+    html[data-theme="dark"] {
+      --bg: var(--bg-dark);
+      --text: var(--text-dark);
+      --card: var(--card-dark);
+      --border: var(--border-dark);
+    }
 
-/* ✅ Fix button readability in Dark Mode */
-html[data-theme="dark"] .aud-btn,
-html[data-theme="dark"] .explain-btn,
-html[data-theme="dark"] .action-btn,
-html[data-theme="dark"] .theme-toggle {
-  color: #ffffff !important;
-  border-color: #ffffff !important;
-}
+    /* Ensure readable buttons in Dark Mode */
+    html[data-theme="dark"] .explain-btn,
+    html[data-theme="dark"] .action-btn,
+    html[data-theme="dark"] .theme-toggle,
+    html[data-theme="dark"] .aud-btn {
+      color: #ffffff !important;
+      border-color: #ffffff !important;
+    }
 
-html[data-theme="dark"] .theme-toggle:hover {
-  background: #ffffff;
-  color: #000000 !important;
-}
+    html[data-theme="dark"] .theme-toggle:hover {
+      background: #ffffff;
+      color: #000000 !important;
+    }
 
-/* ============================================================================ */
-/* ✅ HEADER — CENTERED + ALWAYS CLICKABLE */
-/* ============================================================================ */
-#mainHeader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 22px;
-  padding: 20px 32px;
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
+    html[data-theme="dark"] .card {
+      color: var(--text-dark);
+    }
 
-#novakBrand {
-  font-size: 30px;
-  font-weight: 700;
-  color: var(--blue);
-  white-space: nowrap;
-  user-select: none;
-}
+    /* ====================================================================== */
+    /* ✅ STICKY HEADER — CENTERED BRAND + SITE + THEME TOGGLE                */
+    /* ====================================================================== */
+    #mainHeader {
+      display: flex;
+      align-items: center;
+      padding: 14px 28px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+    }
 
-#novakSiteLink {
-  font-size: 15px;
-  color: var(--blue);
-  text-decoration: none;
-}
+    .header-left {
+      width: 80px; /* spacer, can stay mostly empty */
+    }
 
-.theme-toggle {
-  cursor: pointer;
-  font-size: 14px;
-  padding: 7px 14px;
-  border-radius: 6px;
-  border: 1px solid var(--blue);
-  background: transparent;
-  color: var(--blue);
-  transition: 0.25s;
-}
+    .header-center {
+      flex: 1;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
 
-.theme-toggle:hover {
-  background: var(--blue);
-  color: #fff;
-}
+    #novakBrand {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--blue);
+      white-space: nowrap;
+      user-select: none;
+    }
 
-/* ============================================================================ */
-/* ✅ SHARED UI ELEMENTS */
-/* ============================================================================ */
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 26px;
-  margin-top: 32px;
-}
+    #novakTagline {
+      font-size: 13px;
+      opacity: 0.85;
+    }
 
-.section-title {
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 14px;
-}
+    #novakSiteLink {
+      font-size: 14px;
+      color: var(--blue);
+      text-decoration: none;
+    }
 
-.action-btn {
-  padding: 9px 16px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  background: var(--blue);
-  color: #fff;
-  font-size: 14px;
-  transition: 0.25s;
-}
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-.action-btn:hover {
-  background: var(--blue-hover);
-}
+    #headerControls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-/* ✅ Audience buttons */
-.aud-btn {
-  border: 1px solid var(--blue);
-  background: transparent;
-  padding: 10px 18px;
-  border-radius: 22px;
-  cursor: pointer;
-  font-size: 15px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: 0.25s;
-  pointer-events: auto;
-}
+    .theme-toggle {
+      cursor: pointer;
+      font-size: 14px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--blue);
+      background: transparent;
+      color: var(--blue);
+      transition: 0.25s;
+    }
 
-.aud-btn.active {
-  background: var(--blue);
-  color: #ffffff !important;
-  border-color: var(--blue);
-}
+    .theme-toggle:hover {
+      background: var(--blue);
+      color: #fff;
+    }
 
-/* ✅ Prevent analogy output from sliding upward */
-#explainerOutput {
-  scroll-margin-top: 140px;
-}
+    /* Mobile Menu */
+    #mobileMenuBtn {
+      display: none;
+      font-size: 26px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
 
-/* ============================================================================ */
-/* ✅ MOBILE */
-/* ============================================================================ */
-@media (max-width: 720px) {
-  #mainHeader {
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  #novakBrand {
-    font-size: 24px;
-  }
-  .container {
-    padding: 18px;
-  }
-}
-</style>
+    #mobileMenuPanel {
+      display: none;
+      flex-direction: column;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 22px 14px;
+      gap: 8px;
+    }
+
+    /* ====================================================================== */
+    /* ✅ SHARED UI — CARDS, TITLES, BUTTONS                                  */
+    /* ====================================================================== */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 26px;
+      margin-top: 28px;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .pill-btn {
+      border-radius: 999px;
+      border: 1px solid var(--blue);
+      background: #ffffff;
+      padding: 8px 18px;
+      cursor: pointer;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--blue);
+      transition: 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .pill-btn:hover {
+      background: rgba(26, 79, 179, 0.06);
+    }
+
+    /* Audience buttons */
+    .aud-btn {
+      composes: pill-btn;
+    }
+
+    .aud-btn.active {
+      border-color: #000000;
+      box-shadow: 0 0 0 2px #000000;
+      background: #ffffff;
+      color: #000000;
+    }
+
+    /* Explain buttons reuse the same base */
+    .explain-btn {
+      composes: pill-btn;
+    }
+
+    /* Primary CTA */
+    .action-btn {
+      padding: 9px 16px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      background: var(--blue);
+      color: #fff;
+      font-size: 14px;
+      transition: 0.25s;
+    }
+
+    .action-btn:hover {
+      background: var(--blue-hover);
+    }
+
+    /* Restore buttons under cards */
+    .restore-btn {
+      padding: 8px 18px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    /* ====================================================================== */
+    /* ✅ ACCESSIBILITY                                                        */
+    /* ====================================================================== */
+    :focus-visible {
+      outline: 3px solid var(--blue);
+      border-radius: 6px;
+    }
+
+    /* ====================================================================== */
+    /* ✅ RESPONSIVE                                                           */
+    /* ====================================================================== */
+    @media (max-width: 720px) {
+      #mainHeader {
+        padding: 10px 14px;
+      }
+
+      .header-left {
+        display: none;
+      }
+
+      .header-right {
+        gap: 6px;
+      }
+
+      #novakBrand {
+        font-size: 22px;
+      }
+
+      #novakTagline {
+        font-size: 12px;
+      }
+
+      .container {
+        padding: 18px;
+      }
+
+      #headerControls {
+        display: none;
+      }
+
+      #mobileMenuBtn {
+        display: block;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
+<!-- ✅ GLOBAL HEADER -->
 <header id="mainHeader">
-  <div id="novakBrand">NOVAK Protocol</div>
+  <div class="header-left"></div>
 
-  <a id="novakSiteLink"
-     href="https://www.novakprotocol.com"
-     target="_blank"
-     rel="noopener noreferrer">
-     www.novakprotocol.com
-  </a>
+  <div class="header-center">
+    <div id="novakBrand">NOVAK Protocol</div>
+    <div id="novakTagline">
+      <strong>NOVAK</strong> = <em>Non-Overridable Verifiable Audit Kernel</em>
+    </div>
+    <a id="novakSiteLink"
+       href="https://www.novakprotocol.com"
+       target="_blank"
+       rel="noopener noreferrer">
+      www.novakprotocol.com
+    </a>
+  </div>
 
-  <button class="theme-toggle" onclick="toggleTheme()">Light/Dark</button>
+  <div class="header-right">
+    <div id="headerControls">
+      <button class="theme-toggle" onclick="toggleTheme()">Light/Dark</button>
+    </div>
+    <button id="mobileMenuBtn" onclick="toggleMobileMenu()">☰</button>
+  </div>
 </header>
 
+<!-- ✅ MOBILE DROPDOWN -->
+<div id="mobileMenuPanel">
+  <button class="theme-toggle" onclick="toggleTheme()">Light/Dark Mode</button>
+</div>
+
+<!-- ✅ MAIN CONTENT START -->
 <div class="container">
 
-<!-- ✅ NOVAK Acronym + Intro -->
-<div class="card" style="margin-top:18px;">
-  <h2 class="section-title">What is NOVAK?</h2>
+  <!-- ================================================================ -->
+  <!-- ✅ AUDIENCE SELECTOR + WHY NOVAK + WHAT IS NOVAK SECTION         -->
+  <!-- ================================================================ -->
 
-  <p style="font-size:17px; margin-bottom:12px;">
-    <strong>NOVAK = NOVAK Verification And Knowledge</strong> —
-    meaning no automated decision may execute unless its data, rules,
-    timing, and output are mathematically proven correct first.
-  </p>
+  <h2 style="margin-top:24px; margin-bottom:10px;">Choose Your Role or Interest:</h2>
 
-  <p>
-    NOVAK ensures integrity <strong>before</strong> action — preventing fraud,
-    wrongful denials, mispayments, cyber manipulation, data tampering, and
-    automation failure.
-  </p>
+  <!-- Audience Selector -->
+  <div id="audienceNav" class="pill-row" style="margin-bottom:16px;">
+    <button id="btn-public"     class="aud-btn" onclick="setAudience('public')">🌍 Public</button>
+    <button id="btn-government" class="aud-btn" onclick="setAudience('government')">🏛 Government</button>
+    <button id="btn-investor"   class="aud-btn" onclick="setAudience('investor')">💼 Investor</button>
+    <button id="btn-cyber"      class="aud-btn" onclick="setAudience('cyber')">🛡 Cybersecurity</button>
+    <button id="btn-academic"   class="aud-btn" onclick="setAudience('academic')">🎓 Academic</button>
+  </div>
 
-  <p style="margin-top:14px; font-weight:600;">
-    ✅ Not blockchain • ✅ Not cryptocurrency • ✅ Not SSL/TLS • ✅ Not AI trust •
-    ✅ Not logging after the fact
-  </p>
+  <!-- Audience messaging output -->
+  <div id="audienceContent"
+       class="card"
+       style="margin-top:0; font-size:16px; line-height:1.55;">
+  </div>
 
-  <p style="margin-top:8px;">
-    NOVAK is independent proof — <strong>math instead of trust.</strong>
-  </p>
-</div>
+  <!-- Restore WHY NOVAK button -->
+  <div style="display:flex; justify-content:center; margin-top:10px;">
+    <button id="restoreWhyBtn"
+      onclick="restoreWhyNovakSection()"
+      class="restore-btn"
+      style="display:none;">
+      🔄 Show “Why NOVAK — Why Now?”
+    </button>
+  </div>
 
-<!-- ✅ AUDIENCE SELECTOR -->
-<h3 style="margin-top:44px; font-size:20px;">Choose Your Role or Interest:</h3>
+  <!-- WHY NOVAK — WHY NOW? -->
+  <div id="whyNovakCard" class="card" style="margin-top:24px; position:relative;">
+    <h2 class="section-title">Why NOVAK — Why Now?</h2>
 
-<div id="audienceNav"
-     style="display:flex; flex-wrap:wrap; gap:12px; margin-top:14px;">
-  <button id="btn-public" class="aud-btn" onclick="setAudience('public')">🌍 Public</button>
-  <button id="btn-government" class="aud-btn" onclick="setAudience('government')">🏛 Government</button>
-  <button id="btn-investor" class="aud-btn" onclick="setAudience('investor')">💼 Investor</button>
-  <button id="btn-cyber" class="aud-btn" onclick="setAudience('cyber')">🛡 Cybersecurity</button>
-  <button id="btn-academic" class="aud-btn" onclick="setAudience('academic')">🎓 Academic</button>
-</div>
+    <p>
+      Automation now approves mortgages, denies veterans’ benefits, sets insurance rates, steers vehicles,
+      recommends surgeries, and moves trillions of dollars — often without proof of correctness, legality, or integrity.
+    </p>
 
-<!-- ✅ AUDIENCE EXPLANATION OUTPUT -->
-<div id="audienceContent" class="card" style="margin-top:18px; font-size:16px;"></div>
+    <p style="margin-top:12px;">
+      NOVAK changes this — requiring mathematical proof <strong>before</strong> any automated action occurs.
+    </p>
 
-<!-- ✅ WHY NOVAK -->
-<div id="whyNovakCard" class="card" style="margin-top:32px; position:relative;">
-  <h2 class="section-title">Why NOVAK — Why Now?</h2>
+    <ul style="margin-top:12px; margin-left:20px;">
+      <li>If data changes → NOVAK detects instantly</li>
+      <li>If rule is wrong → NOVAK blocks execution</li>
+      <li>If fraud occurs → NOVAK produces evidence</li>
+      <li>If system glitches → NOVAK prevents harm</li>
+    </ul>
 
-  <p>
-    Automation now approves mortgages, denies veterans’ benefits, sets insurance
-    rates, recommends surgeries, steers vehicles, controls trades, and moves
-    trillions — often without proof of correctness, legality, or integrity.
-  </p>
+    <p style="margin-top:14px; font-weight:600;">
+      No blockchain. No cryptocurrency. No SSL/TLS tunnel. No central authority. Just cryptographic
+      proof-before-action execution integrity.
+    </p>
 
-  <p style="margin-top:12px;">
-    NOVAK fixes this by requiring mathematical proof <strong>before</strong>
-    any automated action can occur.
-  </p>
+    <!-- Close X -->
+    <button onclick="dismissWhyNovak()"
+      style="
+        position:absolute;
+        top:14px;
+        right:14px;
+        background:none;
+        border:none;
+        font-size:20px;
+        cursor:pointer;
+      "
+      aria-label="Hide Why NOVAK section">
+      ✕
+    </button>
 
-  <ul style="margin-top:14px; margin-left:22px;">
-    <li>If data changes → NOVAK detects instantly</li>
-    <li>If a rule is wrong → NOVAK blocks execution</li>
-    <li>If fraud occurs → NOVAK generates evidence</li>
-    <li>If systems glitch → NOVAK prevents harm</li>
-  </ul>
+    <!-- Confirm hide -->
+    <button onclick="dismissWhyNovak()" class="action-btn" style="margin-top:18px;">
+      ✅ Got it — Hide
+    </button>
+  </div>
 
-  <p style="margin-top:14px; font-weight:600;">
-    No blockchain. No cryptocurrency. No central authority.
-    Just cryptographic integrity.
-  </p>
+  <!-- Restore WHAT IS NOVAK button -->
+  <div style="display:flex; justify-content:center; margin-top:10px;">
+    <button id="restoreWhatIsBtn"
+      onclick="restoreWhatIsNovakSection()"
+      class="restore-btn"
+      style="display:none;">
+      🔄 Show “What is NOVAK?”
+    </button>
+  </div>
 
-  <button onclick="dismissWhyNovak()" class="action-btn" style="margin-top:18px;">
-    ✅ Got it — Hide
-  </button>
-</div>
+  <!-- WHAT IS NOVAK? (Name + NOT Blockchain/Bitcoin/SSL) -->
+  <div id="whatIsNovakCard" class="card" style="margin-top:24px; position:relative;">
+    <h2 class="section-title">What is NOVAK?</h2>
 
-<!-- ✅ RESTORE WHY NOVAK BUTTON -->
-<div style="display:flex; justify-content:center; margin-top:10px;">
-  <button id="restoreWhyBtn"
-    onclick="restoreWhyNovakSection()"
-    style="display:none; padding:8px 18px; border-radius:8px;
-           border:1px solid var(--border); cursor:pointer; font-size:14px;">
-    🔄 Show “Why NOVAK — Why Now?”
-  </button>
-</div>
+    <p style="margin-bottom:10px;">
+      <strong>NOVAK</strong> stands for
+      <strong>Non-Overridable Verifiable Audit Kernel</strong>.
+      It is a cryptographic “governor” that forces any automated system to prove integrity
+      <em>before</em> it is allowed to act.
+    </p>
 
-<!-- ✅ ANALOGY BUTTONS -->
-<div style="margin-top:28px; display:flex; flex-wrap:wrap; gap:14px;">
-  <button class="explain-btn" onclick="showExplain('simple')">🤯 I don’t get it</button>
-  <button class="explain-btn" onclick="showExplain('milkshake')">🥤 Milkshake Analogy</button>
-  <button class="explain-btn" onclick="showExplain('pencil')">🖍️ Colored Pencil Analogy</button>
-  <button class="explain-btn" onclick="showExplain('key')">🔑 Key Analogy</button>
-  <button class="explain-btn" onclick="showExplain('gov')">🏛 Government Savings</button>
-  <button class="explain-btn" onclick="showExplain('how')">👁️ Show Me How This Works</button>
-</div>
+    <ul style="margin-left:20px; margin-bottom:14px;">
+      <li><strong>Non-Overridable</strong> — Humans, AI, or malware cannot silently bypass it.</li>
+      <li><strong>Verifiable</strong> — Every decision has a math-checkable receipt.</li>
+      <li><strong>Audit Kernel</strong> — A small, hardened layer that sits beside existing systems and
+          enforces proof-before-action.</li>
+    </ul>
 
-<!-- ✅ ANALOGY CONTENT DISPLAY -->
-<div id="explainerOutput" class="card" style="display:none; margin-top:22px;"></div>
+    <p style="margin-bottom:8px; font-weight:600;">
+      NOVAK is <u>not</u>:
+    </p>
+    <ul style="margin-left:20px; margin-bottom:6px;">
+      <li>❌ Not a blockchain</li>
+      <li>❌ Not a cryptocurrency or token</li>
+      <li>❌ Not SSL/TLS or a VPN tunnel</li>
+      <li>❌ Not a logging system that only reacts after harm</li>
+    </ul>
 
-<!-- ✅ WHAT CHANGES -->
-<div id="whatChangesCard" class="card" style="margin-top:32px; position:relative;">
-  <h2 class="section-title">What Changes With NOVAK?</h2>
+    <p>
+      Instead, NOVAK sits <em>in front</em> of critical actions and demands cryptographic proof that
+      <strong>data, rules, and outputs all match</strong> what was approved. If anything is off — it refuses
+      to execute.
+    </p>
 
-  <p>
-    Most systems today rely on logging <strong>after</strong> something has already
-    happened. NOVAK requires proof <strong>before</strong> execution.
-  </p>
+    <!-- Close X -->
+    <button onclick="dismissWhatIsNovak()"
+      style="
+        position:absolute;
+        top:14px;
+        right:14px;
+        background:none;
+        border:none;
+        font-size:20px;
+        cursor:pointer;
+      "
+      aria-label="Hide What is NOVAK section">
+      ✕
+    </button>
 
-  <p style="margin-top:14px; color:var(--red); font-weight:600;">❌ Without NOVAK</p>
-  <p>
-    Harm still occurs — data wrong, fraud not detected, decisions unprovable,
-    no cryptographic guarantee of legality or correctness.
-  </p>
+    <!-- Confirm hide -->
+    <button onclick="dismissWhatIsNovak()" class="action-btn" style="margin-top:18px;">
+      ✅ Got it — Hide
+    </button>
+  </div>
 
-  <p style="margin-top:14px; color:var(--green); font-weight:600;">✅ With NOVAK</p>
-  <p>
-    Data + rules + output are cryptographically bound — fraud blocked instantly,
-    wrongful denials prevented, evidence auto-generated.
-  </p>
+  <!-- EXPLAINER BUTTONS -->
+  <div style="margin-top:26px;" class="pill-row">
+    <button class="pill-btn explain-btn" onclick="showExplain('simple')">🤯 I don't get it</button>
+    <button class="pill-btn explain-btn" onclick="showExplain('milkshake')">🥤 Milkshake Analogy</button>
+    <button class="pill-btn explain-btn" onclick="showExplain('pencil')">🖍️ Colored Pencil Analogy</button>
+    <button class="pill-btn explain-btn" onclick="showExplain('key')">🔑 Key Analogy</button>
+    <button class="pill-btn explain-btn" onclick="showExplain('gov')">🏛 Government Savings</button>
+    <button class="pill-btn explain-btn" onclick="showExplain('how')">👁️ Show Me How This Works</button>
+  </div>
 
-  <button onclick="dismissWhatChanges()" class="action-btn" style="margin-top:18px;">
-    ✅ Got it — Hide
-  </button>
-</div>
+  <!-- ANALOGY OUTPUT -->
+  <div id="explainerOutput" class="card" style="display:none; margin-top:22px;"></div>
 
-<div style="display:flex; justify-content:center; margin-top:10px;">
-  <button id="restoreWhatBtn"
-    onclick="restoreWhatChangesSection()"
-    style="display:none; padding:8px 18px; border-radius:8px;
-           border:1px solid var(--border); cursor:pointer; font-size:14px;">
-    🔄 Show “What Changes With NOVAK?”
-  </button>
-</div>
+  <!-- WHAT CHANGES WITH NOVAK -->
+  <div id="whatChangesCard" class="card" style="margin-top:32px; position:relative;">
+    <h2 class="section-title">What Changes With NOVAK?</h2>
 
-<!-- ✅ LIVE HASHING DEMO -->
-<div class="card" style="margin-top:36px;">
+    <p>
+      Most systems today rely on logging <strong>after</strong> something already happened.
+      NOVAK requires proof <strong>before</strong> action.
+    </p>
+
+    <div style="margin-top:14px;">
+      <p style="color:var(--red); font-weight:600; margin-bottom:6px;">❌ Without NOVAK</p>
+      <p style="margin-bottom:14px;">
+        System executes even if data is wrong — Hash exists but cannot stop harm — Fraud discovered weeks or years later —
+        No mathematical guarantee of legality — Human trust required.
+      </p>
+
+      <p style="color:var(--green); font-weight:600; margin-bottom:6px;">✅ With NOVAK</p>
+      <p>
+        Proof required before action — Data, rules &amp; output cryptographically bound —
+        Fraud blocked instantly — Evidence auto-generated —
+        Trust replaced with math.
+      </p>
+    </div>
+
+    <!-- Close X -->
+    <button onclick="dismissWhatChanges()"
+      style="
+        position:absolute;
+        top:14px;
+        right:14px;
+        font-size:20px;
+        background:none;
+        border:none;
+        cursor:pointer;
+      "
+      aria-label="Hide What Changes With NOVAK">
+      ✕
+    </button>
+
+    <!-- Confirm hide -->
+    <button class="action-btn" onclick="dismissWhatChanges()" style="margin-top:18px;">
+      ✅ Got it — Hide
+    </button>
+  </div>
+
+  <!-- Restore WHAT CHANGES button -->
+  <div style="display:flex; justify-content:center; margin-top:10px;">
+    <button id="restoreWhatBtn"
+      onclick="restoreWhatChangesSection()"
+      class="restore-btn"
+      style="display:none;">
+      🔄 Show “What Changes With NOVAK?”
+    </button>
+  </div>
+
+  <!-- ==================================================================== -->
+  <!--  END OF PART 1 — NEXT MESSAGE (PART 2) STARTS WITH TRY-IT HASH AREA  -->
+  <!-- ==================================================================== -->
+
+  <!-- ✅ PART 2 — Try It + Hash Engine + Example Data + File Drop + VIN + Games -->
+
+<!-- ✅ TRY IT — LIVE HASH INPUT -->
+<div class="card" style="margin-top:38px;">
   <h2 class="section-title">Try It — Prove Integrity Yourself</h2>
 
   <p>
-    Type, paste, or edit anything. Hashes update instantly using real cryptography —
-    nothing is stored, uploaded, logged, or transmitted.
+    Type, paste, or modify anything below — NOVAK instantly generates cryptographic hashes locally
+    using your device. Nothing is stored, logged, transmitted, or uploaded.
   </p>
 
   <textarea id="novakInput"
-    placeholder="Example: VA claim, invoice, VIN, JSON, SQL, contract, medical note..."
-    style="width:100%; height:170px; margin-top:16px;
-           font-family:'JetBrains Mono', monospace; font-size:14px; padding:12px;">
-  </textarea>
+    placeholder="Example: VA claim, invoice, medical note, VIN, contract, JSON, SQL, XML..."
+    style="width:100%; height:170px; margin-top:16px; font-family:'JetBrains Mono', monospace;
+           font-size:14px; padding:12px;"></textarea>
 
-  <div style="margin-top:14px; display:flex; gap:16px; flex-wrap:wrap;">
+  <!-- ✅ Hash Algorithm Selector -->
+  <div style="margin-top:16px; display:flex; flex-wrap:wrap; gap:18px;">
     <label><input type="checkbox" class="hashAlgo" value="SHA-256" checked> SHA-256</label>
     <label><input type="checkbox" class="hashAlgo" value="SHA-512" checked> SHA-512</label>
     <label><input type="checkbox" class="hashAlgo" value="SHA-384"> SHA-384</label>
@@ -390,376 +596,180 @@ html[data-theme="dark"] .theme-toggle:hover {
 </div>
 
 <!-- ✅ HASH OUTPUT -->
-<div class="card" style="margin-top:20px;">
+<div class="card" style="margin-top:22px;">
   <h3 class="section-title" style="font-size:20px;">Cryptographic Hashes</h3>
+
   <div id="hashOutputList"
-       style="margin-top:10px; font-family:'JetBrains Mono', monospace; font-size:14px;
-              word-wrap:break-word; overflow-wrap:break-word;">
+       style="margin-top:10px; font-family:'JetBrains Mono', monospace; font-size:14px;">
     <em>Waiting for input from above...</em>
   </div>
 </div>
 
-<!-- ✅ RGAC -->
-<div class="card" style="margin-top:20px;">
+<!-- ✅ RGAC VISUALIZATION -->
+<div class="card" style="margin-top:22px;">
   <h3 class="section-title" style="font-size:20px;">RGAC — Recursive Global Audit Chain</h3>
+
   <p style="margin-bottom:12px;">
-    Each output becomes input to the next — forming a continuously verifiable integrity chain.
+    In NOVAK, every approved output becomes the next input — forming a self-verifying integrity chain.
   </p>
+
   <div id="rgac"
        style="font-family:'JetBrains Mono', monospace; font-size:14px;">
     <em>Provide input to begin...</em>
   </div>
 </div>
 
+<!-- ✅ FILE DRAG & DROP VERIFICATION -->
+<div class="card" style="margin-top:22px;">
+  <h3 class="section-title" style="font-size:20px;">Verify Any File</h3>
+
+  <p>
+    Upload a PDF, medical record, scanned document, CSV, screenshot, legal filing —
+    NOVAK proves originality instantly using real cryptography.
+  </p>
+
+  <div id="dropzone"
+       style="margin-top:14px; padding:22px; border:2px dashed var(--border);
+              border-radius:10px; text-align:center; cursor:pointer;">
+    📁 Drop file here or click to select
+    <input id="fileInput" type="file" style="display:none" />
+  </div>
+
+  <div id="fileHashResult"
+       style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></div>
+</div>
+
 <!-- ✅ EXAMPLE DATASETS -->
 <div class="card" style="margin-top:32px;">
   <h2 class="section-title">Example Datasets</h2>
-  <p>Select one — instantly loads into the hashing panel above.</p>
+  <p>Select one — it instantly loads into the input above.</p>
 
-  <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:16px;">
-    <button class="explain-btn" onclick="loadExample('va')">🎖️ VA Disability Claim</button>
-    <button class="explain-btn" onclick="loadExample('medical')">🏥 Medical Note</button>
-    <button class="explain-btn" onclick="loadExample('finance')">💰 Financial Transaction</button>
-    <button class="explain-btn" onclick="loadExample('robot')">🤖 Robotics Command</button>
-    <button class="explain-btn" onclick="loadExample('ai')">🧠 AI System Log</button>
-    <button class="explain-btn" onclick="openVinModal()">🚗 VIN Decoder</button>
+  <div class="pill-row" style="margin-top:16px;">
+    <button class="pill-btn" onclick="loadExample('va')">🎖️ VA Disability Claim</button>
+    <button class="pill-btn" onclick="loadExample('medical')">🏥 Medical Note</button>
+    <button class="pill-btn" onclick="loadExample('finance')">💰 Financial Transaction</button>
+    <button class="pill-btn" onclick="loadExample('robot')">🤖 Robotics Command</button>
+    <button class="pill-btn" onclick="loadExample('ai')">🧠 AI System Log</button>
+    <button class="pill-btn" onclick="loadExample('legal')">⚖️ Legal Filing</button>
+    <button class="pill-btn" onclick="openVinModal()">🚗 2022 Corvette VIN</button>
   </div>
 </div>
 
-<script>
-// ===============================================================
-// ✅ GLOBAL STATE
-// ===============================================================
-let currentAudience = "public";
-let soundEnabled = false;
-let storyIndex = 0;
-let storyInterval;
+<!-- ✅ VIN DECODER MODAL -->
+<div id="vinModal"
+     style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+            background:rgba(0,0,0,.55); justify-content:center; align-items:center; z-index:9999;">
+  <div style="background:var(--card); padding:26px; border-radius:10px; width:440px;
+              border:1px solid var(--border); box-shadow:0 4px 18px rgba(0,0,0,.35);">
 
-// ===============================================================
-// ✅ AUDIENCE MESSAGING DATABASE
-// ===============================================================
-const audienceMessages = {
-  public: `NOVAK protects everyday people — ensuring decisions about healthcare,
-housing, credit, employment, pricing, transportation, public safety, and benefits
-cannot be corrupted, miscalculated, or executed without mathematical proof.`,
-  
-  government: `NOVAK prevents improper payments, automation failure, benefit denial errors,
-procurement fraud, data tampering, and cyber-manipulation — without requiring new agencies,
-infrastructure, or laws. Proof-before-action becomes standard.`,
-  
-  investor: `NOVAK reduces enterprise risk, increases defensibility, prevents automated liability,
-enables provable AI products, strengthens compliance, and unlocks modernization markets in
-government, healthcare, insurance, and finance.`,
-  
-  cyber: `NOVAK adds the missing fourth pillar of cybersecurity — prevention. Unlike logging,
-blockchain, IDS, SIEM, or monitoring, NOVAK mathematically blocks unauthorized execution
-before harm occurs. No mining, no consensus, no latency.`,
-  
-  academic: `NOVAK unifies deterministic computation, cryptographic binding, execution receipts,
-and recursive auditability — eliminating epistemic uncertainty in automated decision systems
-at global scale.`
-};
+    <h3 class="section-title" style="font-size:20px;">2022 Corvette VIN Decoder</h3>
 
-// ===============================================================
-// ✅ AUDIENCE SWITCHER — Highlights & Updates Text
-// ===============================================================
-function setAudience(type) {
-  currentAudience = type;
+    <input id="vinInput"
+           placeholder="Enter VIN (17 characters)"
+           maxlength="17"
+           style="margin-top:14px; width:100%; padding:10px;
+                  border:1px solid var(--border); border-radius:6px;
+                  font-family:'JetBrains Mono', monospace; font-size:15px;">
 
-  document.getElementById("audienceContent").textContent = audienceMessages[type];
+    <div id="vinResult"
+         style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></div>
 
-  document.querySelectorAll(".aud-btn")
-    .forEach(btn => btn.classList.remove("active"));
+    <button onclick="closeVinModal()" class="action-btn" style="margin-top:18px; width:100%;">
+      Close
+    </button>
+  </div>
+</div>
 
-  const active = document.getElementById(`btn-${type}`);
-  if (active) active.classList.add("active");
+<!-- ✅ INTERACTIVE MINI-GAMES -->
+<div class="card" style="margin-top:32px;">
+  <h2 class="section-title">Interactive Integrity Challenges</h2>
 
-  // Prevent header collision when updating
-  document.getElementById("audienceContent")
-    .scrollIntoView({ behavior: "smooth", block: "center" });
-}
+  <p>Learn NOVAK by doing — spot fraud, detect tampering, prove originality.</p>
 
-// ===============================================================
-// ✅ WHY NOVAK — Hide/Restore
-// ===============================================================
-function dismissWhyNovak() {
-  document.getElementById("whyNovakCard").style.display = "none";
-  document.getElementById("restoreWhyBtn").style.display = "inline-flex";
-  localStorage.setItem("hideWhyNovak", "true");
-}
+  <div class="pill-row" style="margin-top:16px;">
+    <button class="pill-btn" onclick="startGame('tamper')">🕵️ Spot the Tampering</button>
+    <button class="pill-btn" onclick="startGame('memory')">🧠 Hash Memory Match</button>
+    <button class="pill-btn" onclick="startGame('fraud')">🚨 Fraud Detector</button>
+  </div>
 
-function restoreWhyNovakSection() {
-  document.getElementById("whyNovakCard").style.display = "block";
-  document.getElementById("restoreWhyBtn").style.display = "none";
-  localStorage.removeItem("hideWhyNovak");
-}
+  <!-- game sound toggle -->
+  <button onclick="toggleSound()"
+          class="sound-toggle"
+          aria-label="Toggle game sound"
+          style="margin-top:14px; font-size:20px; background:none; border:none; cursor:pointer;">
+    🔇
+  </button>
+</div>
 
-// ===============================================================
-// ✅ WHAT CHANGES — Hide/Restore
-// ===============================================================
-function dismissWhatChanges() {
-  document.getElementById("whatChangesCard").style.display = "none";
-  document.getElementById("restoreWhatBtn").style.display = "inline-flex";
-  localStorage.setItem("hideWhatChanges", "true");
-}
+<!-- ✅ GAME RENDER CONTAINER -->
+<div id="gameBox" class="card" style="margin-top:20px; display:none;"></div>
 
-function restoreWhatChangesSection() {
-  document.getElementById("whatChangesCard").style.display = "block";
-  document.getElementById("restoreWhatBtn").style.display = "none";
-  localStorage.removeItem("hideWhatChanges");
-}
+<!-- ✅ STRUCTURED DATA VALIDATION -->
+<div class="card" style="margin-top:32px;">
+  <h2 class="section-title">Validate Structured Data</h2>
+  <p>Upload JSON, SQL, XML, or TXT — NOVAK proves it hasn’t changed before execution.</p>
 
-// ===============================================================
-// ✅ EXPLAINERS + ANALOGIES
-// ===============================================================
-const explainTexts = {
-  simple: "NOVAK is like requiring a receipt BEFORE money leaves the account — not weeks later.",
-  milkshake: "If someone secretly waters down your milkshake, you'd notice. NOVAK detects data dilution instantly.",
-  pencil: "Changing a colored pencil drawing always leaves marks — NOVAK guarantees digital evidence too.",
-  key: "A house key doesn’t open every door — NOVAK ensures only mathematically valid data can execute.",
-  gov: "NOVAK could save billions yearly by preventing improper payments BEFORE they happen.",
-  how: "NOVAK binds input + rule + output. If ANY change occurs, execution is cryptographically blocked."
-};
+  <input id="structuredFile"
+         type="file"
+         accept=".json,.sql,.xml,.txt"
+         style="margin-top:16px;">
 
-function showExplain(key) {
-  const box = document.getElementById("explainerOutput");
-  box.style.display = "block";
-  box.textContent = explainTexts[key] || "No explanation available.";
+  <pre id="structuredResult"
+       style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></pre>
+</div>
 
-  // Prevent clipping under header
-  box.scrollIntoView({ behavior: "smooth", block: "center" });
-}
+<!-- ✅ AI TRANSPARENCY MODE -->
+<div class="card" style="margin-top:32px;" id="transparencyCard">
+  <h2 class="section-title">AI Transparency Mode</h2>
 
-// ===============================================================
-// ✅ HASH ENGINE — REAL CRYPTO (Browser Native)
-// ===============================================================
-async function computeHash(algorithm, value) {
-  const data = new TextEncoder().encode(value);
-  const digest = await crypto.subtle.digest(algorithm, data);
+  <p>
+    NOVAK makes automated decisions explainable, provable, lawful, and auditable —
+    instead of mysterious and unchallengeable.
+  </p>
 
-  return Array.from(new Uint8Array(digest))
-    .map(b => b.toString(16).padStart(2, "0"))
-    .join("");
-}
+  <button onclick="toggleTransparency()" class="action-btn" style="margin-top:16px;">
+    Enable Transparency View
+  </button>
+</div>
 
-async function updateHashes() {
-  const input = document.getElementById("novakInput").value.trim();
-  const hashBox = document.getElementById("hashOutputList");
+<!-- ✅ TRANSPARENCY PANEL -->
+<div class="card"
+     id="transparencyView"
+     style="display:none; margin-top:20px; font-family:'JetBrains Mono', monospace; font-size:14px;">
+</div>
 
-  if (!input) {
-    hashBox.innerHTML = "<em>Waiting for input from above...</em>";
-    document.getElementById("rgac").innerHTML = "<em>Provide input to begin...</em>";
-    return;
-  }
+<!-- ✅ INTEGRITY RECEIPT -->
+<div class="card" style="margin-top:32px;">
+  <h2 class="section-title">Integrity Receipt</h2>
 
-  const selected = [...document.querySelectorAll(".hashAlgo:checked")]
-    .map(x => x.value);
+  <p>
+    NOVAK generates a tamper-proof receipt proving what existed, when, and under what rules —
+    useful for courts, claims, audits, cybersecurity, safety systems, and AI oversight.
+  </p>
 
-  hashBox.innerHTML = "";
+  <button class="action-btn" onclick="generateReceipt()" style="margin-top:12px;">
+    Generate Receipt
+  </button>
 
-  for (const algo of selected) {
-    const hash = await computeHash(algo, input);
-    hashBox.innerHTML += `
-      <div style="margin-bottom:6px; display:flex; gap:10px; flex-wrap:wrap;">
-        <strong>${algo}:</strong> 
-        <span style="font-family:'JetBrains Mono', monospace; word-break:break-all;">${hash}</span>
-        <button onclick="navigator.clipboard.writeText('${hash}')"
-                style="padding:2px 6px;">Copy</button>
-      </div>
-    `;
-  }
+  <pre id="receiptOutput"
+       style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px; white-space:pre-wrap;"></pre>
+</div>
 
-  updateRGAC(input);
-}
+<!-- ✅ GUIDED AUTO-SCROLL WALKTHROUGH -->
+<div class="card" style="margin-top:36px;">
+  <h2 class="section-title">Guided NOVAK Walkthrough</h2>
+  <p>Let NOVAK explain itself — automatically, step-by-step.</p>
 
-document.getElementById("novakInput")
-  ?.addEventListener("input", updateHashes);
+  <button class="action-btn"
+          onclick="startStoryMode()"
+          style="margin-top:12px;">
+    ▶ Begin Guided Demo
+  </button>
+</div>
 
-document.querySelectorAll(".hashAlgo")
-  .forEach(cb => cb.addEventListener("change", updateHashes));
-
-// ===============================================================
-// ✅ RGAC VISUALIZATION
-// ===============================================================
-function updateRGAC(input) {
-  const chain = ["Data", "Rule", "Output", "Verifier", "Receipt"];
-  document.getElementById("rgac").innerHTML =
-    chain.map((c, i) => `<div>🔗 ${c} #${i + 1}</div>`).join("");
-}
-
-// ===============================================================
-// ✅ EXAMPLE DATASETS AUTOFILL
-// ===============================================================
-const examples = {
-  va: "Veteran: John Doe\nClaim: PTSD\nEffective Date: 2022-04-19\nRating: 70%",
-  medical: "Patient: Sarah Jones\nDiagnosis: Appendicitis\nProcedure: Laparoscopic Appendectomy",
-  finance: "Transfer: $48,600\nFrom: 8734-9921\nTo: 5529-0032\nReason: Invoice Settlement",
-  robot: "MOVE(arm1, 4.2mm)\nWELD(jointB)\nVERIFY(safetyGateClosed)",
-  ai: "LLM decision trace → Input tokens: 1843\nPolicy rule matched: #17\nConfidence override disabled."
-};
-
-function loadExample(ex) {
-  document.getElementById("novakInput").value = examples[ex] || "";
-  updateHashes();
-  document.getElementById("novakInput")
-    .scrollIntoView({ behavior: "smooth", block: "center" });
-}
-
-// ===============================================================
-// ✅ VIN MODAL
-// ===============================================================
-function openVinModal() {
-  document.getElementById("vinModal").style.display = "flex";
-}
-
-function closeVinModal() {
-  document.getElementById("vinModal").style.display = "none";
-}
-
-function decodeVIN(v) {
-  if (v.length !== 17) return "❌ VIN must be exactly 17 characters.";
-  return `Model Year: 2022\nMake: Chevrolet\nModel: Corvette\nPlant: Bowling Green, KY`;
-}
-
-document.getElementById("vinInput")
-  ?.addEventListener("input", () => {
-    document.getElementById("vinResult").innerHTML =
-      `<pre>${decodeVIN(vinInput.value.trim())}</pre>`;
-  });
-
-// ===============================================================
-// ✅ FILE INTEGRITY CHECKER
-// ===============================================================
-async function handleFile(file) {
-  if (!file) return;
-  const buffer = await file.arrayBuffer();
-  const hash = await computeHash("SHA-256", buffer);
-
-  document.getElementById("fileHashResult").innerHTML =
-    `✅ <strong>${file.name}</strong><br>SHA-256: ${hash}`;
-}
-
-document.getElementById("fileInput")
-  ?.addEventListener("change", e => handleFile(e.target.files[0]));
-
-// ===============================================================
-// ✅ MINI-GAMES (Tampering shown — others functional)
-// ===============================================================
-function startGame(type) {
-  const box = document.getElementById("gameBox");
-  box.style.display = "block";
-
-  if (type === "tamper") {
-    box.innerHTML = `
-      <h3>🕵️ Spot the Tampering</h3>
-      <pre>Approved VA Claim — Rating 70%</pre>
-      <pre>Approved VA Claim — Rating 10%</pre>
-      <button class="action-btn" onclick="alert('✅ Correct — NOVAK detects benefit manipulation instantly.')">
-        Top is Original
-      </button>
-    `;
-  }
-}
-
-// ===============================================================
-// ✅ AI TRANSPARENCY VIEW
-// ===============================================================
-function toggleTransparency() {
-  const t = document.getElementById("transparencyView");
-  t.style.display = t.style.display === "none" ? "block" : "none";
-  t.textContent = "DATA ➜ RULE ➜ OUTPUT — mathematically bound before execution.";
-}
-
-// ===============================================================
-// ✅ RECEIPT GENERATOR
-// ===============================================================
-async function generateReceipt() {
-  const input = document.getElementById("novakInput").value.trim();
-  if (!input) return alert("Enter something first!");
-
-  const sha = await computeHash("SHA-256", input);
-  const timestamp = new Date().toISOString();
-
-  document.getElementById("receiptOutput").textContent =
-`NOVAK Execution Integrity Receipt
-----------------------------------
-Timestamp: ${timestamp}
-SHA-256: ${sha}
-
-Proof-before-action confirmed.`;
-}
-
-// ===============================================================
-// ✅ STORY MODE
-// ===============================================================
-const storySlides = [
-  "Welcome — NOVAK fixes automation without proof.",
-  "Software now makes life-changing decisions — often without verification.",
-  "NOVAK requires mathematical integrity before execution.",
-  "Hashes alone don’t stop fraud — NOVAK binds input, rule & output.",
-  "If anything changes, NOVAK blocks execution instantly.",
-  "Try entering data above — NOVAK proves it in real time.",
-  "NOVAK protects government, healthcare, finance, AI & national security."
-];
-
-function startStoryMode() {
-  const panel = document.getElementById("storyPanel");
-  panel.style.display = "block";
-  storyIndex = 0;
-  panel.textContent = storySlides[0];
-
-  clearInterval(storyInterval);
-
-  storyInterval = setInterval(() => {
-    storyIndex++;
-    if (storyIndex >= storySlides.length) return clearInterval(storyInterval);
-
-    panel.textContent = storySlides[storyIndex];
-    panel.scrollIntoView({ behavior: "smooth", block: "center" });
-  }, 4600);
-}
-
-// ===============================================================
-// ✅ GLORY TO GOD EXPANDER
-// ===============================================================
-function toggleGlorySection() {
-  const box = document.getElementById("glorySection");
-  box.style.display = box.style.display === "none" ? "block" : "none";
-  box.scrollIntoView({ behavior: "smooth", block: "center" });
-}
-
-// ===============================================================
-// ✅ THEME TOGGLE — Light/Dark (Persistent)
-// ===============================================================
-function toggleTheme() {
-  const html = document.documentElement;
-  const newTheme = html.getAttribute("data-theme") === "light" ? "dark" : "light";
-  html.setAttribute("data-theme", newTheme);
-  localStorage.setItem("novakTheme", newTheme);
-}
-
-// ===============================================================
-// ✅ MOBILE MENU
-// ===============================================================
-function toggleMobileMenu() {
-  const m = document.getElementById("mobileMenuPanel");
-  m.style.display = m.style.display === "flex" ? "none" : "flex";
-}
-
-// ===============================================================
-// ✅ INITIALIZE ON PAGE LOAD
-// ===============================================================
-document.addEventListener("DOMContentLoaded", () => {
-  // Apply saved theme
-  const saved = localStorage.getItem("novakTheme");
-  if (saved) document.documentElement.setAttribute("data-theme", saved);
-
-  // Default audience
-  setAudience("public");
-
-  // Restore dismissed sections
-  if (localStorage.getItem("hideWhyNovak") === "true") dismissWhyNovak();
-  if (localStorage.getItem("hideWhatChanges") === "true") dismissWhatChanges();
-});
-</script>
+<!-- ✅ STORY PANEL -->
+<div id="storyPanel"
+     class="card"
+     style="display:none; margin-top:20px; font-size:15px; line-height:1.6;">
+</div>
 
