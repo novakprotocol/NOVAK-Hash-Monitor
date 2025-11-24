@@ -330,6 +330,26 @@ html[data-theme="dark"] .history-box{
     <p style="font-size:15px; opacity:.85; margin-top:14px;">
       SHA-256 is the steel the NSA engineered — NOVAK is the vault that ensures automation can’t act without proof.
     </p>
+
+    <div id="whyNovakCard" class="card" style="position: relative;">
+  <h2>Why NOVAK — Why Now?</h2>
+
+  <!-- Your existing content stays here -->
+
+  <button onclick="dismissWhyNovak()" 
+          style="margin-top:16px; font-size:14px;" 
+          class="action-btn">
+    ✅ Don’t show this again
+  </button>
+
+  <!-- Optional close X -->
+  <button onclick="dismissWhyNovak()" 
+          style="position:absolute; top:14px; right:14px;
+                 background:none; border:none; font-size:20px; cursor:pointer;">
+    ✕
+  </button>
+</div>
+
   </div>
 
   <br><br>
@@ -986,6 +1006,20 @@ function printOnePager(){
   page.document.close();
   page.print();
 }
+/* Hide Why NOVAK banner permanently after dismissal */
+function dismissWhyNovak() {
+  document.getElementById("whyNovakCard").style.display = "none";
+  localStorage.setItem("hideWhyNovak", "true");
+  addTimeline("User dismissed Why NOVAK section");
+}
+
+/* Check on load */
+(function(){
+  if (localStorage.getItem("hideWhyNovak") === "true") {
+    const card = document.getElementById("whyNovakCard");
+    if (card) card.style.display = "none";
+  }
+})();
 
 /* INIT */
 setAudience("public");
