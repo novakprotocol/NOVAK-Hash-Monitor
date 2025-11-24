@@ -819,28 +819,82 @@ URL.revokeObjectURL(url);
 
 <!-- ✅ END PART 8 — CONTINUE WITH PART 9 NEXT -->
 
-<!-- ✅ PART 9 of 9 — GLORY TO GOD, FOOTER, PRIVACY, EXPLAINERS & FINAL INIT -->
+<!-- ✅ PART 9 — BOTTOM GLORY BUTTON + EXPANDABLE CONTENT -->
 
-<!-- ✅ GLORY TO GOD SECTION -->
-<div class="card" style="margin-top:40px; position:relative;" id="gloryCard">
-  <h2 class="section-title">Glory to God</h2>
-  <p>Every good and perfect gift comes from above.</p>
-
-  <button class="action-btn" onclick="toggleGlory()" style="margin-top:12px;">📖 Show Scripture</button>
-
-  <div id="gloryContent" style="display:none; margin-top:16px; font-style:italic;">
-    “The LORD detests lying lips, but He delights in those who act faithfully.” — Proverbs 12:22
-  </div>
-
-  <button onclick="toggleGlory()" style="position:absolute; top:14px; right:14px; background:none; border:none; cursor:pointer; font-size:20px;" aria-label="Hide Glory to God">✕</button>
+<!-- ✅ CENTERED GLORY BUTTON -->
+<div style="display:flex; justify-content:center; margin-top:60px;">
+  <button class="action-btn" onclick="toggleGlorySection()"
+    style="font-size:16px; padding:12px 26px; border-radius:10px;">
+    ✝️ Glory to God
+  </button>
 </div>
 
-<!-- ✅ FOOTER (UPDATED WITH LINKS) -->
-<footer style="text-align:center; margin-top:50px; font-size:14px; opacity:0.85; line-height:1.5;">
+<!-- ✅ EXPANDABLE GLORY SECTION -->
+<div id="glorySection" class="card"
+  style="display:none; margin-top:26px; font-size:15px; line-height:1.63;">
+
+  <p style="font-style:italic; font-size:1.1rem; text-align:center; margin-bottom:22px;">
+    “The LORD detests lying lips, but He delights in those who act faithfully.” — Proverbs 12:22
+  </p>
+
+  <p>
+    The NOVAK Protocol exists because intelligence—biological or artificial—must be accountable to truth,
+    law, and moral order. No invention, no breakthrough, no formula is possible without divine truth
+    being discoverable.
+  </p>
+
+  <p>
+    NOVAK is a system that forces machines to obey truth before action. This principle did not come from
+    chance, chaos, or accidental design—it reflects the order, logic, and intelligibility built into
+    creation itself.
+  </p>
+
+  <p>
+    Every hash, every proof, every verification step in NOVAK echoes a deeper truth:
+    <strong>Truth must precede power.</strong>
+  </p>
+
+  <p>
+    In a world where AI is gaining control over infrastructure, decisions, and human-impacting
+    processes, NOVAK ensures a boundary that aligns with the divine instruction that truth is
+    non-optional.
+  </p>
+
+  <hr style="border:none; border-top:1px solid var(--border); margin:20px 0;">
+
+  <h3 style="margin-bottom:10px;">A Simple Statement</h3>
+
+  <p style="font-weight:600;">
+    Everything good in this work belongs to God.  
+    Everything flawed belongs to me.
+  </p>
+
+  <p>
+    And may this technology always serve truth, justice, and the protection of human dignity.
+  </p>
+
+  <p>
+    To Roger F. Samuelson, we all miss you (mom most of all and I don't have to speak to her to know
+    this), I wish you were here now for some kind reassuring words and guidance for me.
+  </p>
+
+  <p>
+    As I designed this I used the end of times and as I thought through this all,
+    so Harmony (HARMONEE), CODEX (Bible), REVELATION were used — and it was not coincidental.
+  </p>
+
+  <p>
+    Note: I am NOT a Bible thumper and will not force it on anyone, but answer this...
+    Would you rather be a “1” or a “0” when it happens?
+  </p>
+</div>
+
+<!-- ✅ UPDATED FOOTER WITH LINKS -->
+<footer style="text-align:center; margin-top:60px; font-size:14px; opacity:0.85; line-height:1.5;">
   NOVAK Protocol™ — Proof-Before-Action Execution Integrity<br>
   Patent Pending — Copyright © 2025 Matthew Novak<br>
 
-  PADI 30-Year Member #888850 — 
+  PADI 30-Year Member #888850 —
   <a href="https://www.padi.com" target="_blank" rel="noopener noreferrer">www.padi.com</a><br>
 
   Star Citizen Referral —
@@ -854,80 +908,22 @@ URL.revokeObjectURL(url);
 
 <!-- ✅ FINAL GLOBAL SCRIPT -->
 <script>
-// ✅ Theme Persistence
-function toggleTheme() {
-  const html = document.documentElement;
-  const newTheme = html.getAttribute("data-theme") === "light" ? "dark" : "light";
-  html.setAttribute("data-theme", newTheme);
-  localStorage.setItem("novakTheme", newTheme);
-}
+function toggleGlorySection() {
+  const box = document.getElementById("glorySection");
+  const isHidden = box.style.display === "none";
 
-(function initTheme() {
-  const saved = localStorage.getItem("novakTheme");
-  if (saved) document.documentElement.setAttribute("data-theme", saved);
-})();
+  box.style.display = isHidden ? "block" : "none";
 
-// ✅ Audience Switching
-let currentAudience = "public";
-function setAudience(a) {
-  currentAudience = a;
-
-  document.querySelectorAll("#audienceNav button").forEach(btn => btn.classList.remove("active"));
-  document.getElementById(`btn-${a}`).classList.add("active");
-
-  document.getElementById("audienceContent").textContent = audienceMessages[a];
-}
-
-// ✅ Restore dismissed Why NOVAK section
-function dismissWhyNovak() {
-  document.getElementById("whyNovakCard").style.display = "none";
-  localStorage.setItem("whyNovakDismissed", "true");
-}
-
-function restoreWhyNovak() {
-  if (localStorage.getItem("whyNovakDismissed") === "true") {
-    document.getElementById("whyNovakCard").style.display = "none";
+  if (isHidden) {
+    box.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 }
 
-// ✅ Glory Toggle
-function toggleGlory() {
-  const box = document.getElementById("gloryContent");
-  box.style.display = box.style.display === "none" ? "block" : "none";
-}
-
-// ✅ Explainers — FIXED to always display content
-function showExplain(type) {
-  const output = document.getElementById("explainerOutput");
-  output.style.display = "block";
-  output.innerHTML = `<div style="padding:6px 2px;">${getExplainerText(type)}</div>`;
-  output.scrollIntoView({ behavior: "smooth" });
-}
-
-function getExplainerText(type) {
-  switch (type) {
-    case "simple":
-      return "NOVAK ensures automated decisions are correct, lawful, transparent, and untampered — before they happen.";
-    case "milkshake":
-      return "If someone hands you a milkshake, you trust it’s safe. NOVAK seals it — proving nobody altered it before you drank it.";
-    case "pencil":
-      return "Give ten people the same colored pencil — shades drift. NOVAK guarantees identical results, globally, forever.";
-    case "key":
-      return "NOVAK verifies the lock, the key, the door, and the person opening it — mathematically, not socially.";
-    case "gov":
-      return "NOVAK prevents improper payments, procurement fraud, benefit denial errors, automation failure — saving billions.";
-    case "how":
-      return "NOVAK binds input, rules & output into a cryptographic receipt. If anything changes, execution is blocked instantly.";
-    default:
-      return "NOVAK converts uncertainty into mathematical certainty.";
-  }
-}
-
-// ✅ Final Safe Initialization
+// Keep previously delivered init — audience, theme, dismissals, explainers:
 document.addEventListener("DOMContentLoaded", () => {
-  restoreWhyNovak();
-  setAudience("public");
-  updateHashes();
+  restoreWhyNovak?.();
+  setAudience?.("public");
+  updateHashes?.();
 });
 </script>
 
