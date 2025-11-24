@@ -774,6 +774,12 @@ function startGuide(){
   addTimeline("Displayed usage instructions");
 }
 
+function dismissInstruction(){
+  document.getElementById("instructionBanner").style.display = "none";
+  addTimeline("User dismissed instructions");
+}
+
+ 
 /* Executive One-Pager Print */
 function printOnePager(){
   const page = window.open("", "_blank");
