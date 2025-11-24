@@ -1055,22 +1055,25 @@ Applies To: All automated systems`
           <pre class="mono">${input.value.replace(/</g,"&lt;")}</pre>
 
 <!-- NOVAK Mini-Games -->
-<div style="margin-top:24px; display:flex; flex-wrap:wrap; gap:12px;">
-  <button class="action-btn" onclick="playTamperGame()">Spot the Tampered Claim</button>
-  <button class="action-btn" onclick="playHashMatch()">Hash Matching Memory</button>
-  <button class="action-btn" onclick="playKeyGame()">Find the Valid Key</button>
-  <button class="action-btn" onclick="playFraudDetective()">Fraud Detective Mode</button>
+<div class="card" style="margin-top:26px; text-align:center;">
+  <h3>Interactive NOVAK Mini-Games</h3>
+  <p style="font-size:14px; opacity:.75; margin-top:6px;">
+    Learn NOVAK through play — fraud spotting, hash matching, integrity puzzles.
+  </p>
+
+  <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:14px;">
+    <button class="action-btn" onclick="playTamperGame()">Spot the Tampered Claim</button>
+    <button class="action-btn" onclick="playHashMatch()">Hash Matching Memory</button>
+    <button class="action-btn" onclick="playKeyGame()">Find the Valid Key</button>
+    <button class="action-btn" onclick="playFraudDetective()">Fraud Detective Mode</button>
+  </div>
 </div>
 
-<!-- Game output container -->
+<!-- Mini-game output -->
 <div id="gameBox" class="card" style="margin-top:14px; display:none;">
-  <!-- JS will fill this -->
+  <!-- JS fills -->
 </div>
 
-<button onclick="document.getElementById('gameBox').style.display='none'"
-        style="float:right; background:none; border:none; font-size:20px; cursor:pointer;">
-✕
-</button>
 
 
           <footer>
