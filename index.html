@@ -305,6 +305,25 @@
       border-left: 4px solid var(--blue);
     }
 
+    .glory-btn {
+  display: inline-block;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  text-decoration: none;
+  font-weight: 600;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background: transparent;
+  transition: .25s ease;
+}
+
+.glory-btn:hover {
+  background: var(--accent);
+  color: white;
+}
+
+
     /* Small-screen tweaks */
     @media (max-width: 600px) {
       body {
@@ -609,6 +628,12 @@
     <div class="footer" style="margin-top:36px;font-size:12px;text-align:center;opacity:.75;">
       NOVAK Protocol — Patent Pending © 2025. Demonstration only — no stored or transmitted data.
     </div>
+
+    <div style="margin-top:10px; text-align:center;">
+    <a href="glory.html" class="glory-btn">All Glory to GOD</a>
+    </div>
+
+    y
     <button onclick="localStorage.removeItem('hideWhyNovak'); location.reload();"
             style="font-size:12px; margin-top:12px;">
       Show Why NOVAK Again
