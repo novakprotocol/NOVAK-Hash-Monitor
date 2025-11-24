@@ -905,6 +905,8 @@ html {
 </div> <!-- END MAIN CONTAINER -->
 
 <!-- ✅ FULL JAVASCRIPT ENGINE -->
+
+<!-- ✅ FULL JAVASCRIPT ENGINE -->
 <script>
 /* ============================
    GLOBAL STATE
@@ -913,6 +915,13 @@ let currentAudience = "public";
 let soundEnabled = false;
 let storyIndex = 0;
 let storyInterval;
+
+/* ============================
+   ERROR LOGGING — DEBUG SAFETY
+=============================*/
+window.addEventListener("error", e =>
+  console.warn("⚠️ JAVASCRIPT ERROR:", e.message)
+);
 
 /* ============================
    THEME TOGGLE
@@ -956,41 +965,45 @@ function setAudience(type) {
 }
 
 /* ============================
-  WHY NOVAK — DISMISS & RESTORE
+   WHY NOVAK — DISMISS & RESTORE
 =============================*/
 function dismissWhyNovak() {
   document.getElementById("whyNovakCard").style.display = "none";
   document.getElementById("restoreWhyBtn").style.display = "inline-flex";
   localStorage.setItem("whyNovakDismissed", "true");
 }
+
 function restoreWhyNovakSection() {
   document.getElementById("whyNovakCard").style.display = "block";
   document.getElementById("restoreWhyBtn").style.display = "none";
   localStorage.removeItem("whyNovakDismissed");
 }
+
 function restoreWhyNovakOnLoad() {
   if (localStorage.getItem("whyNovakDismissed") === "true") dismissWhyNovak();
 }
 
 /* ============================
-  WHAT CHANGES — DISMISS & RESTORE
+   WHAT CHANGES — DISMISS/RESTORE
 =============================*/
 function dismissWhatChanges() {
   document.getElementById("whatChangesCard").style.display = "none";
   document.getElementById("restoreWhatBtn").style.display = "inline-flex";
   localStorage.setItem("whatChangesDismissed", "true");
 }
+
 function restoreWhatChangesSection() {
   document.getElementById("whatChangesCard").style.display = "block";
   document.getElementById("restoreWhatBtn").style.display = "none";
   localStorage.removeItem("whatChangesDismissed");
 }
+
 function restoreWhatChangesOnLoad() {
   if (localStorage.getItem("whatChangesDismissed") === "true") dismissWhatChanges();
 }
 
 /* ============================
-   EXPLAINER SYSTEM
+   EXPLAINER SYSTEM — FIXED
 =============================*/
 const explainTexts = {
   simple: "NOVAK requires proof-before-action — meaning systems must prove correctness before executing, not after failure.",
@@ -1000,19 +1013,19 @@ const explainTexts = {
   gov: "NOVAK could save billions by preventing improper payments, fraud, and automation mistakes before they occur.",
   how: "NOVAK binds input, rule, and output into a cryptographic receipt. If anything changes — execution is blocked."
 };
+
 function showExplain(key, el) {
   const panel = document.getElementById("explainerOutput");
   panel.style.display = "block";
   panel.textContent = explainTexts[key];
 
-  document.querySelectorAll(".pill-btn, .explain-btn")
+  document.querySelectorAll(".explain-btn")
     .forEach(btn => btn.classList.remove("active"));
 
-  el.classList.add("active");
+  if (el) el.classList.add("active");
 
   panel.scrollIntoView({ behavior: "smooth" });
 }
-
 
 /* ============================
    REAL HASH ENGINE — LIVE
@@ -1021,7 +1034,9 @@ async function computeHash(algorithm, value) {
   const data = typeof value === "string"
     ? new TextEncoder().encode(value)
     : new Uint8Array(value);
+
   const digest = await crypto.subtle.digest(algorithm, data);
+
   return Array.from(new Uint8Array(digest))
     .map(b => b.toString(16).padStart(2, "0"))
     .join("");
@@ -1038,7 +1053,8 @@ async function updateHashes() {
   }
 
   const selectedAlgos = [...document.querySelectorAll(".hashAlgo:checked")].map(a => a.value);
-  if (selectedAlgos.length === 0) {
+
+  if (!selectedAlgos.length) {
     list.innerHTML = "<em>Select at least one hashing algorithm.</em>";
     return;
   }
@@ -1063,6 +1079,7 @@ async function updateHashes() {
 
   updateRGAC(input);
 }
+
 document.getElementById("novakInput")?.addEventListener("input", updateHashes);
 document.querySelectorAll(".hashAlgo")?.forEach(cb =>
   cb.addEventListener("change", updateHashes)
@@ -1077,7 +1094,9 @@ function updateRGAC(value) {
     box.innerHTML = "<em>Provide input to begin...</em>";
     return;
   }
+
   const labels = ["Data", "Rule", "Output", "Verifier", "Receipt"];
+
   box.innerHTML = labels.map((l, i) =>
     `<span style="padding:4px 10px;border:1px solid var(--border);
      border-radius:6px; margin-right:6px; display:inline-block;">
@@ -1119,7 +1138,7 @@ async function handleFileHash(file) {
 }
 
 /* ============================
-   EXAMPLE DATASETS
+   EXAMPLE DATA
 =============================*/
 const examples = {
   va: "Veteran: John Doe\nClaim #: 27-982271\nCondition: Lumbar Spine Degeneration\nRating Requested: 70%\nFiled: 2024-10-17",
@@ -1129,6 +1148,7 @@ const examples = {
   ai: "AI Output — Content Filter\nUserID: 992882\nReason: Probable Misinformation\nConfidence: 0.82",
   legal: "Court Filing — Motion to Compel\nDocket #: 5:24-cv-1772\nFiled: March 4, 2025\nJurisdiction: 9th Circuit"
 };
+
 function loadExample(key) {
   document.getElementById("novakInput").value = examples[key] || "";
   updateHashes();
@@ -1154,19 +1174,15 @@ document.getElementById("vinInput")?.addEventListener("input", () => {
   vinResult.innerHTML = `<pre>${decodeCorvetteVIN(vinInput.value.trim())}</pre>`;
 });
 
-/* ============================================================
- ✅ MINI-GAMES — FULLY FUNCTIONAL & SELF-CONTAINED
-============================================================ */
-
-let soundEnabled = false;
-
+/* ============================
+   INTERACTIVE GAMES
+=============================*/
 function toggleSound() {
   soundEnabled = !soundEnabled;
   document.querySelector(".sound-toggle").textContent =
     soundEnabled ? "🔊" : "🔇";
 }
 
-/* Launch game container */
 function startGame(type) {
   const box = document.getElementById("gameBox");
   box.style.display = "block";
@@ -1176,9 +1192,7 @@ function startGame(type) {
   if (type === "fraud") return gameFraud();
 }
 
-/* ------------------------------------------------------------
- 🕵️ Spot the Tampering
-------------------------------------------------------------- */
+/* 🕵️ Spot the Tampering */
 function gameTamper() {
   const original = "Approved VA Claim — Rating 70% — 2025-03-14";
   const tampered = "Approved VA Claim — Rating 10% — 2025-03-14";
@@ -1208,9 +1222,7 @@ function checkTamper(choice) {
       "❌ Incorrect — silent benefit reductions could occur without NOVAK.";
 }
 
-/* ------------------------------------------------------------
- 🧠 Hash Memory Match Game — now WORKS
-------------------------------------------------------------- */
+/* 🧠 Memory Match */
 function gameMemory() {
   const words = ["NOVAK", "Integrity", "Receipt", "Hash", "Proof", "Audit"];
   const shuffled = [...words, ...words].sort(() => Math.random() - 0.5);
@@ -1270,9 +1282,7 @@ function handleMemoryClick(btn) {
   memoryFirst = null;
 }
 
-/* ------------------------------------------------------------
- 🚨 Fraud Detector Simulation — now WORKS
-------------------------------------------------------------- */
+/* 🚨 Fraud Detector */
 function gameFraud() {
   const clean = "Invoice #88427 — $4,620 — Approved — 2025-04-02";
   const fraud = "Invoice #88427 — $84,620 — Approved — 2025-04-02";
@@ -1298,9 +1308,8 @@ async function detectFraud() {
     "✅ Fraud detected — amount alteration breaks cryptographic binding.";
 }
 
-
 /* ============================
-  STRUCTURED DATA VALIDATION
+   STRUCTURED DATA VALIDATION
 =============================*/
 document.getElementById("structuredFile")?.addEventListener("change", async e => {
   const f = e.target.files[0];
@@ -1356,6 +1365,7 @@ const slides = [
   "NOVAK doesn't replace systems — it protects them.",
   "Proof-before-action becomes the new global safety standard."
 ];
+
 function startStoryMode() {
   storyPanel.style.display = "block";
   storyIndex = 0;
@@ -1419,7 +1429,7 @@ function toggleGlorySection() {
 }
 
 /* ============================
-   INIT ON LOAD
+   INIT — PAGE LOAD
 =============================*/
 document.addEventListener("DOMContentLoaded", () => {
   setAudience("public");
@@ -1428,6 +1438,7 @@ document.addEventListener("DOMContentLoaded", () => {
   updateHashes();
 });
 </script>
+
 
 </body>
 </html>
