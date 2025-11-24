@@ -226,6 +226,44 @@ html[data-theme="dark"] {
     padding: 18px;
   }
 }
+
+/* ============================================================= */
+/* ✅ FIX — Readable Buttons & Cards in Dark Mode */
+/* ============================================================= */
+
+/* Ensure readable buttons in Dark Mode */
+html[data-theme="dark"] .explain-btn,
+html[data-theme="dark"] .action-btn,
+html[data-theme="dark"] .theme-toggle,
+html[data-theme="dark"] .aud-btn {
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+html[data-theme="dark"] .theme-toggle:hover {
+  background: #ffffff;
+  color: #000000 !important;
+}
+
+/* Keep card text readable in Dark Mode */
+html[data-theme="dark"] .card {
+  color: var(--text-dark);
+}
+
+  /* Prevent long hashes from overflowing */
+#hashOutputList {
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+#hashOutputList div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+  
 </style>
 </head>
 
