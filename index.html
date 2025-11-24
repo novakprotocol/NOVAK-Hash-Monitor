@@ -450,12 +450,28 @@
       </p>
     </div>
 
-    <!-- SHOW ME HOW THIS WORKS -->
-    <div style="margin-top:18px; display:flex; flex-wrap:wrap; gap:12px;">
-      <button class="action-btn" onclick="explainSuperSimple()">I still don't get it</button>
-      <button class="action-btn" onclick="explainGovSavings()">Could this save the government money?</button>
-      <button class="action-btn" onclick="startGuide()">Show Me How This Works</button>
-    </div>
+    <!-- EXPLAINER BUTTONS -->
+<div style="margin-top:18px; display:flex; flex-wrap:wrap; gap:12px;">
+  <button class="action-btn" onclick="toggleSimpleExplain()">I still don't get it</button>
+  <button class="action-btn" onclick="explainGovSavings()">Could this save the government money?</button>
+  <button class="action-btn" onclick="toggleHowWorks()">Show Me How This Works</button>
+</div>
+
+<!-- COLLAPSIBLE “HOW IT WORKS” SECTION -->
+<div id="howWorksBox" class="card" style="margin-top:12px; display:none;">
+  <h3>How the NOVAK Demo Works 🔍</h3>
+  <ul style="margin-top:10px; margin-left:18px; font-size:15px; line-height:1.55;">
+    <li>Select or paste data into the text box</li>
+    <li>NOVAK instantly computes multiple cryptographic fingerprints</li>
+    <li>Change a single character → every hash changes instantly</li>
+    <li>Use Tamper Test to simulate unauthorized modification</li>
+    <li>Export a cryptographic certificate proving integrity</li>
+  </ul>
+  <p style="margin-top:12px; font-size:14px; opacity:.75;">
+    NOVAK doesn’t guess — it proves. Tampering becomes mathematically impossible to hide.
+  </p>
+</div>
+
 
     <!-- Simple explainer panels -->
     <div id="simpleExplainBox" class="card" style="margin-top:12px; display:none;">
