@@ -766,7 +766,9 @@ function showExplain(key) {
   const box = document.getElementById("explainerOutput");
   box.style.display = "block";
   box.textContent = explainTexts[key] || "Explanation unavailable.";
-  box.scrollIntoView({ behavior: "smooth" });
+  setTimeout(() => {
+    box.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, 50);
 }
 
 // ================================================================
