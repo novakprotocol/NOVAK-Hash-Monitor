@@ -76,6 +76,21 @@ body{
 }
 
 /* AUDIENCE NAV */
+
+<div id="instructionBanner" class="card" style="display:none; border-left:6px solid var(--blue);">
+  <strong>How to use this demo:</strong>
+  <ul style="margin-left:18px; font-size:14px; line-height:1.45; margin-top:6px;">
+    <li>Step 1 — Select an example dataset below</li>
+    <li>Step 2 — Modify the text and watch hashes update instantly</li>
+    <li>Step 3 — Run “Tamper Test” to show unauthorized changes</li>
+    <li>Step 4 — Export Integrity Certificate to PDF</li>
+  </ul>
+  <button onclick="dismissInstruction()" style="margin-top:10px;" class="action-btn">
+    Got it — Hide this
+  </button>
+</div>
+
+ 
 .nav{
  display:flex;
  justify-content:center;
