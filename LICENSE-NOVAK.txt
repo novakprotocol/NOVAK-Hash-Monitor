@@ -1,0 +1,33 @@
+NOVAK Public Safety License (NPSL)
+Version 1.0 — January 2025
+
+Copyright © 2025
+Matthew S. Novak — All Rights Reserved.
+
+1. Permission is granted to:
+   - view, read, learn from, reference, and publicly discuss the NOVAK Protocol
+   - use demo materials for education, research, journalism, and policy analysis
+   - share links to this repository and related documentation
+
+2. Permission is NOT granted to:
+   - deploy NOVAK in production environments
+   - integrate NOVAK into commercial, corporate, or enterprise software
+   - use NOVAK in government, military, medical, financial, or safety-critical systems
+   - sell, license, sublicense, or redistribute NOVAK or derivative systems
+   - create competing architectures or commercial abstractions based on NOVAK concepts
+
+3. Patent Status
+   NOVAK Protocol and all associated terminology, system architecture,
+   cryptographic workflow designs, and implementation logic are patent pending.
+   Use of NOVAK for commercial, governmental, or institutional deployment
+   requires a licensing agreement.
+
+4. No Warranty
+   This demonstration is provided “as-is” with no guarantees of fitness,
+   correctness, legality, or suitability for operational deployment.
+
+5. Acceptance
+   Use of this repository or its contents constitutes acceptance of this license.
+
+For licensing inquiries:
+novak.protocol@protonmail.com
