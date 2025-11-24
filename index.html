@@ -1031,6 +1031,20 @@ Applies To: All automated systems`
           <h3>Input Data:</h3>
           <pre class="mono">${input.value.replace(/</g,"&lt;")}</pre>
 
+<!-- NOVAK Mini-Games -->
+<div style="margin-top:24px; display:flex; flex-wrap:wrap; gap:12px;">
+  <button class="action-btn" onclick="playTamperGame()">Spot the Tampered Claim</button>
+  <button class="action-btn" onclick="playHashMatch()">Hash Matching Memory</button>
+  <button class="action-btn" onclick="playKeyGame()">Find the Valid Key</button>
+  <button class="action-btn" onclick="playFraudDetective()">Fraud Detective Mode</button>
+</div>
+
+<!-- Game output container -->
+<div id="gameBox" class="card" style="margin-top:14px; display:none;">
+  <!-- JS will fill this -->
+</div>
+
+
           <footer>
             NOVAK Protocol — Patent Pending © 2025<br>
             Demonstration only — no data retained or transmitted.
@@ -1117,6 +1131,63 @@ Applies To: All automated systems`
     /* INIT */
     setAudience("public");
     compute();
+
+
+/* Hide others & show game content */
+function showGame(html, label) {
+  const box = document.getElementById("gameBox");
+  box.innerHTML = html;
+  box.style.display = "block";
+  addTimeline(`User opened mini-game: ${label}`);
+}
+
+/* Spot the Tampered Claim */
+function playTamperGame(){
+  showGame(`
+    <h3>Spot the Tampered Claim 🔍</h3>
+    <p style="margin-top:8px;">Two VA disability claims look nearly identical — but one has been altered.</p>
+    <pre style="margin-top:10px; font-size:13px; white-space:pre-wrap;">
+Claim A:
+Veteran: John Sample
+Rating: 40%
+Condition: Lumbar Disc Disease
+
+Claim B:
+Veteran: John Sample
+Rating: 60%
+Condition: Lumbar Disc Disease
+    </pre>
+    <p style="margin-top:10px;">Which one would NOVAK flag? Why?</p>
+  `, "Spot the Tampered Claim");
+}
+
+/* Hash Matching Memory */
+function playHashMatch(){
+  showGame(`
+    <h3>Hash Matching Memory 🧠</h3>
+    <p style="margin-top:8px;">Match the dataset to its correct cryptographic fingerprint.</p>
+    <p style="margin-top:10px; font-size:13px; opacity:.8;">(Interactive card flip version coming soon)</p>
+  `, "Hash Matching Memory");
+}
+
+/* Find the Valid Key */
+function playKeyGame(){
+  showGame(`
+    <h3>Find the Valid Key 🔑</h3>
+    <p style="margin-top:8px;">Only one of these datasets produces the certified primary hash.</p>
+    <p style="margin-top:10px; font-size:13px; opacity:.8;">This demonstrates NOVAK's proof-before-action gatekeeping.</p>
+  `, "Find the Valid Key");
+}
+
+/* Fraud Detective Mode */
+function playFraudDetective(){
+  showGame(`
+    <h3>Fraud Detective Mode 🕵️‍♂️</h3>
+    <p style="margin-top:8px;">Modify the text input above until NOVAK detects tampering.</p>
+    <p style="margin-top:10px; font-size:13px; opacity:.8;">Every character change = new hash = new proof required.</p>
+  `, "Fraud Detective Mode");
+}
+    
   </script>
 </body>
 </html>
