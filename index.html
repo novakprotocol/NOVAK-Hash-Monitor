@@ -452,6 +452,28 @@ auditability to eliminate epistemic uncertainty in automated decision systems �
 
 <!-- ✅ END PART 3 — CONTINUE WITH PART 4 NEXT -->
 
+  <!-- ✅ PART 4 — INPUT + LIVE HASHING ENGINE -->
+<div class="card" style="margin-top:32px;">
+  <h2 class="section-title">Try It — Prove Integrity Yourself</h2>
+  <p>Type, paste, or edit anything below. Hashes update instantly using real cryptography — nothing is stored, logged, or transmitted.</p>
+
+  <textarea id="novakInput"
+    placeholder="Example: VA claim, invoice, medical note, VIN, JSON, policy, SQL, XML..."
+    style="width:100%; height:160px; margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px; padding:12px;">
+  </textarea>
+</div>
+
+<!-- ✅ HASH OUTPUT AREA -->
+<div class="card" style="margin-top:20px;">
+  <h3 class="section-title" style="font-size:20px;">Cryptographic Hashes</h3>
+
+  <div id="hashOutputList"
+       style="margin-top:10px; font-family:'JetBrains Mono', monospace; font-size:14px;">
+    <em>Waiting for input from above...</em>
+  </div>
+</div>
+
+
 <!-- ✅ PART 4 of 9 — INPUT, LIVE HASHING ENGINE, RGAC ANIMATION & FILE VERIFICATION -->
 
 <!-- ✅ USER INPUT TEXTAREA FOR HASHING & NOVAK DEMONSTRATION -->
@@ -1074,6 +1096,31 @@ document.addEventListener("DOMContentLoaded", () => {
   const m = document.getElementById("mobileMenuPanel");
   m.style.display = m.style.display === "flex" ? "none" : "flex";
 }
+
+  // ✅ Hide What Changes section
+function dismissWhatChanges() {
+  document.getElementById("whatChangesCard").style.display = "none";
+  document.getElementById("restoreWhatBtn").style.display = "inline-flex";
+  localStorage.setItem("whatChangesDismissed", "true");
+}
+
+// ✅ Restore What Changes section
+function restoreWhatChangesSection() {
+  document.getElementById("whatChangesCard").style.display = "block";
+  document.getElementById("restoreWhatBtn").style.display = "none";
+  localStorage.removeItem("whatChangesDismissed");
+}
+
+// ✅ Restore state on load
+function restoreWhatChanges() {
+  if (localStorage.getItem("whatChangesDismissed") === "true") {
+    document.getElementById("whatChangesCard").style.display = "none";
+    document.getElementById("restoreWhatBtn").style.display = "inline-flex";
+  } else {
+    document.getElementById("restoreWhatBtn").style.display = "none";
+  }
+}
+
 
 </script>
 
