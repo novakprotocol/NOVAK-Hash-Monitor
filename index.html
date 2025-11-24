@@ -293,11 +293,21 @@ html[data-theme="dark"] .history-box{
 <body>
 <div class="container">
 
-  <!-- HEADER -->
-  <div class="header">
-    <div class="logo">NOVAK Protocol</div>
-    <button class="theme-toggle" onclick="toggleTheme()">Light/Dark</button>
+<div class="header">
+  <div class="logo">NOVAK Protocol</div>
+
+  <!-- Audience selector moved up into header -->
+  <div class="nav header-nav">
+    <button onclick="setAudience('public')" class="active" id="btn-public">Public</button>
+    <button onclick="setAudience('government')" id="btn-government">Government</button>
+    <button onclick="setAudience('investor')" id="btn-investor">Investor</button>
+    <button onclick="setAudience('cyber')" id="btn-cyber">Cybersecurity</button>
+    <button onclick="setAudience('academic')" id="btn-academic">Academic</button>
   </div>
+
+  <button class="theme-toggle" onclick="toggleTheme()">Light/Dark</button>
+</div>
+
 
 <!-- WHY NOVAK -->
 <div id="whyNovakCard" class="card" style="margin-top:10px; position: relative;">
@@ -377,17 +387,6 @@ html[data-theme="dark"] .history-box{
       The steel (SHA-256) already exists. NOVAK is the vault door that refuses to open
       unless everything matches.
     </p>
-  </div>
-
-
-
-  <!-- Audience Selector -->
-  <div class="nav">
-    <button onclick="setAudience('public')" class="active" id="btn-public">Public</button>
-    <button onclick="setAudience('government')" id="btn-government">Government</button>
-    <button onclick="setAudience('investor')" id="btn-investor">Investor</button>
-    <button onclick="setAudience('cyber')" id="btn-cyber">Cybersecurity</button>
-    <button onclick="setAudience('academic')" id="btn-academic">Academic</button>
   </div>
 
   <!-- SHOW ME HOW THIS WORKS -->
