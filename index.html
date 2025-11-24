@@ -3,19 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>NOVAK Integrity Verification Demo</title>
+  <title>NOVAK Protocol — Integrity Proof Demo</title>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
-
-  <!-- Favicon optional -->
-  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/833/833593.png" />
 </head>
 
 <body>
 <div class="container">
 
-  <!-- HEADER -->
+  <!-- ✅ HEADER -->
   <header class="header">
     <div class="logo">NOVAK Protocol</div>
 
@@ -26,7 +23,7 @@
     <button class="theme-toggle" id="themeToggle">Light/Dark</button>
   </header>
 
-  <!-- AUDIENCE NAVIGATION -->
+  <!-- ✅ AUDIENCE NAVIGATION -->
   <nav class="nav">
     <button id="btn-public" class="active" onclick="setAudience('public')">Public</button>
     <button id="btn-government" onclick="setAudience('government')">Government</button>
@@ -35,47 +32,46 @@
     <button id="btn-academic" onclick="setAudience('academic')">Academic</button>
   </nav>
 
-  <!-- WHY NOVAK — WHY NOW -->
+  <!-- ✅ AUDIENCE DESCRIPTION -->
+  <p id="description" class="description">
+    NOVAK proves data integrity instantly — no tech degree required.
+  </p>
+
+  <!-- ✅ WHY NOVAK — WHY NOW (COLLAPSIBLE + DISMISSIBLE + PERSISTENT) -->
   <section id="whyNovakCard" class="card dismissible">
     <h2>Why NOVAK — Why Now?</h2>
 
     <p>
-      Automated systems approve loans, deny medical claims, move money,
-      assign benefits, navigate vehicles, operate robots, and update critical records —
+      Automated systems approve loans, deny medical claims, transfer money,
+      assign benefits, steer vehicles, and operate robots —
       often without proof, transparency, or accountability.
     </p>
 
     <p>
-      NOVAK requires every automated action to generate mathematical
-      proof of legality <strong>before execution</strong>.
+      NOVAK requires every automated action to produce cryptographic
+      proof of legality <strong>before</strong> execution — not afterward.
     </p>
 
     <p>
-      If data changes, rules are altered, or tampering occurs,
-      NOVAK detects it instantly — and blocks the action safely.
+      If data changes, rules are altered, software is compromised, or fraud occurs,
+      NOVAK detects it instantly and <strong>blocks the action safely</strong>.
     </p>
 
     <p class="tight">
       ✅ Every input generates a unique fingerprint<br>
-      ✅ Change anything — fingerprint changes instantly<br>
-      ✅ Works in real-time, at any scale
+      ✅ Change anything — the fingerprint changes instantly
     </p>
 
     <p class="analogy">
-      SHA-256 is the steel the NSA engineered — NOVAK is the vault protecting
-      what automation must never change.
+      SHA-256 is the steel foundation — NOVAK is the vault that will not open unless
+      everything matches perfectly.
     </p>
 
     <button class="dismiss-btn" onclick="dismissWhyNovak()">✅ Don’t show this again</button>
     <button class="close-x" onclick="dismissWhyNovak()">✕</button>
   </section>
 
-  <!-- AUDIENCE-AWARE DESCRIPTION -->
-  <p id="description" class="description">
-    NOVAK proves data integrity instantly — no tech degree required.
-  </p>
-
-  <!-- EXPLAINER BUTTONS -->
+  <!-- ✅ ANALOGY BUTTON ROW -->
   <div class="explain-btn-row">
     <button class="action-btn" onclick="toggleExplainer('exp1')">🤯 I don’t get it</button>
     <button class="action-btn" onclick="toggleExplainer('expMilk')">🥤 Milkshake Analogy</button>
@@ -83,24 +79,23 @@
     <button class="action-btn" onclick="toggleExplainer('expKey')">🔑 Key Analogy</button>
     <button class="action-btn" onclick="toggleExplainer('expGov')">🏛️ Government Savings</button>
     <button class="action-btn" onclick="toggleExplainer('expHow')">👀 Show Me How This Works</button>
-    <button class="action-btn" onclick="toggleExplainer('expWhyNot')">🤨 Don’t we already do this?</button>
   </div>
 
-  <!-- COLLAPSIBLE EXPLAINERS -->
+  <!-- ✅ EXPLAINER PANELS (CONTENT POPULATED IN PART 2 SCRIPT) -->
   <section id="exp1" class="card explainer"></section>
   <section id="expMilk" class="card explainer"></section>
   <section id="expColor" class="card explainer"></section>
   <section id="expKey" class="card explainer"></section>
   <section id="expGov" class="card explainer"></section>
   <section id="expHow" class="card explainer"></section>
-  <section id="expWhyNot" class="card explainer"></section>
 
-  <!-- EXAMPLE DATASETS -->
+  <!-- ✅ EXAMPLE DATASET GRID -->
   <section class="card">
     <h3>Select an example dataset:</h3>
+
     <div class="example-grid">
       <div class="example" onclick="loadExample('va')">VA Disability Claim Summary</div>
-      <div class="example" onclick="loadExample('medical')">Clinical Note (Healthcare)</div>
+      <div class="example" onclick="loadExample('clinical')">Clinical Note (Healthcare)</div>
       <div class="example" onclick="loadExample('finance')">Financial Transaction Record</div>
       <div class="example" onclick="loadExample('ai')">AI Decision Output Log</div>
       <div class="example" onclick="loadExample('robot')">Autonomous Robotics Command</div>
@@ -109,560 +104,4 @@
     </div>
   </section>
 
-  <style>
-/* RESET + BASE */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Inter", sans-serif;
-}
-
-html, body {
-  scroll-behavior: smooth;
-}
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  padding: 28px;
-}
-
-.container {
-  max-width: 1180px;
-  margin: auto;
-}
-
-/* COLOR SYSTEM */
-:root {
-  --blue: #1453ff;
-  --blue-hover: #083bcc;
-  --green: #18a34a;
-  --red: #d52121;
-  --gold: #e7b000;
-  --accent: var(--blue);
-
-  --bg-light: #f7f9fc;
-  --bg-dark: #0d172b;
-
-  --text-light: #0b1223;
-  --text-dark: #e6edf7;
-
-  --card-light: #ffffff;
-  --card-dark: #152238;
-
-  --border-light: #d7dce6;
-  --border-dark: #2d3a52;
-}
-
-html[data-theme="light"] {
-  --bg: var(--bg-light);
-  --text: var(--text-light);
-  --card: var(--card-light);
-  --border: var(--border-light);
-}
-
-html[data-theme="dark"] {
-  --bg: var(--bg-dark);
-  --text: var(--text-dark);
-  --card: var(--card-dark);
-  --border: var(--border-dark);
-}
-
-/* HEADER */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-bottom: 22px;
-}
-
-.logo {
-  font-size: 38px;
-  font-weight: 800;
-  color: var(--blue);
-}
-
-/* Website Link */
-.home-link {
-  font-size: 16px;
-  color: var(--blue);
-  text-decoration: none;
-  padding-bottom: 3px;
-  font-weight: 600;
-  border-bottom: 2px solid transparent;
-  transition: .25s;
-}
-.home-link:hover {
-  border-bottom: 2px solid var(--blue);
-}
-
-/* Theme Toggle */
-.theme-toggle {
-  cursor: pointer;
-  font-size: 14px;
-  border: 1px solid var(--blue);
-  padding: 7px 15px;
-  border-radius: 8px;
-  background: transparent;
-  color: var(--blue);
-  transition: .25s;
-}
-.theme-toggle:hover {
-  background: var(--blue);
-  color: white;
-}
-
-/* AUDIENCE NAV */
-.nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 16px;
-}
-.nav button {
-  border: 1px solid var(--blue);
-  padding: 8px 18px;
-  border-radius: 8px;
-  background: transparent;
-  cursor: pointer;
-  font-size: 14px;
-  transition: .22s;
-}
-.nav button:hover,
-.nav button.active {
-  background: var(--blue);
-  color: white;
-}
-
-/* CARD */
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 25px;
-  margin-top: 22px;
-  animation: fadeIn .4s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* EXPLAINER BUTTON ROW */
-.explain-btn-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 14px;
-}
-
-/* EXPLANATION PANELS */
-.explainer {
-  display: none;
-  padding: 22px;
-  line-height: 1.6;
-  font-size: 15px;
-  animation: expand .32s ease;
-}
-
-@keyframes expand {
-  from { opacity: 0; transform: scale(.985); }
-  to   { opacity: 1; transform: scale(1); }
-}
-
-/* EXAMPLE GRID */
-.example-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 14px;
-  margin-top: 16px;
-}
-
-.example {
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 14px;
-  text-align: center;
-  cursor: pointer;
-  transition: .22s;
-}
-.example:hover {
-  border-color: var(--blue);
-  background: rgba(20, 83, 255, .10);
-}
-
-/* TEXTAREA */
-textarea {
-  width: 100%;
-  height: 190px;
-  padding: 12px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: transparent;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 14px;
-  resize: vertical;
-  color: var(--text);
-}
-
-/* DROPZONE */
-.dropzone {
-  margin-top: 14px;
-  border: 2px dashed var(--blue);
-  padding: 32px;
-  border-radius: 12px;
-  text-align: center;
-  cursor: pointer;
-  transition: .22s;
-}
-.dropzone:hover {
-  background: rgba(20, 83, 255, .08);
-}
-
-/* ACTION BUTTONS */
-.action-btn {
-  background: var(--blue);
-  color: white;
-  border: none;
-  padding: 9px 18px;
-  border-radius: 7px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: .25s;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-.action-btn:hover {
-  background: var(--blue-hover);
-}
-
-/* HASHES */
-.hash-list {
-  margin-top: 14px;
-  font-family: "JetBrains Mono", monospace;
-}
-.hash-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 7px 0;
-  border-bottom: 1px solid var(--border);
-}
-.hash-value {
-  word-break: break-all;
-  flex: 1;
-  padding-left: 8px;
-}
-
-/* RGAC BLOCKS + ANIMATION */
-.rgac {
-  display: flex;
-  gap: 7px;
-  flex-wrap: wrap;
-  margin-top: 10px;
-}
-.block {
-  padding: 5px 8px;
-  border-radius: 6px;
-  background: var(--blue);
-  color: white;
-  font-size: 11px;
-  font-family: "JetBrains Mono", monospace;
-  animation: pulse .9s infinite alternate;
-}
-
-@keyframes pulse {
-  from { opacity: .6; transform: scale(.96); }
-  to   { opacity: 1; transform: scale(1); }
-}
-
-/* TIMELINE HISTORY */
-.history-box {
-  margin-top: 12px;
-  max-height: 250px;
-  overflow-y: auto;
-  padding: 12px;
-  border-radius: 8px;
-  background: rgba(0,0,0,.04);
-  font-family: "JetBrains Mono", monospace;
-  font-size: 13px;
-}
-html[data-theme="dark"] .history-box {
-  background: rgba(255,255,255,.06);
-}
-
-/* MINI-GAMES */
-.game-btn-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 10px;
-}
-#gameBox {
-  margin-top: 12px;
-  font-size: 15px;
-  line-height: 1.55;
-}
-
-/* FOOTER */
-.footer {
-  text-align: center;
-  margin-top: 45px;
-  font-size: 14px;
-  opacity: .8;
-  line-height: 1.6;
-}
-
-/* MOBILE */
-@media (max-width: 650px) {
-  body { padding: 16px; }
-  .logo { font-size: 30px; }
-}
-</style>
-
-<script>
-/* ========= DOM HOOKS ========= */
-const input = document.getElementById("input");
-const hashesDiv = document.getElementById("hashes");
-const primaryLabel = document.getElementById("primaryLabel");
-const rgacDiv = document.getElementById("rgac");
-const comparisonBox = document.getElementById("comparison");
-const compareBtn = document.getElementById("compareBtn");
-const gameBox = document.getElementById("gameBox");
-const proofHistory = document.getElementById("proofHistory");
-
-/* ========= STATE ========= */
-let lastHashes = {};
-let primaryHash = "SHA-256";
-let beforeSnapshot = null;
-let rgacBlocks = [];
-let jsonLog = [];
-
-/* ========= THEME ========= */
-function toggleTheme() {
-  const html = document.documentElement;
-  html.dataset.theme = html.dataset.theme === "dark" ? "light" : "dark";
-  localStorage.setItem("theme", html.dataset.theme);
-}
-(function initTheme() {
-  const saved = localStorage.getItem("theme");
-  if (saved) document.documentElement.dataset.theme = saved;
-})();
-
-/* ========= EXPLAINS ========= */
-function toggleExplainer(id) {
-  document.querySelectorAll(".explainer").forEach(e => {
-    e.style.display = e.id === id && e.style.display !== "block" ? "block" : "none";
-  });
-  const box = document.getElementById(id);
-  if (box.style.display === "block")
-    box.scrollIntoView({ behavior: "smooth", block: "center" });
-}
-
-/* ========= WHY NOVAK DISMISS MEMORY ========= */
-function dismissWhyNovak() {
-  document.getElementById("whyNovakCard").style.display = "none";
-  localStorage.setItem("hideWhyNovak", "1");
-}
-if (localStorage.getItem("hideWhyNovak") === "1") {
-  const card = document.getElementById("whyNovakCard");
-  if (card) card.style.display = "none";
-}
-
-/* ========= HASH ALGORITHMS ========= */
-const algorithms = [
-  "SHA-1",
-  "SHA-224",
-  "SHA-256",
-  "SHA-384",
-  "SHA-512",
-  "SHA3-256"
-];
-
-/* ========= HASH COMPUTATION ========= */
-async function compute() {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(input.value);
-
-  let html = "";
-  lastHashes = {};
-
-  for (const algo of algorithms) {
-    const digest = await crypto.subtle.digest(algo, data);
-    const hex = [...new Uint8Array(digest)]
-      .map(x => x.toString(16).padStart(2, "0"))
-      .join("");
-
-    const old = lastHashes[algo];
-    lastHashes[algo] = hex;
-
-    html += `
-      <div class="hash-row ${old && old !== hex ? "changed" : ""}">
-        <span class="hash-label">${algo}</span>
-        <span class="hash-value">${hex}</span>
-        <label style="font-size:11px;">
-          <input type="radio" name="primary" value="${algo}"
-          ${algo === primaryHash ? "checked" : ""}
-          onclick="setPrimary('${algo}')"> primary
-        </label>
-      </div>`;
-  }
-
-  hashesDiv.innerHTML = html;
-  primaryLabel.innerText = primaryHash;
-  updateRGAC(lastHashes[primaryHash]);
-  updateTimeline("Hash recalculated");
-}
-input.addEventListener("input", compute);
-
-/* ========= PRIMARY HASH ========= */
-function setPrimary(algo) {
-  primaryHash = algo;
-  primaryLabel.innerText = algo;
-}
-
-/* ========= RGAC MINI CHAIN ========= */
-function updateRGAC(hash) {
-  if (!hash) return;
-  rgacBlocks.push(hash.slice(0, 12));
-  if (rgacBlocks.length > 9) rgacBlocks.shift();
-  rgacDiv.innerHTML = rgacBlocks
-    .map(h => `<div class="block animate">${h}</div>`)
-    .join("");
-}
-
-/* ========= BEFORE / AFTER COMPARISON ========= */
-function toggleCompareMode() {
-  if (!beforeSnapshot) {
-    beforeSnapshot = {
-      input: input.value,
-      hashes: { ...lastHashes },
-      time: new Date().toLocaleTimeString()
-    };
-    compareBtn.innerText = "Finish Comparison";
-    updateTimeline("Before snapshot captured");
-  } else {
-    const after = {
-      input: input.value,
-      hashes: { ...lastHashes },
-      time: new Date().toLocaleTimeString()
-    };
-
-    let html = `<strong>BEFORE:</strong> ${beforeSnapshot.time}<br>
-                <strong>AFTER:</strong> ${after.time}<hr><br>`;
-
-    for (const algo of algorithms) {
-      const changed = beforeSnapshot.hashes[algo] !== after.hashes[algo];
-      html += `
-      <div class="compare-row">
-        <span>${algo}</span>
-        <span>${beforeSnapshot.hashes[algo]}</span>
-        <span style="color:${changed ? "#c42121" : "#159b4c"}">
-          ${after.hashes[algo]}
-        </span>
-      </div>`;
-    }
-
-    comparisonBox.innerHTML = html;
-    comparisonBox.style.display = "block";
-    compareBtn.innerText = "Start Comparison";
-    beforeSnapshot = null;
-    updateTimeline("Comparison completed");
-  }
-}
-
-/* ========= EXAMPLE DATASETS ========= */
-const examples = {
-  va: `Veteran: John Sample
-Rating: 70%
-Condition: PTSD
-Requested Increase: 50% → 70%`,
-
-  medical: `Patient: 54M
-Diagnosis: Type 2 Diabetes
-Medication: Metformin 500mg BID`,
-
-  finance: `Transaction ID: 8812-F
-Amount: $4,872.44
-Type: ACH Transfer — Vendor Payment`,
-
-  ai: `AI Model: Claims triage
-Decision: Approve
-Confidence: 94.2%`,
-
-  robot: `Command: Robotic Arm
-Task: Rotate 17° and clamp`,
-
-  legal: `Directive ID: GOV-2218
-Policy: Authorization Required
-Region: Pacific`,
-
-  vin: `Vehicle: 2022 Chevrolet Corvette Convertible
-VIN: 1G1YB2D40N5104321
-Color: Rapid Blue
-Mileage: 6,182`
-};
-
-function loadExample(type) {
-  input.value = examples[type];
-  compute();
-  updateTimeline(`Loaded example: ${type}`);
-}
-
-/* ========= TAMPER TEST ========= */
-function tamperTest() {
-  input.value += "\n🚨 UNAUTHORIZED MODIFICATION DETECTED";
-  compute();
-}
-
-/* ========= TIMELINE LOG ========= */
-function updateTimeline(msg) {
-  const t = new Date().toLocaleTimeString();
-  proofHistory.innerHTML += `[${t}] ${msg}<br>`;
-  proofHistory.scrollTop = proofHistory.scrollHeight;
-}
-
-/* ========= JSON LOG EXPORT ========= */
-function exportJSON() {
-  const blob = new Blob([JSON.stringify(jsonLog, null, 2)], {
-    type: "application/json"
-  });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "novak_integrity_log.json";
-  a.click();
-}
-
-/* ========= GLORY TO GOD TOGGLE ========= */
-function toggleGlory() {
-  const box = document.getElementById("glorySection");
-  box.style.display = box.style.display === "block" ? "none" : "block";
-  box.scrollIntoView({ behavior: "smooth", block: "center" });
-}
-
-/* ========= INIT ========= */
-compute();
-</script>
-
-<!-- FOOTER -->
-<footer style="text-align:center; margin-top:50px; font-size:13px; opacity:0.7;">
-  © 2025 NOVAK Protocol — Trademark Pending — All Rights Reserved<br><br>
-
-  <strong>Star Citizen Referral:</strong>
-  <a href="https://www.robertsspaceindustries.com/enlist?referral=STAR-KRN7-SJTX" target="_blank">
-    STAR-KRN7-SJTX
-  </a><br>
-
-  <strong>PADI 30-Year Member — IDC Staff Instructor:</strong> #888850<br>
-
-  <a href="http://www.padi.com" target="_blank">www.padi.com</a>
-</footer>
-
-</body>
-</html>
   
