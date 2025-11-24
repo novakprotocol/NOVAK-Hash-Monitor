@@ -819,7 +819,7 @@ URL.revokeObjectURL(url);
 
 <!-- ✅ END PART 8 — CONTINUE WITH PART 9 NEXT -->
 
-<!-- ✅ PART 9 of 9 — GLORY TO GOD, FOOTER, PRIVACY & FINAL INIT SCRIPTS -->
+<!-- ✅ PART 9 of 9 — GLORY TO GOD, FOOTER, PRIVACY, EXPLAINERS & FINAL INIT -->
 
 <!-- ✅ GLORY TO GOD SECTION -->
 <div class="card" style="margin-top:40px; position:relative;" id="gloryCard">
@@ -835,11 +835,20 @@ URL.revokeObjectURL(url);
   <button onclick="toggleGlory()" style="position:absolute; top:14px; right:14px; background:none; border:none; cursor:pointer; font-size:20px;" aria-label="Hide Glory to God">✕</button>
 </div>
 
-<!-- ✅ FOOTER -->
-<footer style="text-align:center; margin-top:50px; font-size:14px; opacity:0.8; line-height:1.5;">
+<!-- ✅ FOOTER (UPDATED WITH LINKS) -->
+<footer style="text-align:center; margin-top:50px; font-size:14px; opacity:0.85; line-height:1.5;">
   NOVAK Protocol™ — Proof-Before-Action Execution Integrity<br>
   Patent Pending — Copyright © 2025 Matthew Novak<br>
-  PADI 30-Year Member #888850 — Star Citizen Referral: <strong>STAR-KRN7-SJTX</strong><br>
+
+  PADI 30-Year Member #888850 — 
+  <a href="https://www.padi.com" target="_blank" rel="noopener noreferrer">www.padi.com</a><br>
+
+  Star Citizen Referral —
+  <a href="https://www.robertsspaceindustries.com/enlist?referral=STAR-KRN7-SJTX"
+     target="_blank" rel="noopener noreferrer">
+     STAR-KRN7-SJTX
+  </a><br>
+
   Nothing stored, logged, transmitted, sold, or shared — all verification happens locally.
 </footer>
 
@@ -869,7 +878,7 @@ function setAudience(a) {
   document.getElementById("audienceContent").textContent = audienceMessages[a];
 }
 
-// ✅ Restore dismissed Why NOVAK
+// ✅ Restore dismissed Why NOVAK section
 function dismissWhyNovak() {
   document.getElementById("whyNovakCard").style.display = "none";
   localStorage.setItem("whyNovakDismissed", "true");
@@ -887,15 +896,34 @@ function toggleGlory() {
   box.style.display = box.style.display === "none" ? "block" : "none";
 }
 
-// ✅ Explainers
+// ✅ Explainers — FIXED to always display content
 function showExplain(type) {
   const output = document.getElementById("explainerOutput");
   output.style.display = "block";
-  output.innerHTML = getExplainerText(type);
+  output.innerHTML = `<div style="padding:6px 2px;">${getExplainerText(type)}</div>`;
   output.scrollIntoView({ behavior: "smooth" });
 }
 
-// ✅ Final Safe Init
+function getExplainerText(type) {
+  switch (type) {
+    case "simple":
+      return "NOVAK ensures automated decisions are correct, lawful, transparent, and untampered — before they happen.";
+    case "milkshake":
+      return "If someone hands you a milkshake, you trust it’s safe. NOVAK seals it — proving nobody altered it before you drank it.";
+    case "pencil":
+      return "Give ten people the same colored pencil — shades drift. NOVAK guarantees identical results, globally, forever.";
+    case "key":
+      return "NOVAK verifies the lock, the key, the door, and the person opening it — mathematically, not socially.";
+    case "gov":
+      return "NOVAK prevents improper payments, procurement fraud, benefit denial errors, automation failure — saving billions.";
+    case "how":
+      return "NOVAK binds input, rules & output into a cryptographic receipt. If anything changes, execution is blocked instantly.";
+    default:
+      return "NOVAK converts uncertainty into mathematical certainty.";
+  }
+}
+
+// ✅ Final Safe Initialization
 document.addEventListener("DOMContentLoaded", () => {
   restoreWhyNovak();
   setAudience("public");
