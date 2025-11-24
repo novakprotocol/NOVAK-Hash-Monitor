@@ -342,4 +342,111 @@ auditability to eliminate epistemic uncertainty in automated decision systems �
 
 <!-- ✅ END PART 3 — CONTINUE WITH PART 4 NEXT -->
 
+<!-- ✅ PART 4 of 9 — INPUT, LIVE HASHING ENGINE, RGAC ANIMATION & FILE VERIFICATION -->
+
+
+<!-- ✅ USER INPUT TEXTAREA FOR HASHING & NOVAK DEMONSTRATION -->
+<div class="card" style="margin-top:28px;">
+<h2 class="section-title">Try It — Prove Integrity Yourself</h2>
+<p>Type, paste, or edit anything below. Hashes update instantly using real cryptography — nothing is stored, logged, or transmitted.</p>
+
+
+<textarea id="novakInput" placeholder="Example: VA claim, invoice, medical note, AI output, VIN, contract, JSON, SQL, XML..."></textarea>
+</div>
+
+
+<!-- ✅ HASH OUTPUT AREA -->
+<div class="card" style="margin-top:20px;">
+<h3 class="section-title" style="font-size:20px;">Cryptographic Hashes</h3>
+<div class="hash-list" id="hashOutputList" style="margin-top:10px;"></div>
+</div>
+
+
+<!-- ✅ RGAC MINI-CHAIN VISUALIZATION -->
+<div class="card" style="margin-top:20px;">
+<h3 class="section-title" style="font-size:20px;">RGAC — Recursive Global Audit Chain</h3>
+<p style="margin-bottom:12px;">Each output becomes input to the next verification — forming an unstoppable integrity chain.</p>
+<div id="rgac"></div>
+</div>
+
+
+<!-- ✅ DRAG & DROP FILE HASH VERIFICATION -->
+<div class="card" style="margin-top:20px;">
+<h3 class="section-title" style="font-size:20px;">Verify Any File</h3>
+<p>Drop a document, medical record, CSV, log, policy, or contract — NOVAK proves originality instantly.</p>
+
+
+<div id="dropzone" class="dropzone">
+📁 Drop file here or click to select
+<input id="fileInput" type="file" style="display:none" />
+</div>
+
+
+<div id="fileHashResult" style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></div>
+</div>
+
+
+<!-- ✅ HASHING + RGAC ENGINE SCRIPT -->
+<script>
+// ===== REAL CRYPTO HASHING — browser-native, secure, no transmission =====
+async function computeHash(algorithm, value) {
+const data = new TextEncoder().encode(value);
+const digest = await crypto.subtle.digest(algorithm, data);
+return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, "0")).join("");
+}
+
+
+// ===== UPDATE HASH LIST IN REAL TIME =====
+async function updateHashes() {
+const input = document.getElementById("novakInput").value;
+if (!input.trim()) {
+document.getElementById("hashOutputList").innerHTML = "<em>Waiting for input...</em>";
+return;
+}
+
+
+const algorithms = ["SHA-256", "SHA-512", "SHA-1", "SHA-384", "SHA3-256"]; // educational comparison
+const list = document.getElementById("hashOutputList");
+list.innerHTML = "";
+
+
+for (const algo of algorithms) {
+try {
+const hash = await computeHash(algo, input);
+list.innerHTML += `
+<div class="hash-row">
+<div class="hash-label">${algo}</div>
+<div class="hash-value">${hash}</div>
+<button class="copy" onclick="navigator.clipboard.writeText('${hash}')">Copy</button>
+</div>
+`;
+} catch {}
+}
+
+
+updateRGAC(input);
+}
+
+
+document.getElementById("novakInput").addEventListener("input", updateHashes);
+updateHashes();
+
+
+// ===== RGAC ANIMATION CHAIN =====
+function updateRGAC(value) {
+const rgac = document.getElementById("rgac");
+if (!value.trim()) {
+rgac.innerHTML = "<em>Provide input to begin...</em>";
+return;
+}
+
+
+const segments = ["Data", "Rule", "Output", "Verifier", "Receipt"];
+rgac.innerHTML = "";
+
+
+segments.forEach((label, index) => {
+const block = document.createElement("div");
+<!-- ✅ END PART 4 — CONTINUE WITH PART 5 NEXT -->
+
 
