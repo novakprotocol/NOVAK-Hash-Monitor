@@ -2,265 +2,14 @@
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NOVAK Protocol — Integrity Verification Demo</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>NOVAK Integrity Verification Demo</title>
 
   <!-- Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
 
-  <style>
-    /* RESET + BASE */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Inter", sans-serif;
-    }
-
-    html,
-    body {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      padding: 22px;
-    }
-
-    .container {
-      max-width: 1150px;
-      margin: auto;
-    }
-
-    /* COLOR SYSTEM */
-    :root {
-      --blue: #1e4dd8;
-      --blue-hover: #1538a3;
-      --green: #13a048;
-      --red: #d32626;
-      --yellow: #e6b800;
-
-      --bg-light: #f8fafc;
-      --bg-dark: #0b1325;
-
-      --text-light: #0b1326;
-      --text-dark: #e8eef7;
-
-      --card-light: #ffffff;
-      --card-dark: #1b2436;
-
-      --border-light: #d9dce3;
-      --border-dark: #2d3a52;
-    }
-
-    html[data-theme="light"] {
-      --bg: var(--bg-light);
-      --text: var(--text-light);
-      --card: var(--card-light);
-      --border: var(--border-light);
-    }
-
-    html[data-theme="dark"] {
-      --bg: var(--bg-dark);
-      --text: var(--text-dark);
-      --card: var(--card-dark);
-      --border: var(--border-dark);
-    }
-
-    /* HEADER */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-      margin-bottom: 14px;
-    }
-
-    .logo {
-      font-size: 35px;
-      font-weight: 700;
-      color: var(--blue);
-    }
-
-    .home-link {
-      font-size: 16px;
-      color: var(--blue);
-      text-decoration: none;
-      font-weight: 600;
-      border-bottom: 2px solid transparent;
-      transition: 0.25s;
-    }
-    .home-link:hover {
-      border-bottom: 2px solid var(--blue);
-    }
-
-    /* THEME BUTTON */
-    .theme-toggle {
-      cursor: pointer;
-      font-size: 15px;
-      padding: 8px 16px;
-      border-radius: 7px;
-      border: 1px solid var(--blue);
-      background: transparent;
-      color: var(--blue);
-      transition: 0.25s;
-    }
-    .theme-toggle:hover {
-      background: var(--blue);
-      color: white;
-    }
-
-    /* NAV */
-    .nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 18px 0;
-    }
-
-    .nav button {
-      border: 1px solid var(--blue);
-      padding: 7px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      background: transparent;
-      color: var(--blue);
-      transition: 0.25s;
-      font-size: 14px;
-    }
-
-    .nav button:hover,
-    .nav button.active {
-      background: var(--blue);
-      color: white;
-    }
-
-    /* CARD */
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      padding: 24px;
-      border-radius: 12px;
-      margin-top: 22px;
-      animation: fadeIn 0.45s ease;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(6px);
-      }
-      to {
-        opacity: 1;
-      }
-    }
-
-    /* DESCRIPTION TEXT */
-    .description {
-      font-size: 18px;
-      margin-bottom: 14px;
-    }
-
-    /* BUTTON ROW */
-    .explain-btn-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .action-btn {
-      background: var(--blue);
-      color: white;
-      border: none;
-      padding: 9px 16px;
-      font-size: 14px;
-      border-radius: 7px;
-      cursor: pointer;
-      transition: 0.25s;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .action-btn:hover {
-      background: var(--blue-hover);
-    }
-
-    /* EXPLAINER CARDS */
-    .explainer {
-      display: none;
-      padding: 22px;
-      animation: expand 0.35s ease;
-    }
-
-    @keyframes expand {
-      from {
-        opacity: 0;
-        transform: scale(0.97);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    /* DATASET GRID */
-    .example-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 14px;
-      margin-top: 16px;
-    }
-
-    .example {
-      background: var(--card);
-      border: 1px solid var(--border);
-      padding: 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.25s;
-      text-align: center;
-    }
-    .example:hover {
-      border-color: var(--blue);
-      background: rgba(30, 77, 216, 0.09);
-    }
-
-    /* TEXTAREA */
-    textarea {
-      width: 100%;
-      height: 180px;
-      border-radius: 7px;
-      border: 1px solid var(--border);
-      padding: 12px;
-      background: transparent;
-      resize: vertical;
-      font-family: "JetBrains Mono", monospace;
-      font-size: 14px;
-      color: var(--text);
-    }
-
-    /* DROPZONE */
-    .dropzone {
-      margin-top: 14px;
-      border: 2px dashed var(--blue);
-      padding: 34px;
-      border-radius: 8px;
-      text-align: center;
-      cursor: pointer;
-      transition: 0.25s;
-    }
-
-    .dropzone:hover {
-      background: rgba(30, 77, 216, 0.08);
-    }
-  </style>
+  <!-- Favicon optional -->
+  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/833/833593.png" />
 </head>
 
 <body>
@@ -289,9 +38,10 @@
   <!-- WHY NOVAK — WHY NOW -->
   <section id="whyNovakCard" class="card dismissible">
     <h2>Why NOVAK — Why Now?</h2>
+
     <p>
       Automated systems approve loans, deny medical claims, move money,
-      assign benefits, navigate vehicles, and make life-changing decisions —
+      assign benefits, navigate vehicles, operate robots, and update critical records —
       often without proof, transparency, or accountability.
     </p>
 
@@ -302,21 +52,28 @@
 
     <p>
       If data changes, rules are altered, or tampering occurs,
-      NOVAK detects it instantly — and safely blocks the action.
+      NOVAK detects it instantly — and blocks the action safely.
     </p>
 
     <p class="tight">
-      ✅ Every input gets a unique integrity fingerprint<br>
-      ✅ Modify anything — fingerprint changes instantly
+      ✅ Every input generates a unique fingerprint<br>
+      ✅ Change anything — fingerprint changes instantly<br>
+      ✅ Works in real-time, at any scale
     </p>
 
     <p class="analogy">
-      SHA-256 is the steel the NSA engineered — NOVAK is the security
-      vault ensuring nothing moves unless everything matches.
+      SHA-256 is the steel the NSA engineered — NOVAK is the vault protecting
+      what automation must never change.
     </p>
 
-    <button class="action-btn" onclick="dismissWhyNovak()">✅ Don’t show this again</button>
+    <button class="dismiss-btn" onclick="dismissWhyNovak()">✅ Don’t show this again</button>
+    <button class="close-x" onclick="dismissWhyNovak()">✕</button>
   </section>
+
+  <!-- AUDIENCE-AWARE DESCRIPTION -->
+  <p id="description" class="description">
+    NOVAK proves data integrity instantly — no tech degree required.
+  </p>
 
   <!-- EXPLAINER BUTTONS -->
   <div class="explain-btn-row">
@@ -326,18 +83,349 @@
     <button class="action-btn" onclick="toggleExplainer('expKey')">🔑 Key Analogy</button>
     <button class="action-btn" onclick="toggleExplainer('expGov')">🏛️ Government Savings</button>
     <button class="action-btn" onclick="toggleExplainer('expHow')">👀 Show Me How This Works</button>
+    <button class="action-btn" onclick="toggleExplainer('expWhyNot')">🤨 Don’t we already do this?</button>
   </div>
 
-  <!-- EXPLAINER PANELS -->
+  <!-- COLLAPSIBLE EXPLAINERS -->
   <section id="exp1" class="card explainer"></section>
   <section id="expMilk" class="card explainer"></section>
   <section id="expColor" class="card explainer"></section>
   <section id="expKey" class="card explainer"></section>
   <section id="expGov" class="card explainer"></section>
   <section id="expHow" class="card explainer"></section>
+  <section id="expWhyNot" class="card explainer"></section>
 
-  <script>
-/* ========= GLOBAL DOM HOOKS ========= */
+  <!-- EXAMPLE DATASETS -->
+  <section class="card">
+    <h3>Select an example dataset:</h3>
+    <div class="example-grid">
+      <div class="example" onclick="loadExample('va')">VA Disability Claim Summary</div>
+      <div class="example" onclick="loadExample('medical')">Clinical Note (Healthcare)</div>
+      <div class="example" onclick="loadExample('finance')">Financial Transaction Record</div>
+      <div class="example" onclick="loadExample('ai')">AI Decision Output Log</div>
+      <div class="example" onclick="loadExample('robot')">Autonomous Robotics Command</div>
+      <div class="example" onclick="loadExample('legal')">Legal / Policy Directive</div>
+      <div class="example" onclick="loadExample('vin')">Vehicle VIN Record — 2022 Chevy Corvette Convertible</div>
+    </div>
+  </section>
+
+  <style>
+/* RESET + BASE */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+html, body {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  padding: 28px;
+}
+
+.container {
+  max-width: 1180px;
+  margin: auto;
+}
+
+/* COLOR SYSTEM */
+:root {
+  --blue: #1453ff;
+  --blue-hover: #083bcc;
+  --green: #18a34a;
+  --red: #d52121;
+  --gold: #e7b000;
+  --accent: var(--blue);
+
+  --bg-light: #f7f9fc;
+  --bg-dark: #0d172b;
+
+  --text-light: #0b1223;
+  --text-dark: #e6edf7;
+
+  --card-light: #ffffff;
+  --card-dark: #152238;
+
+  --border-light: #d7dce6;
+  --border-dark: #2d3a52;
+}
+
+html[data-theme="light"] {
+  --bg: var(--bg-light);
+  --text: var(--text-light);
+  --card: var(--card-light);
+  --border: var(--border-light);
+}
+
+html[data-theme="dark"] {
+  --bg: var(--bg-dark);
+  --text: var(--text-dark);
+  --card: var(--card-dark);
+  --border: var(--border-dark);
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+
+.logo {
+  font-size: 38px;
+  font-weight: 800;
+  color: var(--blue);
+}
+
+/* Website Link */
+.home-link {
+  font-size: 16px;
+  color: var(--blue);
+  text-decoration: none;
+  padding-bottom: 3px;
+  font-weight: 600;
+  border-bottom: 2px solid transparent;
+  transition: .25s;
+}
+.home-link:hover {
+  border-bottom: 2px solid var(--blue);
+}
+
+/* Theme Toggle */
+.theme-toggle {
+  cursor: pointer;
+  font-size: 14px;
+  border: 1px solid var(--blue);
+  padding: 7px 15px;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--blue);
+  transition: .25s;
+}
+.theme-toggle:hover {
+  background: var(--blue);
+  color: white;
+}
+
+/* AUDIENCE NAV */
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.nav button {
+  border: 1px solid var(--blue);
+  padding: 8px 18px;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  transition: .22s;
+}
+.nav button:hover,
+.nav button.active {
+  background: var(--blue);
+  color: white;
+}
+
+/* CARD */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 25px;
+  margin-top: 22px;
+  animation: fadeIn .4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* EXPLAINER BUTTON ROW */
+.explain-btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+/* EXPLANATION PANELS */
+.explainer {
+  display: none;
+  padding: 22px;
+  line-height: 1.6;
+  font-size: 15px;
+  animation: expand .32s ease;
+}
+
+@keyframes expand {
+  from { opacity: 0; transform: scale(.985); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* EXAMPLE GRID */
+.example-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.example {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: .22s;
+}
+.example:hover {
+  border-color: var(--blue);
+  background: rgba(20, 83, 255, .10);
+}
+
+/* TEXTAREA */
+textarea {
+  width: 100%;
+  height: 190px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: transparent;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 14px;
+  resize: vertical;
+  color: var(--text);
+}
+
+/* DROPZONE */
+.dropzone {
+  margin-top: 14px;
+  border: 2px dashed var(--blue);
+  padding: 32px;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: .22s;
+}
+.dropzone:hover {
+  background: rgba(20, 83, 255, .08);
+}
+
+/* ACTION BUTTONS */
+.action-btn {
+  background: var(--blue);
+  color: white;
+  border: none;
+  padding: 9px 18px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: .25s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.action-btn:hover {
+  background: var(--blue-hover);
+}
+
+/* HASHES */
+.hash-list {
+  margin-top: 14px;
+  font-family: "JetBrains Mono", monospace;
+}
+.hash-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+}
+.hash-value {
+  word-break: break-all;
+  flex: 1;
+  padding-left: 8px;
+}
+
+/* RGAC BLOCKS + ANIMATION */
+.rgac {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.block {
+  padding: 5px 8px;
+  border-radius: 6px;
+  background: var(--blue);
+  color: white;
+  font-size: 11px;
+  font-family: "JetBrains Mono", monospace;
+  animation: pulse .9s infinite alternate;
+}
+
+@keyframes pulse {
+  from { opacity: .6; transform: scale(.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* TIMELINE HISTORY */
+.history-box {
+  margin-top: 12px;
+  max-height: 250px;
+  overflow-y: auto;
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(0,0,0,.04);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+}
+html[data-theme="dark"] .history-box {
+  background: rgba(255,255,255,.06);
+}
+
+/* MINI-GAMES */
+.game-btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+#gameBox {
+  margin-top: 12px;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  margin-top: 45px;
+  font-size: 14px;
+  opacity: .8;
+  line-height: 1.6;
+}
+
+/* MOBILE */
+@media (max-width: 650px) {
+  body { padding: 16px; }
+  .logo { font-size: 30px; }
+}
+</style>
+
+<script>
+/* ========= DOM HOOKS ========= */
 const input = document.getElementById("input");
 const hashesDiv = document.getElementById("hashes");
 const primaryLabel = document.getElementById("primaryLabel");
@@ -345,226 +433,109 @@ const rgacDiv = document.getElementById("rgac");
 const comparisonBox = document.getElementById("comparison");
 const compareBtn = document.getElementById("compareBtn");
 const gameBox = document.getElementById("gameBox");
+const proofHistory = document.getElementById("proofHistory");
 
 /* ========= STATE ========= */
 let lastHashes = {};
 let primaryHash = "SHA-256";
 let beforeSnapshot = null;
 let rgacBlocks = [];
-let soundEnabled = false;
+let jsonLog = [];
 
 /* ========= THEME ========= */
-document.getElementById("themeToggle").addEventListener("click", toggleTheme);
-
 function toggleTheme() {
   const html = document.documentElement;
   html.dataset.theme = html.dataset.theme === "dark" ? "light" : "dark";
   localStorage.setItem("theme", html.dataset.theme);
 }
-
-// Restore saved theme
 (function initTheme() {
   const saved = localStorage.getItem("theme");
   if (saved) document.documentElement.dataset.theme = saved;
 })();
 
-/* ========= WHY NOVAK PERSISTENCE ========= */
+/* ========= EXPLAINS ========= */
+function toggleExplainer(id) {
+  document.querySelectorAll(".explainer").forEach(e => {
+    e.style.display = e.id === id && e.style.display !== "block" ? "block" : "none";
+  });
+  const box = document.getElementById(id);
+  if (box.style.display === "block")
+    box.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+/* ========= WHY NOVAK DISMISS MEMORY ========= */
 function dismissWhyNovak() {
   document.getElementById("whyNovakCard").style.display = "none";
   localStorage.setItem("hideWhyNovak", "1");
 }
-
 if (localStorage.getItem("hideWhyNovak") === "1") {
   const card = document.getElementById("whyNovakCard");
   if (card) card.style.display = "none";
 }
 
-/* ========= EXPLAINER TEXT ========= */
-const explainers = {
-  exp1: `
-    <h3>Okay — What does NOVAK actually do?</h3>
-    <p>Every piece of data — a claim, an order, a medical record, a robot command — gets a mathematical fingerprint.</p>
-    <p>If anything changes — even a single comma — the fingerprint instantly changes. No guessing. No debate.</p>
-    <p>NOVAK forces proof-before-action. No proof → no execution.</p>
-  `,
-  expMilk: `
-    <h3>The Milkshake Analogy 🥤</h3>
-    <p>You order a chocolate milkshake.</p>
-    <p>When it arrives — you don’t run a lab test.</p>
-    <p>You trust the ingredients didn’t secretly change to mustard + motor oil.</p>
-    <strong>NOVAK guarantees the ingredients never change — ever.</strong>
-    <p>If the recipe, quantity, temperature, or toppings change, NOVAK instantly knows — and won't serve it.</p>
-    <p>NOVAK doesn’t *taste* data — it mathematically proves it’s the same.</p>
-  `,
-  expColor: `
-    <h3>The Colored Pencil Box Analogy 🖍️</h3>
-    <p>You buy a 64–count box of colored pencils.</p>
-    <p>You expect the rare neon-pink pencil to still be inside later.</p>
-    <p>The box has a security seal.</p>
-    <strong>If the seal breaks → something changed.</strong>
-    <p>NOVAK is the seal. Except — instead of cardboard — it’s cryptography.</p>
-  `,
-  expKey: `
-    <h3>The Key Analogy 🔑</h3>
-    <p>Every dataset is a locked door.</p>
-    <p>NOVAK makes the key.</p>
-    <p>If the data changes — even slightly — the old key stops working.</p>
-    <strong>No correct key → no entry → no execution.</strong>
-  `,
-  expGov: `
-    <h3>Government Savings 🏛️</h3>
-    <p>Improper payments cost U.S. taxpayers over $247 billion per year (OMB 2024).</p>
-    <p>Most errors occur before anyone realizes data changed.</p>
-    <strong>NOVAK stops the transaction before the mistake — or fraud — happens.</strong>
-    <ul>
-      <li>VA disability claim integrity</li>
-      <li>Medicare billing protection</li>
-      <li>DoD procurement validation</li>
-      <li>IRS tax return verification</li>
-      <li>Social Security eligibility matching</li>
-    </ul>
-    <h4>Is this possible today?</h4>
-    <p>✅ Yes — every technology required already exists:</p>
-    <ul>
-      <li>Browser cryptography APIs</li>
-      <li>FIPS-approved hash algorithms</li>
-      <li>Immutable audit chains</li>
-      <li>Real-time execution enforcement</li>
-    </ul>
-    <p>NOVAK doesn’t need blockchain, tokens, miners, or gas fees — it runs on existing infrastructure.</p>
-  `,
-  expHow: `
-    <h3>How NOVAK Works — Step by Step 👀</h3>
-    <ol>
-      <li>You paste or submit data</li>
-      <li>NOVAK creates a cryptographic fingerprint</li>
-      <li>System stores fingerprint — not the data</li>
-      <li>Before any automated action occurs, NOVAK rechecks it</li>
-      <li>If fingerprints match → allowed ✅</li>
-      <li>If fingerprints differ → blocked 🚨</li>
-    </ol>
-    <strong>NOVAK creates mathematical accountability — instantly.</strong>
-  `,
-  expDiscover: `
-    <h3>Did NOVAK discover something new?</h3>
-    <p>Yes — a missing link in automation:</p>
-    <strong>Execution should never occur without verifiable truth.</strong>
-    <p>Blockchain proves history.</p>
-    <p>NOVAK proves the present — before action.</p>
-    <p>This flips computing from “act first, audit later” to:</p>
-    <strong>“prove first, act second.”</strong>
-    <p>That single inversion changes cybersecurity, healthcare, finance, robotics, AI, and government operations forever.</p>
-  `
-};
-
-/* ========= EXPLAINER RENDERING ========= */
-function toggleExplainer(id) {
-  document.querySelectorAll(".explainer").forEach(box => {
-    if (box.id !== id) box.style.display = "none";
-  });
-
-  const box = document.getElementById(id);
-  box.innerHTML = explainers[id] || "Content missing";
-  box.style.display = box.style.display === "block" ? "none" : "block";
-
-  if (box.style.display === "block")
-    box.scrollIntoView({ behavior: "smooth", block: "center" });
-}
-
-/* ========= EXAMPLE DATASETS ========= */
-const examples = {
-  va: `Veteran: Matthew Example\nRating: 70%\nCondition: OSA w/ CPAP\nDecision: Increase granted`,
-  medical: `Patient: 54M\nSymptoms: Chest pain, dizziness\nMedication: Aspirin 81mg daily`,
-  finance: `Payment ID: 88492-A\nAmount: $912,330.55\nAuthorized: Federal contractor`,
-  ai: `Model: LogisticsOptimizer-v3\nAction: Approve shipment reroute\nRisk: Low`,
-  robot: `Robot ID: MTR-992\nCommand: Move arm 3.4cm upward`,
-  legal: `Directive: 2025-118-B\nInstruction: Suspend procurement activity`
-};
-
-function loadExample(x) {
-  input.value = examples[x];
-  compute();
-}
-
 /* ========= HASH ALGORITHMS ========= */
-const algorithms = ["SHA-1", "SHA-224", "SHA-256", "SHA-384", "SHA-512", "SHA3-256"];
+const algorithms = [
+  "SHA-1",
+  "SHA-224",
+  "SHA-256",
+  "SHA-384",
+  "SHA-512",
+  "SHA3-256"
+];
 
-/* ========= VISUAL HASH TRANSITION ========= */
-function animateHash(element, newText) {
-  element.style.opacity = 0;
-  setTimeout(() => {
-    element.textContent = newText;
-    element.style.opacity = 1;
-  }, 220);
-}
-
-/* ========= HASHING ENGINE ========= */
+/* ========= HASH COMPUTATION ========= */
 async function compute() {
   const encoder = new TextEncoder();
   const data = encoder.encode(input.value);
 
-  lastHashes = {};
   let html = "";
+  lastHashes = {};
 
   for (const algo of algorithms) {
-    try {
-      const digest = await crypto.subtle.digest(algo, data);
-      const hex = [...new Uint8Array(digest)]
-        .map(b => b.toString(16).padStart(2, "0"))
-        .join("");
+    const digest = await crypto.subtle.digest(algo, data);
+    const hex = [...new Uint8Array(digest)]
+      .map(x => x.toString(16).padStart(2, "0"))
+      .join("");
 
-      lastHashes[algo] = hex;
+    const old = lastHashes[algo];
+    lastHashes[algo] = hex;
 
-      html += `
-        <div class="hash-row">
-          <span class="hash-label">${algo}</span>
-          <span class="hash-value" id="hash-${algo}">${hex}</span>
-          <label style="font-size:11px;">
-            <input type="radio" name="primary" value="${algo}"
-            ${algo === primaryHash ? "checked" : ""}
-            onclick="setPrimary('${algo}')"> primary
-          </label>
-        </div>`;
-    } catch {
-      html += `
-        <div class="hash-row">
-          <span class="hash-label">${algo}</span>
-          <span class="hash-value red">Browser does not support ${algo}</span>
-        </div>`;
-    }
+    html += `
+      <div class="hash-row ${old && old !== hex ? "changed" : ""}">
+        <span class="hash-label">${algo}</span>
+        <span class="hash-value">${hex}</span>
+        <label style="font-size:11px;">
+          <input type="radio" name="primary" value="${algo}"
+          ${algo === primaryHash ? "checked" : ""}
+          onclick="setPrimary('${algo}')"> primary
+        </label>
+      </div>`;
   }
 
   hashesDiv.innerHTML = html;
   primaryLabel.innerText = primaryHash;
   updateRGAC(lastHashes[primaryHash]);
+  updateTimeline("Hash recalculated");
 }
-
 input.addEventListener("input", compute);
 
-/* ========= PRIMARY HASH SELECTOR ========= */
+/* ========= PRIMARY HASH ========= */
 function setPrimary(algo) {
   primaryHash = algo;
   primaryLabel.innerText = algo;
 }
 
-/* ========= RGAC ANIMATED MINI-CHAIN ========= */
+/* ========= RGAC MINI CHAIN ========= */
 function updateRGAC(hash) {
   if (!hash) return;
   rgacBlocks.push(hash.slice(0, 12));
-  if (rgacBlocks.length > 8) rgacBlocks.shift();
-
+  if (rgacBlocks.length > 9) rgacBlocks.shift();
   rgacDiv.innerHTML = rgacBlocks
-    .map(h => `<div class="block animated">${h}</div>`)
+    .map(h => `<div class="block animate">${h}</div>`)
     .join("");
 }
 
-/* ========= TAMPER TEST ========= */
-function tamperTest() {
-  input.value += "\n🚨 UNAUTHORIZED CHANGE DETECTED";
-  compute();
-}
-
-/* ========= BEFORE/AFTER COMPARISON ========= */
+/* ========= BEFORE / AFTER COMPARISON ========= */
 function toggleCompareMode() {
   if (!beforeSnapshot) {
     beforeSnapshot = {
@@ -573,6 +544,7 @@ function toggleCompareMode() {
       time: new Date().toLocaleTimeString()
     };
     compareBtn.innerText = "Finish Comparison";
+    updateTimeline("Before snapshot captured");
   } else {
     const after = {
       input: input.value,
@@ -588,312 +560,109 @@ function toggleCompareMode() {
       html += `
       <div class="compare-row">
         <span>${algo}</span>
-        <span>${beforeSnapshot.hashes[algo] || "—"}</span>
-        <span style="color:${changed ? "#d32626" : "#13a048"}">
-          ${after.hashes[algo] || "—"}
+        <span>${beforeSnapshot.hashes[algo]}</span>
+        <span style="color:${changed ? "#c42121" : "#159b4c"}">
+          ${after.hashes[algo]}
         </span>
       </div>`;
     }
 
     comparisonBox.innerHTML = html;
     comparisonBox.style.display = "block";
-    compareBtn.innerText = "Start Before/After Capture";
+    compareBtn.innerText = "Start Comparison";
     beforeSnapshot = null;
+    updateTimeline("Comparison completed");
   }
 }
 
-/* ========= EXPORT JSON LOG ========= */
-function exportJSON() {
-  const bundle = {
-    timestamp: new Date().toISOString(),
-    input: input.value,
-    hashes: lastHashes,
-    primary: primaryHash
-  };
+/* ========= EXAMPLE DATASETS ========= */
+const examples = {
+  va: `Veteran: John Sample
+Rating: 70%
+Condition: PTSD
+Requested Increase: 50% → 70%`,
 
-  const file = new Blob([JSON.stringify(bundle, null, 2)], {
+  medical: `Patient: 54M
+Diagnosis: Type 2 Diabetes
+Medication: Metformin 500mg BID`,
+
+  finance: `Transaction ID: 8812-F
+Amount: $4,872.44
+Type: ACH Transfer — Vendor Payment`,
+
+  ai: `AI Model: Claims triage
+Decision: Approve
+Confidence: 94.2%`,
+
+  robot: `Command: Robotic Arm
+Task: Rotate 17° and clamp`,
+
+  legal: `Directive ID: GOV-2218
+Policy: Authorization Required
+Region: Pacific`,
+
+  vin: `Vehicle: 2022 Chevrolet Corvette Convertible
+VIN: 1G1YB2D40N5104321
+Color: Rapid Blue
+Mileage: 6,182`
+};
+
+function loadExample(type) {
+  input.value = examples[type];
+  compute();
+  updateTimeline(`Loaded example: ${type}`);
+}
+
+/* ========= TAMPER TEST ========= */
+function tamperTest() {
+  input.value += "\n🚨 UNAUTHORIZED MODIFICATION DETECTED";
+  compute();
+}
+
+/* ========= TIMELINE LOG ========= */
+function updateTimeline(msg) {
+  const t = new Date().toLocaleTimeString();
+  proofHistory.innerHTML += `[${t}] ${msg}<br>`;
+  proofHistory.scrollTop = proofHistory.scrollHeight;
+}
+
+/* ========= JSON LOG EXPORT ========= */
+function exportJSON() {
+  const blob = new Blob([JSON.stringify(jsonLog, null, 2)], {
     type: "application/json"
   });
-
-  const url = URL.createObjectURL(file);
+  const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = "novak-integrity-log.json";
+  a.download = "novak_integrity_log.json";
   a.click();
 }
 
-/* ========= INIT ========= */
-setAudience("public");
-compute();
-</script>
-
-<!-- =========================
-✅ JAVASCRIPT — FULL FUNCTIONALITY
-========================= -->
-<script>
-/* ===== DOM HOOKS ===== */
-const input = document.getElementById("input");
-const hashesDiv = document.getElementById("hashes");
-const primaryLabel = document.getElementById("primaryLabel");
-const rgacDiv = document.getElementById("rgac");
-const gameBox = document.getElementById("gameBox");
-const glorySection = document.getElementById("glorySection");
-const whyNovak = document.getElementById("whyNovakCard");
-const proofLog = document.getElementById("proofHistory");
-
-/* ===== STATE ===== */
-let lastHashes = {};
-let primaryHash = "SHA-256";
-let rgacBlocks = [];
-let beforeSnapshot = null;
-let soundEnabled = false;
-
-/* ===== HASH ALGORITHMS SUPPORTED TODAY ===== */
-const algorithms = [
-  "SHA-1",
-  "SHA-224",
-  "SHA-256",
-  "SHA-384",
-  "SHA-512"
-];
-
-/* ===== HASHING ENGINE ===== */
-async function compute() {
-  if (!input) return;
-  const encoder = new TextEncoder();
-  const data = encoder.encode(input.value);
-
-  lastHashes = {};
-  let html = "";
-
-  for (const algo of algorithms) {
-    try {
-      const digest = await crypto.subtle.digest(algo, data);
-      const hex = [...new Uint8Array(digest)]
-        .map(b => b.toString(16).padStart(2,"0"))
-        .join("");
-
-      lastHashes[algo] = hex;
-
-      html += `
-      <div class="hash-row hash-anim">
-        <span class="hash-label">${algo}</span>
-        <span class="hash-value">${hex}</span>
-        <label class="micro">
-          <input type="radio" name="primary" value="${algo}"
-          ${algo === primaryHash ? "checked" : ""}
-          onclick="setPrimary('${algo}')"> primary
-        </label>
-      </div>`;
-    } catch {
-      html += `<p style="color:#c42121;">⚠ Browser does not support ${algo}</p>`;
-    }
-  }
-
-  hashesDiv.innerHTML = html;
-  primaryLabel.innerText = primaryHash;
-  updateRGAC(lastHashes[primaryHash]);
-  addProofLog("Hash recomputed");
-}
-
-/* ===== PRIMARY HASH SWITCH ===== */
-function setPrimary(a) {
-  primaryHash = a;
-  primaryLabel.innerText = a;
-}
-
-/* ===== RGAC ANIMATION ===== */
-function updateRGAC(hash) {
-  if (!hash) return;
-  rgacBlocks.push(hash.slice(0, 10));
-  if (rgacBlocks.length > 10) rgacBlocks.shift();
-
-  rgacDiv.innerHTML = rgacBlocks
-    .map(h => `<div class="block pulse">${h}</div>`).join("");
-}
-
-/* ===== AUTO COMPUTE ===== */
-input?.addEventListener("input", compute);
-compute();
-
-/* ===== EXAMPLE DATASETS ===== */
-const examples = {
-  va: `Veteran: John Sample
-Issue: Lumbar Degeneration
-Requested Rating: 40%`,
-  medical: `Patient: 54F
-Diagnosis: CHF
-Medication: Lasix 20mg daily`,
-  finance: `Payment: $94,882.14
-Vendor: Federal Contracting Group
-PO#: 9983-A`,
-  ai: `Model: GPT-X
-Decision: Denied Assistance
-Reason: Confidence < 0.12`,
-  robot:`Robot #22
-Command: Open Security Gate
-Timestamp: 14:03:55`,
-  legal:`Directive: Halt Disbursement
-Authority: Federal Claims Act`
-};
-
-function loadExample(x) {
-  input.value = examples[x];
-  compute();
-  scrollIntoViewSmooth("#hashHeader");
-  addProofLog(`Loaded example: ${x}`);
-}
-
-/* ===== TAMPER TEST ===== */
-function tamperTest() {
-  input.value += "\n🚨 Unauthorized Change Attempt Logged";
-  compute();
-  addProofLog("Tamper test executed");
-}
-
-/* ===== BEFORE/AFTER CAPTURE ===== */
-function toggleCompareMode() {
-  if (!beforeSnapshot) {
-     beforeSnapshot = {
-       text: input.value,
-       hashes: {...lastHashes},
-       time: new Date().toLocaleTimeString()
-     };
-     compareBtn.innerText = "Finish Comparison";
-     addProofLog("Before snapshot captured");
-  } else {
-     let out = `<strong>Before:</strong> ${beforeSnapshot.time}<br>`;
-     out += `<strong>After:</strong> ${new Date().toLocaleTimeString()}<hr>`;
-
-     for (const algo of algorithms) {
-       const changed = beforeSnapshot.hashes[algo] !== lastHashes[algo];
-       out += `
-        <div>
-          <b>${algo}</b><br>
-          ${beforeSnapshot.hashes[algo]}<br>
-          <span style="color:${changed ? "red" : "green"}">
-            ${lastHashes[algo]}
-          </span><br><br>
-        </div>`;
-     }
-
-     document.getElementById("comparison").innerHTML = out;
-     document.getElementById("comparison").style.display = "block";
-     compareBtn.innerText = "Start Before/After Capture";
-     beforeSnapshot = null;
-     addProofLog("Comparison completed");
-  }
-}
-
-/* ===== EXPLAINERS ===== */
-function toggleExplainer(id) {
-  document.querySelectorAll(".explainer")
-    .forEach(e => e.style.display = e.id === id && e.style.display !== "block" ? "block" : "none");
-
-  const active = document.getElementById(id);
-  if (active && active.style.display === "block") {
-    active.scrollIntoView({behavior:"smooth", block:"center"});
-  }
-}
-
-/* ===== GLORY TO GOD ===== */
+/* ========= GLORY TO GOD TOGGLE ========= */
 function toggleGlory() {
-  glorySection.style.display =
-    glorySection.style.display === "block" ? "none" : "block";
+  const box = document.getElementById("glorySection");
+  box.style.display = box.style.display === "block" ? "none" : "block";
+  box.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
-/* ===== WHY NOVAK DISMISS MEMORY ===== */
-function dismissWhyNovak() {
-  whyNovak.style.display = "none";
-  localStorage.setItem("hideWhyNovak", "1");
-}
-if (localStorage.getItem("hideWhyNovak") === "1") {
-  whyNovak.style.display = "none";
-}
-
-/* ===== HASH VISUAL ANIMATION ===== */
-document.addEventListener("animationend", e => {
-  if (e.target.classList.contains("hash-anim")) {
-    e.target.classList.remove("hash-anim");
-  }
-});
-
-/* ===== EXPORTS (SAFE PLACEHOLDERS) ===== */
-function exportCertificate() {
- alert("✅ PDF export available once GitHub backend or local server is enabled.");
-}
-function printOnePager() {
- alert("✅ Executive Preview export enabled once server available.");
-}
-function exportJSON() {
- const blob = new Blob([JSON.stringify(lastHashes,null,2)],{type:"application/json"});
- const link = document.createElement("a");
- link.href = URL.createObjectURL(blob);
- link.download = "NOVAK-Integrity-Log.json";
- link.click();
- addProofLog("Exported JSON log");
-}
-
-/* ===== VISUAL SCROLL ===== */
-function scrollIntoViewSmooth(sel) {
- document.querySelector(sel)?.scrollIntoView({behavior:"smooth"});
-}
-
-/* ===== HISTORY LOG ===== */
-function addProofLog(msg) {
- const time = new Date().toLocaleTimeString();
- proofLog.innerHTML =
-   `<div>🧾 [${time}] — ${msg}</div>` + proofLog.innerHTML;
-}
-
-/* ===== THEME PERSISTENCE ===== */
-function toggleTheme() {
- const html = document.documentElement;
- html.dataset.theme = html.dataset.theme === "dark" ? "light" : "dark";
- localStorage.setItem("theme", html.dataset.theme);
-}
-(function(){
- const saved = localStorage.getItem("theme");
- if (saved) document.documentElement.dataset.theme = saved;
-})();
-
-/* ===== INIT ===== */
+/* ========= INIT ========= */
 compute();
 </script>
 
-<!-- ======================
-✅ COPYRIGHT / TRADEMARK FOOTER
-====================== -->
 <!-- FOOTER -->
-<footer class="footer" style="text-align:center; margin-top:40px; font-size:14px; opacity:.85;">
+<footer style="text-align:center; margin-top:50px; font-size:13px; opacity:0.7;">
+  © 2025 NOVAK Protocol — Trademark Pending — All Rights Reserved<br><br>
 
-  © 2025 NOVAK Protocol — Trademark Pending — All Rights Reserved
-  <br><br>
+  <strong>Star Citizen Referral:</strong>
+  <a href="https://www.robertsspaceindustries.com/enlist?referral=STAR-KRN7-SJTX" target="_blank">
+    STAR-KRN7-SJTX
+  </a><br>
 
-  <!-- Personal acknowledgments / optional links -->
-  <a href="https://www.robertsspaceindustries.com/enlist?referral=STAR-KRN7-SJTX"
-     target="_blank"
-     style="color:var(--blue); text-decoration:none; font-weight:600;">
-    ⭐ Star Citizen Referral: STAR-KRN7-SJTX
-  </a>
+  <strong>PADI 30-Year Member — IDC Staff Instructor:</strong> #888850<br>
 
-  <br>
-
-  <a href="http://www.padi.com"
-     target="_blank"
-     style="color:var(--blue); text-decoration:none; font-weight:600;">
-    🤿 PADI IDC Staff Instructor — 30-Year Member (#888850)
-  </a>
-
-  <br><br>
-
-  <span style="font-size:12px; opacity:.7;">
-    Nothing typed, pasted, uploaded, or generated on this page is stored, transmitted, or logged.
-    Privacy is absolute.
-  </span>
-
+  <a href="http://www.padi.com" target="_blank">www.padi.com</a>
 </footer>
-
 
 </body>
 </html>
+  
