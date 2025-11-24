@@ -1,300 +1,1314 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOVAK Integrity Demo</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NOVAK Integrity Verification Demo</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet"/>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:"Inter",sans-serif;}
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", sans-serif;
+    }
 
-:root{
-  --blue:#1a4fb3;
-  --blue-hover:#0f357f;
-  --bg-light:#f8fafc;
-  --bg-dark:#0f172a;
-  --text-light:#0b1326;
-  --text-dark:#e6edf5;
-  --card-light:#ffffff;
-  --card-dark:#1e293b;
-  --border-light:#d4d8e1;
-  --border-dark:#334155;
+    /* THEME COLORS */
+    :root {
+      --blue: #1a4fb3;
+      --blue-hover: #0f357f;
+      --bg-light: #f8fafc;
+      --bg-dark: #0f172a;
+      --text-light: #0b1326;
+      --text-dark: #e6edf5;
+      --card-light: #ffffff;
+      --card-dark: #1e293b;
+      --border-light: #d4d8e1;
+      --border-dark: #334155;
+    }
+
+    html[data-theme="light"] {
+      --bg: var(--bg-light);
+      --text: var(--text-light);
+      --card: var(--card-light);
+      --border: var(--border-light);
+    }
+    html[data-theme="dark"] {
+      --bg: var(--bg-dark);
+      --text: var(--text-dark);
+      --card: var(--card-dark);
+      --border: var(--border-dark);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      padding: 24px;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: auto;
+    }
+
+    /* HEADER */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 34px;
+      font-weight: 700;
+      color: var(--blue);
+    }
+
+    /* THEME TOGGLE */
+    .theme-toggle {
+      cursor: pointer;
+      font-size: 14px;
+      border: 1px solid var(--blue);
+      padding: 6px 12px;
+      border-radius: 6px;
+      color: var(--blue);
+      background: transparent;
+      transition: 0.25s;
+      white-space: nowrap;
+    }
+    .theme-toggle:hover {
+      background: var(--blue);
+      color: white;
+    }
+
+    /* AUDIENCE NAV */
+    .nav {
+      display: flex;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0 12px 0;
+    }
+    .nav button {
+      border: 1px solid var(--blue);
+      background: transparent;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.25s;
+      color: var(--blue);
+    }
+    .nav button.active,
+    .nav button:hover {
+      background: var(--blue);
+      color: white;
+    }
+
+    /* CARD */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 22px;
+      margin-top: 24px;
+    }
+
+    /* DISMISSIBLE ONBOARDING */
+    #instructionBanner {
+      border-left: 6px solid var(--blue);
+      display: none;
+    }
+
+    /* EXAMPLES */
+    .example-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
+      margin-top: 14px;
+    }
+    .example {
+      border: 1px solid var(--border);
+      padding: 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.25s;
+      background: var(--card);
+      font-size: 14px;
+    }
+    .example:hover {
+      background: rgba(26, 79, 179, 0.08);
+      border-color: var(--blue);
+    }
+
+    /* TEXT INPUT */
+    textarea {
+      width: 100%;
+      height: 170px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px;
+      background: transparent;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 14px;
+      color: var(--text);
+      resize: vertical;
+    }
+
+    /* DROPZONE */
+    .dropzone {
+      margin-top: 18px;
+      border: 2px dashed var(--blue);
+      padding: 36px;
+      text-align: center;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.22s;
+    }
+    .dropzone:hover {
+      background: rgba(26, 79, 179, 0.07);
+    }
+
+    /* BUTTONS */
+    .action-btn {
+      margin-top: 14px;
+      margin-right: 8px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      background: var(--blue);
+      color: white;
+      font-size: 14px;
+      transition: 0.25s;
+      white-space: nowrap;
+    }
+    .action-btn:hover {
+      background: var(--blue-hover);
+    }
+
+    /* HASH LIST + ROWS */
+    .hash-list {
+      font-size: 0.82rem;
+      line-height: 1.35;
+    }
+
+    .hash-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+      gap: 8px;
+    }
+
+    .hash-label {
+      width: 80px;
+      font-weight: 600;
+      font-family: "JetBrains Mono", monospace;
+      margin-top: 2px;
+    }
+
+    .hash-value {
+      overflow-wrap: anywhere;
+      flex: 1;
+      font-family: "JetBrains Mono", monospace;
+    }
+
+    .hash-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-end;
+    }
+
+    .copy {
+      padding: 3px 8px;
+      font-size: 11px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      background: var(--blue);
+      color: white;
+    }
+
+    /* RGAC */
+    .rgac {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .rgac .block {
+      border: 1px solid var(--blue);
+      border-radius: 5px;
+      padding: 4px 8px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+    }
+
+    /* BEFORE/AFTER */
+    .compare-box {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.8rem;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+    .compare-row {
+      display: grid;
+      grid-template-columns: 90px 1fr 1fr;
+      gap: 6px;
+      padding: 4px 0;
+      border-bottom: 1px dashed var(--border);
+    }
+    .compare-label {
+      font-weight: 600;
+    }
+    .compare-before {
+      color: #64748b;
+    }
+    .compare-after {}
+
+    /* Scrollable history container */
+    .history-box {
+      max-height: 240px;
+      overflow-y: auto;
+      padding: 12px 16px;
+      border: 1px solid #d0d7de;
+      background: #f6f8fa;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.85rem;
+      white-space: pre-line;
+      border-radius: 6px;
+    }
+
+    /* Dark mode compatibility for history */
+    html[data-theme="dark"] .history-box {
+      background: #0d1117;
+      border-color: #30363d;
+      color: #e6edf3;
+    }
+
+    /* Simple “I still don’t get it” explainer */
+    #simpleExplain {
+      display: none;
+      margin-top: 16px;
+      border-left: 4px solid var(--blue);
+    }
+
+    .glory-btn {
+  display: inline-block;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  text-decoration: none;
+  font-weight: 600;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background: transparent;
+  transition: .25s ease;
 }
 
-html[data-theme="light"]{
-  --bg:var(--bg-light);
-  --text:var(--text-light);
-  --card:var(--card-light);
-  --border:var(--border-light);
-}
-html[data-theme="dark"]{
-  --bg:var(--bg-dark);
-  --text:var(--text-dark);
-  --card:var(--card-dark);
-  --border:var(--border-dark);
-}
-
-body{background:var(--bg);color:var(--text);padding:26px;}
-.container{max-width:960px;margin:auto;}
-
-.logo{font-size:34px;font-weight:700;color:var(--blue);}
-
-.theme-toggle{
-  cursor:pointer;font-size:14px;border:1px solid var(--blue);
-  padding:6px 12px;border-radius:6px;color:var(--blue);
-  background:transparent;transition:.25s;white-space:nowrap;
-}
-.theme-toggle:hover{background:var(--blue);color:white;}
-
-.nav{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;}
-.nav button{
-  border:1px solid var(--blue);background:transparent;
-  padding:8px 16px;border-radius:6px;font-size:14px;
-  cursor:pointer;color:var(--blue);transition:.25s;
-}
-.nav button:hover,.nav button.active{
-  background:var(--blue);color:white;
+.glory-btn {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 1px solid var(--blue);
+  background: transparent;
+  color: var(--blue);
+  font-size: 13px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: .25s;
 }
 
-.card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:10px;padding:22px;margin-top:24px;
+.glory-btn:hover {
+  background: var(--blue);
+  color: white;
 }
 
-.action-btn{
-  padding:8px 16px;border-radius:6px;border:none;
-  cursor:pointer;background:var(--blue);color:white;
-  font-size:14px;transition:.25s;
-}
-.action-btn:hover{background:var(--blue-hover);}
-
-textarea{
-  width:100%;height:170px;border:1px solid var(--border);
-  border-radius:6px;padding:12px;background:transparent;
-  font-family:"JetBrains Mono",monospace;font-size:14px;
-  color:var(--text);resize:vertical;
+function toggleHowWorks() {
+  const box = document.getElementById("howWorksBox");
+  box.style.display = (box.style.display === "none" || box.style.display === "")
+    ? "block"
+    : "none";
 }
 
-#gameBox{display:none;}
 
-#glorySection{display:none;text-align:center;}
-
-.explainer{display:none;margin-top:18px;}
-</style>
+    /* Small-screen tweaks */
+    @media (max-width: 600px) {
+      body {
+        padding: 16px;
+      }
+      .logo {
+        font-size: 28px;
+      }
+      .header {
+        align-items: flex-start;
+      }
+    }
+  </style>
 </head>
 
-  <body>
-<div class="container">
+<body>
+  <div class="container">
 
-<div class="header">
-  <div class="logo">NOVAK Protocol</div>
-  <button class="theme-toggle" onclick="toggleTheme()">Light/Dark</button>
+    <!-- HEADER -->
+    <div class="header">
+      <div class="logo">NOVAK Protocol</div>
+      <button class="theme-toggle" onclick="toggleTheme()">Light/Dark</button>
+    </div>
+
+    <!-- Audience selector BELOW title -->
+    <div class="nav">
+      <button onclick="setAudience('public')" class="active" id="btn-public">Public</button>
+      <button onclick="setAudience('government')" id="btn-government">Government</button>
+      <button onclick="setAudience('investor')" id="btn-investor">Investor</button>
+      <button onclick="setAudience('cyber')" id="btn-cyber">Cybersecurity</button>
+      <button onclick="setAudience('academic')" id="btn-academic">Academic</button>
+    </div>
+
+    <!-- WHY NOVAK -->
+    <div id="whyNovakCard" class="card" style="margin-top:10px; position: relative;">
+
+      <h2>Why NOVAK — Why Now?</h2>
+
+      <p style="margin-top:10px; font-size:15px; line-height:1.55;">
+        Today, automated systems approve loans, deny medical claims, adjust insurance rates,
+        steer vehicles, filter veterans' benefits, control robots, and move billions of dollars —
+        often <strong>without proof, transparency, or accountability.</strong>
+      </p>
+
+      <p style="margin-top:12px; font-size:15px; line-height:1.55;">
+        NOVAK ensures every automated action — in government, healthcare, finance, defense,
+        and AI — must generate cryptographic proof of legality <strong>before it happens.</strong>
+      </p>
+
+      <p style="margin-top:12px; font-size:15px; line-height:1.55;">
+        If the data changes, a rule is wrong, or manipulation occurs, NOVAK detects it instantly
+        and <strong>blocks the action safely.</strong>
+      </p>
+
+      <p style="margin-top:12px; font-size:15px; line-height:1.55; font-weight:600;">
+        No blockchain. No cryptocurrency. No central server. Just mathematical integrity.
+      </p>
+
+      <p style="margin-top:12px; font-size:15px; line-height:1.55;">
+        ✅ Every input generates a unique fingerprint.<br />
+        ✅ Change anything — the fingerprint changes instantly.
+      </p>
+
+      <p style="font-size:15px; opacity:.85; margin-top:14px;">
+        SHA-256 is the steel the NSA engineered — NOVAK is the vault that ensures automation
+        can’t act without proof.
+      </p>
+
+      <!-- Don’t show again button -->
+      <button onclick="dismissWhyNovak()" class="action-btn" style="margin-top:18px;">
+        ✅ Don’t show this again
+      </button>
+
+      <!-- Close X button -->
+      <button onclick="dismissWhyNovak()"
+              style="position:absolute; top:14px; right:14px;
+                     background:none; border:none; font-size:20px;
+                     cursor:pointer;">
+        ✕
+      </button>
+    </div>
+
+    <br /><br />
+
+    <!-- Executive Description -->
+    <p id="description" style="font-size:15px;margin-bottom:12px;">
+      NOVAK generates a mathematical fingerprint of data. If anything changes—even slightly—the fingerprint changes instantly. Try it below.
+    </p>
+
+    <!-- “I still don’t get it” button -->
+    <button class="action-btn" style="margin-bottom:10px;" onclick="toggleSimpleExplain()">
+      I still don’t get it
+    </button>
+
+    <!-- Super simple explainer -->
+    <div id="simpleExplain" class="card">
+      <h3>Okay, super simple version 👇</h3>
+      <p style="margin-top:10px;font-size:15px;line-height:1.55;">
+        Imagine you take a picture of a puzzle when it’s correct. That picture is your
+        <strong>hash</strong> — a special fingerprint made from the data.
+      </p>
+      <p style="margin-top:10px;font-size:15px;line-height:1.55;">
+        If someone even nudges one puzzle piece, the new picture looks different.
+        NOVAK keeps checking the “picture” of your data. If anything moves — even
+        one tiny piece — NOVAK sees it and says:
+        <strong>“Stop. Something changed. Prove this is still allowed.”</strong>
+      </p>
+      <p style="margin-top:10px;font-size:15px;line-height:1.55;">
+        The steel (SHA-256) already exists. NOVAK is the vault door that refuses to open
+        unless everything matches.
+      </p>
+    </div>
+
+    <!-- EXPLAINER BUTTONS -->
+<!-- EXPLAINER BUTTONS -->
+<div style="margin-top:18px; display:flex; flex-wrap:wrap; gap:12px;">
+  <button class="action-btn" onclick="toggleSimpleExplain()">I still don't get it</button>
+  <button class="action-btn" onclick="explainGovSavings()">Could this save the government money?</button>
+  <button class="action-btn" onclick="toggleHowWorks()">Show Me How This Works</button>
+  <button class="action-btn" onclick="toggleKeyExplain()">Explain the Key Analogy</button>
 </div>
 
-<!-- AUDIENCE SELECTOR -->
-<div class="nav">
-  <button onclick="setAudience('public')" class="active" id="btn-public">Public</button>
-  <button onclick="setAudience('government')" id="btn-government">Government</button>
-  <button onclick="setAudience('investor')" id="btn-investor">Investor</button>
-  <button onclick="setAudience('cyber')" id="btn-cyber">Cybersecurity</button>
+
+<!-- COLLAPSIBLE “HOW IT WORKS” SECTION -->
+<div id="howWorksBox" class="card" style="margin-top:12px; display:none;">
+  <h3>How the NOVAK Demo Works 🔍</h3>
+  <ul style="margin-top:10px; margin-left:18px; font-size:15px; line-height:1.55;">
+    <li>Select or paste data into the text box</li>
+    <li>NOVAK instantly computes multiple cryptographic fingerprints</li>
+    <li>Change a single character → every hash changes instantly</li>
+    <li>Use Tamper Test to simulate unauthorized modification</li>
+    <li>Export a cryptographic certificate proving integrity</li>
+  </ul>
+  <p style="margin-top:12px; font-size:14px; opacity:.75;">
+    NOVAK doesn’t guess — it proves. Tampering becomes mathematically impossible to hide.
+  </p>
 </div>
 
-<!-- WHY NOVAK -->
-<div id="whyNovakCard" class="card">
-  <h2>Why NOVAK — Why Now?</h2>
-  <p style="margin-top:10px;font-size:15px;line-height:1.55;">
-    Billions of automated decisions happen every day — approving benefits, moving funds,
-    updating medical records, routing defense systems — yet most execute without proof.
-  </p>
-  <p style="margin-top:12px;font-size:15px;line-height:1.55;">
-    NOVAK requires cryptographic proof of legitimacy <strong>before the action happens</strong>.
-  </p>
-  <button onclick="dismissWhyNovak()" class="action-btn" style="margin-top:16px;">
-    ✅ Don’t Show Again
+
+    <!-- Simple explainer panels -->
+    <div id="simpleExplainBox" class="card" style="margin-top:12px; display:none;">
+      <!-- JS fills -->
+    </div>
+
+    <div id="govSavingsBox" class="card" style="margin-top:12px; display:none;">
+      <!-- JS fills -->
+    </div>
+
+    <!-- Simple demo tip -->
+    <div class="card" style="border-left:6px solid var(--blue);">
+      <strong>The simplest way to understand NOVAK:</strong>
+      <p style="margin-top:10px; font-size:15px; line-height:1.55;">
+        Type a sentence below the example datasets — like “Payment amount: $200.”
+        Now change it to “$220.”
+      </p>
+
+      <p style="margin-top:10px; font-size:15px; line-height:1.55;">
+        Every fingerprint changes instantly. NOVAK sees <strong>even a one-character change</strong>.
+        That’s how tampering, fraud, or system errors become impossible to hide.
+      </p>
+    </div>
+
+    <!-- INSTRUCTION BANNER (hidden until clicked) -->
+    <div id="instructionBanner" class="card">
+      <strong>How to use this demo:</strong>
+      <ul style="margin-left:18px; font-size:14px; line-height:1.45; margin-top:6px;">
+        <li>Step 1 — Select an example dataset below</li>
+        <li>Step 2 — Modify the text and watch hashes update instantly</li>
+        <li>Step 3 — Run “Tamper Test” to demonstrate detection</li>
+        <li>Step 4 — Export Integrity Certificate to PDF</li>
+      </ul>
+      <button onclick="dismissInstruction()" style="margin-top:10px;" class="action-btn">
+        Got it — Hide this
+      </button>
+    </div>
+
+    <!-- EXAMPLE DATASETS -->
+    <div class="card">
+      <h3>Select an example dataset:</h3>
+      <div class="example-grid">
+        <div class="example" onclick="loadExample('va')">VA Disability Claim Summary</div>
+        <div class="example" onclick="loadExample('medical')">Clinical Note (Healthcare)</div>
+        <div class="example" onclick="loadExample('finance')">Financial Transaction Record</div>
+        <div class="example" onclick="loadExample('ai')">AI Decision Output Log</div>
+        <div class="example" onclick="loadExample('robotics')">Autonomous Robotics Command</div>
+        <div class="example" onclick="loadExample('legal')">Legal/Policy Directive</div>
+      </div>
+    </div>
+
+    <!-- INPUT + DROPZONE -->
+    <div class="card">
+      <textarea id="input" placeholder="Type, paste, or modify data here..."></textarea>
+
+      <div id="dropzone" class="dropzone">
+        ⬇️ Drag & drop a file here to verify integrity
+      </div>
+
+      <button class="action-btn" onclick="tamperTest()">Run Tamper Test</button>
+      <button class="action-btn" onclick="toggleCompareMode()" id="compareBtn">Start Before/After Capture</button>
+    </div>
+
+    <!-- HASH OUTPUT -->
+    <div class="card">
+      <h3 id="hashHeader">Integrity Fingerprints</h3>
+      <p style="font-size:13px;margin-bottom:6px;">All supported hashes are shown. Select which one to treat as primary.</p>
+
+      <div id="hashes" class="hash-list"></div>
+
+      <p style="font-size:13px;margin-top:8px;">
+        Primary Hash for certificate:
+        <span id="primaryLabel" style="font-weight:600;">SHA-256</span>
+      </p>
+
+      <!-- RGAC VISUALIZER -->
+      <h4 style="margin-top:16px;">RGAC Chain (conceptual demo):</h4>
+      <div id="rgac" class="rgac"></div>
+
+      <button class="action-btn" onclick="exportCertificate()">Export Integrity Certificate (PDF)</button>
+    </div>
+
+    <button class="action-btn" onclick="printOnePager()">
+  Generate Executive Preview (PDF)
+  </button>
+
+
+    <!-- BEFORE/AFTER -->
+    <div class="card">
+      <h3>Before/After Comparison</h3>
+      <p style="font-size:13px;margin-bottom:8px;">
+        Click “Start Before/After Capture”, modify input, click again to compare.
+      </p>
+      <div id="comparison" class="compare-box" style="display:none;"></div>
+    </div>
+    <div id="gameBox" class="card" style="margin-top:14px; display:none;"></div>
+
+
+    <!-- TIMELINE -->
+    <div class="card" id="timelineCard">
+      <h3 id="timelineHeader">Proof History</h3>
+      <div id="proofHistory" class="history-box"></div>
+    </div>
+
+    <!-- NOVAK VS BLOCKCHAIN EXPLAINER -->
+    <div class="card">
+      <h3>How NOVAK Differs from Blockchain, Bitcoin & SSL/TLS</h3>
+
+      <h4 style="margin-top:14px;">NOVAK vs Blockchain</h4>
+      <ul style="margin-left:18px;font-size:14px;line-height:1.45;">
+        <li><strong>Blockchain:</strong> Records events after execution.</li>
+        <li><strong>NOVAK:</strong> Requires proof before execution.</li>
+        <li><strong>Blockchain:</strong> Requires decentralized consensus.</li>
+        <li><strong>NOVAK:</strong> Works in any system — no miners, ledger, or network.</li>
+      </ul>
+
+      <h4 style="margin-top:14px;">NOVAK vs Bitcoin / Cryptocurrency</h4>
+      <ul style="margin-left:18px;font-size:14px;line-height:1.45;">
+        <li><strong>Cryptocurrency:</strong> Financial token on blockchain.</li>
+        <li><strong>NOVAK:</strong> Not money — governs automated decisions.</li>
+      </ul>
+
+      <h4 style="margin-top:14px;">NOVAK vs SSL/TLS</h4>
+      <ul style="margin-left:18px;font-size:14px;line-height:1.45;">
+        <li><strong>SSL/TLS:</strong> Protects data in transit.</li>
+        <li><strong>NOVAK:</strong> Ensures the action itself is lawful before execution.</li>
+      </ul>
+
+      <h4 style="margin-top:14px;">What NOVAK Actually Is</h4>
+      <ul style="margin-left:18px;font-size:14px;line-height:1.45;">
+        <li>A cryptographic execution checkpoint</li>
+        <li>A tamper-evident legality engine</li>
+        <li>Lightweight — infrastructure independent</li>
+        <li>Universal — works in any industry</li>
+      </ul>
+    </div>
+
+    <!-- VISUAL DIAGRAM -->
+    <div class="card">
+      <h3>NOVAK vs Blockchain — Visual Overview</h3>
+      <svg width="100%" height="130">
+        <text x="10" y="20" font-size="14">Blockchain:</text>
+        <text x="10" y="40" font-size="12">Action → Recorded → Audited Later</text>
+        <line x1="10" y1="55" x2="250" y2="55" stroke="#1a4fb3" stroke-width="2" />
+
+        <text x="10" y="90" font-size="14">NOVAK:</text>
+        <text x="10" y="110" font-size="12">Action Proposed → Legality Proven → Then Executed</text>
+      </svg>
+    </div>
+
+    <!-- GLOSSARY -->
+    <div class="card">
+      <h3>Glossary — Plain English</h3>
+      <ul style="margin-left:18px;font-size:14px;line-height:1.5;">
+        <li><strong>Hash:</strong> Unique mathematical fingerprint of data.</li>
+        <li><strong>SHA-256:</strong> U.S. federal integrity standard.</li>
+        <li><strong>Execution Identity Receipt:</strong> Proof-before-action checkpoint.</li>
+        <li><strong>RGAC:</strong> Ordered chain of integrity receipts over time.</li>
+        <li><strong>Proof-Before-Action:</strong> Machine must justify action first.</li>
+      </ul>
+    </div>
+
+    <!-- COMPLIANCE -->
+    <div class="card">
+      <h3>Security, Compliance & Deployment</h3>
+      <ul style="margin-left:18px;font-size:14px;line-height:1.5;">
+        <li>100% local — no data leaves the device</li>
+        <li>Compatible with FIPS 180-4 hashing implementations</li>
+        <li>Suitable for VA, DoD, DHS, HHS, Treasury environments</li>
+        <li>Integrates with PKI, IAM, SIEM, zero-trust frameworks</li>
+      </ul>
+    </div>
+
+    <!-- WHAT THIS IS NOT -->
+<div style="margin-top:32px; text-align:center;">
+  <button class="glory-btn" onclick="toggleGlorySection()">
+    All Glory to GOD
   </button>
 </div>
 
-<!-- EXPLAINER BUTTONS -->
-<div style="margin-top:22px;display:flex;gap:10px;flex-wrap:wrap;">
-  <button class="action-btn" onclick="toggleExplainer('still')">I'm still not getting it</button>
-  <button class="action-btn" onclick="toggleExplainer('pencils')">Colored Pencil Analogy</button>
-  <button class="action-btn" onclick="toggleExplainer('key')">Key Analogy</button>
-  <button class="action-btn" onclick="toggleExplainer('gov')">Government Savings</button>
-  <button class="action-btn" onclick="toggleExplainer('how')">Show Me How</button>
+<div id="glorySection" class="card" style="margin-top:18px; display:none;">
+  <h2 style="margin-bottom:14px; text-align:center;">All Glory to GOD</h2>
+
+  <p style="font-size:15px; line-height:1.6;">
+    This project, this clarity, this invention — every insight, every step forward,
+    every door opened — is because of Him. None of this belongs to me. I am only a steward.
+  </p>
+
+  <p style="font-size:15px; margin-top:14px; line-height:1.6;">
+    Thank You, Father, for wisdom, protection, creativity, courage, and purpose.
+    May this serve people, protect the vulnerable, and honor You.
+  </p>
+
+  <p style="font-size:15px; margin-top:14px; line-height:1.6;">
+    Everything good in this work belongs to God.<br>
+    Everything flawed belongs to me.
+  </p>
+
+  <p style="font-size:14px; margin-top:16px; opacity:.75;">
+    James 1:17 — “Every good and perfect gift is from above.”
+  </p>
+
+  <p style="font-size:14px; margin-top:6px; opacity:.75;">
+    Soli Deo Gloria — To God alone be the glory.
+  </p>
+
+  <button onclick="toggleGlorySection()" 
+          style="margin-top:18px; font-size:13px;" 
+          class="action-btn">
+    Hide
+  </button>
 </div>
 
-<!-- EXPLAINER SECTIONS -->
-<div id="still" class="card explainer">
-  <h3>Okay — Even Simpler 👇</h3>
-  <p>Imagine a vending machine that refuses to dispense anything until it proves the request is valid.</p>
-  <p>NOVAK is that — but for automation, money, policy, AI, healthcare, defense & records.</p>
+
+    
+    <!-- FOOTER -->
+
+    <div class="card" style="margin-top:26px; text-align:center;">
+  <h3>Interactive NOVAK Mini-Games</h3>
+  <p style="font-size:14px; opacity:.75; margin-top:6px;">
+    Learn NOVAK through play — fraud spotting, hash matching, integrity puzzles.
+  </p>
+
+  <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:14px;">
+    <button class="action-btn" onclick="playTamperGame()">Spot the Tampered Claim</button>
+    <button class="action-btn" onclick="playHashMatch()">Hash Matching Memory</button>
+    <button class="action-btn" onclick="playKeyGame()">Find the Valid Key</button>
+    <button class="action-btn" onclick="playFraudDetective()">Fraud Detective Mode</button>
+  </div>
 </div>
 
-<div id="pencils" class="card explainer">
-  <h3>The Colored Pencil Box Analogy 🖍️</h3>
-  <p>You own a box of 48 colored pencils. One special pink pencil must ALWAYS be inside.</p>
-  <p>The box is sealed — if someone removes, swaps, sharpens, or adds a pencil, the seal changes.</p>
-  <p>NOVAK is that seal — a mathematical fingerprint proving nothing was altered.</p>
-  <strong>If the seal doesn’t match → stop, investigate, block the action.</strong>
+<!-- Mini-game display box -->
+<div id="gameBox" class="card" style="margin-top:14px; display:none;"></div>
+
+    <div class="footer" style="margin-top:36px;font-size:12px;text-align:center;opacity:.75;">
+      NOVAK Protocol — Patent Pending © 2025. Demonstration only — no stored or transmitted data.
+    </div>
+    
+<div id="glorySection" class="card" style="margin-top:16px; display:none; text-align:center;">
+  <h2 style="margin-bottom:14px;">All Glory to GOD</h2>
+
+  <p style="font-size:15px; line-height:1.6; max-width:720px; margin:auto;">
+    This project, this clarity, this invention — every insight, every step forward,
+    every door opened — is because of Him. None of this belongs to me. I am only a steward.
+  </p>
+
+  <p style="font-size:15px; margin-top:14px; line-height:1.6; max-width:720px; margin:auto;">
+    Thank You, Father, for wisdom, protection, creativity, courage, and purpose.
+    May this serve people, protect the vulnerable, and honor You.
+  </p>
+
+  <p style="font-size:14px; margin-top:16px; opacity:.75;">
+    James 1:17 — “Every good and perfect gift is from above.”
+  </p>
+
+  <p style="font-size:14px; margin-top:6px; opacity:.75;">
+    Soli Deo Gloria — To God alone be the glory.
+  </p>
 </div>
 
-<div id="key" class="card explainer">
-  <h3>The Key Analogy 🔑</h3>
-  <p>A diary key protects privacy, a bike key prevents theft, a house key controls access.</p>
-  <p>NOVAK generates a cryptographic “key match” before automation can act.</p>
-  <strong>Wrong key? No execution.</strong>
-</div>
 
-<div id="gov" class="card explainer">
-  <h3>Government Savings 💰</h3>
-  <ul style="margin-left:18px;line-height:1.55;">
-    <li>Stops wrongful payments before they go out</li>
-    <li>Reduces fraud, waste, abuse, appeals & rework</li>
-    <li>Makes audits mathematical — not forensic</li>
-    <li>Protects public trust & agency reputation</li>
+    <button onclick="localStorage.removeItem('hideWhyNovak'); location.reload();"
+            style="font-size:12px; margin-top:12px;">
+      Show Why NOVAK Again
+    </button>
+
+  </div> <!-- END CONTAINER -->
+
+  <script>
+    /* DOM references */
+    const input = document.getElementById("input");
+    const hashesDiv = document.getElementById("hashes");
+    const rgacDiv = document.getElementById("rgac");
+    const dropzone = document.getElementById("dropzone");
+    const primaryLabel = document.getElementById("primaryLabel");
+    const comparisonBox = document.getElementById("comparison");
+    const compareBtn = document.getElementById("compareBtn");
+
+    /* Audience messaging */
+    const audienceText = {
+      public: {
+        desc: "NOVAK generates a mathematical fingerprint of data. If anything changes—even slightly—the fingerprint changes instantly. Try it below.",
+        hash: "Integrity Fingerprints",
+        timeline: "Proof History"
+      },
+      government: {
+        desc: "NOVAK enforces cryptographic proof-before-action — ensuring records, claims, and automated decisions cannot be altered without detection.",
+        hash: "Regulatory Integrity Fingerprints",
+        timeline: "Audit & Compliance Trail"
+      },
+      investor: {
+        desc: "NOVAK prevents fraud, tampering, and unauthorized automation — reducing risk across finance, healthcare, defense & government.",
+        hash: "Business Integrity Outputs",
+        timeline: "Accountability Timeline"
+      },
+      cyber: {
+        desc: "Real-time hashing for SOC, DFIR, DevSecOps, file integrity monitoring, and tamper detection.",
+        hash: "Cryptographic Hash Outputs",
+        timeline: "Security Event Timeline"
+      },
+      academic: {
+        desc: "Hashes are deterministic, collision-resistant mathematical functions — foundational to cryptography & distributed systems.",
+        hash: "Cryptographic Fingerprints",
+        timeline: "Research Log"
+      }
+    };
+
+    function setAudience(a) {
+      document.getElementById("description").innerText = audienceText[a].desc;
+      document.getElementById("hashHeader").innerText = audienceText[a].hash;
+      document.getElementById("timelineHeader").innerText = audienceText[a].timeline;
+      document.querySelectorAll(".nav button").forEach(btn => btn.classList.remove("active"));
+      document.getElementById(`btn-${a}`).classList.add("active");
+    }
+
+    /* Super simple explainer toggle */
+    function toggleSimpleExplain() {
+      const box = document.getElementById("simpleExplain");
+      const now = box.style.display === "block";
+      box.style.display = now ? "none" : "block";
+    }
+
+    /* Show onboarding banner */
+    function startGuide() {
+      document.getElementById("instructionBanner").style.display = "block";
+      addTimeline("Displayed usage instructions");
+    }
+
+    /* "I still don't get it" — super simple analogy */
+    function explainSuperSimple() {
+      const box = document.getElementById("simpleExplainBox");
+      const other = document.getElementById("govSavingsBox");
+      if (other) other.style.display = "none";
+
+      box.innerHTML = `
+        <h3>Think of NOVAK like this:</h3>
+        <p style="margin-top:8px; font-size:14px; line-height:1.55;">
+          Imagine every time a computer tries to do something important
+          — approve a claim, move money, change a medical record — it has to
+          <strong>print a receipt first</strong> that proves it is allowed to do it.
+        </p>
+        <p style="margin-top:8px; font-size:14px; line-height:1.55;">
+          That receipt is a <strong>mathematical fingerprint</strong> of:
+          the rule it used, the data it looked at, and the decision it wants to make.
+        </p>
+        <p style="margin-top:8px; font-size:14px; line-height:1.55;">
+          If <em>anything</em> changes — the data, the rule, or the output —
+          the fingerprint changes and NOVAK knows something is off.
+          <strong>No receipt, no action.</strong> That’s the whole idea.
+        </p>
+      `;
+      box.style.display = "block";
+      addTimeline("User clicked: I still don't get it (simple explanation shown)");
+    }
+
+    /* "Could this save the government money?" explanation */
+    function explainGovSavings() {
+      const box = document.getElementById("govSavingsBox");
+      const other = document.getElementById("simpleExplainBox");
+      if (other) other.style.display = "none";
+
+      box.innerHTML = `
+        <h3>How NOVAK could save the government money</h3>
+        <ul style="margin-top:8px; margin-left:18px; font-size:14px; line-height:1.55;">
+          <li><strong>Stops bad payments before they go out:</strong>
+              NOVAK forces systems to prove a claim or payment is valid
+              <em>before</em> money moves.</li>
+          <li><strong>Reduces fraud and manipulation:</strong>
+              if someone changes data after the fact, the cryptographic fingerprint
+              no longer matches — the system can block it or flag it.</li>
+          <li><strong>Cuts rework and appeals:</strong>
+              when every automated decision has a clear proof trail,
+              it is easier to fix mistakes once instead of re-processing the same case.</li>
+          <li><strong>Makes audits cheaper:</strong>
+              auditors can verify decisions mathematically instead of
+              digging through screenshots, emails, and manual logs.</li>
+          <li><strong>Lowers legal and reputational risk:</strong>
+              being able to show “here is the exact proof we used”
+              can prevent lawsuits and public crises.</li>
+        </ul>
+        <p style="margin-top:8px; font-size:14px; line-height:1.55;">
+          NOVAK doesn’t move the money itself — it acts like a cryptographic
+          <strong>gatekeeper</strong> in front of the systems that do.
+          That’s where the savings come from.
+        </p>
+      `;
+      box.style.display = "block";
+      addTimeline("User clicked: Could this save the government money? (gov savings explanation shown)");
+    }
+
+    <!-- KEY ANALOGY SECTION -->
+<div id="keyExplainBox" class="card" style="margin-top:12px; display:none;">
+  <h3>NOVAK as a Key — The Simple Analogy 🔑</h3>
+
+  <p style="margin-top:10px; font-size:15px; line-height:1.55;">
+    You have different keys for different things:
+  </p>
+
+  <ul style="margin-left:18px; margin-top:6px; font-size:15px; line-height:1.55;">
+    <li><strong>Diary key</strong> — protects privacy</li>
+    <li><strong>Bike lock key</strong> — prevents theft</li>
+    <li><strong>House key</strong> — controls access</li>
+    <li><strong>Car key</strong> — allows operation only when authorized</li>
   </ul>
+
+  <p style="margin-top:14px; font-size:15px; line-height:1.55;">
+    NOVAK works the same way — but for automation, data, AI decisions, payments, records,
+    and government systems.
+  </p>
+
+  <p style="margin-top:14px; font-size:15px; line-height:1.55;">
+    Instead of a metal key, NOVAK generates a <strong>cryptographic key-match</strong>.
+    If the data changes even slightly, the “key” no longer fits — and the system refuses to act.
+  </p>
+
+  <p style="margin-top:14px; font-size:15px; font-weight:600;">
+    Wrong key? No access. No execution. No harm.
+  </p>
+
+  <p style="margin-top:14px; font-size:14px; opacity:.75;">
+    That’s Proof-Before-Action — the lock only opens when everything matches.
+  </p>
 </div>
 
-<div id="how" class="card explainer">
-  <h3>How the Demo Works</h3>
-  <p>Type anything → cryptographic fingerprints update instantly.</p>
-  <p>Change even one character → every hash changes.</p>
-  <p>This makes silent tampering impossible to hide.</p>
+
+    /* Hide onboarding banner */
+    function dismissInstruction() {
+      document.getElementById("instructionBanner").style.display = "none";
+      addTimeline("User dismissed instructions");
+    }
+
+    /* Example datasets */
+    const examples = {
+      va: `Veteran: John Sample
+Claim Type: Degenerative Joint Disease
+Status: Pending C&P Review
+Evidence: MRI confirming L5-S1 disc narrowing
+Requested Rating Increase: 10% → 40%`,
+      medical: `Patient DOB: 1978-02-14
+Diagnosis: Atrial fibrillation
+Medication Change: Metoprolol 25mg BID
+Follow-Up: 6 weeks`,
+      finance: `Transaction ID: 9938172-AX
+Account: Commercial Checking
+Amount: $248,932.17
+Purpose: Federal subcontract payment`,
+      ai: `Autonomous System Output:
+Confidence: 0.92
+Recommended Action: Approve
+Input Source: Document classifier model`,
+      robotics: `Command ID: R-2043
+Unit: Surgical Robot Arm
+Instruction: Move 3.2mm posterior
+Safety Flag: TRUE`,
+      legal: `Directive ID: SEC-782-A
+Policy: Data Tamper Prevention
+Effective: March 2025
+Applies To: All automated systems`
+    };
+
+    function loadExample(type) {
+      input.value = examples[type];
+      addTimeline(`Loaded example dataset: ${type}`);
+      compute();
+    }
+
+    /* Supported hashing algorithms */
+    const algorithms = ["SHA-1", "SHA-256", "SHA-384", "SHA-512", "SHA3-256", "SHA3-512"];
+    let lastHashes = {};
+    let primaryHash = "SHA-256";
+
+    /* Core hashing */
+    async function compute() {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(input.value);
+      let rows = "";
+      lastHashes = {};
+
+      for (const algo of algorithms) {
+        try {
+          const digest = await crypto.subtle.digest(algo, data);
+          const hex = [...new Uint8Array(digest)]
+            .map(b => b.toString(16).padStart(2, "0"))
+            .join("");
+          lastHashes[algo] = hex;
+
+          rows += `
+            <div class="hash-row">
+              <span class="hash-label">${algo}</span>
+              <span class="hash-value">${hex}</span>
+              <div class="hash-controls">
+                <label style="font-size:11px;">
+                  <input type="radio" name="primary" value="${algo}" ${algo === primaryHash ? "checked" : ""}
+                         onclick="setPrimary('${algo}')"> primary
+                </label>
+                <button class="copy" onclick="navigator.clipboard.writeText('${hex}')">Copy</button>
+              </div>
+            </div>
+          `;
+        } catch (e) {
+          rows += `<div class="hash-row">${algo} not supported in this browser.</div>`;
+        }
+      }
+
+      hashesDiv.innerHTML = rows;
+      primaryLabel.innerText = primaryHash;
+
+      updateRGAC(lastHashes[primaryHash]);
+      addTimeline("Integrity fingerprints updated");
+    }
+
+    /* Primary hash selector */
+    function setPrimary(algo) {
+      primaryHash = algo;
+      primaryLabel.innerText = primaryHash;
+      addTimeline(`Primary hash set to ${primaryHash}`);
+    }
+
+    /* RGAC mini-chain */
+    let rgacBlocks = [];
+    function updateRGAC(hash) {
+      if (!hash) return;
+      rgacBlocks.push(hash.slice(0, 10));
+      if (rgacBlocks.length > 6) rgacBlocks.shift();
+      rgacDiv.innerHTML = rgacBlocks.map(h => `<div class="block">${h}</div>`).join("");
+    }
+
+    /* Timeline logger */
+    function addTimeline(msg) {
+      const box = document.getElementById("proofHistory");
+      if (!box) return;
+      box.textContent += `[${new Date().toLocaleTimeString()}] ${msg}\n`;
+      box.scrollTop = box.scrollHeight;
+    }
+
+    /* Live hash recompute */
+    input.addEventListener("input", compute);
+
+    /* File drop hashing */
+    dropzone.addEventListener("dragover", e => e.preventDefault());
+    dropzone.addEventListener("drop", async e => {
+      e.preventDefault();
+      const file = e.dataTransfer.files[0];
+      if (!file) return;
+      input.value = await file.text();
+      addTimeline(`File loaded: ${file.name}`);
+      compute();
+    });
+
+    /* Tamper test */
+    function tamperTest() {
+      input.value += "\n\n*** UNAUTHORIZED CHANGE FLAGGED ***";
+      addTimeline("Tamper test injected");
+      compute();
+    }
+
+    /* Before/After comparison */
+    let beforeSnapshot = null;
+    function toggleCompareMode() {
+      if (!beforeSnapshot) {
+        beforeSnapshot = {
+          input: input.value,
+          hashes: { ...lastHashes },
+          time: new Date().toLocaleTimeString()
+        };
+        compareBtn.innerText = "Complete Before/After Comparison";
+        addTimeline("Captured BEFORE state — modify input, then click again.");
+      } else {
+        const after = {
+          input: input.value,
+          hashes: { ...lastHashes },
+          time: new Date().toLocaleTimeString()
+        };
+
+        let html = `<div><strong>BEFORE:</strong> ${beforeSnapshot.time}<br><strong>AFTER:</strong> ${after.time}</div><hr style="margin:6px 0;" />`;
+        for (const algo of algorithms) {
+          const before = beforeSnapshot.hashes[algo] || "";
+          const afterVal = after.hashes[algo] || "";
+          const changed = before !== afterVal;
+          html += `
+            <div class="compare-row">
+              <span class="compare-label">${algo}</span>
+              <span class="compare-before">${before || "(none)"}</span>
+              <span class="compare-after" style="color:${changed ? "#dc2626" : ""};">${afterVal || "(none)"}</span>
+            </div>
+          `;
+        }
+
+        comparisonBox.innerHTML = html;
+        comparisonBox.style.display = "block";
+        addTimeline("Before/After comparison completed.");
+        compareBtn.innerText = "Start Before/After Capture";
+        beforeSnapshot = null;
+      }
+    }
+
+    /* Theme toggle */
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.dataset.theme = html.dataset.theme === "dark" ? "light" : "dark";
+      addTimeline(`Theme changed to ${html.dataset.theme}`);
+    }
+
+    /* Integrity Certificate Export */
+    function exportCertificate() {
+      const certificateWindow = window.open("", "_blank");
+      const primaryHashValue = lastHashes[primaryHash] || "";
+
+      certificateWindow.document.write(`
+        <html>
+        <head>
+          <title>NOVAK Integrity Certificate</title>
+          <style>
+            body{ font-family: Inter, sans-serif; padding:40px; }
+            h1{ color:#1a4fb3; font-size:28px; margin-bottom:8px; }
+            h3{ margin-top:22px; }
+            .mono{ font-family:"JetBrains Mono",monospace;font-size:13px; }
+            .rgac{ margin-top:8px; }
+            .block{
+              display:inline-block;
+              border:1px solid #1a4fb3;
+              padding:6px 10px;
+              margin-right:6px;
+              border-radius:5px;
+              font-family:"JetBrains Mono",monospace;
+              font-size:11px;
+            }
+            footer{ margin-top:40px;font-size:12px;opacity:.7; }
+          </style>
+        </head>
+        <body>
+          <h1>NOVAK Integrity Verification Certificate</h1>
+
+          <p>This certificate confirms the computed cryptographic integrity fingerprint
+          of the provided dataset at the time of export.</p>
+
+          <h3>Primary Hash Algorithm:</h3>
+          <p>${primaryHash}</p>
+
+          <h3>Primary Hash Value:</h3>
+          <p class="mono">${primaryHashValue}</p>
+
+          <h3>Sampled RGAC Chain:</h3>
+          <div class="rgac">
+            ${rgacBlocks.map(h => `<span class="block">${h}</span>`).join("")}
+          </div>
+
+          <h3>Timestamp:</h3>
+          <p>${new Date().toLocaleString()}</p>
+
+          <h3>Audience Context:</h3>
+          <p>${document.querySelector(".nav .active").innerText}</p>
+
+          <h3>Input Data:</h3>
+          <pre class="mono">${input.value.replace(/</g,"&lt;")}</pre>
+
+<!-- NOVAK Mini-Games -->
+<div class="card" style="margin-top:26px; text-align:center;">
+  <h3>Interactive NOVAK Mini-Games</h3>
+  <p style="font-size:14px; opacity:.75; margin-top:6px;">
+    Learn NOVAK through play — fraud spotting, hash matching, integrity puzzles.
+  </p>
+
+  <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:14px;">
+    <button class="action-btn" onclick="playTamperGame()">Spot the Tampered Claim</button>
+    <button class="action-btn" onclick="playHashMatch()">Hash Matching Memory</button>
+    <button class="action-btn" onclick="playKeyGame()">Find the Valid Key</button>
+    <button class="action-btn" onclick="playFraudDetective()">Fraud Detective Mode</button>
+  </div>
 </div>
 
-<!-- INPUT -->
-<div class="card">
-  <textarea id="input" placeholder="Paste or type data here..."></textarea>
-  <button class="action-btn" onclick="tamperTest()">Run Tamper Test</button>
+<!-- Mini-game output -->
+<div id="gameBox" class="card" style="margin-top:14px; display:none;">
+  <!-- JS fills -->
 </div>
 
-<!-- HASH OUTPUT -->
-<div class="card">
-  <h3 id="hashHeader">Integrity Fingerprints</h3>
-  <div id="hashes"></div>
-</div>
 
-<!-- MINI-GAMES -->
-<div class="card">
-  <h3>Learn NOVAK Through Play 🎮</h3>
-  <button class="action-btn" onclick="playTamperGame()">Spot the Tamper</button>
-  <button class="action-btn" onclick="playHashGame()">Hash Match</button>
-  <button class="action-btn" onclick="playKeyGame()">Correct Key Test</button>
-</div>
 
-<div id="gameBox" class="card"></div>
+          <footer>
+            NOVAK Protocol — Patent Pending © 2025<br>
+            Demonstration only — no data retained or transmitted.
+          </footer>
+        </body>
+        </html>
+      `);
 
-<!-- GLORY -->
-<div style="margin-top:32px;text-align:center;">
-  <button class="action-btn" onclick="toggleGlory()">All Glory to GOD</button>
-</div>
+      certificateWindow.document.close();
+      certificateWindow.print();
+    }
 
-<div id="glorySection" class="card">
-  <h2>All Glory to GOD</h2>
-  <p>Every bit of clarity, protection, creativity, opportunity & purpose came from Him.</p>
-  <p>I am only a steward — He is the source.</p>
-  <p>James 1:17 — “Every good and perfect gift is from above.”</p>
-</div>
+    /* Executive One-Pager Print */
+    function printOnePager() {
+      const page = window.open("", "_blank");
+      page.document.write(`
+        <html>
+        <head>
+          <title>NOVAK One-Pager</title>
+          <style>
+            body{ font-family:Inter,sans-serif; padding:40px; line-height:1.55; }
+            h1{ font-size:30px; color:#1a4fb3; margin-bottom:10px; }
+            h3{ margin-top:22px; }
+            ul{ margin-left:20px; }
+          </style>
+        </head>
+        <body>
+          <h1>NOVAK Protocol — Executive Overview</h1>
 
-<!-- FOOTER -->
-<p style="text-align:center;margin-top:40px;font-size:12px;opacity:.7;">
-NOVAK Protocol — Patent Pending © 2025 • No stored or transmitted data
-</p>
+          <p>NOVAK is a cryptographic proof-before-action enforcement layer. It requires automated
+          systems to generate mathematical justification <strong>before executing a decision</strong>.</p>
 
-</div>
+          <h3>What NOVAK Solves</h3>
+          <ul>
+            <li>Undocumented machine decisions</li>
+            <li>Post-action auditing delays</li>
+            <li>Data tampering & silent modification</li>
+            <li>Inconsistent regulatory compliance</li>
+          </ul>
 
-<script>
-const input=document.getElementById("input");
-const hashesDiv=document.getElementById("hashes");
-const gameBox=document.getElementById("gameBox");
+          <h3>Core Components</h3>
+          <ul>
+            <li>Execution Identity Receipt (formerly NIPS)</li>
+            <li>Recursive Global Audit Chain (formerly REVELATION)</li>
+            <li>NOVAK Safety Gate (formerly HARMONEE)</li>
+            <li>Formal Proof of Legality (ℕ)</li>
+          </ul>
 
-/* Theme */
-function toggleTheme(){
-  const html=document.documentElement;
-  html.dataset.theme=html.dataset.theme==="dark"?"light":"dark";
+          <h3>Industries Served</h3>
+          <ul>
+            <li>Government claims & benefits</li>
+            <li>Healthcare diagnosis & automation</li>
+            <li>Defense & robotics safety</li>
+            <li>Banking, fintech, insurance</li>
+          </ul>
+
+          <footer style="margin-top:50px;font-size:12px;opacity:.7;">
+            NOVAK Protocol — Patent Pending © 2025
+          </footer>
+        </body>
+        </html>
+      `);
+
+      page.document.close();
+      page.print();
+    }
+
+    /* Hide Why NOVAK banner permanently after dismissal */
+    function dismissWhyNovak() {
+      const card = document.getElementById("whyNovakCard");
+      if (card) card.style.display = "none";
+      localStorage.setItem("hideWhyNovak", "true");
+      addTimeline("User dismissed Why NOVAK section");
+    }
+
+    /* On load, honor stored preference */
+    window.addEventListener("DOMContentLoaded", () => {
+      if (localStorage.getItem("hideWhyNovak") === "true") {
+        const card = document.getElementById("whyNovakCard");
+        if (card) card.style.display = "none";
+      }
+    });
+
+    /* INIT */
+    setAudience("public");
+    compute();
+
+
+/* Hide others & show game content */
+function showGame(html, label) {
+  const box = document.getElementById("gameBox");
+  box.innerHTML = html;
+  box.style.display = "block";
+  addTimeline(`User opened mini-game: ${label}`);
 }
 
-/* Audience text */
-const audienceText={
-  public:"NOVAK proves data integrity instantly.",
-  government:"NOVAK enforces proof-before-action.",
-  investor:"NOVAK reduces systemic risk & liability.",
-  cyber:"NOVAK detects silent tampering in real time."
-};
-
-function setAudience(a){
-  document.getElementById("hashHeader").innerText=audienceText[a];
-  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
-  document.getElementById(`btn-${a}`).classList.add("active");
-}
-
-/* Hide Why NOVAK */
-function dismissWhyNovak(){
-  document.getElementById("whyNovakCard").style.display="none";
-}
-
-/* Exclusive Explainers */
-function toggleExplainer(id){
-  document.querySelectorAll(".explainer").forEach(e=>{
-    e.style.display=e.id===id && e.style.display!=="block"?"block":"none";
-  });
-}
-
-/* Hashes */
-const algorithms=["SHA-256","SHA-512"];
-async function compute(){
-  const encoder=new TextEncoder();
-  const data=encoder.encode(input.value);
-  let html="";
-  for(const algo of algorithms){
-    const digest=await crypto.subtle.digest(algo,data);
-    const hex=[...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,"0")).join("");
-    html+=`<p><strong>${algo}:</strong> ${hex}</p>`;
-  }
-  hashesDiv.innerHTML=html;
-}
-input.addEventListener("input",compute);
-compute();
-
-/* Tamper Test */
-function tamperTest(){
-  input.value+="\n⚠️ Unauthorized Change Detected";
-  compute();
-}
-
-/* Mini-Games */
+/* Spot the Tampered Claim */
 function playTamperGame(){
-  gameBox.style.display="block";
-  gameBox.innerHTML=`
-    <h3>Spot the Tamper 🔍</h3>
-    <p>Two records — one altered. Which hash changed?</p>
-  `;
+  showGame(`
+    <h3>Spot the Tampered Claim 🔍</h3>
+    <p style="margin-top:8px;">Two VA disability claims look nearly identical — but one has been altered.</p>
+    <pre style="margin-top:10px; font-size:13px; white-space:pre-wrap;">
+Claim A:
+Veteran: John Sample
+Rating: 40%
+Condition: Lumbar Disc Disease
+
+Claim B:
+Veteran: John Sample
+Rating: 60%
+Condition: Lumbar Disc Disease
+    </pre>
+    <p style="margin-top:10px;">Which one would NOVAK flag? Why?</p>
+  `, "Spot the Tampered Claim");
 }
 
-function playHashGame(){
-  gameBox.style.display="block";
-  gameBox.innerHTML=`
-    <h3>Hash Match Memory 🧠</h3>
-    <p>Coming soon — flip cards & match fingerprints.</p>
-  `;
+/* Hash Matching Memory */
+function playHashMatch(){
+  showGame(`
+    <h3>Hash Matching Memory 🧠</h3>
+    <p style="margin-top:8px;">Match the dataset to its correct cryptographic fingerprint.</p>
+    <p style="margin-top:10px; font-size:13px; opacity:.8;">(Interactive card flip version coming soon)</p>
+  `, "Hash Matching Memory");
 }
 
+/* Find the Valid Key */
 function playKeyGame(){
-  gameBox.style.display="block";
-  gameBox.innerHTML=`
-    <h3>Correct Key Test 🔑</h3>
-    <p>Only one dataset unlocks the required hash.</p>
-  `;
+  showGame(`
+    <h3>Find the Valid Key 🔑</h3>
+    <p style="margin-top:8px;">Only one of these datasets produces the certified primary hash.</p>
+    <p style="margin-top:10px; font-size:13px; opacity:.8;">This demonstrates NOVAK's proof-before-action gatekeeping.</p>
+  `, "Find the Valid Key");
 }
 
-/* Glory toggle */
-function toggleGlory(){
-  const box=document.getElementById("glorySection");
-  box.style.display=box.style.display==="block"?"none":"block";
+/* Fraud Detective Mode */
+function playFraudDetective(){
+  showGame(`
+    <h3>Fraud Detective Mode 🕵️‍♂️</h3>
+    <p style="margin-top:8px;">Modify the text input above until NOVAK detects tampering.</p>
+    <p style="margin-top:10px; font-size:13px; opacity:.8;">Every character change = new hash = new proof required.</p>
+  `, "Fraud Detective Mode");
 }
-</script>
+    function toggleGlorySection() {
+  const box = document.getElementById("glorySection");
+  box.style.display = (box.style.display === "none" || box.style.display === "") 
+    ? "block" 
+    : "none";
+}
+
+
+  </script>
 </body>
 </html>
-    
