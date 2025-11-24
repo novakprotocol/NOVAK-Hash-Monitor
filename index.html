@@ -373,7 +373,21 @@ html[data-theme="dark"] .history-box{
   </div>
 
   <!-- SHOW ME HOW THIS WORKS -->
+<div style="margin-top:18px; display:flex; flex-wrap:wrap; gap:12px;">
+  <button class="action-btn" onclick="explainSuperSimple()">I still don't get it</button>
+  <button class="action-btn" onclick="explainGovSavings()">Could this save the government money?</button>
   <button class="action-btn" onclick="startGuide()">Show Me How This Works</button>
+</div>
+
+<!-- Simple explainer panels -->
+<div id="simpleExplainBox" class="card" style="margin-top:12px; display:none;">
+  <!-- JS will fill this -->
+</div>
+
+<div id="govSavingsBox" class="card" style="margin-top:12px; display:none;">
+  <!-- JS will fill this -->
+</div>
+
 
   <!-- Simple demo tip -->
   <div class="card" style="border-left:6px solid var(--blue);">
@@ -613,6 +627,69 @@ function startGuide(){
   addTimeline("Displayed usage instructions");
 }
 
+/* "I still don't get it" — super simple analogy */
+function explainSuperSimple() {
+  const box = document.getElementById("simpleExplainBox");
+  const other = document.getElementById("govSavingsBox");
+  if (other) other.style.display = "none";
+
+  box.innerHTML = `
+    <h3>Think of NOVAK like this:</h3>
+    <p style="margin-top:8px; font-size:14px; line-height:1.55;">
+      Imagine every time a computer tries to do something important
+      — approve a claim, move money, change a medical record — it has to
+      <strong>print a receipt first</strong> that proves it is allowed to do it.
+    </p>
+    <p style="margin-top:8px; font-size:14px; line-height:1.55;">
+      That receipt is a <strong>mathematical fingerprint</strong> of:
+      the rule it used, the data it looked at, and the decision it wants to make.
+    </p>
+    <p style="margin-top:8px; font-size:14px; line-height:1.55;">
+      If <em>anything</em> changes — the data, the rule, or the output —
+      the fingerprint changes and NOVAK knows something is off.
+      <strong>No receipt, no action.</strong> That’s the whole idea.
+    </p>
+  `;
+  box.style.display = "block";
+  addTimeline("User clicked: I still don't get it (simple explanation shown)");
+}
+
+/* "Could this save the government money?" explanation */
+function explainGovSavings() {
+  const box = document.getElementById("govSavingsBox");
+  const other = document.getElementById("simpleExplainBox");
+  if (other) other.style.display = "none";
+
+  box.innerHTML = `
+    <h3>How NOVAK could save the government money</h3>
+    <ul style="margin-top:8px; margin-left:18px; font-size:14px; line-height:1.55;">
+      <li><strong>Stops bad payments before they go out:</strong>
+          NOVAK forces systems to prove a claim or payment is valid
+          <em>before</em> money moves.</li>
+      <li><strong>Reduces fraud and manipulation:</strong>
+          if someone changes data after the fact, the cryptographic fingerprint
+          no longer matches — the system can block it or flag it.</li>
+      <li><strong>Cuts rework and appeals:</strong>
+          when every automated decision has a clear proof trail,
+          it is easier to fix mistakes once instead of re-processing the same case.</li>
+      <li><strong>Makes audits cheaper:</strong>
+          auditors can verify decisions mathematically instead of
+          digging through screenshots, emails, and manual logs.</li>
+      <li><strong>Lowers legal and reputational risk:</strong>
+          being able to show “here is the exact proof we used”
+          can prevent lawsuits and public crises.</li>
+    </ul>
+    <p style="margin-top:8px; font-size:14px; line-height:1.55;">
+      NOVAK doesn’t move the money itself — it acts like a cryptographic
+      <strong>gatekeeper</strong> in front of the systems that do.
+      That’s where the savings come from.
+    </p>
+  `;
+  box.style.display = "block";
+  addTimeline("User clicked: Could this save the government money? (gov savings explanation shown)");
+}
+
+  
 /* Hide onboarding banner */
 function dismissInstruction(){
   document.getElementById("instructionBanner").style.display = "none";
