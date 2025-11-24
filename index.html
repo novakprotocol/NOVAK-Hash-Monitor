@@ -344,109 +344,132 @@ auditability to eliminate epistemic uncertainty in automated decision systems �
 
 <!-- ✅ PART 4 of 9 — INPUT, LIVE HASHING ENGINE, RGAC ANIMATION & FILE VERIFICATION -->
 
-
 <!-- ✅ USER INPUT TEXTAREA FOR HASHING & NOVAK DEMONSTRATION -->
 <div class="card" style="margin-top:28px;">
-<h2 class="section-title">Try It — Prove Integrity Yourself</h2>
-<p>Type, paste, or edit anything below. Hashes update instantly using real cryptography — nothing is stored, logged, or transmitted.</p>
+  <h2 class="section-title">Try It — Prove Integrity Yourself</h2>
+  <p>Type, paste, or edit anything below. Hashes update instantly using real cryptography — nothing is stored, logged, or transmitted.</p>
 
-
-<textarea id="novakInput" placeholder="Example: VA claim, invoice, medical note, AI output, VIN, contract, JSON, SQL, XML..."></textarea>
+  <textarea id="novakInput" placeholder="Example: VA claim, invoice, medical note, VIN, contract, JSON, SQL, XML..."></textarea>
 </div>
-
 
 <!-- ✅ HASH OUTPUT AREA -->
 <div class="card" style="margin-top:20px;">
-<h3 class="section-title" style="font-size:20px;">Cryptographic Hashes</h3>
-<div class="hash-list" id="hashOutputList" style="margin-top:10px;"></div>
+  <h3 class="section-title" style="font-size:20px;">Cryptographic Hashes</h3>
+  <div class="hash-list" id="hashOutputList" style="margin-top:10px;"></div>
 </div>
-
 
 <!-- ✅ RGAC MINI-CHAIN VISUALIZATION -->
 <div class="card" style="margin-top:20px;">
-<h3 class="section-title" style="font-size:20px;">RGAC — Recursive Global Audit Chain</h3>
-<p style="margin-bottom:12px;">Each output becomes input to the next verification — forming an unstoppable integrity chain.</p>
-<div id="rgac"></div>
+  <h3 class="section-title" style="font-size:20px;">RGAC — Recursive Global Audit Chain</h3>
+  <p style="margin-bottom:12px;">Each output becomes input to the next verification — forming an unstoppable integrity chain.</p>
+  <div id="rgac"></div>
 </div>
-
 
 <!-- ✅ DRAG & DROP FILE HASH VERIFICATION -->
 <div class="card" style="margin-top:20px;">
-<h3 class="section-title" style="font-size:20px;">Verify Any File</h3>
-<p>Drop a document, medical record, CSV, log, policy, or contract — NOVAK proves originality instantly.</p>
+  <h3 class="section-title" style="font-size:20px;">Verify Any File</h3>
+  <p>Drop a document, medical record, CSV, log, policy, or contract — NOVAK proves originality instantly.</p>
 
+  <div id="dropzone" class="dropzone">
+    📁 Drop file here or click to select
+    <input id="fileInput" type="file" style="display:none" />
+  </div>
 
-<div id="dropzone" class="dropzone">
-📁 Drop file here or click to select
-<input id="fileInput" type="file" style="display:none" />
+  <div id="fileHashResult" style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></div>
 </div>
-
-
-<div id="fileHashResult" style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></div>
-</div>
-
 
 <!-- ✅ HASHING + RGAC ENGINE SCRIPT -->
 <script>
-// ===== REAL CRYPTO HASHING — browser-native, secure, no transmission =====
+// ✅ Works for BOTH text & file ArrayBuffers
 async function computeHash(algorithm, value) {
-const data = new TextEncoder().encode(value);
-const digest = await crypto.subtle.digest(algorithm, data);
-return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, "0")).join("");
+  let data;
+
+  if (value instanceof ArrayBuffer) {
+    data = new Uint8Array(value);
+  } else {
+    data = new TextEncoder().encode(value);
+  }
+
+  const digest = await crypto.subtle.digest(algorithm, data);
+  return Array.from(new Uint8Array(digest))
+    .map(b => b.toString(16).padStart(2, "0"))
+    .join("");
 }
 
-
-// ===== UPDATE HASH LIST IN REAL TIME =====
+// ✅ LIVE HASH UPDATE
 async function updateHashes() {
-const input = document.getElementById("novakInput").value;
-if (!input.trim()) {
-document.getElementById("hashOutputList").innerHTML = "<em>Waiting for input...</em>";
-return;
+  const input = document.getElementById("novakInput").value;
+
+  if (!input || !input.trim()) {
+    document.getElementById("hashOutputList").innerHTML = "<em>Waiting for input...</em>";
+    document.getElementById("rgac").innerHTML = "<em>Provide input to begin...</em>";
+    return;
+  }
+
+  const algorithms = ["SHA-256", "SHA-512", "SHA-384", "SHA3-256"];
+  const list = document.getElementById("hashOutputList");
+  list.innerHTML = "";
+
+  for (const algo of algorithms) {
+    const hash = await computeHash(algo, input);
+    list.innerHTML += `
+      <div class="hash-row">
+        <div class="hash-label">${algo}</div>
+        <div class="hash-value">${hash}</div>
+        <button class="copy" onclick="navigator.clipboard.writeText('${hash}')">Copy</button>
+      </div>
+    `;
+  }
+
+  updateRGAC(input);
 }
-
-
-const algorithms = ["SHA-256", "SHA-512", "SHA-1", "SHA-384", "SHA3-256"]; // educational comparison
-const list = document.getElementById("hashOutputList");
-list.innerHTML = "";
-
-
-for (const algo of algorithms) {
-try {
-const hash = await computeHash(algo, input);
-list.innerHTML += `
-<div class="hash-row">
-<div class="hash-label">${algo}</div>
-<div class="hash-value">${hash}</div>
-<button class="copy" onclick="navigator.clipboard.writeText('${hash}')">Copy</button>
-</div>
-`;
-} catch {}
-}
-
-
-updateRGAC(input);
-}
-
 
 document.getElementById("novakInput").addEventListener("input", updateHashes);
-updateHashes();
 
-
-// ===== RGAC ANIMATION CHAIN =====
+// ✅ RGAC VISUALIZATION
 function updateRGAC(value) {
-const rgac = document.getElementById("rgac");
-if (!value.trim()) {
-rgac.innerHTML = "<em>Provide input to begin...</em>";
-return;
+  const rgac = document.getElementById("rgac");
+
+  if (!value.trim()) {
+    rgac.innerHTML = "<em>Provide input to begin...</em>";
+    return;
+  }
+
+  const segments = ["Data", "Rule", "Output", "Verifier", "Receipt"];
+  rgac.innerHTML = "";
+
+  segments.forEach((label, index) => {
+    const block = document.createElement("div");
+    block.className = "block";
+    block.textContent = `${label} #${index + 1}`;
+    rgac.appendChild(block);
+  });
 }
 
+// ✅ FILE HASHING
+const dropzone = document.getElementById("dropzone");
+const fileInput = document.getElementById("fileInput");
+const fileHashResult = document.getElementById("fileHashResult");
 
-const segments = ["Data", "Rule", "Output", "Verifier", "Receipt"];
-rgac.innerHTML = "";
+dropzone.addEventListener("click", () => fileInput.click());
+dropzone.addEventListener("dragover", e => { e.preventDefault(); dropzone.style.background = "rgba(26,79,179,0.07)"; });
+dropzone.addEventListener("dragleave", () => dropzone.style.background = "transparent");
+dropzone.addEventListener("drop", e => {
+  e.preventDefault();
+  dropzone.style.background = "transparent";
+  handleFile(e.dataTransfer.files[0]);
+});
 
+fileInput.addEventListener("change", e => handleFile(e.target.files[0]));
 
-segments.forEach((label, index) => {
-const block = document.createElement("div");
+async function handleFile(file) {
+  if (!file) return;
+  const arrayBuffer = await file.arrayBuffer();
+  const hash = await computeHash("SHA-256", arrayBuffer);
+  fileHashResult.innerHTML = `✅ <strong>${file.name}</strong><br>SHA-256: <code>${hash}</code>`;
+}
+</script>
+
 <!-- ✅ END PART 4 — CONTINUE WITH PART 5 NEXT -->
 
 <!-- ✅ PART 5 of 9 — CORVETTE VIN DECODER + EXAMPLE DATASETS -->
@@ -806,99 +829,88 @@ URL.revokeObjectURL(url);
 
 <!-- ✅ PART 9 of 9 — GLORY TO GOD, FOOTER, PRIVACY & FINAL INIT SCRIPTS -->
 
-
-<!-- ✅ GLORY TO GOD SECTION (Collapsible) -->
+<!-- ✅ GLORY TO GOD SECTION -->
 <div class="card" style="margin-top:40px; position:relative;" id="gloryCard">
-<h2 class="section-title">Glory to God</h2>
-<p>Every good and perfect gift comes from above.</p>
+  <h2 class="section-title">Glory to God</h2>
+  <p>Every good and perfect gift comes from above.</p>
 
+  <button class="action-btn" onclick="toggleGlory()" style="margin-top:12px;">📖 Show Scripture</button>
 
-<button class="action-btn" onclick="toggleGlory()" style="margin-top:12px;">📖 Show Scripture</button>
+  <div id="gloryContent" style="display:none; margin-top:16px; font-style:italic;">
+    “The LORD detests lying lips, but He delights in those who act faithfully.” — Proverbs 12:22
+  </div>
 
-
-<div id="gloryContent" style="display:none; margin-top:16px; font-style:italic;">
-“The LORD detests lying lips, but He delights in those who act faithfully.” — Proverbs 12:22
+  <button onclick="toggleGlory()" style="position:absolute; top:14px; right:14px; background:none; border:none; cursor:pointer; font-size:20px;" aria-label="Hide Glory to God">✕</button>
 </div>
-
-
-<!-- close button top right -->
-<button onclick="toggleGlory()" style="position:absolute; top:14px; right:14px; background:none; border:none; cursor:pointer; font-size:20px;" aria-label="Hide Glory to God">✕</button>
-</div>
-
 
 <!-- ✅ FOOTER -->
 <footer style="text-align:center; margin-top:50px; font-size:14px; opacity:0.8; line-height:1.5;">
-NOVAK Protocol™ — Proof-Before-Action Execution Integrity<br>
-Patent Pending — Copyright © 2025 Matthew Novak<br>
-PADI 30-Year Member #888850 — Star Citizen Referral: <strong>STAR-KRN7-SJTX</strong><br>
-Nothing stored, logged, transmitted, sold, or shared — all verification happens locally.
+  NOVAK Protocol™ — Proof-Before-Action Execution Integrity<br>
+  Patent Pending — Copyright © 2025 Matthew Novak<br>
+  PADI 30-Year Member #888850 — Star Citizen Referral: <strong>STAR-KRN7-SJTX</strong><br>
+  Nothing stored, logged, transmitted, sold, or shared — all verification happens locally.
 </footer>
 
-
-<!-- ✅ FINAL INITIALIZATION & GLOBAL SCRIPTING -->
+<!-- ✅ FINAL GLOBAL SCRIPT -->
 <script>
-// ===== Theme Toggle System =====
+// ✅ Theme Persistence
 function toggleTheme() {
-const html = document.documentElement;
-const newTheme = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-html.setAttribute('data-theme', newTheme);
-localStorage.setItem('novakTheme', newTheme);
+  const html = document.documentElement;
+  const newTheme = html.getAttribute("data-theme") === "light" ? "dark" : "light";
+  html.setAttribute("data-theme", newTheme);
+  localStorage.setItem("novakTheme", newTheme);
 }
-
 
 (function initTheme() {
-const saved = localStorage.getItem('novakTheme');
-if (saved) document.documentElement.setAttribute('data-theme', saved);
+  const saved = localStorage.getItem("novakTheme");
+  if (saved) document.documentElement.setAttribute("data-theme", saved);
 })();
 
-
-// ===== Audience Switching System =====
-let currentAudience = 'public';
+// ✅ Audience Switching
+let currentAudience = "public";
 function setAudience(a) {
-currentAudience = a;
+  currentAudience = a;
 
+  document.querySelectorAll("#audienceNav button").forEach(btn => btn.classList.remove("active"));
+  document.getElementById(`btn-${a}`).classList.add("active");
 
-// update active button state
-document.querySelectorAll('#audienceNav button').forEach(btn => btn.classList.remove('active'));
-document.getElementById(`btn-${a}`).classList.add('active');
-
-
-// update audience messaging
-document.getElementById('audienceContent').textContent = audienceMessages[a];
+  document.getElementById("audienceContent").textContent = audienceMessages[a];
 }
 
-
-// initialize default audience
-setAudience('public');
-
-
-// ===== Why NOVAK Dismiss Persistence =====
+// ✅ Restore dismissed Why NOVAK
 function dismissWhyNovak() {
-document.getElementById('whyNovakCard').style.display = 'none';
-localStorage.setItem('whyNovakDismissed', 'true');
+  document.getElementById("whyNovakCard").style.display = "none";
+  localStorage.setItem("whyNovakDismissed", "true");
 }
 
-
-(function restoreWhyNovak() {
-if (localStorage.getItem('whyNovakDismissed') === 'true') {
-document.getElementById('whyNovakCard').style.display = 'none';
+function restoreWhyNovak() {
+  if (localStorage.getItem("whyNovakDismissed") === "true") {
+    document.getElementById("whyNovakCard").style.display = "none";
+  }
 }
-})();
 
-
-// ===== GLORY TO GOD Toggle =====
+// ✅ Glory Toggle
 function toggleGlory() {
-const box = document.getElementById('gloryContent');
-box.style.display = box.style.display === 'none' ? 'block' : 'none';
+  const box = document.getElementById("gloryContent");
+  box.style.display = box.style.display === "none" ? "block" : "none";
 }
 
-
-// ===== Dismiss Explainers When New One Selected =====
+// ✅ Explainers
 function showExplain(type) {
-const output = document.getElementById('explainerOutput');
-output.style.display = 'block';
-output.innerHTML = getExplainerText(type);
-output.scrollIntoView({ behavior: 'smooth' });
+  const output = document.getElementById("explainerOutput");
+  output.style.display = "block";
+  output.innerHTML = getExplainerText(type);
+  output.scrollIntoView({ behavior: "smooth" });
 }
 
-  
+// ✅ Final Safe Init
+document.addEventListener("DOMContentLoaded", () => {
+  restoreWhyNovak();
+  setAudience("public");
+  updateHashes();
+});
+</script>
+
+</div> <!-- end container -->
+</body>
+</html>
