@@ -1,225 +1,269 @@
+<!-- ✅ NOVAK Protocol — Final Production Build (PART 1 of 9) -->
+<!-- Do NOT modify — paste Parts 1–9 sequentially into one index.html file -->
+
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NOVAK Protocol — Proof-Before-Action Integrity Demo</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NOVAK Protocol — Proof-Before-Action Integrity</title>
+<meta name="description" content="NOVAK Protocol — execution integrity, fraud prevention, cryptographic proof-before-action verification for government, finance, healthcare, AI, robotics, and national security." />
+<link rel="icon" type="image/png" href="favicon.png" />
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
+<!-- ✅ Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
 
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family:"Inter",sans-serif; }
+<style>
+/* ============================================================================ */
+/* ✅ GLOBAL RESET + TYPOGRAPHY */
+/* ============================================================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
 
-    :root {
-      --blue:#1a4fb3;
-      --blue-hover:#0e3580;
-      --bg-light:#f8fafc;
-      --bg-dark:#0f172a;
-      --text-light:#0b1326;
-      --text-dark:#e7edf7;
-      --card-light:#ffffff;
-      --card-dark:#1e293b;
-      --border-light:#d4d8e1;
-      --border-dark:#334155;
-      --success:#0d9c4f;
-      --danger:#d7263d;
-      --gold:#f4c542;
-    }
+body {
+  background: var(--bg);
+  color: var(--text);
+  padding: 24px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
 
-    html[data-theme="light"] {
-      --bg:var(--bg-light);
-      --text:var(--text-light);
-      --card:var(--card-light);
-      --border:var(--border-light);
-    }
-    html[data-theme="dark"] {
-      --bg:var(--bg-dark);
-      --text:var(--text-dark);
-      --card:var(--card-dark);
-      --border:var(--border-dark);
-    }
+.container {
+  max-width: 1100px;
+  margin: auto;
+}
 
-    body {
-      background:var(--bg);
-      color:var(--text);
-      padding:28px;
-      transition:.35s ease;
-    }
+/* ============================================================================ */
+/* ✅ COLOR SYSTEM + THEME (LIGHT/DARK) */
+/* ============================================================================ */
+:root {
+  --blue: #1a4fb3;
+  --blue-hover: #0f357f;
+  --green: #059669;
+  --red: #dc2626;
+  --yellow: #e8b400;
 
-    .container {
-      width:100%;
-      max-width:1080px;
-      margin:auto;
-    }
+  --bg-light: #f8fafc;
+  --bg-dark: #0f172a;
 
-    /* HEADER */
-    .header {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:12px;
-      flex-wrap:wrap;
-      gap:10px;
-    }
+  --text-light: #0b1326;
+  --text-dark: #e6edf5;
 
-    .logo {
-      font-size:36px;
-      font-weight:700;
-      color:var(--blue);
-      letter-spacing:-0.5px;
-    }
+  --card-light: #ffffff;
+  --card-dark: #1e293b;
 
-    /* THEME TOGGLE */
-    .theme-toggle {
-      border:1px solid var(--blue);
-      padding:6px 14px;
-      border-radius:6px;
-      font-size:14px;
-      background:transparent;
-      color:var(--blue);
-      cursor:pointer;
-      transition:.25s;
-    }
-    .theme-toggle:hover {
-      background:var(--blue);
-      color:white;
-    }
+  --border-light: #d4d8e1;
+  --border-dark: #334155;
+}
 
-    /* AUDIENCE NAV */
-    .nav {
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin:18px 0;
-    }
-    .nav button {
-      border:1px solid var(--blue);
-      background:transparent;
-      padding:8px 16px;
-      border-radius:6px;
-      font-size:14px;
-      cursor:pointer;
-      transition:.25s;
-      color:var(--blue);
-    }
-    .nav button:hover,
-    .nav button.active {
-      background:var(--blue);
-      color:white;
-    }
+html[data-theme="light"] {
+  --bg: var(--bg-light);
+  --text: var(--text-light);
+  --card: var(--card-light);
+  --border: var(--border-light);
+}
 
-    /* CARD */
-    .card {
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:12px;
-      padding:22px;
-      margin-top:26px;
-      transition:.35s ease;
-    }
+html[data-theme="dark"] {
+  --bg: var(--bg-dark);
+  --text: var(--text-dark);
+  --card: var(--card-dark);
+  --border: var(--border-dark);
+}
 
-    /* BUTTONS */
-    .action-btn {
-      padding:8px 16px;
-      border-radius:6px;
-      border:none;
-      cursor:pointer;
-      background:var(--blue);
-      color:white;
-      font-size:14px;
-      transition:.25s;
-      white-space:nowrap;
-    }
-    .action-btn:hover {
-      background:var(--blue-hover);
-    }
+/* ============================================================================ */
+/* ✅ HEADER + NAVIGATION */
+/* ============================================================================ */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
 
-    /* ANALOGY BUTTON ROW */
-    .bubble-row {
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:14px;
-    }
+.logo {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--blue);
+  letter-spacing: 0.2px;
+  user-select: none;
+}
 
-    .bubble-btn {
-      padding:8px 16px;
-      border-radius:20px;
-      border:none;
-      font-size:14px;
-      cursor:pointer;
-      background:#e8eefc;
-      color:#1a3d8b;
-      transition:.25s;
-    }
-    .bubble-btn:hover {
-      background:#cddcff;
-    }
-  </style>
+.theme-toggle {
+  cursor: pointer;
+  font-size: 14px;
+  border: 1px solid var(--blue);
+  padding: 7px 14px;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--blue);
+  transition: 0.25s;
+}
+
+.theme-toggle:hover {
+  background: var(--blue);
+  color: #fff;
+}
+
+/* Audience selector */
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0;
+}
+
+.nav button {
+  border: 1px solid var(--blue);
+  background: transparent;
+  padding: 9px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--blue);
+  transition: 0.25s;
+  font-size: 14px;
+}
+
+.nav button.active,
+.nav button:hover {
+  background: var(--blue);
+  color: white;
+}
+
+/* ============================================================================ */
+/* ✅ GENERAL UI COMPONENTS */
+/* ============================================================================ */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 26px;
+  margin-top: 26px;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+/* Analogy buttons */
+.explain-btn {
+  border: 1px solid var(--blue);
+  background: transparent;
+  padding: 9px 16px;
+  border-radius: 22px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--blue);
+  transition: 0.25s;
+}
+
+.explain-btn:hover {
+  background: rgba(26,79,179,0.1);
+}
+
+/* Primary action */
+.action-btn {
+  padding: 9px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background: var(--blue);
+  color: #fff;
+  font-size: 14px;
+  transition: 0.25s;
+}
+
+.action-btn:hover {
+  background: var(--blue-hover);
+}
+
+/* ============================================================================ */
+/* ✅ ACCESSIBILITY */
+/* ============================================================================ */
+:focus-visible {
+  outline: 3px solid var(--blue);
+  border-radius: 6px;
+}
+
+@media (max-width: 600px) {
+  body { padding: 16px; }
+  .logo { font-size: 30px; }
+}
+</style>
 </head>
 
-<body>
-<div class="container">
-
-  <!-- HEADER -->
-  <div class="header">
-    <div class="logo">NOVAK Protocol</div>
-    <button class="theme-toggle" onclick="toggleTheme()">Light/Dark</button>
-  </div>
-
-  <!-- AUDIENCE SELECTOR -->
-  <div class="nav">
-    <button onclick="setAudience('public')" class="active" id="btn-public">Public</button>
-    <button onclick="setAudience('government')" id="btn-government">Government</button>
-    <button onclick="setAudience('investor')" id="btn-investor">Investor</button>
-    <button onclick="setAudience('cyber')" id="btn-cyber">Cybersecurity</button>
-    <button onclick="setAudience('academic')" id="btn-academic">Academic</button>
-  </div>
-
-  <!-- WHY NOVAK — WHY NOW -->
-  <div id="whyNovakCard" class="card" style="position:relative;">
-    <h2>Why NOVAK — Why Now?</h2>
-
-    <p style="margin-top:12px;font-size:16px;line-height:1.55;">
-      Automation now approves mortgages, denies veterans’ benefits, sets insurance rates,
-      steers vehicles, recommends surgeries, and moves trillions of dollars —
-      <strong>often without proof of correctness, legality, or integrity.</strong>
-    </p>
-
-    <p style="margin-top:14px;font-size:16px;line-height:1.55;">
-      NOVAK changes this — requiring mathematical proof <strong>before</strong>
-      any automated action occurs.
-    </p>
-
-    <ul style="margin-top:14px;font-size:15px;line-height:1.55;margin-left:18px;">
-      <li>If data changes → NOVAK detects instantly</li>
-      <li>If rule is wrong → NOVAK blocks execution</li>
-      <li>If fraud occurs → NOVAK produces evidence</li>
-      <li>If system glitches → NOVAK prevents harm</li>
-    </ul>
-
-    <p style="margin-top:14px;font-size:15px;line-height:1.55;font-weight:600;">
-      No blockchain. No cryptocurrency. No central authority.
-      Just cryptographic integrity.
-    </p>
-
-    <button class="action-btn" onclick="dismissWhyNovak()" style="margin-top:18px;">✅ Got it — Hide</button>
-    <button onclick="dismissWhyNovak()" style="position:absolute;top:14px;right:14px;background:none;border:none;font-size:20px;cursor:pointer;">✕</button>
-  </div>
-
-  <!-- ANALOGY BUTTONS -->
-  <div class="bubble-row">
-    <button class="bubble-btn" onclick="showIDontGetIt()">🤯 I don’t get it</button>
-    <button class="bubble-btn" onclick="showMilkshake()">🥤 Milkshake Analogy</button>
-    <button class="bubble-btn" onclick="showColoredPencil()">🖍 Colored Pencil Analogy</button>
-    <button class="bubble-btn" onclick="showKeyAnalogy()">🔑 Key Analogy</button>
-    <button class="bubble-btn" onclick="showGovSavings()">🏛 Government Savings</button>
-    <button class="bubble-btn" onclick="toggleHowWorks()">👀 Show Me How This Works</button>
-  </div>
-
-  <!-- SECTION SLOT — JS FILLS -->
-  <div id="explainBox" class="card" style="display:none;"></div>
+<!-- ✅ END PART 1 — DO NOT CLOSE BODY OR HTML -->
+<!-- ✅ PART 2 of 9 — HEADER, AUDIENCE SELECTOR & WHY NOVAK BLOCK -->
+<!-- ✅ AUDIENCE SELECTOR — dynamically updates entire website messaging -->
+<div class="nav" id="audienceNav">
+<button onclick="setAudience('public')" class="active" id="btn-public">Public</button>
+<button onclick="setAudience('government')" id="btn-government">Government</button>
+<button onclick="setAudience('investor')" id="btn-investor">Investor</button>
+<button onclick="setAudience('cyber')" id="btn-cyber">Cybersecurity</button>
+<button onclick="setAudience('academic')" id="btn-academic">Academic</button>
+</div>
 
 
+<!-- ✅ WHY NOVAK — WHY NOW? (dismissible & stored in localStorage) -->
+<div id="whyNovakCard" class="card" style="position:relative;">
+<h2 class="section-title">Why NOVAK — Why Now?</h2>
+
+
+<p>
+Automation now approves mortgages, denies veterans’ benefits, sets insurance rates, steers vehicles,
+recommends surgeries, and moves trillions of dollars — often without proof of correctness, legality, or integrity.
+</p>
+
+
+<p style="margin-top:12px;">
+NOVAK changes this — requiring mathematical proof <strong>before</strong> any automated action occurs.
+</p>
+
+
+<ul style="margin-top:12px;margin-left:20px;">
+<li>If data changes → NOVAK detects instantly</li>
+<li>If rule is wrong → NOVAK blocks execution</li>
+<li>If fraud occurs → NOVAK produces evidence</li>
+<li>If system glitches → NOVAK prevents harm</li>
+</ul>
+
+
+<p style="margin-top:14px;font-weight:600;">
+No blockchain. No cryptocurrency. No central authority. Just cryptographic integrity.
+</p>
+
+
+<button onclick="dismissWhyNovak()" class="action-btn" style="margin-top:18px;">✅ Got it — Hide</button>
+
+
+<!-- Close button -->
+<button onclick="dismissWhyNovak()"
+style="position:absolute;top:14px;right:14px;background:none;border:none;font-size:20px;cursor:pointer;"
+aria-label="Dismiss Why Novak section">
+✕
+</button>
+</div>
+
+
+<!-- ✅ ANALOGY BUTTON ROW WITH EMOJI + LABELS -->
+<div style="margin-top:24px; display:flex; flex-wrap:wrap; gap:12px;">
+<button class="explain-btn" onclick="showExplain('simple')">🤯 I don't get it</button>
+<button class="explain-btn" onclick="showExplain('milkshake')">🥤 Milkshake Analogy</button>
+<button class="explain-btn" onclick="showExplain('pencil')">🖍️ Colored Pencil Analogy</button>
+<button class="explain-btn" onclick="showExplain('key')">🔑 Key Analogy</button>
+<button class="explain-btn" onclick="showExplain('gov')">🏛️ Government Savings</button>
+<button class="explain-btn" onclick="showExplain('how')">👁️ Show Me How This Works</button>
+</div>
+
+
+<!-- ✅ END PART 2 — CONTINUE WITH PART 3 NEXT -->
   
