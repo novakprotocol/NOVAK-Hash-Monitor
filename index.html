@@ -16,6 +16,34 @@
       rel="stylesheet" />
 
 <style>
+
+/* Prevent analogies from sliding under header */
+#explainerOutput,
+#hashOutputList,
+#gameBox {
+  scroll-margin-top: 120px;
+}
+
+/* Fix dark mode readability */
+html[data-theme="dark"] .explain-btn,
+html[data-theme="dark"] .action-btn,
+html[data-theme="dark"] .theme-toggle,
+html[data-theme="dark"] .aud-btn {
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+html[data-theme="dark"] .theme-toggle:hover {
+  background: #ffffff;
+  color: #000000 !important;
+}
+
+/* Prevent SHA text overflow */
+#hashOutputList {
+  word-break: break-all;
+}
+
+  
 /* ============================================================================ */
 /* ✅ GLOBAL RESET + TYPOGRAPHY */
 /* ============================================================================ */
