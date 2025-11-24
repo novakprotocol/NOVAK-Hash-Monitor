@@ -439,4 +439,215 @@ html[data-theme="dark"] {
   </div>
 </div>
 
-  
+ <!-- ✅ FILE INTEGRITY VERIFICATION -->
+<div class="card" style="margin-top:20px;">
+  <h3 class="section-title" style="font-size:20px;">Verify Any File</h3>
+  <p>Drop a document, medical record, CSV, log, policy, or contract — NOVAK proves originality instantly.</p>
+
+  <div id="dropzone"
+       style="margin-top:14px; padding:22px; border:2px dashed var(--border);
+              border-radius:10px; text-align:center; cursor:pointer;">
+    📁 Drop file here or click to select
+    <input id="fileInput" type="file" style="display:none" />
+  </div>
+
+  <div id="fileHashResult"
+       style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></div>
+</div>
+
+<!-- ✅ EXAMPLE DATASETS + VIN DECODER -->
+<div class="card" style="margin-top:32px;">
+  <h2 class="section-title">Example Datasets</h2>
+  <p>Select one to auto-populate the input box above.</p>
+
+  <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:16px;">
+    <button class="explain-btn" onclick="loadExample('va')">🎖️ VA Disability Claim</button>
+    <button class="explain-btn" onclick="loadExample('medical')">🏥 Medical Note</button>
+    <button class="explain-btn" onclick="loadExample('finance')">💰 Financial Transaction</button>
+    <button class="explain-btn" onclick="loadExample('robot')">🤖 Robotics Command</button>
+    <button class="explain-btn" onclick="loadExample('ai')">🧠 AI System Log</button>
+    <button class="explain-btn" onclick="loadExample('legal')">⚖️ Legal Filing</button>
+    <button class="explain-btn" onclick="openVinModal()">🚗 2022 Corvette VIN</button>
+  </div>
+</div>
+
+<!-- ✅ VIN MODAL -->
+<div id="vinModal"
+     style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+            background:rgba(0,0,0,.55); justify-content:center; align-items:center; z-index:9999;">
+  <div style="background:var(--card); padding:26px; border-radius:10px; width:440px;
+              border:1px solid var(--border); box-shadow:0 4px 18px rgba(0,0,0,.35);">
+
+    <h3 class="section-title" style="font-size:20px;">2022 Corvette VIN Decoder</h3>
+
+    <input id="vinInput"
+           placeholder="Enter VIN (e.g., 1G1YB3D46N5123456)"
+           maxlength="17"
+           style="margin-top:14px; width:100%; padding:10px;
+                  border:1px solid var(--border); border-radius:6px;
+                  font-family:'JetBrains Mono', monospace; font-size:15px;">
+
+    <div id="vinResult"
+         style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></div>
+
+    <button onclick="closeVinModal()" class="action-btn" style="margin-top:18px; width:100%;">
+      Close
+    </button>
+  </div>
+</div>
+
+<!-- ✅ MINI-GAMES -->
+<div class="card" style="margin-top:32px;">
+  <h2 class="section-title">Interactive Integrity Challenges</h2>
+  <p>Prove you understand NOVAK — spot corruption, detect tampering, or validate authenticity.</p>
+
+  <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:16px;">
+    <button class="explain-btn" onclick="startGame('tamper')">🕵️ Spot the Tampering</button>
+    <button class="explain-btn" onclick="startGame('memory')">🧠 Hash Memory Match</button>
+    <button class="explain-btn" onclick="startGame('fraud')">🚨 Fraud Detector</button>
+  </div>
+
+  <button onclick="toggleSound()"
+          class="sound-toggle"
+          aria-label="Toggle game sound"
+          style="margin-top:10px; font-size:20px; background:none; border:none; cursor:pointer;">
+    🔇
+  </button>
+</div>
+
+<div id="gameBox" class="card" style="margin-top:20px; display:none;"></div>
+
+<!-- ✅ STRUCTURED DATA VALIDATION -->
+<div class="card" style="margin-top:32px;">
+  <h2 class="section-title">Validate Structured Data</h2>
+  <p>Upload JSON, SQL, or XML — NOVAK verifies integrity instantly before execution.</p>
+
+  <input id="structuredFile"
+         type="file"
+         accept=".json,.sql,.xml,.txt"
+         style="margin-top:16px;">
+
+  <pre id="structuredResult"
+       style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></pre>
+</div>
+
+<!-- ✅ AI TRANSPARENCY VIEW -->
+<div class="card" style="margin-top:32px;" id="transparencyCard">
+  <h2 class="section-title">AI Transparency Mode</h2>
+  <p>
+    NOVAK proves what data, rules, and outputs were used before automated action occurs —
+    eliminating invisible AI failure.
+  </p>
+
+  <button onclick="toggleTransparency()" class="action-btn" style="margin-top:16px;">
+    Enable Transparency View
+  </button>
+</div>
+
+<div class="card"
+     id="transparencyView"
+     style="display:none; margin-top:20px; font-family:'JetBrains Mono', monospace; font-size:14px;">
+</div>
+
+<!-- ✅ INTEGRITY RECEIPT -->
+<div class="card" style="margin-top:32px;" id="receiptCard">
+  <h2 class="section-title">Integrity Receipt</h2>
+  <p>NOVAK issues a tamper-proof receipt proving what existed, when, and under what rules.</p>
+
+  <button class="action-btn" onclick="generateReceipt()" style="margin-top:12px;">
+    Generate Receipt
+  </button>
+
+  <pre id="receiptOutput"
+       style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px; white-space:pre-wrap;"></pre>
+</div>
+
+<!-- ✅ GUIDED AUTO-SCROLL WALKTHROUGH -->
+<div class="card" style="margin-top:36px;">
+  <h2 class="section-title">Guided NOVAK Walkthrough</h2>
+  <p>Let NOVAK explain itself — automatically.</p>
+
+  <button class="action-btn"
+          onclick="startStoryMode()"
+          style="margin-top:12px;">
+    ▶ Begin Guided Demo
+  </button>
+</div>
+
+<div id="storyPanel"
+     class="card"
+     style="display:none; margin-top:20px; font-size:15px; line-height:1.6;">
+</div>
+
+<!-- ✅ FEDERAL BRIEFING SHEET EXPORT -->
+<div class="card" style="margin-top:36px;">
+  <h2 class="section-title">Generate Federal Briefing Sheet</h2>
+  <p>Exports a formal one-page NOVAK briefing for policymakers, executives, and agencies.</p>
+
+  <button class="action-btn"
+          onclick="exportBriefing()"
+          style="margin-top:12px;">
+    📄 Export Briefing Sheet
+  </button>
+</div>
+
+<!-- ✅ GLORY TO GOD BUTTON -->
+<div style="display:flex; justify-content:center; margin-top:60px;">
+  <button class="action-btn" onclick="toggleGlorySection()"
+    style="font-size:16px; padding:12px 26px; border-radius:10px;">
+    ✝️ Glory to God
+  </button>
+</div>
+
+<!-- ✅ EXPANDABLE GLORY PANEL -->
+<div id="glorySection" class="card"
+  style="display:none; margin-top:26px; font-size:15px; line-height:1.63;">
+
+  <p style="font-style:italic; font-size:1.1rem; text-align:center; margin-bottom:22px;">
+    “The LORD detests lying lips, but He delights in those who act faithfully.” — Proverbs 12:22
+  </p>
+
+  <p>
+    The NOVAK Protocol exists because truth has intrinsic value — and wrongdoing, deception,
+    and hidden harm must be revealed, not rewarded.
+  </p>
+
+  <p>
+    Mathematical integrity reflects moral integrity — honesty, accountability, and justice.
+  </p>
+
+  <p style="font-weight:600;">Everything good in this work belongs to God. Everything flawed belongs to me.</p>
+
+  <p>
+    May this technology always protect the vulnerable, restrain corruption, and advance human dignity.
+  </p>
+</div>
+
+<!-- ✅ FOOTER -->
+<footer style="text-align:center; margin-top:60px; font-size:14px; opacity:0.85; line-height:1.5;">
+  NOVAK Protocol — Proof-Before-Action Execution Integrity<br>
+  Patent Pending — Copyright © 2025 Matthew Novak<br>
+
+  PADI 30-Year Member #888850 —
+  <a href="https://www.padi.com" target="_blank" rel="noopener noreferrer">www.padi.com</a><br>
+
+  Star Citizen Referral —
+  <a href="https://www.robertsspaceindustries.com/enlist?referral=STAR-KRN7-SJTX"
+     target="_blank" rel="noopener noreferrer">STAR-KRN7-SJTX</a><br>
+
+  Nothing stored, logged, transmitted, sold, or shared — all verification happens locally.
+</footer>
+
+</div> <!-- ✅ END MAIN CONTAINER -->
+
+<!-- ✅ FULL JAVASCRIPT ENGINE -->
+<script>
+/* ✅ All JS needed for Part 1 & 2 continues here — audience engine, dismiss/restore,
+   explainers, SHA selector hashing, RGAC, VIN, file verify, games, transparency,
+   receipts, story mode, theme, mobile menu, initialization */
+
+</script>
+
+</body>
+</html>
+ 
