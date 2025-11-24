@@ -44,7 +44,7 @@ body{
  padding:36px;
 }
 
-.container{max-width:900px;margin:auto}
+.container{max-width:960px;margin:auto}
 
 /* HEADER */
 .header{
@@ -76,21 +76,6 @@ body{
 }
 
 /* AUDIENCE NAV */
-
-<div id="instructionBanner" class="card" style="display:none; border-left:6px solid var(--blue);">
-  <strong>How to use this demo:</strong>
-  <ul style="margin-left:18px; font-size:14px; line-height:1.45; margin-top:6px;">
-    <li>Step 1 — Select an example dataset below</li>
-    <li>Step 2 — Modify the text and watch hashes update instantly</li>
-    <li>Step 3 — Run “Tamper Test” to show unauthorized changes</li>
-    <li>Step 4 — Export Integrity Certificate to PDF</li>
-  </ul>
-  <button onclick="dismissInstruction()" style="margin-top:10px;" class="action-btn">
-    Got it — Hide this
-  </button>
-</div>
-
- 
 .nav{
  display:flex;
  justify-content:center;
@@ -121,6 +106,12 @@ body{
  border-radius:10px;
  padding:22px;
  margin-top:24px;
+}
+
+/* DISMISSIBLE ONBOARDING */
+#instructionBanner{
+ border-left:6px solid var(--blue);
+ display:none;
 }
 
 /* EXAMPLES */
@@ -172,75 +163,6 @@ textarea{
  background:rgba(26,79,179,.07);
 }
 
-/* HASH DISPLAY */
-.hash-row{
- display:flex;
- justify-content:space-between;
- align-items:center;
- gap:8px;
- padding:8px 0;
- border-bottom:1px solid var(--border);
- font-family:"JetBrains Mono",monospace;
- font-size:13px;
-}
-.hash-label{
- flex:0 0 90px;
-}
-.hash-value{
- flex:1;
- overflow:hidden;
- text-overflow:ellipsis;
- white-space:nowrap;
-}
-.hash-controls{
- display:flex;
- gap:6px;
- align-items:center;
-}
-.copy{
- cursor:pointer;
- border:1px solid var(--blue);
- border-radius:5px;
- padding:2px 8px;
- transition:.22s;
- font-size:12px;
-}
-.copy:hover{
- background:var(--blue);
- color:white;
-}
-
-/* RGAC MINI VIS */
-.rgac{
- display:flex;
- gap:10px;
- overflow-x:auto;
- padding:10px 0;
- margin-top:8px;
-}
-.block{
- padding:8px 10px;
- border:1px solid var(--blue);
- border-radius:6px;
- font-family:"JetBrains Mono",monospace;
- font-size:11px;
- white-space:nowrap;
-}
-
-/* TIMELINE */
-.timeline{
- margin-top:12px;
- height:160px;
- overflow-y:auto;
- font-size:12px;
- border:1px solid var(--border);
- padding:10px;
- border-radius:6px;
- font-family:"JetBrains Mono",monospace;
- white-space:pre-wrap;
- background:rgba(26,79,179,.05);
-}
-
 /* BUTTONS */
 .action-btn{
  margin-top:14px;
@@ -257,64 +179,6 @@ textarea{
 .action-btn:hover{
  background:var(--blue-hover);
 }
-
-/* COMPARISON BOX */
-.compare-box{
- margin-top:10px;
- border:1px solid var(--border);
- border-radius:6px;
- padding:10px;
- font-size:12px;
- font-family:"JetBrains Mono",monospace;
- background:rgba(15,23,42,0.3);
-}
-.compare-row{
- display:flex;
- justify-content:space-between;
- gap:12px;
- margin-bottom:4px;
-}
-.compare-label{
- flex:0 0 80px;
-}
-.compare-before,.compare-after{
- flex:1;
- overflow:hidden;
- text-overflow:ellipsis;
- white-space:nowrap;
-}
-
-/* TOOLTIP */
-.tooltip{
- position:relative;
- cursor:help;
- border-bottom:1px dashed var(--blue);
-}
-.tooltip-text{
- visibility:hidden;
- background:var(--card);
- color:var(--text);
- border:1px solid var(--border);
- padding:8px 10px;
- border-radius:6px;
- font-size:12px;
- width:240px;
- position:absolute;
- z-index:1000;
- bottom:125%;
- left:0;
-}
-.tooltip:hover .tooltip-text{
- visibility:visible;
-}
-
-/* FOOTER */
-.footer{
- margin-top:36px;
- font-size:12px;
- text-align:center;
- opacity:.75;
-}
 </style>
 </head>
 
@@ -327,12 +191,12 @@ textarea{
     <button class="theme-toggle" onclick="toggleTheme()">Light/Dark</button>
   </div>
 
-  <!-- DESCRIPTION -->
+  <!-- Executive Description -->
   <p id="description" style="font-size:15px;margin-bottom:20px;">
     NOVAK generates a mathematical fingerprint of data. If anything changes—even slightly—the fingerprint changes instantly. Try it below.
   </p>
 
-  <!-- AUDIENCE NAVIGATION -->
+  <!-- Audience Selector -->
   <div class="nav">
     <button onclick="setAudience('public')" class="active" id="btn-public">Public</button>
     <button onclick="setAudience('government')" id="btn-government">Government</button>
@@ -341,8 +205,22 @@ textarea{
     <button onclick="setAudience('academic')" id="btn-academic">Academic</button>
   </div>
 
-  <!-- EXECUTIVE WALKTHROUGH -->
+  <!-- SHOW ME HOW THIS WORKS -->
   <button class="action-btn" onclick="startGuide()">Show Me How This Works</button>
+
+  <!-- INSTRUCTION BANNER (hidden until clicked) -->
+  <div id="instructionBanner" class="card">
+    <strong>How to use this demo:</strong>
+    <ul style="margin-left:18px; font-size:14px; line-height:1.45; margin-top:6px;">
+      <li>Step 1 — Select an example dataset below</li>
+      <li>Step 2 — Modify the text and watch hashes update instantly</li>
+      <li>Step 3 — Run “Tamper Test” to demonstrate detection</li>
+      <li>Step 4 — Export Integrity Certificate to PDF</li>
+    </ul>
+    <button onclick="dismissInstruction()" style="margin-top:10px;" class="action-btn">
+      Got it — Hide this
+    </button>
+  </div>
 
   <!-- EXAMPLE DATASETS -->
   <div class="card">
@@ -357,7 +235,7 @@ textarea{
     </div>
   </div>
 
-  <!-- INPUT AREA -->
+  <!-- INPUT + DROPZONE -->
   <div class="card">
     <textarea id="input" placeholder="Type, paste, or modify data here..."></textarea>
 
@@ -369,11 +247,13 @@ textarea{
     <button class="action-btn" onclick="toggleCompareMode()" id="compareBtn">Start Before/After Capture</button>
   </div>
 
-  <!-- HASH OUTPUT -->
+   <!-- HASH OUTPUT -->
   <div class="card">
     <h3 id="hashHeader">Integrity Fingerprints</h3>
-    <p style="font-size:13px;margin-bottom:6px;">All major hashes are shown. Select which one to treat as primary.</p>
+    <p style="font-size:13px;margin-bottom:6px;">All supported hashes are shown. Select which one to treat as primary.</p>
+
     <div id="hashes"></div>
+
     <p style="font-size:13px;margin-top:8px;">
       Primary Hash for certificate:
       <span id="primaryLabel" style="font-weight:600;">SHA-256</span>
@@ -410,18 +290,18 @@ textarea{
       <li><strong>Blockchain:</strong> Records events after execution.</li>
       <li><strong>NOVAK:</strong> Requires proof before execution.</li>
       <li><strong>Blockchain:</strong> Requires decentralized consensus.</li>
-      <li><strong>NOVAK:</strong> Works anywhere — no miners, ledger, or network.</li>
+      <li><strong>NOVAK:</strong> Works in any system — no miners, ledger, or network.</li>
     </ul>
 
     <h4 style="margin-top:14px;">NOVAK vs Bitcoin / Cryptocurrency</h4>
     <ul style="margin-left:18px;font-size:14px;line-height:1.45;">
-      <li><strong>Cryptocurrency:</strong> Financial asset on blockchain.</li>
-      <li><strong>NOVAK:</strong> Not a currency — governs automated decisions.</li>
+      <li><strong>Cryptocurrency:</strong> Financial token on blockchain.</li>
+      <li><strong>NOVAK:</strong> Not money — governs automated decisions.</li>
     </ul>
 
     <h4 style="margin-top:14px;">NOVAK vs SSL/TLS</h4>
     <ul style="margin-left:18px;font-size:14px;line-height:1.45;">
-      <li><strong>SSL/TLS:</strong> Encrypts data in transit.</li>
+      <li><strong>SSL/TLS:</strong> Protects data in transit.</li>
       <li><strong>NOVAK:</strong> Ensures the action itself is lawful before execution.</li>
     </ul>
 
@@ -452,9 +332,9 @@ textarea{
     <h3>Glossary — Plain English</h3>
     <ul style="margin-left:18px;font-size:14px;line-height:1.5;">
       <li><strong>Hash:</strong> Unique mathematical fingerprint of data.</li>
-      <li><strong>SHA-256:</strong> U.S. federal hashing standard.</li>
-      <li><strong>Execution Identity Receipt:</strong> Proof before automated action.</li>
-      <li><strong>RGAC:</strong> Ordered chain of proofs over time.</li>
+      <li><strong>SHA-256:</strong> U.S. federal integrity standard.</li>
+      <li><strong>Execution Identity Receipt:</strong> Proof-before-action checkpoint.</li>
+      <li><strong>RGAC:</strong> Ordered chain of integrity receipts over time.</li>
       <li><strong>Proof-Before-Action:</strong> Machine must justify action first.</li>
     </ul>
   </div>
@@ -463,10 +343,10 @@ textarea{
   <div class="card">
     <h3>Security, Compliance & Deployment</h3>
     <ul style="margin-left:18px;font-size:14px;line-height:1.5;">
-      <li>100% local — no data leaves device</li>
-      <li>Compatible with FIPS hashing implementations</li>
-      <li>Deployable in VA, DoD, DHS, HHS environments</li>
-      <li>Integrates with PKI, IAM, SIEM</li>
+      <li>100% local — no data leaves the device</li>
+      <li>Compatible with FIPS 180-4 hashing implementations</li>
+      <li>Suitable for VA, DoD, DHS, HHS, Treasury environments</li>
+      <li>Integrates with PKI, IAM, SIEM, zero-trust frameworks</li>
     </ul>
   </div>
 
@@ -475,8 +355,8 @@ textarea{
     <h3>What This Demo Is Not</h3>
     <ul style="margin-left:18px;font-size:14px;line-height:1.5;">
       <li>Not cryptocurrency</li>
-      <li>Not blockchain</li>
-      <li>Not SSL/TLS or HTTPS</li>
+      <li>Not blockchain technology</li>
+      <li>Not SSL/TLS or HTTPS encryption</li>
       <li>Not a database or storage system</li>
       <li>Not a replacement for cybersecurity controls</li>
     </ul>
@@ -486,13 +366,14 @@ textarea{
   <button class="action-btn" onclick="printOnePager()">Print Executive One-Pager</button>
 
   <!-- FOOTER -->
-  <div class="footer">
+  <div class="footer" style="margin-top:36px;font-size:12px;text-align:center;opacity:.75;">
     NOVAK Protocol — Patent Pending © 2025. Demonstration only — no stored or transmitted data.
   </div>
 
-</div>
+</div> <!-- END CONTAINER -->
 
 <script>
+/* DOM references */
 const input = document.getElementById("input");
 const hashesDiv = document.getElementById("hashes");
 const rgacDiv = document.getElementById("rgac");
@@ -515,7 +396,7 @@ const audienceText = {
     timeline:"Audit & Compliance Trail"
   },
   investor:{
-    desc:"NOVAK prevents fraud, tampering, and unauthorized automation — reducing risk across healthcare, finance, defense & government.",
+    desc:"NOVAK prevents fraud, tampering, and unauthorized automation — reducing risk across finance, healthcare, defense & government.",
     hash:"Business Integrity Outputs",
     timeline:"Accountability Timeline"
   },
@@ -537,6 +418,18 @@ function setAudience(a){
   document.getElementById("timelineHeader").innerText = audienceText[a].timeline;
   document.querySelectorAll(".nav button").forEach(btn=>btn.classList.remove("active"));
   document.getElementById(`btn-${a}`).classList.add("active");
+}
+
+/* Show onboarding banner */
+function startGuide(){
+  document.getElementById("instructionBanner").style.display = "block";
+  addTimeline("Displayed usage instructions");
+}
+
+/* Hide onboarding banner */
+function dismissInstruction(){
+  document.getElementById("instructionBanner").style.display = "none";
+  addTimeline("User dismissed instructions");
 }
 
 /* Example datasets */
@@ -574,8 +467,8 @@ function loadExample(type){
   compute();
 }
 
-/* Hash algorithms displayed */
-const algorithms = ["SHA-1","SHA-256","SHA-384","SHA-512"];
+/* Supported hashing algorithms */
+const algorithms = ["SHA-1","SHA-256","SHA-384","SHA-512","SHA3-256","SHA3-512"];
 let lastHashes = {};
 let primaryHash = "SHA-256";
 
@@ -587,23 +480,27 @@ async function compute(){
   lastHashes = {};
 
   for(const algo of algorithms){
-    const digest = await crypto.subtle.digest(algo,data);
-    const hex = [...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,"0")).join("");
-    lastHashes[algo] = hex;
+    try{
+      const digest = await crypto.subtle.digest(algo,data);
+      const hex = [...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,"0")).join("");
+      lastHashes[algo] = hex;
 
-    rows += `
-      <div class="hash-row">
-        <span class="hash-label">${algo}</span>
-        <span class="hash-value">${hex}</span>
-        <div class="hash-controls">
-          <label style="font-size:11px;">
-            <input type="radio" name="primary" value="${algo}" ${algo===primaryHash?'checked':''}
-                   onclick="setPrimary('${algo}')"> primary
-          </label>
-          <button class="copy" onclick="navigator.clipboard.writeText('${hex}')">Copy</button>
+      rows += `
+        <div class="hash-row">
+          <span class="hash-label">${algo}</span>
+          <span class="hash-value">${hex}</span>
+          <div class="hash-controls">
+            <label style="font-size:11px;">
+              <input type="radio" name="primary" value="${algo}" ${algo===primaryHash?'checked':''}
+                     onclick="setPrimary('${algo}')"> primary
+            </label>
+            <button class="copy" onclick="navigator.clipboard.writeText('${hex}')">Copy</button>
+          </div>
         </div>
-      </div>
-    `;
+      `;
+    } catch(e){
+      rows += `<div class="hash-row">${algo} not supported in this browser.</div>`;
+    }
   }
 
   hashesDiv.innerHTML = rows;
@@ -635,10 +532,10 @@ function addTimeline(msg){
   timeline.scrollTop = timeline.scrollHeight;
 }
 
-/* Typing triggers compute */
+/* Live hash recompute */
 input.addEventListener("input", compute);
 
-/* File drop */
+/* File drop hashing */
 dropzone.addEventListener("dragover",e=>e.preventDefault());
 dropzone.addEventListener("drop",async e=>{
   e.preventDefault();
@@ -652,7 +549,7 @@ dropzone.addEventListener("drop",async e=>{
 /* Tamper test */
 function tamperTest(){
   input.value += "\n\n*** UNAUTHORIZED CHANGE FLAGGED ***";
-  addTimeline("Tamper test applied");
+  addTimeline("Tamper test injected");
   compute();
 }
 
@@ -768,18 +665,6 @@ function exportCertificate(){
   certificateWindow.print();
 }
 
-/* Guided Walkthrough */
-function startGuide(){
-  document.getElementById("instructionBanner").style.display = "block";
-  addTimeline("Displayed usage instructions");
-}
-
-function dismissInstruction(){
-  document.getElementById("instructionBanner").style.display = "none";
-  addTimeline("User dismissed instructions");
-}
-
- 
 /* Executive One-Pager Print */
 function printOnePager(){
   const page = window.open("", "_blank");
@@ -841,3 +726,4 @@ compute();
 </script>
 </body>
 </html>
+ 
