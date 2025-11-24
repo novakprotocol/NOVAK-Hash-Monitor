@@ -547,4 +547,111 @@ document.getElementById("vinResult").innerHTML = `<pre>${result}</pre>`;
 
 <!-- ✅ END PART 5 — CONTINUE WITH PART 6 NEXT -->
 
+<!-- ✅ PART 6 of 9 — MINI-GAMES + SOUND ENGINE (default OFF) -->
+
+
+<div class="card" style="margin-top:32px;">
+<h2 class="section-title">Interactive Integrity Challenges</h2>
+<p>Prove you understand NOVAK — spot corruption, detect tampering, or validate authenticity.</p>
+
+
+<div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:16px;">
+<button class="explain-btn" onclick="startGame('tamper')">🕵️ Spot the Tampering</button>
+<button class="explain-btn" onclick="startGame('memory')">🧠 Hash Memory Match</button>
+<button class="explain-btn" onclick="startGame('fraud')">🚨 Fraud Detector Mode</button>
+</div>
+
+
+<!-- sound toggle -->
+<button onclick="toggleSound()" class="sound-toggle" aria-label="Toggle game sound" title="Toggle game sound" style="margin-top:6px;">
+🔇
+</button>
+</div>
+
+
+<!-- ✅ GAME DISPLAY CONTAINER (dynamically populated) -->
+<div id="gameBox" class="card" style="margin-top:20px; display:none;"></div>
+
+
+<script>
+// ===== Mini-Game System =====
+let soundEnabled = false;
+let correctSound = new Audio('data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA='); // silent placeholder
+let incorrectSound = correctSound;
+
+
+function toggleSound() {
+soundEnabled = !soundEnabled;
+document.querySelector('.sound-toggle').textContent = soundEnabled ? '🔊' : '🔇';
+}
+
+
+function playCorrect() { if (soundEnabled) correctSound.play(); }
+function playIncorrect() { if (soundEnabled) incorrectSound.play(); }
+
+
+// ===== GAME STARTER =====
+function startGame(type) {
+document.getElementById('gameBox').style.display = 'block';
+if (type === 'tamper') gameTamper();
+else if (type === 'memory') gameMemory();
+else if (type === 'fraud') gameFraud();
+}
+
+
+// ===== GAME 1 — Spot the Tampering =====
+function gameTamper() {
+const original = 'Approved VA Claim — Rating 70% — 2025-03-14';
+const tampered = 'Approved VA Claim — Rating 10% — 2025-03-14';
+
+
+document.getElementById('gameBox').innerHTML = `
+<h3>🕵️ Spot the Tampering</h3>
+<p>Two records — one is altered. Which one fails integrity?</p>
+
+
+<pre style="margin-top:12px;">${original}</pre>
+<pre style="margin-top:12px;">${tampered}</pre>
+
+
+<div style="display:flex; gap:10px; margin-top:14px;">
+<button class="action-btn" onclick="checkTamper(true)">Top is Original ✅</button>
+<button class="action-btn" onclick="checkTamper(false)">Bottom is Original ✅</button>
+</div>
+
+
+<div id="tamperResult" style="margin-top:16px;font-weight:600;"></div>
+`;
+}
+
+
+function checkTamper(choice) {
+const result = document.getElementById('tamperResult');
+if (choice) {
+result.textContent = '✅ Correct — NOVAK would detect rating manipulation instantly.';
+playCorrect();
+} else {
+result.textContent = '❌ Incorrect — without NOVAK, silent benefit reduction could occur.';
+playIncorrect();
+}
+}
+
+
+// ===== GAME 2 — Hash Memory Match =====
+function gameMemory() {
+const hashes = [
+'6af9a4f2b1c2e59feefbc1a8a3fd016bc878b9910a7af49d1230dbf841cc9e22',
+'6af9a4f2b1c2e59feefbc1a8a3fd016bc878b9910a7af49d1230dbf841cc9e22',
+'bb3d9910fa33c82109f8f8606dd691da59a8c79e5517be408c292fc3dadc179a',
+'bb3d9910fa33c82109f8f8606dd691da59a8c79e5517be408c292fc3dadc179a'
+].sort(() => Math.random() - 0.5);
+
+
+let revealed = [];
+
+
+document.getElementById('gameBox').innerHTML = `
+<h3>🧠 Hash Memory Match</h3>
+<!-- ✅ END PART 6 — CONTINUE WITH PART 7 NEXT -->
+
 
