@@ -804,4 +804,101 @@ URL.revokeObjectURL(url);
 
 <!-- ✅ END PART 8 — CONTINUE WITH PART 9 NEXT -->
 
+<!-- ✅ PART 9 of 9 — GLORY TO GOD, FOOTER, PRIVACY & FINAL INIT SCRIPTS -->
 
+
+<!-- ✅ GLORY TO GOD SECTION (Collapsible) -->
+<div class="card" style="margin-top:40px; position:relative;" id="gloryCard">
+<h2 class="section-title">Glory to God</h2>
+<p>Every good and perfect gift comes from above.</p>
+
+
+<button class="action-btn" onclick="toggleGlory()" style="margin-top:12px;">📖 Show Scripture</button>
+
+
+<div id="gloryContent" style="display:none; margin-top:16px; font-style:italic;">
+“The LORD detests lying lips, but He delights in those who act faithfully.” — Proverbs 12:22
+</div>
+
+
+<!-- close button top right -->
+<button onclick="toggleGlory()" style="position:absolute; top:14px; right:14px; background:none; border:none; cursor:pointer; font-size:20px;" aria-label="Hide Glory to God">✕</button>
+</div>
+
+
+<!-- ✅ FOOTER -->
+<footer style="text-align:center; margin-top:50px; font-size:14px; opacity:0.8; line-height:1.5;">
+NOVAK Protocol™ — Proof-Before-Action Execution Integrity<br>
+Patent Pending — Copyright © 2025 Matthew Novak<br>
+PADI 30-Year Member #888850 — Star Citizen Referral: <strong>STAR-KRN7-SJTX</strong><br>
+Nothing stored, logged, transmitted, sold, or shared — all verification happens locally.
+</footer>
+
+
+<!-- ✅ FINAL INITIALIZATION & GLOBAL SCRIPTING -->
+<script>
+// ===== Theme Toggle System =====
+function toggleTheme() {
+const html = document.documentElement;
+const newTheme = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+html.setAttribute('data-theme', newTheme);
+localStorage.setItem('novakTheme', newTheme);
+}
+
+
+(function initTheme() {
+const saved = localStorage.getItem('novakTheme');
+if (saved) document.documentElement.setAttribute('data-theme', saved);
+})();
+
+
+// ===== Audience Switching System =====
+let currentAudience = 'public';
+function setAudience(a) {
+currentAudience = a;
+
+
+// update active button state
+document.querySelectorAll('#audienceNav button').forEach(btn => btn.classList.remove('active'));
+document.getElementById(`btn-${a}`).classList.add('active');
+
+
+// update audience messaging
+document.getElementById('audienceContent').textContent = audienceMessages[a];
+}
+
+
+// initialize default audience
+setAudience('public');
+
+
+// ===== Why NOVAK Dismiss Persistence =====
+function dismissWhyNovak() {
+document.getElementById('whyNovakCard').style.display = 'none';
+localStorage.setItem('whyNovakDismissed', 'true');
+}
+
+
+(function restoreWhyNovak() {
+if (localStorage.getItem('whyNovakDismissed') === 'true') {
+document.getElementById('whyNovakCard').style.display = 'none';
+}
+})();
+
+
+// ===== GLORY TO GOD Toggle =====
+function toggleGlory() {
+const box = document.getElementById('gloryContent');
+box.style.display = box.style.display === 'none' ? 'block' : 'none';
+}
+
+
+// ===== Dismiss Explainers When New One Selected =====
+function showExplain(type) {
+const output = document.getElementById('explainerOutput');
+output.style.display = 'block';
+output.innerHTML = getExplainerText(type);
+output.scrollIntoView({ behavior: 'smooth' });
+}
+
+  
