@@ -299,56 +299,55 @@ html[data-theme="dark"] .history-box{
     <button class="theme-toggle" onclick="toggleTheme()">Light/Dark</button>
   </div>
 
-  <!-- WHY NOVAK -->
-  <div class="card" style="margin-top:10px;">
-    <h2>Why NOVAK — Why Now?</h2>
-    <p style="margin-top:10px; font-size:15px; line-height:1.55;">
-      Today, automated systems approve loans, deny medical claims, adjust insurance rates,
-      steer vehicles, filter veterans' benefits, control robots, and move billions of dollars —
-      often <strong>without proof, transparency, or accountability.</strong>
-    </p>
+<!-- WHY NOVAK -->
+<div id="whyNovakCard" class="card" style="margin-top:10px; position: relative;">
 
-    <p style="margin-top:12px; font-size:15px; line-height:1.55;">
-      NOVAK ensures every automated action — in government, healthcare, finance, defense,
-      and AI — must generate cryptographic proof of legality <strong>before it happens.</strong>
-    </p>
-
-    <p style="margin-top:12px; font-size:15px; line-height:1.55;">
-      If the data changes, a rule is wrong, or manipulation occurs, NOVAK detects it instantly
-      and <strong>blocks the action safely.</strong>
-    </p>
-
-    <p style="margin-top:12px; font-size:15px; line-height:1.55; font-weight:600;">
-      No blockchain. No cryptocurrency. No central server. Just mathematical integrity.
-    </p>
-
-    <p style="margin-top:12px; font-size:15px; line-height:1.55;">
-      ✅ Every input generates a unique fingerprint.<br>
-      ✅ Change anything — the fingerprint changes instantly.
-    </p>
-
-    <p style="font-size:15px; opacity:.85; margin-top:14px;">
-      SHA-256 is the steel the NSA engineered — NOVAK is the vault that ensures automation can’t act without proof.
-    </p>
-
-    <div id="whyNovakCard" class="card" style="position: relative;">
   <h2>Why NOVAK — Why Now?</h2>
 
-  <!-- Your existing content stays here -->
+  <p style="margin-top:10px; font-size:15px; line-height:1.55;">
+    Today, automated systems approve loans, deny medical claims, adjust insurance rates,
+    steer vehicles, filter veterans' benefits, control robots, and move billions of dollars —
+    often <strong>without proof, transparency, or accountability.</strong>
+  </p>
 
-  <button onclick="dismissWhyNovak()" 
-          style="margin-top:16px; font-size:14px;" 
-          class="action-btn">
+  <p style="margin-top:12px; font-size:15px; line-height:1.55;">
+    NOVAK ensures every automated action — in government, healthcare, finance, defense,
+    and AI — must generate cryptographic proof of legality <strong>before it happens.</strong>
+  </p>
+
+  <p style="margin-top:12px; font-size:15px; line-height:1.55;">
+    If the data changes, a rule is wrong, or manipulation occurs, NOVAK detects it instantly
+    and <strong>blocks the action safely.</strong>
+  </p>
+
+  <p style="margin-top:12px; font-size:15px; line-height:1.55; font-weight:600;">
+    No blockchain. No cryptocurrency. No central server. Just mathematical integrity.
+  </p>
+
+  <p style="margin-top:12px; font-size:15px; line-height:1.55;">
+    ✅ Every input generates a unique fingerprint.<br>
+    ✅ Change anything — the fingerprint changes instantly.
+  </p>
+
+  <p style="font-size:15px; opacity:.85; margin-top:14px;">
+    SHA-256 is the steel the NSA engineered — NOVAK is the vault that ensures automation
+    can’t act without proof.
+  </p>
+
+  <!-- Don’t show again button -->
+  <button onclick="dismissWhyNovak()" class="action-btn" style="margin-top:18px;">
     ✅ Don’t show this again
   </button>
 
-  <!-- Optional close X -->
-  <button onclick="dismissWhyNovak()" 
+  <!-- Close X button -->
+  <button onclick="dismissWhyNovak()"
           style="position:absolute; top:14px; right:14px;
-                 background:none; border:none; font-size:20px; cursor:pointer;">
+                 background:none; border:none; font-size:20px;
+                 cursor:pointer;">
     ✕
   </button>
 </div>
+
 
   </div>
 
