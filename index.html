@@ -951,6 +951,23 @@ document.addEventListener("DOMContentLoaded", () => {
   setAudience("public");
   updateHashes();
 });
+
+function setAudience(a) {
+  currentAudience = a;
+  document.getElementById("audienceContent").innerHTML = audienceMessages[a];
+
+  // Remove highlight from all buttons
+  document.querySelectorAll(".aud-btn").forEach(b => b.classList.remove("active"));
+
+  // Highlight selected button
+  document.getElementById(`btn-${a}`).classList.add("active");
+}
+
+  document.addEventListener("DOMContentLoaded", () => {
+  setAudience("public");
+});
+
+  
 </script>
 
 
