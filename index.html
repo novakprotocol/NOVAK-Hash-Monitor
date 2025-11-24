@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>NOVAK Integrity Verification Demo</title>
 
+<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
 
 <style>
@@ -107,7 +108,7 @@ body{
  margin-top:24px;
 }
 
-/* EXAMPLE CARDS */
+/* EXAMPLES */
 .example-grid{
  display:grid;
  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
@@ -156,7 +157,7 @@ textarea{
  background:rgba(26,79,179,.07);
 }
 
-/* HASH ROW */
+/* HASH DISPLAY */
 .hash-row{
  display:flex;
  justify-content:space-between;
@@ -268,6 +269,30 @@ textarea{
  white-space:nowrap;
 }
 
+/* TOOLTIP */
+.tooltip{
+ position:relative;
+ cursor:help;
+ border-bottom:1px dashed var(--blue);
+}
+.tooltip-text{
+ visibility:hidden;
+ background:var(--card);
+ color:var(--text);
+ border:1px solid var(--border);
+ padding:8px 10px;
+ border-radius:6px;
+ font-size:12px;
+ width:240px;
+ position:absolute;
+ z-index:1000;
+ bottom:125%;
+ left:0;
+}
+.tooltip:hover .tooltip-text{
+ visibility:visible;
+}
+
 /* FOOTER */
 .footer{
  margin-top:36px;
@@ -289,8 +314,7 @@ textarea{
 
   <!-- DESCRIPTION -->
   <p id="description" style="font-size:15px;margin-bottom:20px;">
-    NOVAK generates a mathematical fingerprint of data.  
-    If the data changes — even slightly — the fingerprint changes instantly. Try it below.
+    NOVAK generates a mathematical fingerprint of data. If anything changes—even slightly—the fingerprint changes instantly. Try it below.
   </p>
 
   <!-- AUDIENCE NAVIGATION -->
@@ -302,10 +326,12 @@ textarea{
     <button onclick="setAudience('academic')" id="btn-academic">Academic</button>
   </div>
 
+  <!-- EXECUTIVE WALKTHROUGH -->
+  <button class="action-btn" onclick="startGuide()">Show Me How This Works</button>
+
   <!-- EXAMPLE DATASETS -->
   <div class="card">
     <h3>Select an example dataset:</h3>
-
     <div class="example-grid">
       <div class="example" onclick="loadExample('va')">VA Disability Claim Summary</div>
       <div class="example" onclick="loadExample('medical')">Clinical Note (Healthcare)</div>
@@ -331,9 +357,8 @@ textarea{
   <!-- HASH OUTPUT -->
   <div class="card">
     <h3 id="hashHeader">Integrity Fingerprints</h3>
-    <p style="font-size:13px;margin-bottom:6px;">All major hashes are shown. Select which one you want to treat as the primary.</p>
+    <p style="font-size:13px;margin-bottom:6px;">All major hashes are shown. Select which one to treat as primary.</p>
     <div id="hashes"></div>
-
     <p style="font-size:13px;margin-top:8px;">
       Primary Hash for certificate:
       <span id="primaryLabel" style="font-weight:600;">SHA-256</span>
@@ -346,11 +371,11 @@ textarea{
     <button class="action-btn" onclick="exportCertificate()">Export Integrity Certificate (PDF)</button>
   </div>
 
-  <!-- BEFORE/AFTER COMPARISON -->
+  <!-- BEFORE/AFTER -->
   <div class="card">
     <h3>Before/After Comparison</h3>
     <p style="font-size:13px;margin-bottom:8px;">
-      Click “Start Before/After Capture”, then modify the input, then click the button again to see the difference.
+      Click “Start Before/After Capture”, modify input, click again to compare.
     </p>
     <div id="comparison" class="compare-box" style="display:none;"></div>
   </div>
@@ -361,10 +386,93 @@ textarea{
     <div id="timeline" class="timeline"></div>
   </div>
 
+  <!-- NOVAK VS BLOCKCHAIN EXPLAINER -->
+  <div class="card">
+    <h3>How NOVAK Differs from Blockchain, Bitcoin & SSL/TLS</h3>
+
+    <h4 style="margin-top:14px;">NOVAK vs Blockchain</h4>
+    <ul style="margin-left:18px;font-size:14px;line-height:1.45;">
+      <li><strong>Blockchain:</strong> Records events after execution.</li>
+      <li><strong>NOVAK:</strong> Requires proof before execution.</li>
+      <li><strong>Blockchain:</strong> Requires decentralized consensus.</li>
+      <li><strong>NOVAK:</strong> Works anywhere — no miners, ledger, or network.</li>
+    </ul>
+
+    <h4 style="margin-top:14px;">NOVAK vs Bitcoin / Cryptocurrency</h4>
+    <ul style="margin-left:18px;font-size:14px;line-height:1.45;">
+      <li><strong>Cryptocurrency:</strong> Financial asset on blockchain.</li>
+      <li><strong>NOVAK:</strong> Not a currency — governs automated decisions.</li>
+    </ul>
+
+    <h4 style="margin-top:14px;">NOVAK vs SSL/TLS</h4>
+    <ul style="margin-left:18px;font-size:14px;line-height:1.45;">
+      <li><strong>SSL/TLS:</strong> Encrypts data in transit.</li>
+      <li><strong>NOVAK:</strong> Ensures the action itself is lawful before execution.</li>
+    </ul>
+
+    <h4 style="margin-top:14px;">What NOVAK Actually Is</h4>
+    <ul style="margin-left:18px;font-size:14px;line-height:1.45;">
+      <li>A cryptographic execution checkpoint</li>
+      <li>A tamper-evident legality engine</li>
+      <li>Lightweight — infrastructure independent</li>
+      <li>Universal — works in any industry</li>
+    </ul>
+  </div>
+
+  <!-- VISUAL DIAGRAM -->
+  <div class="card">
+    <h3>NOVAK vs Blockchain — Visual Overview</h3>
+    <svg width="100%" height="130">
+      <text x="10" y="20" font-size="14">Blockchain:</text>
+      <text x="10" y="40" font-size="12">Action → Recorded → Audited Later</text>
+      <line x1="10" y1="55" x2="250" y2="55" stroke="#1a4fb3" stroke-width="2"/>
+
+      <text x="10" y="90" font-size="14">NOVAK:</text>
+      <text x="10" y="110" font-size="12">Action Proposed → Legality Proven → Then Executed</text>
+    </svg>
+  </div>
+
+  <!-- GLOSSARY -->
+  <div class="card">
+    <h3>Glossary — Plain English</h3>
+    <ul style="margin-left:18px;font-size:14px;line-height:1.5;">
+      <li><strong>Hash:</strong> Unique mathematical fingerprint of data.</li>
+      <li><strong>SHA-256:</strong> U.S. federal hashing standard.</li>
+      <li><strong>Execution Identity Receipt:</strong> Proof before automated action.</li>
+      <li><strong>RGAC:</strong> Ordered chain of proofs over time.</li>
+      <li><strong>Proof-Before-Action:</strong> Machine must justify action first.</li>
+    </ul>
+  </div>
+
+  <!-- COMPLIANCE -->
+  <div class="card">
+    <h3>Security, Compliance & Deployment</h3>
+    <ul style="margin-left:18px;font-size:14px;line-height:1.5;">
+      <li>100% local — no data leaves device</li>
+      <li>Compatible with FIPS hashing implementations</li>
+      <li>Deployable in VA, DoD, DHS, HHS environments</li>
+      <li>Integrates with PKI, IAM, SIEM</li>
+    </ul>
+  </div>
+
+  <!-- WHAT THIS IS NOT -->
+  <div class="card">
+    <h3>What This Demo Is Not</h3>
+    <ul style="margin-left:18px;font-size:14px;line-height:1.5;">
+      <li>Not cryptocurrency</li>
+      <li>Not blockchain</li>
+      <li>Not SSL/TLS or HTTPS</li>
+      <li>Not a database or storage system</li>
+      <li>Not a replacement for cybersecurity controls</li>
+    </ul>
+  </div>
+
+  <!-- PRINT ONE-PAGER -->
+  <button class="action-btn" onclick="printOnePager()">Print Executive One-Pager</button>
+
   <!-- FOOTER -->
   <div class="footer">
-    NOVAK Protocol — Patent Pending © 2025.  
-    Demonstration only — no data stored or transmitted off this device.
+    NOVAK Protocol — Patent Pending © 2025. Demonstration only — no stored or transmitted data.
   </div>
 
 </div>
@@ -451,7 +559,7 @@ function loadExample(type){
   compute();
 }
 
-/* Hash algorithms to show */
+/* Hash algorithms displayed */
 const algorithms = ["SHA-1","SHA-256","SHA-384","SHA-512"];
 let lastHashes = {};
 let primaryHash = "SHA-256";
@@ -533,7 +641,7 @@ function tamperTest(){
   compute();
 }
 
-/* Before/After comparison (inline, no popup) */
+/* Before/After comparison */
 let beforeSnapshot = null;
 function toggleCompareMode(){
   if(!beforeSnapshot){
@@ -543,7 +651,7 @@ function toggleCompareMode(){
       time: new Date().toLocaleTimeString()
     };
     compareBtn.innerText = "Complete Before/After Comparison";
-    addTimeline("Captured BEFORE state — modify input, then click comparison again.");
+    addTimeline("Captured BEFORE state — modify input, then click again.");
   } else {
     const after = {
       input: input.value,
@@ -580,7 +688,7 @@ function toggleTheme(){
   addTimeline(`Theme changed to ${html.dataset.theme}`);
 }
 
-/* Export Integrity Certificate (PDF) */
+/* Integrity Certificate Export */
 function exportCertificate(){
   const certificateWindow = window.open("", "_blank");
   const primaryHashValue = lastHashes[primaryHash] || "";
@@ -633,59 +741,6 @@ function exportCertificate(){
       <h3>Input Data:</h3>
       <pre class="mono">${input.value.replace(/</g,"&lt;")}</pre>
 
-<div class="footer">
-
-<div class="card">
-  <h3>How NOVAK Differs from Blockchain, Bitcoin & SSL/TLS</h3>
-
-  <p style="margin-top:10px;font-size:14px;">
-    NOVAK is a <strong>proof-before-action enforcement layer</strong> — it requires machines to
-    mathematically justify an action <em>before executing it</em>. It is not a currency,
-    distributed ledger, or network security protocol.
-  </p>
-
-  <h4 style="margin-top:14px;">NOVAK vs Blockchain</h4>
-  <ul style="margin-left:18px;font-size:14px;line-height:1.45;">
-    <li><strong>Blockchain:</strong> Stores transactions on a distributed ledger after they occur.</li>
-    <li><strong>NOVAK:</strong> Computes legality proof <em>before</em> an action happens.</li>
-    <li><strong>Blockchain:</strong> Requires decentralized consensus.</li>
-    <li><strong>NOVAK:</strong> Works on any system — no miners, no chain, no tokens.</li>
-    <li><strong>Blockchain:</strong> Immutable recordkeeping.</li>
-    <li><strong>NOVAK:</strong> Execution gating + accountability.</li>
-  </ul>
-
-  <h4 style="margin-top:14px;">NOVAK vs Bitcoin / Cryptocurrency</h4>
-  <ul style="margin-left:18px;font-size:14px;line-height:1.45;">
-    <li><strong>Cryptocurrency:</strong> Financial asset secured by a blockchain.</li>
-    <li><strong>NOVAK:</strong> Not a currency — governs automation & decision systems.</li>
-    <li><strong>Bitcoin:</strong> Incentive-driven mining + token economics.</li>
-    <li><strong>NOVAK:</strong> No mining, no economic layer, no trading.</li>
-  </ul>
-
-  <h4 style="margin-top:14px;">NOVAK vs SSL/TLS (HTTPS)</h4>
-  <ul style="margin-left:18px;font-size:14px;line-height:1.45;">
-    <li><strong>SSL/TLS:</strong> Encrypts data in transit between devices.</li>
-    <li><strong>NOVAK:</strong> Ensures the action itself is lawful and verified.</li>
-    <li><strong>SSL/TLS:</strong> Protects communication channels.</li>
-    <li><strong>NOVAK:</strong> Protects automated decisions, workflows & outcomes.</li>
-  </ul>
-
-  <h4 style="margin-top:14px;">What NOVAK Actually Is</h4>
-  <ul style="margin-left:18px;font-size:14px;line-height:1.45;">
-    <li>A cryptographic execution checkpoint.</li>
-    <li>A tamper-evident proof-of-legality engine.</li>
-    <li>A universal pre-action verification layer.</li>
-    <li>Compatible with any industry, network, or system.</li>
-    <li>Lightweight — no ledger, consensus, or infrastructure overhead.</li>
-  </ul>
-
-  <p style="margin-top:14px;font-size:14px;">
-    NOVAK can <strong>use blockchain, PKI or secure transport if desired</strong> — but it does
-    not require them. Its power comes from enforcing accountability at the moment of execution.
-  </p>
-</div>
-
-
       <footer>
         NOVAK Protocol — Patent Pending © 2025<br>
         Demonstration only — no data retained or transmitted.
@@ -696,6 +751,74 @@ function exportCertificate(){
 
   certificateWindow.document.close();
   certificateWindow.print();
+}
+
+/* Guided Walkthrough */
+function startGuide(){
+  alert(
+`STEP 1 — Select an example dataset
+STEP 2 — Observe fingerprints update instantly
+STEP 3 — Modify the text and watch hashes change
+STEP 4 — Run Tamper Test
+STEP 5 — Export Integrity Certificate
+
+NOVAK proves whether a system SHOULD act — before it acts.`
+  );
+}
+
+/* Executive One-Pager Print */
+function printOnePager(){
+  const page = window.open("", "_blank");
+  page.document.write(`
+    <html>
+    <head>
+      <title>NOVAK One-Pager</title>
+      <style>
+        body{ font-family:Inter,sans-serif; padding:40px; line-height:1.55; }
+        h1{ font-size:30px; color:#1a4fb3; margin-bottom:10px; }
+        h3{ margin-top:22px; }
+        ul{ margin-left:20px; }
+      </style>
+    </head>
+    <body>
+      <h1>NOVAK Protocol — Executive Overview</h1>
+
+      <p>NOVAK is a cryptographic proof-before-action enforcement layer. It requires automated
+      systems to generate mathematical justification <strong>before executing a decision</strong>.</p>
+
+      <h3>What NOVAK Solves</h3>
+      <ul>
+        <li>Undocumented machine decisions</li>
+        <li>Post-action auditing delays</li>
+        <li>Data tampering & silent modification</li>
+        <li>Inconsistent regulatory compliance</li>
+      </ul>
+
+      <h3>Core Components</h3>
+      <ul>
+        <li>Execution Identity Receipt (formerly NIPS)</li>
+        <li>Recursive Global Audit Chain (formerly REVELATION)</li>
+        <li>NOVAK Safety Gate (formerly HARMONEE)</li>
+        <li>Formal Proof of Legality (ℕ)</li>
+      </ul>
+
+      <h3>Industries Served</h3>
+      <ul>
+        <li>Government claims & benefits</li>
+        <li>Healthcare diagnosis & automation</li>
+        <li>Defense & robotics safety</li>
+        <li>Banking, fintech, insurance</li>
+      </ul>
+
+      <footer style="margin-top:50px;font-size:12px;opacity:.7;">
+        NOVAK Protocol — Patent Pending © 2025
+      </footer>
+    </body>
+    </html>
+  `);
+
+  page.document.close();
+  page.print();
 }
 
 /* INIT */
