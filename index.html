@@ -579,3 +579,80 @@ html[data-theme="dark"] {
   </button>
 </div>
  
+// ✅ Guided Storytelling Script
+const storySlides = [
+  "Welcome — NOVAK fixes the world's most dangerous hidden problem: automation without proof.",
+  "Today, software approves loans, surgeries, veteran benefits, procurement, sentencing — without verification.",
+  "NOVAK requires mathematical integrity — BEFORE execution — preventing irreversible harm.",
+  "Hashes alone don't stop fraud. NOVAK chains data, rules & outputs into a verifiable execution receipt.",
+  "If anything changes — fraud, glitch, bias, breach — NOVAK refuses to execute.",
+  "That means government, AI, banking, healthcare & defense systems become provably trustworthy.",
+  "Now try entering data above — NOVAK proves it instantly.",
+  "NOVAK doesn't replace systems — it protects them.",
+  "Proof-before-action becomes the new global safety standard."
+];
+
+let storyIndex = 0;
+let storyInterval;
+
+function startStoryMode() {
+  const panel = document.getElementById("storyPanel");
+  storyIndex = 0;
+  panel.style.display = "block";
+  panel.textContent = storySlides[storyIndex];
+  panel.scrollIntoView({ behavior: "smooth" });
+
+  clearInterval(storyInterval);
+
+  storyInterval = setInterval(() => {
+    storyIndex++;
+    if (storyIndex >= storySlides.length) {
+      clearInterval(storyInterval);
+      return;
+    }
+
+    panel.textContent = storySlides[storyIndex];
+    panel.scrollIntoView({ behavior: "smooth" });
+  }, 4500);
+}
+
+// ✅ Export One-Page Federal Briefing Sheet
+function exportBriefing() {
+  const text =
+`NOVAK Protocol — Executive Briefing
+
+Mission:
+Eliminate catastrophic automated decisions by requiring mathematical proof-before-action.
+
+Why It Matters:
+• Prevents wrongful benefit denials, medical errors, procurement fraud, and security breaches.
+• Saves billions in improper payments and litigation.
+• Enables safe, auditable AI adoption across government.
+
+How NOVAK Works:
+1. Hashes input, governing rule, and output.
+2. Cryptographically binds them together.
+3. Generates an execution receipt.
+4. Blocks execution if anything is altered.
+
+Not a blockchain. Not a cryptocurrency. No mining. No latency.
+
+Applicable to:
+• VA, DoD, CMS, SSA, DOJ, DHS, IRS, Treasury
+• Banking, insurance, healthcare, logistics
+• Robotics, autonomous vehicles, critical infrastructure
+
+National Security Impact:
+• Eliminates silent automated sabotage & insider manipulation.
+• Establishes global execution integrity.
+
+Status: Patent pending — NOVAK Protocol™`;
+
+  const blob = new Blob([text], { type: "text/plain" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "NOVAK_Federal_Briefing.txt";
+  a.click();
+  URL.revokeObjectURL(url);
+}
