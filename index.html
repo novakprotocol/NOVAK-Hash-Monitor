@@ -1,4 +1,4 @@
-<!-- ✅ NOVAK Protocol — Final Public Demo Build (PART 1 of 3) -->
+<!-- ✅ NOVAK Protocol — Final Public Demo Build (PART 1 of 3 — Updated) -->
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
@@ -16,13 +16,6 @@
       rel="stylesheet" />
 
 <style>
-
-/* Prevent content from hiding under sticky header */
-.card, #explainerOutput {
-  scroll-margin-top: 110px;
-}
-
-  
 /* ============================================================================ */
 /* ✅ GLOBAL RESET + TYPOGRAPHY */
 /* ============================================================================ */
@@ -87,13 +80,13 @@ html[data-theme="dark"] {
 }
 
 /* ============================================================================ */
-/* ✅ STICKY HEADER — ALWAYS VISIBLE */
+/* ✅ STICKY HEADER — CENTERED + RESPONSIVE */
 /* ============================================================================ */
 #mainHeader {
   display: flex;
-  justify-content: center;     /* ✅ center everything */
+  justify-content: center;
   align-items: center;
-  gap: 26px;                    /* ✅ comfortable spacing */
+  gap: 34px;
   padding: 18px 32px;
   background: var(--bg);
   border-bottom: 1px solid var(--border);
@@ -101,7 +94,6 @@ html[data-theme="dark"] {
   top: 0;
   z-index: 9999;
 }
-
 
 #novakBrand {
   font-size: 28px;
@@ -123,6 +115,7 @@ html[data-theme="dark"] {
   gap: 14px;
 }
 
+/* ✅ Theme Toggle */
 .theme-toggle {
   cursor: pointer;
   font-size: 14px;
@@ -133,13 +126,23 @@ html[data-theme="dark"] {
   color: var(--blue);
   transition: 0.25s;
 }
-
 .theme-toggle:hover {
   background: var(--blue);
   color: #fff;
 }
 
-/* Mobile Menu */
+/* ✅ Prevent content from sliding under sticky header */
+html {
+  scroll-padding-top: 120px;
+}
+.card,
+#explainerOutput,
+#audienceContent,
+#whatChangesCard {
+  scroll-margin-top: 120px;
+}
+
+/* Mobile Header Menu */
 #mobileMenuBtn {
   display: none;
   font-size: 28px;
@@ -174,8 +177,9 @@ html[data-theme="dark"] {
   margin-bottom: 14px;
 }
 
-/* Explainer Buttons */
-.explain-btn {
+.explain-btn,
+.action-btn,
+.aud-btn {
   border: 1px solid var(--blue);
   background: transparent;
   padding: 8px 16px;
@@ -189,30 +193,60 @@ html[data-theme="dark"] {
   transition: 0.25s;
 }
 
-.explain-btn:hover {
+.explain-btn:hover,
+.aud-btn:hover {
   background: rgba(26,79,179,0.12);
 }
 
-/* Primary CTA */
 .action-btn {
-  padding: 9px 16px;
   border-radius: 6px;
-  border: none;
-  cursor: pointer;
   background: var(--blue);
   color: #fff;
-  font-size: 14px;
-  transition: 0.25s;
 }
-
 .action-btn:hover {
   background: var(--blue-hover);
+}
+
+/* ============================================================================ */
+/* ✅ Dark Mode Readability Fix */
+/* ============================================================================ */
+html[data-theme="dark"] .explain-btn,
+html[data-theme="dark"] .aud-btn,
+html[data-theme="dark"] .action-btn,
+html[data-theme="dark"] .theme-toggle {
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+html[data-theme="dark"] .explain-btn:hover,
+html[data-theme="dark"] .aud-btn:hover {
+  background: rgba(255,255,255,0.14) !important;
+}
+
+html[data-theme="dark"] .theme-toggle:hover {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+html[data-theme="dark"] .card {
+  color: var(--text-dark);
+}
+
+/* ============================================================================ */
+/* ✅ Hash Output Wrapping — prevents overflow */
+/* ============================================================================ */
+#hashOutputList {
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
 /* ============================================================================ */
 /* ✅ MOBILE */
 /* ============================================================================ */
 @media (max-width: 720px) {
+  #mainHeader {
+    justify-content: space-between;
+  }
   #headerControls {
     display: none;
   }
@@ -226,44 +260,6 @@ html[data-theme="dark"] {
     padding: 18px;
   }
 }
-
-/* ============================================================= */
-/* ✅ FIX — Readable Buttons & Cards in Dark Mode */
-/* ============================================================= */
-
-/* Ensure readable buttons in Dark Mode */
-html[data-theme="dark"] .explain-btn,
-html[data-theme="dark"] .action-btn,
-html[data-theme="dark"] .theme-toggle,
-html[data-theme="dark"] .aud-btn {
-  color: #ffffff !important;
-  border-color: #ffffff !important;
-}
-
-html[data-theme="dark"] .theme-toggle:hover {
-  background: #ffffff;
-  color: #000000 !important;
-}
-
-/* Keep card text readable in Dark Mode */
-html[data-theme="dark"] .card {
-  color: var(--text-dark);
-}
-
-  /* Prevent long hashes from overflowing */
-#hashOutputList {
-  overflow-wrap: break-word;
-  word-break: break-all;
-}
-
-#hashOutputList div {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-}
-
-  
 </style>
 </head>
 
@@ -294,6 +290,7 @@ html[data-theme="dark"] .card {
 
 <!-- ✅ MAIN CONTENT START -->
 <div class="container">
+
 
 <!-- ✅ PART 2 — Audience Selector + Dynamic Messaging + Why NOVAK -->
 
