@@ -202,6 +202,41 @@ html[data-theme="dark"] {
 </head>
 
 <!-- ✅ END PART 1 — DO NOT CLOSE BODY OR HTML -->
+
+<!-- ✅ PART 2 — AUDIENCE SELECTION & RESPONSIVE MESSAGING -->
+
+<!-- Audience Selector -->
+<div id="audienceNav" style="display:flex; gap:10px; margin-top:32px; flex-wrap:wrap;">
+  <button id="btn-public" class="aud-btn" onclick="setAudience('public')">🌍 Public</button>
+  <button id="btn-government" class="aud-btn" onclick="setAudience('government')">🏛 Government</button>
+  <button id="btn-investor" class="aud-btn" onclick="setAudience('investor')">💼 Investor</button>
+  <button id="btn-cyber" class="aud-btn" onclick="setAudience('cyber')">🛡 Cybersecurity</button>
+  <button id="btn-academic" class="aud-btn" onclick="setAudience('academic')">🎓 Academic</button>
+</div>
+
+<!-- ✅ Audience Messaging Appears Immediately -->
+<div id="audienceContent"
+     class="card"
+     style="margin-top:18px; font-size:16px; line-height:1.55;">
+</div>
+
+<!-- ✅ Restore Why NOVAK Button (hidden until needed) -->
+<div style="display:flex; justify-content:center; margin-top:10px;">
+  <button id="restoreWhyBtn"
+    onclick="restoreWhyNovakSection()"
+    style="
+      display:none;
+      padding:8px 18px;
+      border-radius:8px;
+      border:1px solid var(--border);
+      background:var(--btn-bg);
+      cursor:pointer;
+      font-size:14px;
+    ">
+    🔄 Show “Why NOVAK — Why Now?”
+  </button>
+</div>
+
   
 <!-- ✅ PART 2 of 9 — HEADER, AUDIENCE SELECTOR & WHY NOVAK BLOCK -->
 <!-- ✅ AUDIENCE SELECTOR — dynamically updates entire website messaging -->
