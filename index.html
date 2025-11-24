@@ -770,15 +770,8 @@ function exportCertificate(){
 
 /* Guided Walkthrough */
 function startGuide(){
-  alert(
-`STEP 1 — Select an example dataset
-STEP 2 — Observe fingerprints update instantly
-STEP 3 — Modify the text and watch hashes change
-STEP 4 — Run Tamper Test
-STEP 5 — Export Integrity Certificate
-
-NOVAK proves whether a system SHOULD act — before it acts.`
-  );
+  document.getElementById("instructionBanner").style.display = "block";
+  addTimeline("Displayed usage instructions");
 }
 
 /* Executive One-Pager Print */
