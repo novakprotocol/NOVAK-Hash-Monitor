@@ -295,15 +295,17 @@ html[data-theme="dark"] .history-box{
 
 <div class="header">
   <div class="logo">NOVAK Protocol</div>
+  <button class="theme-toggle" onclick="toggleTheme()">Light/Dark</button>
+</div>
 
-  <!-- Audience selector moved up into header -->
-  <div class="nav header-nav">
-    <button onclick="setAudience('public')" class="active" id="btn-public">Public</button>
-    <button onclick="setAudience('government')" id="btn-government">Government</button>
-    <button onclick="setAudience('investor')" id="btn-investor">Investor</button>
-    <button onclick="setAudience('cyber')" id="btn-cyber">Cybersecurity</button>
-    <button onclick="setAudience('academic')" id="btn-academic">Academic</button>
-  </div>
+<!-- Audience selector now BELOW the title -->
+<div class="nav">
+  <button onclick="setAudience('public')" class="active" id="btn-public">Public</button>
+  <button onclick="setAudience('government')" id="btn-government">Government</button>
+  <button onclick="setAudience('investor')" id="btn-investor">Investor</button>
+  <button onclick="setAudience('cyber')" id="btn-cyber">Cybersecurity</button>
+  <button onclick="setAudience('academic')" id="btn-academic">Academic</button>
+</div>
 
   <button class="theme-toggle" onclick="toggleTheme()">Light/Dark</button>
 </div>
@@ -1006,6 +1008,11 @@ function printOnePager(){
   page.document.close();
   page.print();
 }
+
+.nav {
+  margin-top: 10px;
+}
+  
 /* Hide Why NOVAK banner permanently after dismissal */
 function dismissWhyNovak() {
   document.getElementById("whyNovakCard").style.display = "none";
