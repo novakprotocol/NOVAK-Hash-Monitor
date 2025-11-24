@@ -295,6 +295,48 @@ aria-label="Dismiss Why Novak section">
 
 <!-- ✅ END PART 2 — CONTINUE WITH PART 3 NEXT -->
 
+<!-- ✅ PART 3 — WHY NOVAK — WHY NOW? (Dismissible, Restorable) -->
+<div id="whyNovakCard" class="card" style="margin-top:32px; position:relative;">
+  <h2 class="section-title">Why NOVAK — Why Now?</h2>
+
+  <p>
+    Automation now approves mortgages, denies veterans’ benefits, sets insurance rates, steers vehicles,
+    recommends surgeries, and moves trillions of dollars — often without proof of correctness, legality, or integrity.
+  </p>
+
+  <p>
+    NOVAK changes this — requiring mathematical proof <strong>before</strong> any automated action occurs.
+  </p>
+
+  <ul style="margin-left:22px;">
+    <li>If data changes → NOVAK detects instantly</li>
+    <li>If rule is wrong → NOVAK blocks execution</li>
+    <li>If fraud occurs → NOVAK produces evidence</li>
+    <li>If system glitches → NOVAK prevents harm</li>
+  </ul>
+
+  <p style="font-weight:600; margin-top:14px;">
+    No blockchain. No cryptocurrency. No central authority. Just cryptographic integrity.
+  </p>
+
+  <!-- ✅ Dismiss button -->
+  <button onclick="dismissWhyNovak()" style="
+    position:absolute;
+    top:14px;
+    right:14px;
+    font-size:20px;
+    background:none;
+    border:none;
+    cursor:pointer;
+  " aria-label="Hide Why NOVAK">✕</button>
+
+  <!-- ✅ User confirmation hide button -->
+  <button class="action-btn" onclick="dismissWhyNovak()" style="margin-top:16px;">
+    ✅ Got it — Hide
+  </button>
+</div>
+
+  
 <!-- ✅ PART 3 of 9 — EXPLAINERS + WITH/WITHOUT NOVAK COMPARISON + AUDIENCE TEXT ENGINE -->
 
 <!-- ✅ EXPLAINER OUTPUT AREA (dynamic content inserted via JS) -->
@@ -407,6 +449,32 @@ auditability to eliminate epistemic uncertainty in automated decision systems �
 
 <!-- ✅ HASHING + RGAC ENGINE SCRIPT -->
 <script>
+
+// ✅ Hide Why NOVAK — but allow revival
+function dismissWhyNovak() {
+  document.getElementById("whyNovakCard").style.display = "none";
+  document.getElementById("restoreWhyBtn").style.display = "inline-flex";
+  localStorage.setItem("whyNovakDismissed", "true");
+}
+
+// ✅ Restore Why NOVAK manually
+function restoreWhyNovakSection() {
+  document.getElementById("whyNovakCard").style.display = "block";
+  document.getElementById("restoreWhyBtn").style.display = "none";
+  localStorage.removeItem("whyNovakDismissed");
+}
+
+// ✅ On page load — honor user preference
+function restoreWhyNovak() {
+  if (localStorage.getItem("whyNovakDismissed") === "true") {
+    document.getElementById("whyNovakCard").style.display = "none";
+    document.getElementById("restoreWhyBtn").style.display = "inline-flex";
+  } else {
+    document.getElementById("restoreWhyBtn").style.display = "none";
+  }
+}
+
+  
 // ✅ Works for BOTH text & file ArrayBuffers
 async function computeHash(algorithm, value) {
   let data;
