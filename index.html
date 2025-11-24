@@ -1000,16 +1000,19 @@ const explainTexts = {
   gov: "NOVAK could save billions by preventing improper payments, fraud, and automation mistakes before they occur.",
   how: "NOVAK binds input, rule, and output into a cryptographic receipt. If anything changes — execution is blocked."
 };
-function showExplain(key) {
+function showExplain(key, el) {
   const panel = document.getElementById("explainerOutput");
   panel.style.display = "block";
   panel.textContent = explainTexts[key];
 
-  document.querySelectorAll(".pill-btn, .explain-btn").forEach(btn => btn.classList.remove("active"));
-  event.target.classList.add("active");
+  document.querySelectorAll(".pill-btn, .explain-btn")
+    .forEach(btn => btn.classList.remove("active"));
+
+  el.classList.add("active");
 
   panel.scrollIntoView({ behavior: "smooth" });
 }
+
 
 /* ============================
    REAL HASH ENGINE — LIVE
