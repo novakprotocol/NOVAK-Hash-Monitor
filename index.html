@@ -896,7 +896,6 @@ html {
 
 <!-- ✅ FULL JAVASCRIPT ENGINE -->
 
-<!-- ✅ FULL JAVASCRIPT ENGINE -->
 <script>
 /* ============================
    GLOBAL STATE
@@ -905,13 +904,6 @@ let currentAudience = "public";
 let soundEnabled = false;
 let storyIndex = 0;
 let storyInterval;
-
-/* ============================
-   ERROR LOGGING — DEBUG SAFETY
-=============================*/
-window.addEventListener("error", e =>
-  console.warn("⚠️ JAVASCRIPT ERROR:", e.message)
-);
 
 /* ============================
    THEME TOGGLE
@@ -955,45 +947,58 @@ function setAudience(type) {
 }
 
 /* ============================
-   WHY NOVAK — DISMISS & RESTORE
+  WHY NOVAK — DISMISS & RESTORE
 =============================*/
 function dismissWhyNovak() {
   document.getElementById("whyNovakCard").style.display = "none";
   document.getElementById("restoreWhyBtn").style.display = "inline-flex";
   localStorage.setItem("whyNovakDismissed", "true");
 }
-
 function restoreWhyNovakSection() {
   document.getElementById("whyNovakCard").style.display = "block";
   document.getElementById("restoreWhyBtn").style.display = "none";
   localStorage.removeItem("whyNovakDismissed");
 }
-
 function restoreWhyNovakOnLoad() {
   if (localStorage.getItem("whyNovakDismissed") === "true") dismissWhyNovak();
 }
 
 /* ============================
-   WHAT CHANGES — DISMISS/RESTORE
+ WHAT IS NOVAK — DISMISS & RESTORE ✅ FIXED
+=============================*/
+function dismissWhatIsNovak() {
+  document.getElementById("whatIsNovakCard").style.display = "none";
+  document.getElementById("restoreWhatIsBtn").style.display = "inline-flex";
+  localStorage.setItem("whatIsNovakDismissed", "true");
+}
+function restoreWhatIsNovakSection() {
+  document.getElementById("whatIsNovakCard").style.display = "block";
+  document.getElementById("restoreWhatIsBtn").style.display = "none";
+  localStorage.removeItem("whatIsNovakDismissed");
+}
+function restoreWhatIsNovakOnLoad() {
+  if (localStorage.getItem("whatIsNovakDismissed") === "true") dismissWhatIsNovak();
+}
+
+/* ============================
+ WHAT CHANGES — DISMISS & RESTORE
 =============================*/
 function dismissWhatChanges() {
   document.getElementById("whatChangesCard").style.display = "none";
   document.getElementById("restoreWhatBtn").style.display = "inline-flex";
   localStorage.setItem("whatChangesDismissed", "true");
 }
-
 function restoreWhatChangesSection() {
   document.getElementById("whatChangesCard").style.display = "block";
   document.getElementById("restoreWhatBtn").style.display = "none";
   localStorage.removeItem("whatChangesDismissed");
 }
-
 function restoreWhatChangesOnLoad() {
   if (localStorage.getItem("whatChangesDismissed") === "true") dismissWhatChanges();
 }
 
 /* ============================
-   EXPLAINER SYSTEM — FIXED
+   EXPLAINER BUTTONS & OUTPUT
 =============================*/
 const explainTexts = {
   simple: "NOVAK requires proof-before-action — meaning systems must prove correctness before executing, not after failure.",
@@ -1009,24 +1014,21 @@ function showExplain(key, el) {
   panel.style.display = "block";
   panel.textContent = explainTexts[key];
 
-  document.querySelectorAll(".explain-btn")
+  document.querySelectorAll(".explain-btn, .pill-btn")
     .forEach(btn => btn.classList.remove("active"));
 
-  if (el) el.classList.add("active");
-
+  el.classList.add("active");
   panel.scrollIntoView({ behavior: "smooth" });
 }
 
 /* ============================
-   REAL HASH ENGINE — LIVE
+   LIVE HASH ENGINE
 =============================*/
 async function computeHash(algorithm, value) {
   const data = typeof value === "string"
     ? new TextEncoder().encode(value)
     : new Uint8Array(value);
-
   const digest = await crypto.subtle.digest(algorithm, data);
-
   return Array.from(new Uint8Array(digest))
     .map(b => b.toString(16).padStart(2, "0"))
     .join("");
@@ -1042,16 +1044,16 @@ async function updateHashes() {
     return;
   }
 
-  const selectedAlgos = [...document.querySelectorAll(".hashAlgo:checked")].map(a => a.value);
-
-  if (!selectedAlgos.length) {
+  const selected = [...document.querySelectorAll(".hashAlgo:checked")].map(a => a.value);
+  if (!selected.length) {
     list.innerHTML = "<em>Select at least one hashing algorithm.</em>";
     return;
   }
 
   list.innerHTML = "";
-  for (const algo of selectedAlgos) {
+  for (const algo of selected) {
     const hash = await computeHash(algo, input);
+
     list.innerHTML += `
       <div style="margin-bottom:18px;">
         <strong>${algo}:</strong><br>
@@ -1070,8 +1072,8 @@ async function updateHashes() {
   updateRGAC(input);
 }
 
-document.getElementById("novakInput")?.addEventListener("input", updateHashes);
-document.querySelectorAll(".hashAlgo")?.forEach(cb =>
+document.getElementById("novakInput").addEventListener("input", updateHashes);
+document.querySelectorAll(".hashAlgo").forEach(cb =>
   cb.addEventListener("change", updateHashes)
 );
 
@@ -1084,9 +1086,7 @@ function updateRGAC(value) {
     box.innerHTML = "<em>Provide input to begin...</em>";
     return;
   }
-
   const labels = ["Data", "Rule", "Output", "Verifier", "Receipt"];
-
   box.innerHTML = labels.map((l, i) =>
     `<span style="padding:4px 10px;border:1px solid var(--border);
      border-radius:6px; margin-right:6px; display:inline-block;">
@@ -1102,20 +1102,20 @@ const dropzone = document.getElementById("dropzone");
 const fileInput = document.getElementById("fileInput");
 const fileHashResult = document.getElementById("fileHashResult");
 
-dropzone?.addEventListener("click", () => fileInput.click());
-dropzone?.addEventListener("dragover", e => {
+dropzone.addEventListener("click", () => fileInput.click());
+dropzone.addEventListener("dragover", e => {
   e.preventDefault();
   dropzone.style.background = "rgba(26,79,179,0.07)";
 });
-dropzone?.addEventListener("dragleave", () =>
+dropzone.addEventListener("dragleave", () =>
   dropzone.style.background = "transparent"
 );
-dropzone?.addEventListener("drop", e => {
+dropzone.addEventListener("drop", e => {
   e.preventDefault();
   dropzone.style.background = "transparent";
   handleFileHash(e.dataTransfer.files[0]);
 });
-fileInput?.addEventListener("change", e =>
+fileInput.addEventListener("change", e =>
   handleFileHash(e.target.files[0])
 );
 
@@ -1128,7 +1128,7 @@ async function handleFileHash(file) {
 }
 
 /* ============================
-   EXAMPLE DATA
+   EXAMPLE DATASETS
 =============================*/
 const examples = {
   va: "Veteran: John Doe\nClaim #: 27-982271\nCondition: Lumbar Spine Degeneration\nRating Requested: 70%\nFiled: 2024-10-17",
@@ -1138,14 +1138,13 @@ const examples = {
   ai: "AI Output — Content Filter\nUserID: 992882\nReason: Probable Misinformation\nConfidence: 0.82",
   legal: "Court Filing — Motion to Compel\nDocket #: 5:24-cv-1772\nFiled: March 4, 2025\nJurisdiction: 9th Circuit"
 };
-
 function loadExample(key) {
   document.getElementById("novakInput").value = examples[key] || "";
   updateHashes();
 }
 
 /* ============================
-   VIN DECODER
+   VIN DECODER MODAL
 =============================*/
 function openVinModal() {
   document.getElementById("vinModal").style.display = "flex";
@@ -1165,7 +1164,7 @@ document.getElementById("vinInput")?.addEventListener("input", () => {
 });
 
 /* ============================
-   INTERACTIVE GAMES
+ ✅ MINI-GAMES — NOW FULLY WORKING
 =============================*/
 function toggleSound() {
   soundEnabled = !soundEnabled;
@@ -1202,7 +1201,6 @@ function gameTamper() {
     <div id="tamperResult" style="margin-top:16px; font-weight:600;"></div>
   `;
 }
-
 function checkTamper(choice) {
   const result = document.getElementById("tamperResult");
   if (choice)
@@ -1243,7 +1241,6 @@ function gameMemory() {
   window.memoryFirst = null;
   window.memoryMatches = 0;
 }
-
 function handleMemoryClick(btn) {
   btn.textContent = btn.dataset.value;
 
@@ -1291,10 +1288,8 @@ function gameFraud() {
     <div id="fraudResult" style="margin-top:16px; font-weight:600;"></div>
   `;
 }
-
-async function detectFraud() {
-  const result = document.getElementById("fraudResult");
-  result.textContent =
+function detectFraud() {
+  document.getElementById("fraudResult").textContent =
     "✅ Fraud detected — amount alteration breaks cryptographic binding.";
 }
 
@@ -1355,7 +1350,6 @@ const slides = [
   "NOVAK doesn't replace systems — it protects them.",
   "Proof-before-action becomes the new global safety standard."
 ];
-
 function startStoryMode() {
   storyPanel.style.display = "block";
   storyIndex = 0;
@@ -1371,7 +1365,7 @@ function startStoryMode() {
 }
 
 /* ============================
-   EXECUTIVE REPORT EXPORT
+   EXECUTIVE BRIEF EXPORT
 =============================*/
 function exportBriefing() {
   const text =
@@ -1419,11 +1413,12 @@ function toggleGlorySection() {
 }
 
 /* ============================
-   INIT — PAGE LOAD
+   INIT ON LOAD ✅ IMPORTANT
 =============================*/
 document.addEventListener("DOMContentLoaded", () => {
   setAudience("public");
   restoreWhyNovakOnLoad();
+  restoreWhatIsNovakOnLoad();   // ✅ Now included
   restoreWhatChangesOnLoad();
   updateHashes();
 });
