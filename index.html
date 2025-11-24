@@ -461,4 +461,28 @@ html[data-theme="dark"] {
   </div>
 </div>
 
-  
+<!-- ✅ PART 6 of 8 — Interactive NOVAK Mini-Games -->
+
+<div class="card" style="margin-top:32px;">
+  <h2 class="section-title">Interactive Integrity Challenges</h2>
+  <p>Prove you understand NOVAK — spot corruption, detect tampering, or validate authenticity.</p>
+
+  <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:16px;">
+    <button class="explain-btn" onclick="startGame('tamper')">🕵️ Spot the Tampering</button>
+    <button class="explain-btn" onclick="startGame('memory')">🧠 Hash Memory Match</button>
+    <button class="explain-btn" onclick="startGame('fraud')">🚨 Fraud Detector</button>
+  </div>
+
+  <!-- ✅ Sound toggle (default OFF) -->
+  <button onclick="toggleSound()"
+          class="sound-toggle"
+          aria-label="Toggle game sound"
+          style="margin-top:10px; font-size:20px; background:none; border:none; cursor:pointer;">
+    🔇
+  </button>
+</div>
+
+<!-- ✅ Dynamic game container -->
+<div id="gameBox" class="card" style="margin-top:20px; display:none;"></div>
+
+
