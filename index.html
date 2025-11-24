@@ -202,8 +202,10 @@ html[data-theme="dark"] {
 </head>
 
 <!-- ✅ END PART 1 — DO NOT CLOSE BODY OR HTML -->
+  
 <!-- ✅ PART 2 of 9 — HEADER, AUDIENCE SELECTOR & WHY NOVAK BLOCK -->
 <!-- ✅ AUDIENCE SELECTOR — dynamically updates entire website messaging -->
+
 <div class="nav" id="audienceNav">
 <button onclick="setAudience('public')" class="active" id="btn-public">Public</button>
 <button onclick="setAudience('government')" id="btn-government">Government</button>
@@ -212,22 +214,18 @@ html[data-theme="dark"] {
 <button onclick="setAudience('academic')" id="btn-academic">Academic</button>
 </div>
 
-
 <!-- ✅ WHY NOVAK — WHY NOW? (dismissible & stored in localStorage) -->
 <div id="whyNovakCard" class="card" style="position:relative;">
 <h2 class="section-title">Why NOVAK — Why Now?</h2>
-
 
 <p>
 Automation now approves mortgages, denies veterans’ benefits, sets insurance rates, steers vehicles,
 recommends surgeries, and moves trillions of dollars — often without proof of correctness, legality, or integrity.
 </p>
 
-
 <p style="margin-top:12px;">
 NOVAK changes this — requiring mathematical proof <strong>before</strong> any automated action occurs.
 </p>
-
 
 <ul style="margin-top:12px;margin-left:20px;">
 <li>If data changes → NOVAK detects instantly</li>
@@ -236,14 +234,11 @@ NOVAK changes this — requiring mathematical proof <strong>before</strong> any 
 <li>If system glitches → NOVAK prevents harm</li>
 </ul>
 
-
 <p style="margin-top:14px;font-weight:600;">
 No blockchain. No cryptocurrency. No central authority. Just cryptographic integrity.
 </p>
 
-
 <button onclick="dismissWhyNovak()" class="action-btn" style="margin-top:18px;">✅ Got it — Hide</button>
-
 
 <!-- Close button -->
 <button onclick="dismissWhyNovak()"
@@ -252,7 +247,6 @@ aria-label="Dismiss Why Novak section">
 ✕
 </button>
 </div>
-
 
 <!-- ✅ ANALOGY BUTTON ROW WITH EMOJI + LABELS -->
 <div style="margin-top:24px; display:flex; flex-wrap:wrap; gap:12px;">
@@ -264,11 +258,9 @@ aria-label="Dismiss Why Novak section">
 <button class="explain-btn" onclick="showExplain('how')">👁️ Show Me How This Works</button>
 </div>
 
-
 <!-- ✅ END PART 2 — CONTINUE WITH PART 3 NEXT -->
 
 <!-- ✅ PART 3 of 9 — EXPLAINERS + WITH/WITHOUT NOVAK COMPARISON + AUDIENCE TEXT ENGINE -->
-
 
 <!-- ✅ EXPLAINER OUTPUT AREA (dynamic content inserted via JS) -->
 <div id="explainerOutput" class="card" style="display:none; margin-top:22px;"></div>
@@ -310,7 +302,6 @@ Most systems today rely on logging <em>after</em> something already happened. NO
 </div>
 </div>
 
-
 <!-- ✅ AUDIENCE-BASED CONTENT TEXTS -->
 <script>
 const audienceMessages = {
@@ -335,10 +326,11 @@ auditability to eliminate epistemic uncertainty in automated decision systems �
 };
 </script>
 
-
 <!-- ✅ SECTION THAT WILL UPDATE BASED ON AUDIENCE MODE -->
 <div id="audienceContent" class="card" style="margin-top:28px; font-size:15px;"></div>
 
+<!-- ✅ Audience messaging appears immediately after selection -->
+<div id="audienceContent" class="card" style="margin-top:22px; font-size:15px;"></div>
 
 <!-- ✅ END PART 3 — CONTINUE WITH PART 4 NEXT -->
 
