@@ -35,30 +35,30 @@
   <!-- WHY NOVAK — WHY NOW -->
   <section id="whyNovakCard" class="card dismissible">
     <h2>Why NOVAK — Why Now?</h2>
-
     <p>
-      Automated systems approve loans, deny medical claims, assign benefits,
-      move money, steer vehicles, and operate robots — often without proof,
-      transparency, or accountability.
+      Automated systems approve loans, deny medical claims, move money,
+      assign benefits, navigate vehicles, and operate robots —
+      often without proof, transparency, or accountability.
     </p>
 
     <p>
-      NOVAK requires every automated action to generate mathematical proof of
-      legality <strong>before it happens</strong>.
+      NOVAK requires every automated action to generate mathematical
+      proof of legality <strong>before execution</strong>.
     </p>
 
     <p>
-      If data changes, rules are incorrect, or tampering occurs,
-      NOVAK detects it instantly — and safely blocks execution.
+      If data changes, rules are altered, or tampering occurs,
+      NOVAK detects it instantly — and blocks the action safely.
     </p>
 
     <p class="tight">
-      ✅ Every input creates a unique fingerprint<br>
+      ✅ Every input generates a unique fingerprint<br>
       ✅ Change anything — fingerprint changes instantly
     </p>
 
     <p class="analogy">
-    SHA-256 is the steel. NOVAK is the vault door, hinges, lock, alarm system, and guard — ensuring automation cannot act without proof.
+      SHA-256 is the steel the NSA engineered — NOVAK is the vault protecting
+      what automation must never change.
     </p>
 
     <button class="dismiss-btn" onclick="dismissWhyNovak()">✅ Don’t show this again</button>
@@ -71,27 +71,25 @@
     even slightly — the fingerprint changes instantly. Try it below.
   </p>
 
-  <!-- EXPLAINER BUTTON ROW -->
+  <!-- EXPLAINER BUTTONS -->
   <div class="explain-btn-row">
-    <button class="action-btn" onclick="toggleExplainer('exp1')">I don’t get it</button>
-    <button class="action-btn" onclick="toggleExplainer('exp2')">I’m still not getting it</button>
-    <button class="action-btn" onclick="toggleExplainer('expColor')">Colored pencil analogy</button>
-    <button class="action-btn" onclick="toggleExplainer('expKey')">Key analogy</button>
-    <button class="action-btn" onclick="toggleExplainer('expGov')">Government savings</button>
-    <button class="action-btn" onclick="toggleExplainer('expDoWe')">Don’t we already do this?</button>
-    <button class="action-btn" onclick="toggleExplainer('expHow')">Show me how this works</button>
+    <button class="action-btn" onclick="toggleExplainer('exp1')">🤔 I don’t get it</button>
+    <button class="action-btn" onclick="toggleExplainer('exp2')">😕 I’m still not getting it</button>
+    <button class="action-btn" onclick="toggleExplainer('expColor')">🖍️ Colored Pencil Analogy</button>
+    <button class="action-btn" onclick="toggleExplainer('expKey')">🔑 Key Analogy</button>
+    <button class="action-btn" onclick="toggleExplainer('expGov')">🏛️ Government Savings</button>
+    <button class="action-btn" onclick="toggleExplainer('expHow')">👀 Show Me How This Works</button>
   </div>
 
-  <!-- COLLAPSIBLE EXPLAINER PANELS -->
+  <!-- COLLAPSIBLE EXPLAINERS -->
   <section id="exp1" class="card explainer"></section>
   <section id="exp2" class="card explainer"></section>
   <section id="expColor" class="card explainer"></section>
   <section id="expKey" class="card explainer"></section>
   <section id="expGov" class="card explainer"></section>
-  <section id="expDoWe" class="card explainer"></section>
   <section id="expHow" class="card explainer"></section>
 
-    <!-- EXAMPLE DATASETS -->
+  <!-- EXAMPLE DATASETS -->
   <section class="card">
     <h3>Select an example dataset:</h3>
     <div class="example-grid">
@@ -104,15 +102,13 @@
     </div>
   </section>
 
-  <!-- TEXT INPUT + DROPZONE -->
+  <!-- TEXT INPUT + FILE DROP -->
   <section class="card">
     <textarea id="input" placeholder="Type, paste, or modify data here..."></textarea>
-
     <div id="dropzone" class="dropzone">
       ⬇️ Drag & drop a file here to verify integrity
     </div>
-
-    <button class="action-btn" onclick="tamperTest()">Run Tamper Test</button>
+    <button class="action-btn" onclick="tamperTest()">🚨 Run Tamper Test</button>
     <button class="action-btn" id="compareBtn" onclick="toggleCompareMode()">
       Start Before/After Capture
     </button>
@@ -122,9 +118,7 @@
   <section class="card">
     <h3 id="hashHeader">Integrity Fingerprints</h3>
     <p class="micro">All supported hashes shown — select one as primary.</p>
-
     <div id="hashes" class="hash-list"></div>
-
     <p class="micro">
       Primary Hash for certificate:
       <strong id="primaryLabel">SHA-256</strong>
@@ -133,34 +127,30 @@
     <h4>RGAC Chain (Conceptual Demo)</h4>
     <div id="rgac" class="rgac"></div>
 
-    <button class="action-btn" onclick="exportCertificate()">Export Integrity Certificate (PDF)</button>
+    <button class="action-btn" onclick="exportCertificate()">📄 Export Integrity Certificate (PDF)</button>
   </section>
 
-  <button class="action-btn" onclick="printOnePager()">
-    Generate Executive Preview (PDF)
-  </button>
-
-  <!-- BEFORE / AFTER COMPARISON -->
+  <!-- BEFORE/AFTER COMPARISON -->
   <section class="card">
     <h3>Before / After Comparison</h3>
     <p class="micro">Capture, modify, then compare fingerprints</p>
     <div id="comparison" class="compare-box" style="display:none;"></div>
   </section>
 
-  <!-- GAME LAUNCHER -->
+  <!-- MINI-GAMES -->
   <section class="card" id="gamesCard">
     <h3>Interactive NOVAK Mini-Games</h3>
     <p class="micro">Learn NOVAK through real-world integrity scenarios</p>
 
     <div class="game-btn-row">
-      <button class="action-btn" onclick="startTamperGame()">Spot the Tamper</button>
-      <button class="action-btn" onclick="startHashMatch()">Hash Match Memory</button>
-      <button class="action-btn" onclick="startKeyGame()">Find the Valid Key</button>
-      <button class="action-btn" onclick="startFraudDetective()">Fraud Detective</button>
+      <button class="action-btn" onclick="startTamperGame()">🕵️ Spot the Tamper</button>
+      <button class="action-btn" onclick="startHashMatch()">🧩 Hash Match Memory</button>
+      <button class="action-btn" onclick="startKeyGame()">🔐 Find the Valid Key</button>
+      <button class="action-btn" onclick="startFraudDetective()">🚨 Fraud Detective</button>
     </div>
   </section>
 
-  <!-- GAME DISPLAY / INTERACTION AREA -->
+  <!-- GAME DISPLAY -->
   <section id="gameBox" class="card" style="display:none;"></section>
 
   <!-- TIMELINE -->
@@ -169,110 +159,397 @@
     <div id="proofHistory" class="history-box"></div>
   </section>
 
-  <!-- NOVAK vs BLOCKCHAIN -->
-  <section class="card">
-    <h3>NOVAK vs Blockchain, Bitcoin & SSL/TLS</h3>
+  <!-- GLORY TO GOD -->
+  <button class="action-btn" onclick="toggleGlory()">🙏 Glory to God</button>
 
-    <h4 style="margin-top:14px;">NOVAK vs Blockchain</h4>
-    <ul style="margin-left:18px;line-height:1.45;">
-      <li><strong>Blockchain:</strong> Records events after execution.</li>
-      <li><strong>NOVAK:</strong> Requires proof before execution.</li>
-      <li><strong>Blockchain:</strong> Needs decentralized consensus.</li>
-      <li><strong>NOVAK:</strong> Works anywhere — no miners or ledger.</li>
-    </ul>
-
-    <h4 style="margin-top:14px;">NOVAK vs Bitcoin / Crypto</h4>
-    <ul style="margin-left:18px;line-height:1.45;">
-      <li><strong>Crypto:</strong> Token transaction layer.</li>
-      <li><strong>NOVAK:</strong> Automated decision integrity layer.</li>
-    </ul>
-
-    <h4 style="margin-top:14px;">NOVAK vs SSL/TLS</h4>
-    <ul style="margin-left:18px;line-height:1.45;">
-      <li><strong>SSL/TLS:</strong> Protects data in transit.</li>
-      <li><strong>NOVAK:</strong> Enforces legality before execution.</li>
-    </ul>
-  </section>
-
-  <!-- VISUAL DIAGRAM -->
-  <section class="card">
-    <h3>NOVAK vs Blockchain — Visual Overview</h3>
-
-    <svg width="100%" height="140">
-      <text x="10" y="22" font-size="15">Blockchain:</text>
-      <text x="10" y="42" font-size="12">Action → Recorded → Audited Later</text>
-      <line x1="10" y1="60" x2="250" y2="60" stroke="#1a4fb3" stroke-width="2" />
-
-      <text x="10" y="100" font-size="15">NOVAK:</text>
-      <text x="10" y="119" font-size="12">Action Proposed → Integrity Proven → Then Executed</text>
-    </svg>
-  </section>
-
-  <!-- GLOSSARY -->
-  <section class="card">
-    <h3>Glossary — Plain English</h3>
-    <ul style="margin-left:18px;line-height:1.55;">
-      <li><strong>Hash:</strong> A unique mathematical fingerprint of data.</li>
-      <li><strong>SHA-256:</strong> U.S. federal integrity hashing standard.</li>
-      <li><strong>Execution Identity Receipt:</strong> Proof-before-action checkpoint.</li>
-      <li><strong>RGAC:</strong> Chain of linked integrity receipts over time.</li>
-      <li><strong>Proof-Before-Action:</strong> Machine must justify execution first.</li>
-    </ul>
-  </section>
-
-  <!-- COMPLIANCE -->
-  <section class="card">
-    <h3>Security, Compliance & Deployment</h3>
-    <ul style="margin-left:18px;line-height:1.55;">
-      <li>100% local — no stored, transmitted, or uploaded data</li>
-      <li>Compatible with FIPS-validated hashing modules</li>
-      <li>Ideal for VA, DoD, DHS, HHS, Treasury, banking</li>
-      <li>Integrates with SIEM, IAM, PKI & zero-trust architectures</li>
-    </ul>
-  </section>
-
-  <!-- GLORY TO GOD BUTTON -->
-  <div style="margin-top:28px; text-align:center;">
-    <button class="action-btn" onclick="toggleGlorySection()">All Glory to GOD</button>
-  </div>
-
-  <!-- GLORY TO GOD COLLAPSIBLE -->
-  <section id="glorySection" class="card" style="display:none; text-align:center;">
-    <h2 style="margin-bottom:14px;">All Glory to GOD</h2>
-
-    <p style="font-size:15px; line-height:1.6; max-width:720px; margin:auto;">
-      This project, this clarity, this invention — every insight, every step forward,
-      every door opened — is because of Him. I am only a steward.
+  <section id="glorySection" class="card" style="display:none;">
+    <h3>All Glory to God 🙏</h3>
+    <p>
+The NOVAK Protocol exists because intelligence—biological or artificial—must be accountable to truth, law, and moral order. No invention, no breakthrough, no formula is possible without divine truth being discoverable.
     </p>
+    <p>
+Truth Above All
 
-    <p style="font-size:15px; margin-top:14px; line-height:1.6; max-width:720px; margin:auto;">
-      Thank You, Father, for wisdom, protection, creativity, courage, and purpose.
-      May this protect the vulnerable and serve for good.
+“For God is not the author of confusion, but of peace.” — 1 Corinthians 14:33
+
+NOVAK is a system that forces machines to obey truth before action. This principle did not come from chance, chaos, or accidental design—it reflects the order, logic, and intelligibility built into creation itself.
+
+Every hash, every proof, every verification step in NOVAK echoes a deeper truth: Truth must precede power.
+
+In a world where AI is gaining control over infrastructure, decisions, and human-impacting processes, NOVAK ensures a boundary that aligns with the divine instruction that truth is non-optional.
+
+Why Place This On Its Own Page?
+
+Because this work is not only technical—it's moral. And morality is not invented. It is received.
+
+No system that protects people, safeguards the vulnerable, or enforces truth above force is possible unless the universe itself is governed by a moral law—a law higher than any machine, government, or human.
+
+This page is the acknowledgement of that source.
+
+A Simple Statement
+
+Everything good in this work belongs to God. Everything flawed belongs to me.
+
+And may this technology always serve truth, justice, and the protection of human dignity.
     </p>
-
-    <p style="font-size:14px; margin-top:16px; opacity:.75;">
-      James 1:17 — “Every good and perfect gift is from above.”
+    <p>
+      Nothing here is transmitted, stored, collected, or logged — privacy is sacred.
     </p>
-
-    <p style="font-size:14px; margin-top:6px; opacity:.75;">
-      Soli Deo Gloria — To God alone be the glory.
-    </p>
-
-    <button class="action-btn" style="margin-top:18px;" onclick="toggleGlorySection()">Hide</button>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    NOVAK Protocol — Patent Pending © 2025<br>
-    Demonstration only — no stored or transmitted data.
-  </footer>
+</div>
 
-  <button class="showWhyBtn" onclick="localStorage.removeItem('hideWhyNovak'); location.reload();">
-    Show Why NOVAK Again
-  </button>
+ /* RESET + BASE */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+html, body {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  padding: 24px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+}
+
+/* COLOR SYSTEM */
+:root {
+  --blue: #1a4fb3;
+  --blue-hover: #0f357f;
+  --green: #159b4c;
+  --red: #c42121;
+  --yellow: #e6b800;
+
+  --bg-light: #f8fafc;
+  --bg-dark: #0f172a;
+
+  --text-light: #0b1326;
+  --text-dark: #e6edf5;
+
+  --card-light: #ffffff;
+  --card-dark: #1e293b;
+
+  --border-light: #d4d8e1;
+  --border-dark: #334155;
+}
+
+html[data-theme="light"] {
+  --bg: var(--bg-light);
+  --text: var(--text-light);
+  --card: var(--card-light);
+  --border: var(--border-light);
+}
+
+html[data-theme="dark"] {
+  --bg: var(--bg-dark);
+  --text: var(--text-dark);
+  --card: var(--card-dark);
+  --border: var(--border-dark);
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.logo {
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--blue);
+}
+
+/* Site link */
+.home-link {
+  font-size: 15px;
+  color: var(--blue);
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 2px solid transparent;
+  transition: 0.25s;
+}
+.home-link:hover {
+  border-bottom: 2px solid var(--blue);
+}
+
+/* THEME TOGGLE */
+.theme-toggle {
+  cursor: pointer;
+  font-size: 14px;
+  border: 1px solid var(--blue);
+  padding: 7px 14px;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--blue);
+  transition: 0.25s;
+}
+.theme-toggle:hover {
+  background: var(--blue);
+  color: white;
+}
+
+/* AUDIENCE NAV */
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0;
+}
+.nav button {
+  border: 1px solid var(--blue);
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--blue);
+  transition: 0.25s;
+  font-size: 14px;
+}
+.nav button:hover,
+.nav button.active {
+  background: var(--blue);
+  color: white;
+}
+
+/* CARD */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 22px;
+  margin-top: 22px;
+  animation: fadeIn 0.45s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* COLLAPSIBLE EXPLAINERS */
+.explainer {
+  display: none;
+  overflow: hidden;
+  padding: 22px;
+  animation: expand 0.35s ease;
+}
+
+@keyframes expand {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.description {
+  margin-top: 10px;
+  font-size: 15px;
+  opacity: 0.95;
+}
+
+/* BUTTON ROW */
+.explain-btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+/* ACTION BUTTONS */
+.action-btn {
+  background: var(--blue);
+  color: white;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.25s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.action-btn:hover {
+  background: var(--blue-hover);
+}
+
+/* EXAMPLE DATA */
+.example-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.example {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+.example:hover {
+  border-color: var(--blue);
+  background: rgba(26, 79, 179, 0.1);
+}
+
+/* TEXTAREA */
+textarea {
+  width: 100%;
+  height: 180px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  padding: 12px;
+  background: transparent;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 14px;
+  resize: vertical;
+  color: var(--text);
+}
+
+/* DROPZONE */
+.dropzone {
+  margin-top: 16px;
+  border: 2px dashed var(--blue);
+  padding: 34px;
+  border-radius: 8px;
+  text-align: center;
+  transition: 0.25s;
+  cursor: pointer;
+}
+.dropzone:hover {
+  background: rgba(26, 79, 179, 0.08);
+}
+
+/* HASH LIST */
+.hash-list {
+  margin-top: 10px;
+}
+.hash-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+}
+.hash-label {
+  width: 85px;
+  font-weight: 600;
+  font-family: "JetBrains Mono", monospace;
+}
+.hash-value {
+  flex: 1;
+  word-break: break-all;
+  font-family: "JetBrains Mono", monospace;
+}
+.copy {
+  font-size: 11px;
+  padding: 4px 7px;
+  border-radius: 5px;
+  background: var(--blue);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* RGAC MINI CHAIN */
+.rgac {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.block {
+  border: 1px solid var(--blue);
+  padding: 4px 6px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-family: "JetBrains Mono", monospace;
+}
+
+/* BEFORE/AFTER */
+.compare-box {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  max-height: 230px;
+  overflow-y: auto;
+  font-family: "JetBrains Mono", monospace;
+}
+
+/* TIMELINE */
+.history-box {
+  border: 1px solid var(--border);
+  background: rgba(0,0,0,0.04);
+  padding: 14px;
+  border-radius: 6px;
+  max-height: 230px;
+  overflow-y: auto;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+}
+html[data-theme="dark"] .history-box {
+  background: #0e1525;
+}
+
+/* GAMES */
+.game-btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+.game-btn-row button:nth-child(1)::before { content: "🕵️ "; }
+.game-btn-row button:nth-child(2)::before { content: "🧩 "; }
+.game-btn-row button:nth-child(3)::before { content: "🔐 "; }
+.game-btn-row button:nth-child(4)::before { content: "🚨 "; }
+
+#gameBox {
+  font-size: 15px;
+  line-height: 1.55;
+  animation: fadeIn 0.35s ease;
+}
+
+/* DISMISSIBLE WHY NOVAK CARD */
+.dismiss-btn {
+  margin-top: 10px;
+  background: var(--green);
+}
+.close-x {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  color: var(--text);
+  opacity: 0.7;
+}
+.close-x:hover {
+  opacity: 1;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  body { padding: 14px; }
+  .logo { font-size: 26px; }
+}
 
   <script>
-/* ========= GLOBAL DOM HOOKS ========= */
+/* ========= DOM HOOKS ========= */
 const input = document.getElementById("input");
 const hashesDiv = document.getElementById("hashes");
 const primaryLabel = document.getElementById("primaryLabel");
@@ -280,6 +557,8 @@ const rgacDiv = document.getElementById("rgac");
 const comparisonBox = document.getElementById("comparison");
 const compareBtn = document.getElementById("compareBtn");
 const gameBox = document.getElementById("gameBox");
+const desc = document.getElementById("description");
+const proofHistory = document.getElementById("proofHistory");
 
 /* ========= STATE ========= */
 let lastHashes = {};
@@ -288,10 +567,9 @@ let beforeSnapshot = null;
 let rgacBlocks = [];
 let soundEnabled = false;
 
-/* ========= SOUND EFFECTS ========= */
+/* ========= Optional Sound Effects (OFF by default) ========= */
 const sCorrect = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3");
 const sWrong   = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-buzz-960.mp3");
-
 function playSound(type) {
   if (!soundEnabled) return;
   if (type === "correct") sCorrect.play();
@@ -299,66 +577,69 @@ function playSound(type) {
 }
 
 /* ========= THEME PERSISTENCE ========= */
+document.getElementById("themeToggle").addEventListener("click", toggleTheme);
 function toggleTheme() {
   const html = document.documentElement;
   html.dataset.theme = html.dataset.theme === "dark" ? "light" : "dark";
   localStorage.setItem("theme", html.dataset.theme);
 }
-
 (function initTheme() {
   const saved = localStorage.getItem("theme");
   if (saved) document.documentElement.dataset.theme = saved;
 })();
 
-/* ========= AUDIENCE TEXT ========= */
+/* ========= AUDIENCE MESSAGING ========= */
 const audienceText = {
   public: {
-    desc: "NOVAK proves data integrity instantly — no tech degree required.",
+    desc: "NOVAK proves data integrity instantly — no technical background needed.",
     hash: "Integrity Fingerprints",
     timeline: "Proof History"
   },
   government: {
-    desc: "NOVAK enforces proof-before-payment, preventing billions in improper decisions.",
+    desc: "NOVAK enforces proof-before-payment, preventing improper or fraudulent decisions.",
     hash: "Regulatory Integrity Fingerprints",
     timeline: "Audit & Compliance Trail"
   },
   investor: {
-    desc: "Tampering becomes mathematically impossible to hide — reducing systemic risk.",
+    desc: "NOVAK reduces systemic and financial risk by making tampering mathematically visible.",
     hash: "Business Integrity Outputs",
     timeline: "Accountability Timeline"
   },
   cyber: {
-    desc: "Ideal for SOC, DFIR, supply-chain integrity & zero-trust automation.",
+    desc: "Ideal for SOC, DFIR, zero-trust enforcement & supply-chain integrity validation.",
     hash: "Cryptographic Hash Outputs",
     timeline: "Security Event Timeline"
   },
   academic: {
-    desc: "Collision-resistant hashing demonstration for research & instruction.",
+    desc: "Live demonstration of deterministic, collision-resistant hashing — research friendly.",
     hash: "Cryptographic Fingerprints",
     timeline: "Research Log"
   }
 };
 
 function setAudience(a) {
-  document.getElementById("description").innerText = audienceText[a].desc;
+  desc.innerText = audienceText[a].desc;
   document.getElementById("hashHeader").innerText = audienceText[a].hash;
   document.getElementById("timelineHeader").innerText = audienceText[a].timeline;
-  document.querySelectorAll(".nav button").forEach(btn => btn.classList.remove("active"));
+
+  document.querySelectorAll(".nav button").forEach(b => b.classList.remove("active"));
   document.getElementById(`btn-${a}`).classList.add("active");
+  addTimeline(`Switched audience mode to "${a}"`);
 }
 
 /* ========= WHY NOVAK MEMORY ========= */
 function dismissWhyNovak() {
   document.getElementById("whyNovakCard").style.display = "none";
   localStorage.setItem("hideWhyNovak", "1");
+  addTimeline("Why NOVAK section dismissed");
 }
 if (localStorage.getItem("hideWhyNovak") === "1") {
   const card = document.getElementById("whyNovakCard");
   if (card) card.style.display = "none";
 }
 
-/* ========= HASH ENGINE ========= */
-const algorithms = ["SHA-256", "SHA-512", "SHA3-256"];
+/* ========= HASHING ENGINE ========= */
+const algorithms = ["SHA-256", "SHA-384", "SHA-512", "SHA3-256"];
 
 async function compute() {
   const encoder = new TextEncoder();
@@ -368,23 +649,27 @@ async function compute() {
   let html = "";
 
   for (const algo of algorithms) {
-    const digest = await crypto.subtle.digest(algo, data);
-    const hex = [...new Uint8Array(digest)]
-      .map(x => x.toString(16).padStart(2, "0"))
-      .join("");
+    try {
+      const digest = await crypto.subtle.digest(algo, data);
+      const hex = [...new Uint8Array(digest)]
+        .map(x => x.toString(16).padStart(2, "0"))
+        .join("");
 
-    lastHashes[algo] = hex;
+      lastHashes[algo] = hex;
 
-    html += `
-      <div class="hash-row">
-        <span class="hash-label">${algo}</span>
-        <span class="hash-value">${hex}</span>
-        <label style="font-size:11px;">
-          <input type="radio" name="primary" value="${algo}"
-          ${algo === primaryHash ? "checked" : ""}
-          onclick="setPrimary('${algo}')"> primary
-        </label>
-      </div>`;
+      html += `
+        <div class="hash-row">
+          <span class="hash-label">${algo}</span>
+          <span class="hash-value">${hex}</span>
+          <label style="font-size:11px;">
+            <input type="radio" name="primary" value="${algo}"
+            ${algo === primaryHash ? "checked" : ""}
+            onclick="setPrimary('${algo}')"> primary
+          </label>
+        </div>`;
+    } catch {
+      html += `<p>${algo} not supported in this browser.</p>`;
+    }
   }
 
   hashesDiv.innerHTML = html;
@@ -397,17 +682,27 @@ input.addEventListener("input", compute);
 function setPrimary(algo) {
   primaryHash = algo;
   primaryLabel.innerText = algo;
+  addTimeline(`Primary hash changed to ${algo}`);
 }
 
 /* ========= RGAC MINI-CHAIN ========= */
 function updateRGAC(hash) {
   if (!hash) return;
   rgacBlocks.push(hash.slice(0, 10));
-  if (rgacBlocks.length > 7) rgacBlocks.shift();
-  rgacDiv.innerHTML = rgacBlocks.map(h => `<div class="block">${h}</div>`).join("");
+  if (rgacBlocks.length > 10) rgacBlocks.shift();
+
+  rgacDiv.innerHTML = rgacBlocks.map(
+    h => `<div class="block">${h}</div>`
+  ).join("");
 }
 
-/* ========= BEFORE/AFTER COMPARISON ========= */
+/* ========= TIMELINE LOGGER ========= */
+function addTimeline(msg) {
+  proofHistory.textContent += `[${new Date().toLocaleTimeString()}] ${msg}\n`;
+  proofHistory.scrollTop = proofHistory.scrollHeight;
+}
+
+/* ========= BEFORE/AFTER CAPTURE ========= */
 function toggleCompareMode() {
   if (!beforeSnapshot) {
     beforeSnapshot = {
@@ -416,6 +711,7 @@ function toggleCompareMode() {
       time: new Date().toLocaleTimeString()
     };
     compareBtn.innerText = "Finish Comparison";
+    addTimeline("Comparison snapshot captured");
   } else {
     const after = {
       input: input.value,
@@ -442,43 +738,68 @@ function toggleCompareMode() {
     comparisonBox.style.display = "block";
     compareBtn.innerText = "Start Comparison";
     beforeSnapshot = null;
+    addTimeline("Comparison completed");
   }
 }
 
-/* ========= EXAMPLE DATA ========= */
-const examples = {
-  va: `Veteran: John Sample
-Rating: 40%
-Condition: Lumbar Disc Disease
-Requested Increase: 10% → 40%`,
-  medical: `Patient: 54M
-Diagnosis: Atrial fibrillation
-Medication: Metoprolol 25mg BID`,
-  finance: `Transaction ID: 99837-A
-Amount: $248,932.17
-Purpose: Federal subcontract payment`,
-  ai: `Decision ID: A-5527
-Model Confidence: 0.87
-Action: Approve`,
-  robot: `Robot Unit: XR-11
-Command: Move 3.2mm anterior`,
-  legal: `Directive ID: SEC-782-A
-Policy: Data Tamper Prevention
-Effective: March 2025`
-};
-
-function loadExample(x) {
-  input.value = examples[x];
+/* ========= FILE DROP HASHING ========= */
+dropzone.addEventListener("dragover", e => e.preventDefault());
+dropzone.addEventListener("drop", async e => {
+  e.preventDefault();
+  const file = e.dataTransfer.files[0];
+  if (!file) return;
+  input.value = await file.text();
+  addTimeline(`File dropped: ${file.name}`);
   compute();
-}
+});
 
 /* ========= TAMPER TEST ========= */
 function tamperTest() {
   input.value += "\n🚨 UNAUTHORIZED CHANGE DETECTED";
   compute();
+  addTimeline("Tamper test applied");
 }
 
-/* ========= COLLAPSIBLE EXPLAINER LOGIC ========= */
+/* ========= EXAMPLE DATASETS ========= */
+const examples = {
+  va: `Veteran: John Sample
+Claim Type: Lumbar Degenerative Disc Disease
+Requested Rating: 40%
+C&P Exam Scheduled: 12/12/2025`,
+
+  medical: `Patient: 54M
+Diagnosis: Type II Diabetes
+Medication: Metformin 500mg BID
+Follow-Up: 6 weeks`,
+
+  finance: `Transaction ID: 99837-A
+Amount: $248,932.17
+Origin: Contract Disbursement
+Authorization: Level 3`,
+
+  ai: `AI System Output:
+Classification Confidence: 0.92
+Recommended Action: Approve
+Input Source: OCR Claims Scanner`,
+
+  robot: `Command: Move 3.2mm posterior
+Tool: Robotic surgical arm
+Safety Override: TRUE
+Surgeon Confirmed: Yes`,
+
+  legal: `Directive ID: SEC-782-A
+Policy: Federal Data Tamper Prevention
+Effective: March 2025
+Applies To: Automated Systems`
+};
+
+function loadExample(x) {
+  input.value = examples[x];
+  addTimeline(`Loaded example dataset: ${x}`);
+  compute();
+}
+
+/* ========= ANALOGY EXPLAINERS ========= */
 function toggleExplainer(id) {
   document.querySelectorAll(".explainer")
     .forEach(e => {
@@ -487,68 +808,89 @@ function toggleExplainer(id) {
 
   const box = document.getElementById(id);
   box.style.display = box.style.display === "block" ? "none" : "block";
-  if (box.style.display === "block") box.scrollIntoView({ behavior: "smooth", block: "center" });
+
+  if (box.style.display === "block") {
+    box.scrollIntoView({ behavior: "smooth", block: "center" });
+    addTimeline(`Opened explainer: ${id}`);
+  } else {
+    addTimeline(`Closed explainer: ${id}`);
+  }
 }
 
-/* ========= MINI-GAME FRAMEWORK ========= */
-function startGame(html) {
-  gameBox.innerHTML = html;
-  gameBox.style.display = "block";
-  gameBox.scrollIntoView({ behavior: "smooth", block: "center" });
-}
-
-/* ========= GAMES ========= */
+/* ========= MINI-GAMES ========= */
 function startTamperGame() {
-  startGame(`
-    <h3>Spot the Tampered Claim 🕵️</h3>
-    <p>One record below was altered — which one?</p>
-
-    <button class="action-btn" onclick="wrong()">Claim A</button>
-    <button class="action-btn" onclick="correct()">Claim B</button>
-  `);
+  gameBox.style.display = "block";
+  gameBox.innerHTML = `
+    <h3>Spot the Tampered Record 🔍</h3>
+    <p>One dataset was altered — which one?</p>
+    <button class="action-btn" onclick="wrong()">Record A</button>
+    <button class="action-btn" onclick="correct()">Record B</button>
+  `;
+  gameBox.scrollIntoView({ behavior: "smooth", block: "center" });
+  addTimeline("Started Tamper Game");
 }
 
 function startHashMatch() {
-  startGame(`
-    <h3>Hash Match Memory 🧩</h3>
-    <p>Coming soon — flip cards & match fingerprints!</p>
-  `);
+  gameBox.style.display = "block";
+  gameBox.innerHTML = `
+    <h3>Hash Match Memory 🧠</h3>
+    <p>Coming soon — flip cards & match fingerprints.</p>
+  `;
+  addTimeline("Opened Hash Match preview");
 }
 
 function startKeyGame() {
-  startGame(`
-    <h3>Find the Valid Key 🔐</h3>
-    <p>Only one dataset unlocks the verified hash.</p>
-  `);
+  gameBox.style.display = "block";
+  gameBox.innerHTML = `
+    <h3>Correct Key Test 🔑</h3>
+    <p>Only one dataset unlocks the required hash.</p>
+  `;
+  addTimeline("Started Key Game");
 }
 
 function startFraudDetective() {
-  startGame(`
+  gameBox.style.display = "block";
+  gameBox.innerHTML = `
     <h3>Fraud Detective 🚨</h3>
-    <p>Modify the input above — NOVAK will detect tampering instantly.</p>
-  `);
+    <p>Find the altered field — NOVAK always sees it.</p>
+  `;
+  addTimeline("Started Fraud Detective game");
 }
 
-/* Responses */
 function wrong() {
   playSound("wrong");
-  alert("❌ Not quite — try again.");
 }
 function correct() {
   playSound("correct");
-  alert("✅ Correct — NOVAK would flag this instantly.");
 }
 
-/* ========= GLORY SECTION ========= */
-function toggleGlorySection() {
-  const box = document.getElementById("glorySection");
-  box.style.display = box.style.display === "block" ? "none" : "block";
-  if (box.style.display === "block") box.scrollIntoView({ behavior: "smooth", block: "center" });
+/* ========= PDF EXPORT ========= */
+function exportCertificate() {
+  alert("✅ Certificate export coming soon — ready for GitHub release.");
 }
+
+/* ========= EXECUTIVE ONE-PAGER ========= */
+function printOnePager() {
+  alert("✅ One-pager PDF generation coming in next release.");
+}
+
+/* ========= DEEP-LINK SUPPORT (#key, #gov, etc.) ========= */
+window.addEventListener("load", () => {
+  const h = location.hash.replace("#", "");
+  if (!h) return;
+
+  const map = {
+    key: "expKey",
+    pencil: "expColor",
+    gov: "expGov",
+    how: "expHow",
+    confused: "exp1"
+  };
+
+  if (map[h]) toggleExplainer(map[h]);
+});
 
 /* ========= INIT ========= */
 setAudience("public");
 compute();
 </script>
-</body>
-</html>
