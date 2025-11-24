@@ -449,4 +449,103 @@ segments.forEach((label, index) => {
 const block = document.createElement("div");
 <!-- ✅ END PART 4 — CONTINUE WITH PART 5 NEXT -->
 
+<!-- ✅ PART 5 of 9 — CORVETTE VIN DECODER + EXAMPLE DATASETS -->
+
+
+<!-- ✅ EXAMPLE DATASETS CARD -->
+<div class="card" style="margin-top:32px;">
+<h2 class="section-title">Example Datasets</h2>
+<p>Select one to auto-populate the input box above.</p>
+
+
+<div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:16px;">
+<button class="explain-btn" onclick="loadExample('va')">🎖️ VA Disability Claim</button>
+<button class="explain-btn" onclick="loadExample('medical')">🏥 Medical Note</button>
+<button class="explain-btn" onclick="loadExample('finance')">💰 Financial Transaction</button>
+<button class="explain-btn" onclick="loadExample('robot')">🤖 Robotics Command</button>
+<button class="explain-btn" onclick="loadExample('ai')">🧠 AI System Log</button>
+<button class="explain-btn" onclick="loadExample('legal')">⚖️ Legal Filing</button>
+<button class="explain-btn" onclick="openVinModal()">🚗 2022 Corvette VIN</button>
+</div>
+</div>
+
+
+<!-- ✅ VIN DECODER MODAL -->
+<div id="vinModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.55); justify-content:center; align-items:center; z-index:9999;">
+<div id="vinBox" style="background:var(--card); padding:26px; border-radius:10px; width:440px; border:1px solid var(--border);">
+<h3 class="section-title" style="font-size:20px;">2022 Corvette VIN Decoder</h3>
+<input id="vinInput" placeholder="Enter VIN (e.g., 1G1YB3D46N5123456)" maxlength="17"
+style="margin-top:14px; width:100%; padding:10px; border:1px solid var(--border); border-radius:6px; font-family:'JetBrains Mono', monospace; font-size:15px;">
+
+
+<div id="vinResult" style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></div>
+
+
+<button onclick="closeVinModal()" class="action-btn" style="margin-top:18px; width:100%;">Close</button>
+</div>
+</div>
+
+
+<script>
+// ✅ Dataset Examples
+const exampleData = {
+va: `Veteran: John Doe\nClaim Type: PTSD Increase\nFiled: 03/14/2025\nEvidence: Service records, DBQ, C&P exam\nRequested Rating: 70%`,
+
+
+medical: `Patient: Sarah Rivers\nDiagnosis: Type II Diabetes\nMedication: Metformin 500mg\nFollow-Up: 90 Days`,
+
+
+finance: `Transaction: Wire Transfer\nAmount: $42,880.21\nFrom: Iron Oak Holdings\nTo: Redwood Analytics\nTimestamp: 2025-11-24T14:08:55Z`,
+
+
+robot: `System: Autonomous Surgical Robot\nAction: Tissue Incision 2.4cm\nOperator Approval: Yes\nSafety Lock: Verified`,
+
+
+ai: `AI Model: LLM-9.2\nEvent: Policy Override\nUser: sys-admin-44\nTimestamp: 2025-11-24T14:08:55Z`,
+
+
+legal: `Case: US-CV-22-4811\nMotion: Emergency Injunction\nFiled: 04/02/2025\nJurisdiction: Federal District Court`
+};
+
+
+function loadExample(type) {
+const box = document.getElementById("novakInput");
+box.value = exampleData[type] || "";
+updateHashes();
+box.scrollIntoView({ behavior: "smooth" });
+}
+
+
+// ✅ VIN Modal Controls
+function openVinModal() { document.getElementById("vinModal").style.display = "flex"; }
+function closeVinModal() { document.getElementById("vinModal").style.display = "none"; }
+
+
+// ✅ Simple Corvette VIN Decoder — local, no API
+function decodeCorvetteVIN(vin) {
+if (vin.length !== 17) return "❌ VIN must be 17 characters";
+
+
+const year = { N: 2022 }[vin[9]] || "Unknown";
+const plant = { "5": "Bowling Green, Kentucky" }[vin[10]] || "Unknown";
+const model = vin.startsWith("1G1Y") ? "Chevy Corvette Stingray" : "Unknown Model";
+
+
+return `Model: ${model}\nModel Year: ${year}\nAssembly Plant: ${plant}\nSequence: ${vin.slice(11)}`;
+}
+
+
+// ✅ VIN Live Decoder
+const vinInput = document.getElementById("vinInput");
+if (vinInput) {
+vinInput.addEventListener("input", () => {
+const result = decodeCorvetteVIN(vinInput.value.trim());
+document.getElementById("vinResult").innerHTML = `<pre>${result}</pre>`;
+});
+}
+</script>
+
+
+<!-- ✅ END PART 5 — CONTINUE WITH PART 6 NEXT -->
+
 
