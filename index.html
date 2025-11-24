@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>NOVAK Protocol — Integrity Proof Demo</title>
+  <title>NOVAK Integrity Verification Demo</title>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
@@ -12,7 +12,7 @@
 <body>
 <div class="container">
 
-  <!-- ✅ HEADER -->
+  <!-- HEADER -->
   <header class="header">
     <div class="logo">NOVAK Protocol</div>
 
@@ -23,7 +23,7 @@
     <button class="theme-toggle" id="themeToggle">Light/Dark</button>
   </header>
 
-  <!-- ✅ AUDIENCE NAVIGATION -->
+  <!-- AUDIENCE NAVIGATION -->
   <nav class="nav">
     <button id="btn-public" class="active" onclick="setAudience('public')">Public</button>
     <button id="btn-government" onclick="setAudience('government')">Government</button>
@@ -32,76 +32,646 @@
     <button id="btn-academic" onclick="setAudience('academic')">Academic</button>
   </nav>
 
-  <!-- ✅ AUDIENCE DESCRIPTION -->
-  <p id="description" class="description">
-    NOVAK proves data integrity instantly — no tech degree required.
-  </p>
-
-  <!-- ✅ WHY NOVAK — WHY NOW (COLLAPSIBLE + DISMISSIBLE + PERSISTENT) -->
+  <!-- WHY NOVAK — WHY NOW -->
   <section id="whyNovakCard" class="card dismissible">
     <h2>Why NOVAK — Why Now?</h2>
-
     <p>
-      Automated systems approve loans, deny medical claims, transfer money,
-      assign benefits, steer vehicles, and operate robots —
+      Automated systems approve loans, deny medical claims, move money,
+      assign benefits, navigate vehicles, and operate robots —
       often without proof, transparency, or accountability.
     </p>
 
     <p>
-      NOVAK requires every automated action to produce cryptographic
-      proof of legality <strong>before</strong> execution — not afterward.
+      NOVAK requires every automated action to generate mathematical
+      proof of legality <strong>before execution</strong>.
     </p>
 
     <p>
-      If data changes, rules are altered, software is compromised, or fraud occurs,
-      NOVAK detects it instantly and <strong>blocks the action safely</strong>.
+      If data changes, rules are altered, or tampering occurs,
+      NOVAK detects it instantly — and blocks the action safely.
     </p>
 
     <p class="tight">
       ✅ Every input generates a unique fingerprint<br>
-      ✅ Change anything — the fingerprint changes instantly
+      ✅ Change anything — fingerprint changes instantly
     </p>
 
     <p class="analogy">
-      SHA-256 is the steel foundation — NOVAK is the vault that will not open unless
-      everything matches perfectly.
+      SHA-256 is the steel — NOVAK is the vault protecting what automation must never change.
+      NOVAK takes that steel, makes the walls, doors, hinges, alarm, to protect.
     </p>
 
     <button class="dismiss-btn" onclick="dismissWhyNovak()">✅ Don’t show this again</button>
     <button class="close-x" onclick="dismissWhyNovak()">✕</button>
   </section>
 
-  <!-- ✅ ANALOGY BUTTON ROW -->
+  <!-- AUDIENCE-AWARE DESCRIPTION -->
+  <p id="description" class="description">
+    NOVAK proves data integrity instantly — no tech degree required.
+  </p>
+
+  <!-- EXPLAINER BUTTONS -->
   <div class="explain-btn-row">
     <button class="action-btn" onclick="toggleExplainer('exp1')">🤯 I don’t get it</button>
-    <button class="action-btn" onclick="toggleExplainer('expMilk')">🥤 Milkshake Analogy</button>
+    <button class="action-btn" onclick="toggleExplainer('expMilkshake')">🥤 Milkshake Analogy</button>
     <button class="action-btn" onclick="toggleExplainer('expColor')">🖍️ Colored Pencil Analogy</button>
     <button class="action-btn" onclick="toggleExplainer('expKey')">🔑 Key Analogy</button>
     <button class="action-btn" onclick="toggleExplainer('expGov')">🏛️ Government Savings</button>
     <button class="action-btn" onclick="toggleExplainer('expHow')">👀 Show Me How This Works</button>
   </div>
 
-  <!-- ✅ EXPLAINER PANELS (CONTENT POPULATED IN PART 2 SCRIPT) -->
-  <section id="exp1" class="card explainer"></section>
-  <section id="expMilk" class="card explainer"></section>
-  <section id="expColor" class="card explainer"></section>
-  <section id="expKey" class="card explainer"></section>
-  <section id="expGov" class="card explainer"></section>
-  <section id="expHow" class="card explainer"></section>
-
-  <!-- ✅ EXAMPLE DATASET GRID -->
-  <section class="card">
-    <h3>Select an example dataset:</h3>
-
-    <div class="example-grid">
-      <div class="example" onclick="loadExample('va')">VA Disability Claim Summary</div>
-      <div class="example" onclick="loadExample('clinical')">Clinical Note (Healthcare)</div>
-      <div class="example" onclick="loadExample('finance')">Financial Transaction Record</div>
-      <div class="example" onclick="loadExample('ai')">AI Decision Output Log</div>
-      <div class="example" onclick="loadExample('robot')">Autonomous Robotics Command</div>
-      <div class="example" onclick="loadExample('legal')">Legal / Policy Directive</div>
-      <div class="example" onclick="loadExample('vin')">Vehicle VIN Record — 2022 Chevy Corvette Convertible</div>
-    </div>
+  <!-- COLLAPSIBLE EXPLAINERS -->
+  <section id="exp1" class="card explainer">
+    <h3>Super Simple Version</h3>
+    <p>
+      NOVAK forces computers to prove they’re allowed to act — <strong>before</strong> they act.
+      No proof = no action. That’s it.
+    </p>
   </section>
 
-  
+  <section id="expMilkshake" class="card explainer">
+    <h3>The Milkshake Analogy</h3>
+    <p>
+      If you order a chocolate milkshake, you expect chocolate — not strawberry.
+      NOVAK ensures the ingredients (data + rules) match exactly what was ordered
+      <em>before</em> serving it. Any tampering — instantly caught.
+    </p>
+  </section>
+
+  <section id="expColor" class="card explainer">
+    <h3>The Colored Pencil Box</h3>
+    <p>
+      Imagine a sealed box of colored pencils. If one pencil is missing or swapped,
+      the seal breaks. NOVAK is that seal — protecting what should never silently change.
+    </p>
+  </section>
+
+  <section id="expKey" class="card explainer">
+    <h3>The Key Analogy</h3>
+    <p>
+      A house key either fits or it doesn’t — no “almost.”
+      NOVAK does the same for data: if anything changes, even a comma,
+      the cryptographic key no longer fits — and access is denied.
+    </p>
+  </section>
+
+  <section id="expGov" class="card explainer">
+    <h3>Government Savings</h3>
+    <p>
+      ✅ Stops improper payments before they happen<br>
+      ✅ Eliminates hidden data manipulation<br>
+      ✅ Reduces appeals, rework, fraud investigations<br>
+      ✅ Makes audits mathematical — not manual
+    </p>
+    <p><strong>Is this possible today?</strong><br>
+      ✅ Yes — SHA-256, attestation, and proof-before-execution already exist.
+      NOVAK simply connects them into a unified enforcement layer.
+    </p>
+    <p>
+      NOVAK doesn’t replace systems — it prevents them from acting without proof.
+    </p>
+  </section>
+
+  <section id="expHow" class="card explainer">
+    <h3>How NOVAK Works (In 5 Seconds)</h3>
+    <p>
+      1️⃣ Collect data + governing rule<br>
+      2️⃣ Generate cryptographic fingerprint<br>
+      3️⃣ Fingerprint must match expected truth<br>
+      4️⃣ If match → allowed to execute<br>
+      5️⃣ If mismatch → blocked instantly
+    </p>
+  </section>
+
+  /* ====================================================================== */
+/* ✅ GLOBAL RESET + BASE STRUCTURE */
+/* ====================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+html, body {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  padding: 26px;
+}
+
+.container {
+  max-width: 1150px;
+  margin: auto;
+}
+
+/* ====================================================================== */
+/* ✅ COLOR SYSTEM — LIGHT + DARK THEME */
+/* ====================================================================== */
+:root {
+  --blue: #1a4fb3;
+  --blue-hover: #0e3277;
+  --green: #13964b;
+  --red: #c02626;
+  --yellow: #e6b800;
+  --border-radius: 9px;
+
+  --bg-light: #f7f9fc;
+  --bg-dark: #0f172a;
+
+  --text-light: #0b1326;
+  --text-dark: #e8edf6;
+
+  --card-light: #ffffff;
+  --card-dark: #1d273b;
+
+  --border-light: #d6dbe5;
+  --border-dark: #344156;
+}
+
+html[data-theme="light"] {
+  --bg: var(--bg-light);
+  --text: var(--text-light);
+  --card: var(--card-light);
+  --border: var(--border-light);
+}
+
+html[data-theme="dark"] {
+  --bg: var(--bg-dark);
+  --text: var(--text-dark);
+  --card: var(--card-dark);
+  --border: var(--border-dark);
+}
+
+/* ====================================================================== */
+/* ✅ HEADER + NAV */
+/* ====================================================================== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.logo {
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--blue);
+}
+
+.home-link {
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--blue);
+  transition: .25s;
+}
+.home-link:hover {
+  opacity: .7;
+}
+
+/* Light/Dark Toggle */
+.theme-toggle {
+  cursor: pointer;
+  border: 1px solid var(--blue);
+  padding: 8px 14px;
+  background: transparent;
+  border-radius: 6px;
+  color: var(--blue);
+  transition: .25s;
+}
+.theme-toggle:hover {
+  background: var(--blue);
+  color: white;
+}
+
+/* ====================================================================== */
+/* ✅ AUDIENCE BUTTONS */
+/* ====================================================================== */
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.nav button {
+  border: 1px solid var(--blue);
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--blue);
+  transition: .22s;
+}
+.nav button:hover,
+.nav button.active {
+  background: var(--blue);
+  color: white;
+}
+
+/* ====================================================================== */
+/* ✅ Why NOVAK — Why Now? */
+/* ====================================================================== */
+.dismissible {
+  position: relative;
+}
+
+.close-x {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  font-size: 22px;
+  cursor: pointer;
+  opacity: .7;
+  background: none;
+  border: none;
+  color: var(--text);
+}
+.close-x:hover { opacity: 1; }
+
+.dismiss-btn {
+  margin-top: 16px;
+}
+
+/* ====================================================================== */
+/* ✅ Cards */
+/* ====================================================================== */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 22px;
+  border-radius: var(--border-radius);
+  margin-top: 22px;
+  animation: fadeIn .4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ====================================================================== */
+/* ✅ Explanation Buttons Row */
+/* ====================================================================== */
+.explain-btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+/* ====================================================================== */
+/* ✅ Action Buttons */
+/* ====================================================================== */
+.action-btn {
+  background: var(--blue);
+  color: white;
+  border: none;
+  padding: 10px 17px;
+  font-size: 14px;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: .25s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.action-btn:hover {
+  background: var(--blue-hover);
+}
+
+/* ====================================================================== */
+/* ✅ Collapsible Explainers */
+/* ====================================================================== */
+.explainer {
+  display: none;
+  margin-top: 14px;
+  animation: expand .32s ease;
+}
+
+@keyframes expand {
+  from { opacity: 0; transform: scale(.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ====================================================================== */
+/* ✅ Example Dataset Buttons */
+/* ====================================================================== */
+.example-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.example {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 16px;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: .22s;
+}
+.example:hover {
+  border-color: var(--blue);
+  background: rgba(26,79,179,.1);
+}
+
+/* ====================================================================== */
+/* ✅ Text Input */
+/* ====================================================================== */
+textarea {
+  width: 100%;
+  height: 190px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  background: transparent;
+  border-radius: 8px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 14px;
+  resize: vertical;
+  color: var(--text);
+}
+
+/* ====================================================================== */
+/* ✅ Drag + Drop Zone */
+/* ====================================================================== */
+.dropzone {
+  border: 2px dashed var(--blue);
+  padding: 34px;
+  border-radius: 9px;
+  margin-top: 18px;
+  text-align: center;
+  cursor: pointer;
+  transition: .25s;
+}
+.dropzone:hover {
+  background: rgba(26,79,179,.1);
+}
+
+/* ====================================================================== */
+/* ✅ Hash Output */
+/* ====================================================================== */
+.hash-list {
+  margin-top: 10px;
+}
+
+.hash-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.hash-label {
+  width: 90px;
+  font-weight: 600;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.hash-value {
+  flex: 1;
+  word-break: break-all;
+  font-family: "JetBrains Mono", monospace;
+}
+
+/* ✅ Animated hash change */
+.hash-value.changed {
+  animation: hashFlash .5s ease;
+}
+@keyframes hashFlash {
+  0% { background: rgba(255,0,0,.28); }
+  100% { background: transparent; }
+}
+
+/* ====================================================================== */
+/* ✅ RGAC Animation */
+/* ====================================================================== */
+.rgac {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.block {
+  border: 1px solid var(--blue);
+  padding: 4px 7px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: "JetBrains Mono", monospace;
+  animation: pulse .8s ease;
+}
+
+@keyframes pulse {
+  0% { transform: scale(.9); opacity: .4; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ====================================================================== */
+/* ✅ Mini-Games */
+/* ====================================================================== */
+.game-btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#gameBox {
+  margin-top: 14px;
+  animation: fadeIn .3s ease;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+/* ====================================================================== */
+/* ✅ Timeline */
+/* ====================================================================== */
+.history-box {
+  padding: 14px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  max-height: 230px;
+  overflow-y: auto;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+}
+
+/* ====================================================================== */
+/* ✅ Glory To God Section */
+/* ====================================================================== */
+#glorySection {
+  font-size: 15px;
+  line-height: 1.6;
+  animation: fadeIn .4s ease;
+  margin-top: 12px;
+}
+
+/* ====================================================================== */
+/* ✅ Footer */
+/* ====================================================================== */
+.footer {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 14px;
+  opacity: .85;
+}
+
+.footer a {
+  color: var(--blue);
+  text-decoration: none;
+  font-weight: 600;
+}
+.footer a:hover { opacity: .7; }
+
+/* ====================================================================== */
+/* ✅ MOBILE */
+/* ====================================================================== */
+@media (max-width: 600px) {
+  body { padding: 14px; }
+  .logo { font-size: 26px; }
+}
+
+<!-- =============== WHY NOVAK — WHY NOW (Collapsible) =============== -->
+<section id="whyNovakCard" class="card" style="display:block;">
+  <h2>Why NOVAK — Why Now?</h2>
+  <p>
+    Automated systems approve loans, deny medical claims, move money,
+    steer vehicles, issue benefits, filter AI outputs, and operate robots —
+    often without proof, transparency, or accountability.
+  </p>
+
+  <p>
+    NOVAK requires every automated action to generate mathematical
+    proof of legality <strong>before execution</strong>.
+  </p>
+
+  <p>
+    If data changes, rules are altered, or tampering occurs,
+    NOVAK detects it instantly — and safely blocks the action.
+  </p>
+
+  <p class="tight">
+    ✅ Every input generates a unique fingerprint<br>
+    ✅ Change anything — fingerprint changes instantly
+  </p>
+
+  <p class="analogy">
+    SHA-256 is the steel — NOVAK is the vault door that refuses to open unless
+    everything matches exactly.
+  </p>
+
+  <button class="dismiss-btn" onclick="dismissWhyNovak()">✅ Don’t show this again</button>
+</section>
+
+<!-- =============== WHAT NOVAK DISCOVERED =============== -->
+<section class="card">
+  <h2>What NOVAK Discovered</h2>
+  <p>
+    For decades, governments, banks, insurers, DoD systems, hospitals,
+    and AI engines have executed automated decisions <strong>without verified proof</strong>.
+  </p>
+
+  <p>
+    NOVAK proved something uncomfortable but groundbreaking:
+    <strong>Automation cannot be trusted unless proof is required before action.</strong>
+  </p>
+
+  <p>
+    This means:
+  </p>
+
+  <ul class="micro">
+    <li>Errors become detectable instantly — not months later</li>
+    <li>Fraud becomes mathematically impossible to hide</li>
+    <li>Audits become real-time instead of forensic</li>
+    <li>Government spending becomes provable and defendable</li>
+    <li>AI becomes accountable — not unpredictable</li>
+  </ul>
+
+  <p>
+    NOVAK didn’t just create a tool — it revealed a missing security,
+    transparency, and ethical foundation for automated society.
+  </p>
+</section>
+
+<!-- =============== BLOCKCHAIN, BITCOIN & SSL/TLS COMPARISON =============== -->
+<section class="card">
+  <h2>NOVAK vs Blockchain, Bitcoin & SSL/TLS</h2>
+
+  <h3>NOVAK vs Blockchain</h3>
+  <ul class="micro">
+    <li>Blockchain records events <em>after</em> execution</li>
+    <li>NOVAK requires proof <em>before</em> execution</li>
+    <li>Blockchain needs decentralized consensus</li>
+    <li>NOVAK runs anywhere — no miners, no tokens</li>
+  </ul>
+
+  <h3>NOVAK vs Bitcoin / Crypto</h3>
+  <ul class="micro">
+    <li>Crypto protects currency — not decisions</li>
+    <li>NOVAK protects automated actions that affect human lives</li>
+    <li>No wallets, no fees, no gambling volatility</li>
+  </ul>
+
+  <h3>NOVAK vs SSL/TLS</h3>
+  <ul class="micro">
+    <li>SSL protects data in transit</li>
+    <li>NOVAK protects decisions, records & execution integrity</li>
+    <li>SSL proves identity — NOVAK proves correctness</li>
+  </ul>
+
+  <p>
+    NOVAK doesn’t replace cybersecurity — it fixes what was missing.
+  </p>
+</section>
+
+<!-- =============== GLORY TO GOD SECTION =============== -->
+<button class="action-btn" onclick="toggleGlory()">🙏 Glory to God</button>
+
+<section id="glorySection" class="card" style="display:none;">
+  <h2>All Glory to God 🙏</h2>
+  <p>
+    “The Lord detests lying lips, but delights in those who deal truthfully.”
+    — <strong>Proverbs 12:22</strong>
+  </p>
+
+  <p>
+    NOVAK exists because truth matters — in technology, government, business,
+    healthcare, national security, and human life.
+  </p>
+
+  <p>
+    Everything correct, good, and useful belongs to God.  
+    Everything flawed belongs to me.
+  </p>
+
+  <p>
+    Nothing typed, pasted, uploaded, or generated on this page is stored,
+    transmitted, or logged. Privacy is absolute.
+  </p>
+</section>
+
+<!-- =============== FOOTER =============== -->
+<footer class="footer">
+  <p>© 2025 NOVAK Protocol — Trademark Pending — All Rights Reserved</p>
+
+  <p>
+    🚀 Star Citizen Referral:
+    <a href="https://www.robertsspaceindustries.com/enlist?referral=STAR-KRN7-SJTX"
+       target="_blank">STAR-KRN7-SJTX</a>
+  </p>
+
+  <p>
+    🤿 PADI IDC Staff Instructor — 30-Year Member (#888850):
+    <a href="https://www.padi.com" target="_blank">www.padi.com</a>
+  </p>
+</footer>
+
+</div> <!-- END CONTAINER -->
+</body>
+</html>
