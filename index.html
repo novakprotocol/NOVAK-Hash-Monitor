@@ -654,4 +654,57 @@ document.getElementById('gameBox').innerHTML = `
 <h3>🧠 Hash Memory Match</h3>
 <!-- ✅ END PART 6 — CONTINUE WITH PART 7 NEXT -->
 
+<!-- ✅ PART 7 of 9 — DATA VALIDATION, AI TRANSPARENCY & INTEGRITY RECEIPT PERSISTENCE -->
+
+
+<!-- ✅ STRUCTURED DATA VALIDATION CARD -->
+<div class="card" style="margin-top:32px;">
+<h2 class="section-title">Validate Structured Data</h2>
+<p>Upload JSON, SQL, or XML — NOVAK verifies integrity instantly before execution.</p>
+
+
+<input id="structuredFile" type="file" accept=".json,.sql,.xml,.txt" style="margin-top:16px;">
+<pre id="structuredResult" style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></pre>
+</div>
+
+
+<!-- ✅ AI TRANSPARENCY EXPLAINER CARD -->
+<div class="card" style="margin-top:32px;" id="transparencyCard">
+<h2 class="section-title">AI Transparency Mode</h2>
+<p>AI decisions should not be mysterious — NOVAK proves what data, rules, and outputs were used before action occurs.</p>
+<ul style="margin-top:12px; margin-left:20px;">
+<li>✅ Prevents silent AI overrides</li>
+<li>✅ Detects manipulated prompts or inputs</li>
+<li>✅ Creates verifiable execution receipts</li>
+<li>✅ Ensures lawful + ethical automation</li>
+</ul>
+<button onclick="toggleTransparency()" class="action-btn" style="margin-top:16px;">Enable Transparency View</button>
+</div>
+
+
+<!-- ✅ TRANSPARENCY VIEW PANEL (HIDDEN UNTIL ENABLED) -->
+<div class="card" id="transparencyView" style="display:none; margin-top:20px; font-family:'JetBrains Mono', monospace; font-size:14px;"></div>
+
+
+<!-- ✅ PERSISTENT INTEGRITY RECEIPT CARD -->
+<div class="card" style="margin-top:32px;" id="receiptCard">
+<h2 class="section-title">Integrity Receipt</h2>
+<p>NOVAK issues a tamper-proof receipt so you can prove what existed, when, and under what rules.</p>
+<button class="action-btn" onclick="generateReceipt()" style="margin-top:12px;">Generate Receipt</button>
+<pre id="receiptOutput" style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px; white-space:pre-wrap;"></pre>
+</div>
+
+
+<script>
+// ✅ Structured File Validation
+const structuredFile = document.getElementById('structuredFile');
+const structuredResult = document.getElementById('structuredResult');
+
+
+if (structuredFile) {
+structuredFile.addEventListener('change', async e => {
+const file = e.target.files[0];
+if (!file) return;
+<!-- ✅ END PART 7 — CONTINUE WITH PART 8 NEXT -->
+
 
