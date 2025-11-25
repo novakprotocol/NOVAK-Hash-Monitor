@@ -17,52 +17,6 @@
 
   <style>
 
-/* ========== DID THIS SCREW IT UP START  ========== */
-
-/* ========== HASH DISPLAY FIX — MOBILE + DESKTOP SAFE ========== */
-
-/* Wrap long cryptographic hashes properly */
-.hash-output,
-.hash-box,
-.hash-line,
-#sha256Output,
-#sha512Output,
-#sha384Output,
-#sha3Output,
-#fileHashResult,
-#structuredResult,
-#rgac,
-#receiptOutput,
-#hashOutputList {
-  white-space: pre-wrap !important;
-  word-wrap: break-word !important;
-  overflow-wrap: break-word !important;
-  max-width: 100% !important;
-  display: block;
-}
-
-/* Make hash boxes readable and consistent */
-.hash-box {
-  background: var(--card);
-  border: 1px solid var(--border);
-  padding: 12px 16px;
-  border-radius: 8px;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 14px;
-  line-height: 1.45;
-  margin: 8px 0 12px 0;
-}
-
-/* Copy buttons correctly aligned */
-.copy-btn {
-  margin-top: 6px;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-/* ========== DID THIS SCREW IT UP START  ========== */
-
 /* ========== FIX TOP GAP (B) ========== */
 html {
   scroll-padding-top: 70px; /* header height */
@@ -514,9 +468,9 @@ html[data-theme="dark"] .aud-btn.active {
     </p>
 
     <ul style="margin-left:20px; margin-bottom:14px;">
-      <li>— Humans, AI, or malware cannot silently bypass it.</li>
-      <li>— Every decision has a math-checkable receipt.</li>
-      <li>A small, hardened layer that sits beside existing systems and
+      <li><strong>Non-Overridable</strong> — Humans, AI, or malware cannot silently bypass it.</li>
+      <li><strong>Verifiable</strong> — Every decision has a math-checkable receipt.</li>
+      <li><strong>Audit Kernel</strong> — A small, hardened layer that sits beside existing systems and
           enforces proof-before-action.</li>
     </ul>
 
@@ -656,7 +610,7 @@ html[data-theme="dark"] .aud-btn.active {
     <button class="pill-btn explain-btn" onclick="showExplain('pencil')">🖍️ Pencil Analogy</button>
     <button class="pill-btn explain-btn" onclick="showExplain('key')">🔑 Key Analogy</button>
     <button class="pill-btn explain-btn" onclick="showExplain('gov')">🏛 Federal Savings</button>
-    <button class="pill-btn explain-btn" onclick="showExplain('how')">👁️ How This Works</button>
+    <button class="pill-btn explain-btn" onclick="showExplain('how')">👁️ Show Me How This Works</button>
   </div>
 
   <!-- ANALOGY OUTPUT -->
@@ -668,80 +622,44 @@ html[data-theme="dark"] .aud-btn.active {
 
   <!-- ✅ PART 2 — Try It + Hash Engine + Example Data + File Drop + VIN + Games -->
 
-  <!-- ✅ TRY IT — LIVE HASH INPUT -->
+<!-- ✅ TRY IT — LIVE HASH INPUT -->
 <div class="card" style="margin-top:38px;">
   <h2 class="section-title">Try It — Prove Integrity Yourself</h2>
-
-  <h3 style="font-size:17px; margin-bottom:6px;">How sensitive is a hash?</h3>
-  <p>
-    Look at how a single change — even one <strong>letter</strong> — produces a totally different SHA-256 result.
-  </p>
-
-  <br>
-
-  <!-- Uppercase TEST -->
-  <p><strong>TEST</strong> →</p>
-  <div class="hash-box">
-    <span>94ee059335e587e501cc4bf90613e0814f00a7b08bc7c648fd865a2af6a22cc2</span>
-  </div>
-
-  <br>
-
-  <!-- Capital T, lower est -->
-  <p><strong>Test</strong> →</p>
-  <div class="hash-box">
-    <span>532eaabd9574880dbf76b9b8cc00832c20a6ec113d682299550d7a6e0f345e25</span>
-  </div>
-
-  <br>
-
-  <!-- All lowercase -->
-  <p><strong>test</strong> →</p>
-  <div class="hash-box">
-    <span>9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08</span>
-  </div>
-
-  <br>
-
-  <!-- Mixed case -->
-  <p><strong>tEsT</strong> →</p>
-  <div class="hash-box">
-    <span>876c5e143c421959adff3ed91b82556c433a2f79b6369e70592d2c9dc73455ce</span>
-  </div>
-
-  <br>
+<p style="margin-top:6px; font-size:13px; opacity:0.85;">
+🚫This public demo is for educational purposes only — NOT for HIPAA-regulated environments.
+NOVAK does not collect, store, transmit, or retain data, but user responsibility applies.
+</p>
 
   <p>
-    Even invisible changes — a space, newline, tab, punctuation change, or hidden character — will produce
-    a completely different fingerprint. That is how NOVAK detects silent corruption instantly.
+    Type, paste, or modify anything below — NOVAK instantly generates cryptographic hashes locally
+    using your device. Nothing is stored, logged, transmitted, or uploaded.
   </p>
-<br>
-  <p>
-    Type, paste, or modify anything below — NOVAK instantly generates real cryptographic hashes 
-    using secure hardware-accelerated WebCrypto on your device. Nothing is stored, logged, transmitted, or uploaded.
-  </p>
+  <br>
+  <p>Ok, look at this, if you type TEST, all in capitals, what SHA-256 will say in Cryptographic Hashes below is:</p>
+  <br>
+  <p>TEST  → 94ee059335e587e501cc4bf90613e0814f00a7b08bc7c648fd865a2af6a22cc2</p>
+  <br>
+  <p>Test  → 532eaabd9574880dbf76b9b8cc00832c20a6ec113d682299550d7a6e0f345e25</p>
+  <p>test  → 9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08</p>
+  <p>tEsT  → 876c5e143c421959adff3ed91b82556c433a2f79b6369e70592d2c9dc73455ce</p>
+  <br>
+  <p>Change one thing and it all changes</p>
   
-  <br>
-
   <textarea id="novakInput"
-  placeholder="Please insert text here...Example: VA claim, invoice, VIN, contract, JSON, SQL, XML..."
-    style="
-      width:100%; 
-      height:170px; 
-      margin-top:16px; 
-      font-family:'JetBrains Mono', monospace;
-      font-size:14px; 
-      padding:12px;
-      white-space:pre-wrap;
-      overflow-wrap:break-word;
-    ">
-  </textarea>
-  
-  <p style="margin-top:6px; font-size:13px; opacity:0.85;">
-    🚫 This public demo is for educational purposes only — NOT for HIPAA-regulated environments. NOVAK does not collect, store, transmit, or retain data; all hashing happens locally on your device.
-  </p>
+    placeholder="Example: VA claim, invoice, VIN, contract, JSON, SQL, XML..."
+    style="width:100%; height:170px; margin-top:16px; font-family:'JetBrains Mono', monospace;
+           font-size:14px; padding:12px;"></textarea>
 
-  <!-- ✅ EXAMPLE DATASETS -->
+  <!-- ✅ Hash Algorithm Selector -->
+  <div style="margin-top:16px; display:flex; flex-wrap:wrap; gap:18px;">
+    <label><input type="checkbox" class="hashAlgo" value="SHA-256" checked> SHA-256</label>
+    <label><input type="checkbox" class="hashAlgo" value="SHA-512" checked> SHA-512</label>
+    <label><input type="checkbox" class="hashAlgo" value="SHA-384"> SHA-384</label>
+    <label><input type="checkbox" class="hashAlgo" value="SHA3-256"> SHA-3-256</label>
+  </div>
+</div>
+
+<!-- ✅ EXAMPLE DATASETS -->
 <div class="card" style="margin-top:32px;">
   <h2 class="section-title">Example Datasets</h2>
   <p>Select one — it instantly loads into the input above.</p>
@@ -756,21 +674,9 @@ html[data-theme="dark"] .aud-btn.active {
     <button class="pill-btn" onclick="loadExample('robot')">🤖 Robotics Command</button>
     <button class="pill-btn" onclick="loadExample('ai')">🧠 System Log</button>
     <button class="pill-btn" onclick="loadExample('legal')">⚖️ Legal Filing</button>
+    <button class="pill-btn" onclick="openVinModal()">🚗 VIN</button>
   </div>
 </div>
-  
-  </div>
-
-
-  <!-- ✅ Hash Algorithm Selector -->
-  <div style="margin-top:16px; display:flex; flex-wrap:wrap; gap:18px;">
-    <label><input type="checkbox" class="hashAlgo" value="SHA-256" checked> SHA-256</label>
-    <label><input type="checkbox" class="hashAlgo" value="SHA-512" checked> SHA-512</label>
-    <label><input type="checkbox" class="hashAlgo" value="SHA-384"> SHA-384</label>
-    <label><input type="checkbox" class="hashAlgo" value="SHA3-256"> SHA-3-256</label>
-  </div>
-
-
   
 <!-- ✅ HASH OUTPUT -->
 <div class="card" style="margin-top:22px;">
@@ -1069,6 +975,31 @@ html[data-theme="dark"] .aud-btn.active {
 
   <div id="fileHashResult"
        style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></div>
+</div>
+
+<!-- ✅ VIN DECODER MODAL -->
+<div id="vinModal"
+     style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+            background:rgba(0,0,0,.55); justify-content:center; align-items:center; z-index:9999;">
+  <div style="background:var(--card); padding:26px; border-radius:10px; width:440px;
+              border:1px solid var(--border); box-shadow:0 4px 18px rgba(0,0,0,.35);">
+
+    <h3 class="section-title" style="font-size:20px;">VIN Decoder</h3>
+
+    <input id="vinInput"
+           placeholder="Enter VIN (17 characters)"
+           maxlength="17"
+           style="margin-top:14px; width:100%; padding:10px;
+                  border:1px solid var(--border); border-radius:6px;
+                  font-family:'JetBrains Mono', monospace; font-size:15px;">
+
+    <div id="vinResult"
+         style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></div>
+
+    <button onclick="closeVinModal()" class="action-btn" style="margin-top:18px; width:100%;">
+      Close
+    </button>
+  </div>
 </div>
 
 <!-- ✅ INTERACTIVE MINI-GAMES -->
@@ -1683,6 +1614,24 @@ function loadExample(key) {
   updateHashes();
 }
 
+/* ============================
+   VIN DECODER MODAL
+=============================*/
+function openVinModal() {
+  document.getElementById("vinModal").style.display = "flex";
+}
+function closeVinModal() {
+  document.getElementById("vinModal").style.display = "none";
+}
+function decodeCorvetteVIN(vin) {
+  if (vin.length !== 17) return "❌ VIN must be 17 characters.";
+  const year = { N: 2022 }[vin[9]] || "Unknown";
+  const plant = { "5": "Bowling Green, Kentucky" }[vin[10]] || "Unknown";
+  const model = vin.startsWith("1G1Y") ? "Chevy Corvette Stingray" : "Unknown Model";
+  return `Model: ${model}\nYear: ${year}\nAssembly Plant: ${plant}\nSequence: ${vin.slice(11)}`;
+}
+document.getElementById("vinInput")?.addEventListener("input", () => {
+  vinResult.innerHTML = `<pre>${decodeCorvetteVIN(vinInput.value.trim())}</pre>`;
 });
 
 /* ============================
