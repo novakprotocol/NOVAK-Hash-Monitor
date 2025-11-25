@@ -1752,14 +1752,23 @@ www.NOVAKProtocol.com`;
   URL.revokeObjectURL(url);
 }
 
-/* ============================
-   GLORY TO GOD
-=============================*/
-function toggleGlorySection() {
-  const box = document.getElementById("glorySection");
-  box.style.display = box.style.display === "none" ? "block" : "none";
-  if (box.style.display === "block") box.scrollIntoView({ behavior: "smooth" });
-}
+  /* ============ GLORY TO GOD & SONG TOGGLE ============ */
+  function toggleGlorySection() {
+    const box = document.getElementById("glorySection");
+    const show = box.style.display === "none" || !box.style.display;
+    box.style.display = show ? "block" : "none";
+    if (show) {
+      const rect = box.getBoundingClientRect();
+      const top = window.scrollY + rect.top - 90;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
+  }
+
+  function toggleSongLyrics() {
+    const block = document.getElementById("songBlock");
+    const show = block.style.display === "none" || !block.style.display;
+    block.style.display = show ? "block" : "none";
+  }
 
 /* ============================
    INIT ON LOAD ✅ IMPORTANT
