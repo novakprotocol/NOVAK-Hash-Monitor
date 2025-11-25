@@ -613,6 +613,81 @@ html[data-theme="dark"] .aud-btn.active {
       ✅ Got it — Hide
     </button>
   </div>
+<!-- ========================================= -->
+<!-- GPU, Hashing, and Why NOVAK Is Different   -->
+<!-- ========================================= -->
+
+<div class="card" style="margin-top:32px;">
+  <h2 class="section-title">How NOVAK Computes Hashes — And Why This Matters</h2>
+
+  <h3 style="margin-top:14px;">Are These Real Cryptographic Hashes?</h3>
+  <p>
+    ✔ <strong>YES.</strong>  
+    Your browser is using the <strong>WebCrypto API</strong> — the same cryptographic engine used by:
+  </p>
+
+  <ul style="margin-left:20px;">
+    <li>Google Chrome internal security modules</li>
+    <li>Apple WebKit encryption</li>
+    <li>Federal FIPS-validatable cryptographic paths</li>
+    <li>Progressive Web Apps (PWAs)</li>
+  </ul>
+
+  <p>
+    Nothing is sent to a server.  
+    Nothing leaves your device.  
+    Everything runs <strong>locally, client-side, instantly.</strong>
+  </p>
+
+  <h3 style="margin-top:18px;">Why Isn’t My GPU Being Used?</h3>
+  <p>
+    ✔ GPUs are not used for SHA-256/384/512 because hashing is not a parallel-friendly operation.  
+    ✔ The browser delegates hashing to <strong>CPU hardware acceleration</strong>, not your graphics card.
+  </p>
+
+  <p style="margin-top:6px;">
+    <strong>Hashing uses:</strong><br>
+    • CPU<br>
+    • Hardware-accelerated WebCrypto<br><br>
+    <strong>NOT GPU compute.</strong>
+  </p>
+
+  <p>
+    This is exactly what makes NOVAK strong — it uses <em>verified, standard, secure cryptographic primitives</em> already supported at the hardware level.
+  </p>
+</div>
+
+<!-- ========================================= -->
+<!-- Why Hasn’t Anyone Built This Before?       -->
+<!-- ========================================= -->
+
+<div class="card" style="margin-top:32px;">
+  <h2 class="section-title">Why Hasn’t Anyone Built NOVAK Before?</h2>
+
+  <p>NOVAK looks obvious once you see it. But here’s the truth:</p>
+
+  <ul style="margin-left:20px; margin-top:12px;">
+    <li>✔ Nobody does <strong>Proof-Before-Action</strong></li>
+    <li>✔ Nobody binds <strong>input → rule → output</strong> cryptographically</li>
+    <li>✔ Nobody performs <strong>local, real-time integrity verification</strong></li>
+    <li>✔ Nobody applies this to <strong>AI, robotics, finance, VA claims, or government systems</strong></li>
+    <li>✔ Nobody provides <strong>cryptographic receipts before harm occurs</strong></li>
+  </ul>
+
+  <p style="margin-top:14px;">
+    Why?
+    Because the entire industry copied <strong>blockchain</strong>, which only verifies 
+    <em>after things happen</em>.
+  </p>
+
+  <p style="margin-top:10px;">
+    Nobody thought to require systems to <strong>prove correctness before acting</strong>.
+  </p>
+
+  <p style="margin-top:16px; font-weight:600;">
+    That is the NOVAK invention.
+  </p>
+</div>
 
   <!-- ==================================================================== -->
   <!--  END OF PART 1 — NEXT MESSAGE (PART 2) STARTS WITH TRY-IT HASH AREA  -->
