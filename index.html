@@ -690,6 +690,28 @@ NOVAK does not collect, store, transmit, or retain data, but user responsibility
   </p>
 </div>
 
+<!-- ✅ AUTO-INJECT PROOF-BEFORE-ACTION DEMO -->
+<div class="card" style="margin-top:22px;">
+  <h3 class="section-title" style="font-size:20px;">
+    NOVAK Auto-Verification — Proof-Before-Action
+  </h3>
+
+  <p>
+    Modify the text above and NOVAK instantly checks whether the new output
+    still matches the last approved cryptographic truth.
+  </p>
+
+  <div id="autoVerifyStatus"
+       style="margin-top:14px; 
+              font-family:'JetBrains Mono', monospace; 
+              font-size:15px;
+              padding:14px;
+              border-radius:8px;
+              background:var(--card);
+              border:1px solid var(--border);">
+    Waiting for input...
+  </div>
+</div>
   
   <!-- ✅ RGAC VISUALIZATION -->
 <div class="card" style="margin-top:22px;">
@@ -1151,9 +1173,43 @@ async function updateHashes() {
   }
 
   updateRGAC(input);
+/* ===========================================
+   AUTO PROOF-BEFORE-ACTION ENGINE (E)
+===========================================*/
+let lastApprovedHash = null;
+
+function autoVerify(value) {
+  const status = document.getElementById("autoVerifyStatus");
+
+  if (!value.trim()) {
+    status.innerHTML = "Waiting for input...";
+    lastApprovedHash = null;
+    return;
+  }
+
+  computeHash("SHA-256", value).then(currentHash => {
+    if (lastApprovedHash === null) {
+      lastApprovedHash = currentHash;
+      status.innerHTML = `🟦 First hash approved<br><strong>SHA-256:</strong> ${currentHash}`;
+      return;
+    }
+
+    if (lastApprovedHash === currentHash) {
+      status.innerHTML = `🟩 Verified — No changes detected<br><strong>SHA-256:</strong> ${currentHash}`;
+    } else {
+      status.innerHTML = `🟥 BLOCKED — Integrity changed BEFORE execution<br><strong>Old:</strong> ${lastApprovedHash}<br><strong>New:</strong> ${currentHash}`;
+    }
+  });
 }
 
-document.getElementById("novakInput").addEventListener("input", updateHashes);
+  
+}
+
+document.getElementById("novakInput").addEventListener("input", () => {
+  updateHashes();
+  autoVerify(document.getElementById("novakInput").value);
+});
+
 document.querySelectorAll(".hashAlgo").forEach(cb =>
   cb.addEventListener("change", updateHashes)
 );
