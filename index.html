@@ -17,6 +17,40 @@
 
   <style>
 
+/* ========== DID THIS SCREW IT UP START  ========== */
+
+    /* ============================================
+   FIX: HASH WRAPPING ON MOBILE + DESKTOP
+   ============================================ */
+#hashOutputList,
+#hashOutputList span,
+#hashOutputList code,
+#fileHashResult,
+#structuredResult,
+#rgac,
+#receiptOutput {
+  white-space: pre-wrap !important;
+  word-break: break-all !important;
+  overflow-wrap: break-word !important;
+  line-break: anywhere !important;
+  display: block;
+}
+
+/* Copy buttons stay aligned */
+.copy-btn {
+  display: inline-block;
+  margin-top: 6px;
+}
+
+/* Make hash boxes scrollable horizontally if needed */
+.hash-box {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+
+/* ========== DID THIS SCREW IT UP START  ========== */
+
 /* ========== FIX TOP GAP (B) ========== */
 html {
   scroll-padding-top: 70px; /* header height */
