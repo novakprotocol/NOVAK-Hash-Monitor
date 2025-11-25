@@ -613,6 +613,25 @@ html[data-theme="dark"] .aud-btn.active {
     <button class="pill-btn explain-btn" onclick="showExplain('how')">👁️ How This Works</button>
   </div>
 
+  <!-- ✅ GUIDED AUTO-SCROLL WALKTHROUGH -->
+<div class="card" style="margin-top:36px;">
+  <h2 class="section-title">Guided NOVAK Walkthrough</h2>
+  <p>Let NOVAK explain itself — automatically, step-by-step.</p>
+
+  <button class="action-btn"
+          onclick="startStoryMode()"
+          style="margin-top:12px;">
+    ▶ Begin Guided Demo
+  </button>
+
+<!-- ✅ STORY PANEL -->
+<div id="storyPanel"
+     class="card"
+     style="display:none; margin-top:20px; font-size:15px; line-height:1.6;">
+</div>
+<!-- Moved this here -->
+</div>
+
   <!-- ANALOGY OUTPUT -->
   <div id="explainerOutput" class="card" style="display:none; margin-top:22px;"></div>
 
@@ -1068,25 +1087,6 @@ NOVAK does not collect, store, transmit, or retain data, but user responsibility
        style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px; white-space:pre-wrap;"></pre>
 </div>
 
-<!-- ✅ GUIDED AUTO-SCROLL WALKTHROUGH -->
-<div class="card" style="margin-top:36px;">
-  <h2 class="section-title">Guided NOVAK Walkthrough</h2>
-  <p>Let NOVAK explain itself — automatically, step-by-step.</p>
-
-  <button class="action-btn"
-          onclick="startStoryMode()"
-          style="margin-top:12px;">
-    ▶ Begin Guided Demo
-  </button>
-
-<!-- ✅ STORY PANEL -->
-<div id="storyPanel"
-     class="card"
-     style="display:none; margin-top:20px; font-size:15px; line-height:1.6;">
-</div>
-<!-- Moved this here -->
-</div>
-  
 <!-- ✅ COMPARISON SECTION -->
 <div class="card"
      style="margin-top:48px; font-size:15px; line-height:1.63;">
