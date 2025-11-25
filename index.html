@@ -392,15 +392,28 @@ html {
        style="margin-top:0; font-size:16px; line-height:1.55;">
   </div>
 
-  <!-- Restore WHY NOVAK button -->
-  <div style="display:flex; justify-content:center; margin-top:10px;">
-    <button id="restoreWhyBtn"
-      onclick="restoreWhyNovakSection()"
-      class="restore-btn"
-      style="display:none;">
-      🔄 Show “Why NOVAK — Why Now?”
-    </button>
-  </div>
+<div class="pill-row" style="justify-content:center; margin-top:16px;">
+  <button id="restoreWhyBtn"
+    onclick="restoreWhyNovakSection()"
+    class="restore-btn"
+    style="display:inline-flex;">
+    🔄 Show “Why NOVAK — Why Now?”
+  </button>
+
+  <button id="restoreWhatIsBtn"
+    onclick="restoreWhatIsNovakSection()"
+    class="restore-btn"
+    style="display:inline-flex;">
+    🔄 Show “What is NOVAK?”
+  </button>
+
+  <button id="restoreWhatBtn"
+    onclick="restoreWhatChangesSection()"
+    class="restore-btn"
+    style="display:inline-flex;">
+    🔄 Show “What Changes With NOVAK?”
+  </button>
+</div>
 
   <!-- WHY NOVAK — WHY NOW? -->
   <div id="whyNovakCard" class="card" style="margin-top:24px; position:relative;">
