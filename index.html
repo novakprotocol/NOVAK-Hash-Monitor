@@ -613,6 +613,69 @@ html[data-theme="dark"] .aud-btn.active {
       ✅ Got it — Hide
     </button>
   </div>
+
+  <!-- ==================================================================== -->
+  <!--  END OF PART 1 — NEXT MESSAGE (PART 2) STARTS WITH TRY-IT HASH AREA  -->
+  <!-- ==================================================================== -->
+
+  <!-- ✅ PART 2 — Try It + Hash Engine + Example Data + File Drop + VIN + Games -->
+
+<!-- ✅ TRY IT — LIVE HASH INPUT -->
+<div class="card" style="margin-top:38px;">
+  <h2 class="section-title">Try It — Prove Integrity Yourself</h2>
+<p style="margin-top:6px; font-size:13px; opacity:0.85;">
+🚫This public demo is for educational purposes only — NOT for HIPAA-regulated environments.
+NOVAK does not collect, store, transmit, or retain data, but user responsibility applies.
+</p>
+
+  <p>
+    Type, paste, or modify anything below — NOVAK instantly generates cryptographic hashes locally
+    using your device. Nothing is stored, logged, transmitted, or uploaded.
+  </p>
+
+  <textarea id="novakInput"
+    placeholder="Example: VA claim, invoice, VIN, contract, JSON, SQL, XML..."
+    style="width:100%; height:170px; margin-top:16px; font-family:'JetBrains Mono', monospace;
+           font-size:14px; padding:12px;"></textarea>
+
+  <!-- ✅ Hash Algorithm Selector -->
+  <div style="margin-top:16px; display:flex; flex-wrap:wrap; gap:18px;">
+    <label><input type="checkbox" class="hashAlgo" value="SHA-256" checked> SHA-256</label>
+    <label><input type="checkbox" class="hashAlgo" value="SHA-512" checked> SHA-512</label>
+    <label><input type="checkbox" class="hashAlgo" value="SHA-384"> SHA-384</label>
+    <label><input type="checkbox" class="hashAlgo" value="SHA3-256"> SHA-3-256</label>
+  </div>
+</div>
+
+<!-- ✅ EXAMPLE DATASETS -->
+<div class="card" style="margin-top:32px;">
+  <h2 class="section-title">Example Datasets</h2>
+  <p>Select one — it instantly loads into the input above.</p>
+
+  <p style="margin-top:6px; font-size:13px; color:#b91c1c;">
+🚫 Never use real patients, real claims, or real medical documents here — training data only.
+</p>
+
+  <div class="pill-row" style="margin-top:16px;">
+    <button class="pill-btn" onclick="loadExample('va')">🎖️ VA Disability Claim</button>
+    <button class="pill-btn" onclick="loadExample('finance')">💰 Financial Transaction</button>
+    <button class="pill-btn" onclick="loadExample('robot')">🤖 Robotics Command</button>
+    <button class="pill-btn" onclick="loadExample('ai')">🧠 AI System Log</button>
+    <button class="pill-btn" onclick="loadExample('legal')">⚖️ Legal Filing</button>
+    <button class="pill-btn" onclick="openVinModal()">🚗 VIN</button>
+  </div>
+</div>
+  
+<!-- ✅ HASH OUTPUT -->
+<div class="card" style="margin-top:22px;">
+  <h3 class="section-title" style="font-size:20px;">Cryptographic Hashes</h3>
+
+  <div id="hashOutputList"
+       style="margin-top:10px; font-family:'JetBrains Mono', monospace; font-size:14px;">
+    <em>Waiting for input from above...</em>
+  </div>
+</div>
+
 <!-- ========================================= -->
 <!-- GPU, Hashing, and Why NOVAK Is Different   -->
 <!-- ========================================= -->
@@ -687,68 +750,6 @@ html[data-theme="dark"] .aud-btn.active {
   <p style="margin-top:16px; font-weight:600;">
     That is the NOVAK invention.
   </p>
-</div>
-
-  <!-- ==================================================================== -->
-  <!--  END OF PART 1 — NEXT MESSAGE (PART 2) STARTS WITH TRY-IT HASH AREA  -->
-  <!-- ==================================================================== -->
-
-  <!-- ✅ PART 2 — Try It + Hash Engine + Example Data + File Drop + VIN + Games -->
-
-<!-- ✅ TRY IT — LIVE HASH INPUT -->
-<div class="card" style="margin-top:38px;">
-  <h2 class="section-title">Try It — Prove Integrity Yourself</h2>
-<p style="margin-top:6px; font-size:13px; opacity:0.85;">
-🚫This public demo is for educational purposes only — NOT for HIPAA-regulated environments.
-NOVAK does not collect, store, transmit, or retain data, but user responsibility applies.
-</p>
-
-  <p>
-    Type, paste, or modify anything below — NOVAK instantly generates cryptographic hashes locally
-    using your device. Nothing is stored, logged, transmitted, or uploaded.
-  </p>
-
-  <textarea id="novakInput"
-    placeholder="Example: VA claim, invoice, VIN, contract, JSON, SQL, XML..."
-    style="width:100%; height:170px; margin-top:16px; font-family:'JetBrains Mono', monospace;
-           font-size:14px; padding:12px;"></textarea>
-
-  <!-- ✅ Hash Algorithm Selector -->
-  <div style="margin-top:16px; display:flex; flex-wrap:wrap; gap:18px;">
-    <label><input type="checkbox" class="hashAlgo" value="SHA-256" checked> SHA-256</label>
-    <label><input type="checkbox" class="hashAlgo" value="SHA-512" checked> SHA-512</label>
-    <label><input type="checkbox" class="hashAlgo" value="SHA-384"> SHA-384</label>
-    <label><input type="checkbox" class="hashAlgo" value="SHA3-256"> SHA-3-256</label>
-  </div>
-</div>
-
-<!-- ✅ EXAMPLE DATASETS -->
-<div class="card" style="margin-top:32px;">
-  <h2 class="section-title">Example Datasets</h2>
-  <p>Select one — it instantly loads into the input above.</p>
-
-  <p style="margin-top:6px; font-size:13px; color:#b91c1c;">
-🚫 Never use real patients, real claims, or real medical documents here — training data only.
-</p>
-
-  <div class="pill-row" style="margin-top:16px;">
-    <button class="pill-btn" onclick="loadExample('va')">🎖️ VA Disability Claim</button>
-    <button class="pill-btn" onclick="loadExample('finance')">💰 Financial Transaction</button>
-    <button class="pill-btn" onclick="loadExample('robot')">🤖 Robotics Command</button>
-    <button class="pill-btn" onclick="loadExample('ai')">🧠 AI System Log</button>
-    <button class="pill-btn" onclick="loadExample('legal')">⚖️ Legal Filing</button>
-    <button class="pill-btn" onclick="openVinModal()">🚗 VIN</button>
-  </div>
-</div>
-  
-<!-- ✅ HASH OUTPUT -->
-<div class="card" style="margin-top:22px;">
-  <h3 class="section-title" style="font-size:20px;">Cryptographic Hashes</h3>
-
-  <div id="hashOutputList"
-       style="margin-top:10px; font-family:'JetBrains Mono', monospace; font-size:14px;">
-    <em>Waiting for input from above...</em>
-  </div>
 </div>
 
   <!-- ✅ Why Hashing Alone Is NOT Enough -->
