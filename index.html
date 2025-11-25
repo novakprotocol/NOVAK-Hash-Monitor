@@ -279,6 +279,44 @@ html {
       background: var(--blue-hover);
     }
 
+    /* ✅ Audience Selector Buttons — Match Explainer Style */
+.aud-btn {
+  border: 2px solid var(--blue);
+  background: transparent;
+  padding: 10px 22px;
+  border-radius: 26px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.25s;
+  color: var(--blue);
+}
+
+.aud-btn:hover {
+  background: rgba(26,79,179,0.10);
+}
+
+/* ✅ Active (selected) state */
+.aud-btn.active {
+  background: var(--blue);
+  color: #ffffff;
+  border-color: var(--blue);
+}
+
+/* ✅ Dark Mode readability */
+html[data-theme="dark"] .aud-btn {
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+html[data-theme="dark"] .aud-btn.active {
+  background: #ffffff;
+  color: #000000;
+}
+
+
     /* Restore buttons under cards */
     .restore-btn {
       padding: 8px 18px;
