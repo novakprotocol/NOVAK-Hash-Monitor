@@ -701,14 +701,16 @@ NOVAK does not collect, store, transmit, or retain data, but user responsibility
     of the exact text or file you verified.
   </p>
 
+    <h3 style="margin-top:14px;">What a normal person can do with it:</h3>
+  
     <ul style="margin-left:20px; margin-top:10px; line-height:1.55;">
     <li><strong>Prove “this is the exact thing I had before.”</strong><br></li>
-    <li>Copy it and save it somewhere safe.<br>
+    Copy it and save it somewhere safe.<br>
         Paste into an email, document, claim note, or evidence file as:<br>
         <code>NOVAK Integrity Hash (SHA-256): &lt;your hash&gt;</code>
     </li>
 
-    <li style="margin-top:12px;"><strong>Later, re-run the same text or file.</strong><br>
+    <li style="margin-top:10px;"><strong>Later, paste the SAME text/file back in.</strong><br>
         Paste the identical content back into NOVAK.<br>
         • If the hash <strong>matches</strong> → ✅ nothing changed.<br>
         • If the hash <strong>differs</strong> → 🟥 content was altered (even by one invisible character).</li>
@@ -717,17 +719,6 @@ NOVAK does not collect, store, transmit, or retain data, but user responsibility
         This provides a cryptographic guarantee that the claim, record, log, or file
         hasn't been silently changed between two points in time.</li>
   </ul>
-
-  <p style="margin-top:16px;">
-    <strong>In full NOVAK deployments:</strong><br>
-    Systems are <em>not even allowed to act</em> unless the hashes match the last approved truth.
-  </p>
-
-  <h3 style="margin-top:14px;">What a normal person can do with it:</h3>
-
-    <li style="margin-top:10px;"><strong>Later, paste the SAME text/file back in.</strong><br>
-        If the hash <strong>matches</strong> → nothing changed.<br>
-        If it <strong>doesn’t match</strong> → something changed (typo, corruption, fraud, invisible character).</li>
 
     <li style="margin-top:10px;"><strong>Catch invisible changes.</strong><br>
         Even a space or dot changes the hash completely — exposing silent edits that steal money,
@@ -742,7 +733,11 @@ NOVAK does not collect, store, transmit, or retain data, but user responsibility
     👉 In short: <strong>Save the hash, compare it later. If it matches, nothing has changed.</strong><br><br>
     The hash is your before/after truth anchor.
   </p>
-</div>
+  <p style="margin-top:16px;">
+    <strong>In full NOVAK deployments:</strong><br>
+    Systems are <em>not even allowed to act</em> unless the hashes match the last approved truth.
+  </p>
+  </div>
 
   <div class="card" style="margin-top:26px;">
   <h2 class="section-title">Why Can't I Paste the Hash Back In?</h2>
