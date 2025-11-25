@@ -1200,6 +1200,14 @@ function autoVerify(value) {
     return;
   }
 
+  /* ===========================================
+   AUTO-VERIFICATION TOGGLE CONTROL
+===========================================*/
+function isAutoVerifyEnabled() {
+  const box = document.getElementById("autoVerifyToggle");
+  return box && box.checked;
+}
+
   computeHash("SHA-256", value).then(currentHash => {
     if (lastApprovedHash === null) {
       lastApprovedHash = currentHash;
@@ -1220,12 +1228,15 @@ function autoVerify(value) {
 
 document.getElementById("novakInput").addEventListener("input", () => {
   updateHashes();
-  autoVerify(document.getElementById("novakInput").value);
+
+  if (isAutoVerifyEnabled()) {
+    autoVerify(document.getElementById("novakInput").value);
+  } else {
+    document.getElementById("autoVerifyStatus").innerHTML =
+      "<em>Auto-Verification disabled.</em>";
+  }
 });
 
-document.querySelectorAll(".hashAlgo").forEach(cb =>
-  cb.addEventListener("change", updateHashes)
-);
 
 /* ============================
    RGAC VISUALIZER
