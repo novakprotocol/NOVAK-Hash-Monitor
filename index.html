@@ -1583,6 +1583,108 @@ document.addEventListener("DOMContentLoaded", () => {
   restoreWhatChangesOnLoad();
   updateHashes();
 });
+
+/* ============================================================
+   WOW MODE – AUTO-DETECT MANIPULATION
+   ============================================================ */
+let wowMode = true;   // toggle if needed
+let lastHash = "";
+let lastUpdate = 0;
+
+// attach into your existing hash update pipeline
+async function detectTamper(value) {
+  if (!wowMode) return;
+
+  const now = performance.now();
+  const sha = await computeHash("SHA-256", value);
+
+  // first hash
+  if (!lastHash) {
+    lastHash = sha;
+    lastUpdate = now;
+    return;
+  }
+
+  // if hash changes faster than a human could type → automation or corruption
+  const diff = now - lastUpdate;
+  if (sha !== lastHash && diff < 45) {
+    showTamperAlert();
+  }
+
+  lastHash = sha;
+  lastUpdate = now;
+}
+
+function showTamperAlert() {
+  const box = document.createElement("div");
+  box.style.position = "fixed";
+  box.style.bottom = "30px";
+  box.style.right = "30px";
+  box.style.padding = "16px 22px";
+  box.style.borderRadius = "10px";
+  box.style.background = "#b91c1c";
+  box.style.color = "white";
+  box.style.fontWeight = "600";
+  box.style.boxShadow = "0 4px 12px rgba(0,0,0,.35)";
+  box.style.zIndex = "99999";
+  box.textContent = "🟥 Suspicious automated modification detected — NOVAK blocked execution";
+
+  document.body.appendChild(box);
+  setTimeout(() => box.remove(), 4200);
+}
+
+/* hook into your existing updateHashes() */
+const _updateHashes = updateHashes;
+updateHashes = async function() {
+  await _updateHashes();
+  const txt = document.getElementById("novakInput").value;
+  detectTamper(txt);
+};
+
+/* ============================================================
+   FIX: STICKY HEADER SCROLL (Explain Buttons)
+   ============================================================ */
+const originalShowExplain = showExplain;
+showExplain = function(key, el) {
+  originalShowExplain(key, el);
+  const panel = document.getElementById("explainerOutput");
+
+  // ensures correct scroll spacing
+  const offset = panel.getBoundingClientRect().top + window.scrollY - 120;
+  window.scrollTo({ top: offset, behavior: "smooth" });
+};
+
+/* ============================================================
+   DARK MODE – FIX ALL BUTTONS
+   ============================================================ */
+const css = `
+html[data-theme="dark"] .pill-btn,
+html[data-theme="dark"] .explain-btn,
+html[data-theme="dark"] .action-btn {
+  background: #0f172a !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+html[data-theme="dark"] .pill-btn:hover,
+html[data-theme="dark"] .explain-btn:hover {
+  background: #1e293b !important;
+}
+`;
+const style = document.createElement("style");
+style.innerHTML = css;
+document.head.appendChild(style);
+
+/* ============================================================
+   FIX: GUIDED DEMO – SLIDES STOPPING
+   ============================================================ */
+const _startStoryMode = startStoryMode;
+startStoryMode = function() {
+  clearInterval(storyInterval);
+  _startStoryMode();    // now increments properly
+};
+
+  
 </script>
 
 
