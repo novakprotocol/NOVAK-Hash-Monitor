@@ -19,35 +19,47 @@
 
 /* ========== DID THIS SCREW IT UP START  ========== */
 
-    /* ============================================
-   FIX: HASH WRAPPING ON MOBILE + DESKTOP
-   ============================================ */
-#hashOutputList,
-#hashOutputList span,
-#hashOutputList code,
+/* ========== HASH DISPLAY FIX — MOBILE + DESKTOP SAFE ========== */
+
+/* Wrap long cryptographic hashes properly */
+.hash-output,
+.hash-box,
+.hash-line,
+#sha256Output,
+#sha512Output,
+#sha384Output,
+#sha3Output,
 #fileHashResult,
 #structuredResult,
 #rgac,
-#receiptOutput {
+#receiptOutput,
+#hashOutputList {
   white-space: pre-wrap !important;
-  word-break: break-all !important;
+  word-wrap: break-word !important;
   overflow-wrap: break-word !important;
-  line-break: anywhere !important;
+  max-width: 100% !important;
   display: block;
 }
 
-/* Copy buttons stay aligned */
-.copy-btn {
-  display: inline-block;
-  margin-top: 6px;
-}
-
-/* Make hash boxes scrollable horizontally if needed */
+/* Make hash boxes readable and consistent */
 .hash-box {
-  overflow-x: auto;
-  white-space: nowrap;
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 14px;
+  line-height: 1.45;
+  margin: 8px 0 12px 0;
 }
 
+/* Copy buttons correctly aligned */
+.copy-btn {
+  margin-top: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
 
 /* ========== DID THIS SCREW IT UP START  ========== */
 
