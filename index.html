@@ -647,6 +647,25 @@ NOVAK does not collect, store, transmit, or retain data, but user responsibility
   </div>
 </div>
 
+<!-- ✅ EXAMPLE DATASETS -->
+<div class="card" style="margin-top:32px;">
+  <h2 class="section-title">Example Datasets</h2>
+  <p>Select one — it instantly loads into the input above.</p>
+
+  <p style="margin-top:6px; font-size:13px; color:#b91c1c;">
+🚫 Never use real patients, real claims, or real medical documents here — training data only.
+</p>
+
+  <div class="pill-row" style="margin-top:16px;">
+    <button class="pill-btn" onclick="loadExample('va')">🎖️ VA Disability Claim</button>
+    <button class="pill-btn" onclick="loadExample('finance')">💰 Financial Transaction</button>
+    <button class="pill-btn" onclick="loadExample('robot')">🤖 Robotics Command</button>
+    <button class="pill-btn" onclick="loadExample('ai')">🧠 AI System Log</button>
+    <button class="pill-btn" onclick="loadExample('legal')">⚖️ Legal Filing</button>
+    <button class="pill-btn" onclick="openVinModal()">🚗 VIN</button>
+  </div>
+</div>
+  
 <!-- ✅ HASH OUTPUT -->
 <div class="card" style="margin-top:22px;">
   <h3 class="section-title" style="font-size:20px;">Cryptographic Hashes</h3>
@@ -760,25 +779,6 @@ NOVAK does not collect, store, transmit, or retain data, but user responsibility
 
   <div id="fileHashResult"
        style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></div>
-</div>
-
-<!-- ✅ EXAMPLE DATASETS -->
-<div class="card" style="margin-top:32px;">
-  <h2 class="section-title">Example Datasets</h2>
-  <p>Select one — it instantly loads into the input above.</p>
-
-  <p style="margin-top:6px; font-size:13px; color:#b91c1c;">
-🚫 Never use real patients, real claims, or real medical documents here — training data only.
-</p>
-
-  <div class="pill-row" style="margin-top:16px;">
-    <button class="pill-btn" onclick="loadExample('va')">🎖️ VA Disability Claim</button>
-    <button class="pill-btn" onclick="loadExample('finance')">💰 Financial Transaction</button>
-    <button class="pill-btn" onclick="loadExample('robot')">🤖 Robotics Command</button>
-    <button class="pill-btn" onclick="loadExample('ai')">🧠 AI System Log</button>
-    <button class="pill-btn" onclick="loadExample('legal')">⚖️ Legal Filing</button>
-    <button class="pill-btn" onclick="openVinModal()">🚗 VIN</button>
-  </div>
 </div>
 
 <!-- ✅ VIN DECODER MODAL -->
