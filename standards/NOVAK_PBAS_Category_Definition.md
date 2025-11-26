@@ -1,3 +1,11 @@
+📘 PBAS CATEGORY DEFINITION — NOVAK Protocol
+
+Proof-Before-Action Systems (PBAS)
+Global Category Definition & Formal Classification Document
+Version 1.0 — January 2025
+Author: Matthew Novak
+Standards Alignment: SP-1, SP-2, SP-3, Laws L0–L15, PL-X, PS-X
+
 PBAS — PROOF-BEFORE-ACTION SYSTEMS
 A New Scientific Category Introduced by the NOVAK Protocol
 
