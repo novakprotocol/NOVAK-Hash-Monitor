@@ -48,7 +48,7 @@ NOVAK defines a **Hash-Verified Execution Trace (HVET)** as:
 
 Conceptually:
 
-```text
+
 HR = SHA-256(rule_blob)
 HD = SHA-256(input_data_blob)
 HO = SHA-256(output_blob)
