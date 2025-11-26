@@ -1,6 +1,6 @@
 📄 SP-2 — HVET / EIR / RGAC Cryptographic Standard
 NOVAK Protocol Standards Series — SP-2
- Version 1.0 — January 2025
+ Version 1.0 — November 2025
  Status: Open Draft
  Author: Matthew Novak
  Category: PBAS-02 (Proof-Before-Action Systems — Cryptographic Core)
