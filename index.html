@@ -2368,6 +2368,174 @@ setInterval(() => {
   
 </script>
 
+<script>
+/* ============================================================
+   NOVAK Option-C Engine (Safe Modular Version)
+   NO conflicts. NO overrides. 100% sandboxed.
+   Binds ONLY to:
+     - #novakInput
+     - #autoVerifyToggle
+     - #autoVerifyStatus
+     - #rgac
+   ============================================================ */
 
+const NOVAK_ENGINE = (() => {
+
+  /* ---------- Internal State ---------- */
+  let lastApproved = "";
+  let lastApprovedHVET = null;
+  let chain = [];
+
+  /* ---------- SHA256 ---------- */
+  async function sha256(input) {
+    const data = new TextEncoder().encode(input);
+    const hash = await crypto.subtle.digest("SHA-256", data);
+    return [...new Uint8Array(hash)].map(x => x.toString(16).padStart(2,"0")).join("");
+  }
+
+  /* ---------- Generate HVET ---------- */
+  async function hvet(rule, prev, next) {
+    const HR = await sha256(rule);
+    const HD = await sha256(prev);
+    const HO = await sha256(next);
+    const timestamp = new Date().toISOString();
+
+    return {
+      HR, HD, HO, timestamp,
+      HVET: await sha256(HR + HD + HO + timestamp)
+    };
+  }
+
+  /* ---------- RGAC Append ---------- */
+  async function appendRGAC(eir) {
+    const prev = chain.length ? chain[chain.length-1].HVET : "GENESIS";
+    const link = await sha256(prev + eir.HVET);
+
+    chain.push({ ...eir, previous: prev, chain_link: link });
+    renderChain();
+  }
+
+  /* ---------- Render RGAC ---------- */
+  function renderChain() {
+    const el = document.getElementById("rgac");
+    if (!chain.length) {
+      el.innerHTML = "<em>Provide input to begin...</em>";
+      return;
+    }
+
+    el.innerHTML = chain.map((e,i) => `
+      <div style="margin:10px 0; padding:10px; border-left:4px solid #1e40af;">
+        <strong>Entry ${i+1}</strong><br>
+        HVET: ${e.HVET}<br>
+        Prev: ${e.previous}<br>
+        Link: ${e.chain_link}<br>
+        Timestamp: ${e.timestamp}
+      </div>`).join("");
+  }
+
+  /* ---------- Safety Gate ---------- */
+  function safetyGateCheck(text) {
+    const anomalies = [];
+
+    if (text.includes("∞") || text.includes("�"))
+      anomalies.push("Physical-layer anomaly detected (PL-X)");
+
+    if (/(bypass|override|disable|cheat)/i.test(text))
+      anomalies.push("Intent manipulation detected (PS-X)");
+
+    return anomalies;
+  }
+
+  /* ---------- Approve New Truth ---------- */
+  async function approve(text, hvetObj, out) {
+    lastApproved = text;
+    lastApprovedHVET = hvetObj;
+
+    const eir = {
+      eir_id: crypto.randomUUID(),
+      approved_text: text,
+      ...hvetObj,
+      recorded_at: new Date().toISOString(),
+      version: "NOVAK-EIR-v1"
+    };
+
+    appendRGAC(eir);
+
+    out.innerHTML = `
+      ✅ <strong>Approved</strong><br>
+      EIR: ${eir.eir_id}<br>
+      HVET: ${eir.HVET}
+    `;
+    out.style.borderColor = "green";
+  }
+
+  /* ---------- Auto-Verify Input ---------- */
+  async function verify(text) {
+    const out = document.getElementById("autoVerifyStatus");
+    const toggle = document.getElementById("autoVerifyToggle");
+
+    if (!toggle.checked) {
+      out.innerHTML = "<em>Auto-Verification disabled.</em>";
+      out.style.borderColor = "var(--border)";
+      return;
+    }
+
+    const violations = safetyGateCheck(text);
+    if (violations.length) {
+      out.innerHTML = `❌ <strong>Safety Gate Rejection</strong><br>${violations.join("<br>")}`;
+      out.style.borderColor = "red";
+      return;
+    }
+
+    const h = await hvet("NOVAK-DEMO-RULE", lastApproved, text);
+
+    if (!lastApprovedHVET) {
+      approve(text, h, out);
+      return;
+    }
+
+    if (h.HVET === lastApprovedHVET.HVET) {
+      out.innerHTML = `✅ Integrity Verified — No change detected.<br>HVET: ${h.HVET}`;
+      out.style.borderColor = "green";
+    } else {
+      out.innerHTML = `
+        ⚠️ Integrity Changed<br>
+        <button onclick='NOVAK_ENGINE.forceApprove("${escapeString(text)}")'>
+          Approve Change
+        </button>
+      `;
+      out.style.borderColor = "#d97706";
+    }
+  }
+
+  /* ---------- Escape helper ---------- */
+  function escapeString(s) {
+    return s.replace(/"/g, '\\"');
+  }
+
+  /* ---------- Exposed API ---------- */
+  return {
+    async observe(text) { verify(text); },
+    async forceApprove(t) {
+      const out = document.getElementById("autoVerifyStatus");
+      const h = await hvet("NOVAK-DEMO-RULE", lastApproved, t);
+      approve(t, h, out);
+    }
+  };
+
+})(); // END MODULE
+
+
+/* ============================================================
+   CONNECT TO YOUR EXISTING INPUT BOX ONLY
+============================================================ */
+document.getElementById("novakInput").addEventListener("input", e => {
+  const text = e.target.value;
+  // send only this to NOVAK engine (safe)
+  NOVAK_ENGINE.observe(text);
+});
+</script>
+
+  
 </body>
 </html>
