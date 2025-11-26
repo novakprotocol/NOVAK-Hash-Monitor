@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NOVAK Cryptography 101 — Hashes, HVET, and Execution Receipts</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="icon" type="image/png" href="../assets/NOVAK.png" />
+</head>
+<body>
+  <!-- Simple header linking back home -->
+  <header class="top-nav">
+    <div class="nav-left">
+      <a href="../index.html" class="logo-link" style="display:flex;align-items:center;gap:10px;">
+        <img src="../assets/NOVAK.png" alt="NOVAK Logo"
+             style="height:32px;width:32px;border-radius:6px;" />
+        <span style="font-weight:700;">NOVAK Protocol</span>
+      </a>
+    </div>
+    <div class="nav-right">
+      <button class="pill-btn" onclick="window.location.href='../index.html'">
+        ← Back to Main Site
+      </button>
+    </div>
+  </header>
+
+  <main class="main-container" style="max-width:900px;margin:40px auto 80px;">
+    <article class="card">
+      <h1 style="margin-bottom:10px;">
+        NOVAK Cryptography 101 — Hashes, HVET, and Execution Receipts
+      </h1>
+      <p style="opacity:0.85; margin-bottom:24px;">
+        This page is for engineers and auditors who want a clear, practical explanation
+        of how NOVAK uses cryptographic hashing to guarantee execution integrity —
+        without needing a PhD in cryptography.
+      </p>
+
+      <hr style="margin:18px 0 24px; opacity:0.3;" />
+
+      <h2>1. What is a cryptographic hash?</h2>
+      <p>
+        NOVAK relies on standard cryptographic hash functions (e.g., <strong>SHA-256</strong>).
+        A hash function takes <em>any</em> input (1 byte or 1 GB) and returns a fixed-size output
+        (for SHA-256, 256 bits). We treat the hash as a <strong>fingerprint</strong> of the data.
+      </p>
+
+      <p>We rely on four key properties:</p>
+      <ul>
+        <li><strong>Deterministic</strong> — same input, same hash every time.</li>
+        <li><strong>One-way</strong> — given the hash, it is infeasible to recover the input.</li>
+        <li><strong>Collision-resistant</strong> — infeasible to find two different inputs with the same hash.</li>
+        <li><strong>Avalanche effect</strong> — 1-bit change in input → completely different hash.</li>
+      </ul>
+
+      <p>
+        In other words: if the hash changes, the underlying data has changed. NOVAK uses
+        this to detect any tampering <em>before</em> automated decisions are allowed to execute.
+      </p>
+
+      <h2 style="margin-top:28px;">2. The problem NOVAK fixes</h2>
+      <p>
+        TLS, disk encryption, logging, and even blockchain mostly confirm that
+        <strong>something</strong> was sent, stored, or recorded correctly at time <code>T</code>.
+        They <strong>do not guarantee</strong> that:
+      </p>
+      <ul>
+        <li>the <strong>inputs</strong> were correct and unmanipulated,</li>
+        <li>the <strong>governing rules</strong> were the intended version, or</li>
+        <li>the <strong>outputs</strong> weren’t silently altered before execution.</li>
+      </ul>
+      <p>
+        NOVAK adds the missing piece: <strong>proof-before-action</strong>. Systems must prove
+        that the right data and the right rules produced the right output — or execution is blocked.
+      </p>
+
+      <h2 style="margin-top:28px;">3. HVET — Hash-Verified Execution Trace</h2>
+      <p>
+        NOVAK defines a <strong>Hash-Verified Execution Trace (HVET)</strong> as a cryptographic
+        commitment to the <strong>rule</strong>, the <strong>input data</strong>, the
+        <strong>output</strong>, and the <strong>time</strong> of a decision.
+      </p>
+
+      <p>Conceptually:</p>
+      <pre><code>HR = SHA-256(rule_blob)        // governing rule set
+HD = SHA-256(input_data_blob) // attested input
+HO = SHA-256(output_blob)     // decision / result
+t  = ISO-8601 timestamp       // when this decision was made
+
+HVET = SHA-256(HR || HD || HO || t)</code></pre>
+
+      <p>
+        Here <code>||</code> means concatenation. If <em>any</em> of these change —
+        rule version, input, output, or timestamp — the resulting <code>HVET</code> changes.
+        That’s the foundation of NOVAK’s execution integrity.
+      </p>
+
+      <h2 style="margin-top:28px;">4. EIR — Execution Identity Receipt</h2>
+      <p>
+        An <strong>Execution Identity Receipt (EIR)</strong> is NOVAK’s canonical record of a
+        vetted automated decision. It packages the hashes and metadata into a tamper-evident receipt
+        that can be audited later.
+      </p>
+
+      <p>An EIR typically includes fields like:</p>
+      <pre><code>eir_id        // unique receipt identifier
+HR           // hash of governing rule set
+HD           // hash of attested input data
+HO           // hash of output/decision
+timestamp    // when the decision was produced
+hvet         // HVET = H(HR || HD || HO || timestamp)
+recorded_at  // when it was written into the audit log
+version      // e.g., "NOVAK-EIR-v1"</code></pre>
+
+      <p>
+        Think of an EIR as a cryptographic invoice for what a system decided, when,
+        and under which rules.
+      </p>
+
+      <h2 style="margin-top:28px;">5. RGAC — Recursive Global Audit Chain</h2>
+      <p>
+        Individual receipts are powerful, but regulators and auditors also need
+        <strong>history</strong>. NOVAK links EIRs into a
+        <strong>Recursive Global Audit Chain (RGAC)</strong> using simple hash chaining.
+      </p>
+
+      <pre><code>// pseudo-code
+link_0 = SHA-256("NOVAK-GENESIS")
+
+for each EIR_i in chronological order:
+    link_i = SHA-256(link_{i-1} || hvet_i)</code></pre>
+
+      <p>
+        Each new link commits to the <em>entire</em> history behind it. If any past EIR or link
+        is altered, the chain no longer verifies. This gives auditors a blockchain-style
+        tamper-evident log, without needing global consensus or mining.
+      </p>
+
+      <h2 style="margin-top:28px;">6. Safety Gate, PL-X, and PS-X (high level)</h2>
+      <p>
+        Before an automated decision is allowed to execute, NOVAK’s <strong>Safety Gate</strong>
+        verifies not just hashes, but also the <em>sanity</em> and <em>legitimacy</em> of the
+        decision context.
+      </p>
+
+      <ul>
+        <li>
+          <strong>PL-X — Physical Layer Drift:</strong>
+          detects corrupted or impossible values (sensor glitches, overflow, malformed encodings,
+          out-of-range measurements, etc.).
+        </li>
+        <li>
+          <strong>PS-X — Psycho-Social Manipulation:</strong>
+          detects manipulative or policy-violating instructions, prompts, or rule changes that could
+          cause harmful but superficially “valid” decisions.
+        </li>
+      </ul>
+
+      <p>
+        If PL-X or PS-X flags a violation, execution is blocked and no EIR is issued.
+        Instead, the system records an attempted action with a failed safety check.
+      </p>
+
+      <h2 style="margin-top:28px;">7. How this differs from blockchain, TLS, and logging</h2>
+      <ul>
+        <li>
+          <strong>TLS</strong> secures the channel between endpoints, but not the correctness
+          of the rules or outputs on either end.
+        </li>
+        <li>
+          <strong>Logging</strong> records events after they happen — often after damage is done.
+        </li>
+        <li>
+          <strong>Blockchain</strong> gives you a decentralized ledger of transactions,
+          but does not guarantee that each transaction was computed according to the intended
+          regulatory or safety rules.
+        </li>
+      </ul>
+
+      <p>
+        NOVAK is specifically about <strong>execution integrity</strong>:
+        proving that each automated decision obeyed the right rules, used the right data,
+        produced the claimed output, and passed safety checks — <em>before</em> it was allowed
+        to affect the real world.
+      </p>
+
+      <h2 style="margin-top:28px;">8. Where to go next</h2>
+      <p>For deeper detail, these documents build directly on the concepts above:</p>
+      <ul>
+        <li><strong>SP-1 — Execution Integrity Standard</strong></li>
+        <li><strong>SP-2 — HVET / EIR / RGAC Cryptographic Standard</strong></li>
+        <li><strong>SP-3 — Safety Gate, PL-X, and PS-X Standard</strong></li>
+        <li><strong>SP-4 … SP-8</strong> — implementation, conformance, certification, adoption</li>
+        <li><strong>NTM-1, NTM-2, NTM-3</strong> — formal threat models</li>
+        <li><strong>Appendix A / B / A13, etc.</strong> — adversarial AI test suites and prompt libraries</li>
+      </ul>
+
+      <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:16px;">
+        <a href="../standards/" class="action-btn">
+          📘 View NOVAK Standards (SP-1–SP-8)
+        </a>
+        <a href="../docs/" class="action-btn" style="background:#111827;">
+          📂 All Documentation Index
+        </a>
+        <a href="https://github.com/novakprotocol/NOVAK-Hash-Monitor"
+           class="action-btn" target="_blank" rel="noopener noreferrer">
+          🧬 Open GitHub Repository
+        </a>
+      </div>
+    </article>
+  </main>
+</body>
+</html>
