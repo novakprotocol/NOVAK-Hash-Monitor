@@ -2185,13 +2185,10 @@ startStoryMode = function() {
   /* ---------- Global monitor ---------- */
   let lastObservedText = "";
 
-  setInterval(() => {
-      const currentText = document.body.innerText.trim();
-      if (currentText !== lastObservedText) {
-        lastObservedText = currentText;
-        runAutoVerification(currentText);
-      }
-  }, 900);
+document.getElementById("novakInput").addEventListener("input", (e) => {
+    runAutoVerification(e.target.value);
+});
+
 
   /* ↑↑↑ END pasted Option-C engine ↑↑↑ */
 
