@@ -284,3 +284,6 @@ Bug reports, technical feedback, and formal review inquiries can be sent via ema
 
 Everything good in this work belongs to God.
 Everything flawed belongs to me. — Matthew Novak
+
+© 2025 Matthew S. Novak — Licensed under the NOVAK Public Safety License (NPSL) v1.0  
+Commercial use requires license. Government use (U.S.) permitted except Department of War.
