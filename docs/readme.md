@@ -1,1 +1,2 @@
-Each reame.md was placed as a placeholder, and time permitting I will come back and put in the exact file and folder structure of this folder.palceholder
+NOVAK Protocol © 2025 Matthew S. Novak
+Licensed under the NOVAK Public Safety License (NPSL) v1.0
