@@ -1,136 +1,187 @@
-✅ NOVAK Protocol — Proof-Before-Action Automation Integrity
+# ✅ NOVAK Protocol — Proof-Before-Action Automation Integrity
 
-NOVAK is a cryptographic execution-governance framework that requires mathematical proof of correctness, legality, and integrity before any automated system is allowed to act.
+**NOVAK** is a cryptographic execution-governance framework that requires **mathematical proof of correctness, legality, and integrity _before_ any automated system is allowed to act.**
 
-NOVAK enforces a simple rule that no modern computing platform has ever required:
+It enforces a rule almost no modern computing platform has ever required:
 
-Prove → Then Act
+> **Prove → Then Act**  
+> *(instead of today’s)*  
+> **Act → Then Audit**
 
-(instead of today’s)
+This flips automation from “trust first, verify later” into **deterministic, provable, tamper-evident execution.**
 
-Act → Then Audit
+---
 
-This transforms automation from “trust first, verify later” into deterministic, provable, tamper-evident execution.
+## 🔎 TL;DR
 
-⭐ What NOVAK Actually Does
+- NOVAK is a **pre-execution integrity governor**, not a log, not a blockchain, not a monitoring tool.
+- Every action (human, AI, robotic, regulatory, financial, etc.) must **prove integrity** before it can run.
+- Designed for: **government, VA claims, healthcare, finance, AI, robotics, defense, infrastructure.**
 
-NOVAK binds:
+---
 
-Rule
+## ⭐ What NOVAK Actually Does
 
-Input
+NOVAK cryptographically binds:
 
-Output
+- **Rule** (R) — the governing logic  
+- **Input** (D) — attested data  
+- **Output** (O) — deterministic result  
+- **Timestamp** (T) — globally ordered time  
+- **System / Device Identity** (I)  
+- **Execution Intent & Context**
 
-Timestamp
+…into a **verifiable receipt** that is required **before code runs.**
 
-System identity
+Unlike blockchain, logging, or monitoring, NOVAK is **pre-execution integrity**, not **post-execution forensics.**
 
-Execution intent
+- Works **locally and instantly**
+- No blockchain, no mining, no token
+- No network required to verify integrity
 
-…into a cryptographically verifiable proof required before code runs.
+---
 
-Unlike blockchain, logging, or monitoring, NOVAK is pre-execution integrity, not post-execution forensics.
+## 🧩 Core Components & Terminology
 
-It works locally, instantly, without blockchain, and without needing a network.
+NOVAK keeps the historical names for academic lineage, and maps them to the new terminology:
 
-🧩 Core Components (Old Name → New Name)
-Function	Original Term	Updated NOVAK Term	Purpose
-Deterministic rule check	HARMONEE	NOVAK Safety Gate	Blocks execution until proof validates TRUE.
-Pre-execution proof artifact	NIPS	Execution Identity Receipt (EIR)	Signed evidence of rule+input+output before execution.
-Global ordered audit chain	REVELATION	Recursive Global Audit Chain (RGAC)	Creates a tamper-evident timeline of all EIRs.
-Cryptographic binding	—	Hash-Verified Execution Token (HVET)	Hash of rule, input, output, timestamp.
-Formal Proof of Legality (ℕ)
+| Function                        | Original Term | Updated NOVAK Term                         | Purpose                                                    |
+|---------------------------------|---------------|--------------------------------------------|------------------------------------------------------------|
+| Deterministic rule check        | HARMONEE      | **NOVAK Safety Gate**                      | Blocks execution until **all proofs validate TRUE**.       |
+| Pre-execution proof artifact    | NIPS          | **Execution Identity Receipt (EIR)**       | Signed evidence of rule + input + output + identity.       |
+| Global ordered audit chain      | REVELATION    | **Recursive Global Audit Chain (RGAC)**    | Tamper-evident timeline of all EIRs and HVETs.             |
+| Cryptographic binding of event  | —             | **Hash-Verified Execution Trace (HVET)**   | Hash of rule, input, identity, output, timestamp, context. |
 
-A binary computation:
+These components together enforce that **no system may execute without provable truth.**
 
-Allowed → ✅
+---
 
-Denied → ❌
+## 📜 NOVAK Laws & Industry Addenda (Baseline)
 
-No guessing. No ambiguity. No “black box automation.”
+The NOVAK Protocol is governed by **15 Laws** (L0–L15) and two industry addenda:
 
-🔐 Cryptographic Model
+- **L0–L15** — NOVAK Laws (Irreversibility, Determinism, Non-Malleability, Identity, Recursion, Temporal Order, Public Verifiability, Regulatory Determinism, Machine Non-Deviation, Universal Auditability, etc.)
+- **PL-X — Physical Layer Addendum**  
+  Physical integrity: timing, hardware roots, drift, metastability, environment.
+- **PS-X — Psycho-Social Addendum**  
+  Fraud, deception, intent profiling, insider threat, behavior signatures.
 
-NOVAK uses a four-part verifiable construction:
+These are treated as **baseline, non-optional facts** in all NOVAK designs and documentation.
 
-1. Deterministic Execution
+---
+
+## 🔐 Cryptographic Model (High-Level)
+
+NOVAK uses a **four-part verifiable construction**:
+
+### 1. Deterministic Execution
 
 The rule must always produce the same output for the same input.
 
-(R, D_attested) → O_deterministic
+> **(R, D_attested) → O_deterministic**
 
-2. HVET — Hash-Verified Execution Token
-HVET = SHA-256(HR || HD || HO || timestamp)
+No hidden state. No stochastic “AI drift.” No ambiguity.
 
+---
 
+### 2. HVET — Hash-Verified Execution Trace
+
+```text
+HVET = H( HR ∥ HD ∥ HI ∥ HO ∥ T ∥ nonce ∥ PLX ∥ PSX )
 Where:
 
-HR = hash of rule
+HR = hash of rule R
 
-HD = hash of input data
+HD = hash of input data D
 
-HO = hash of expected output
+HI = identity hash (user + device + jurisdiction + intent)
 
-This proves the system did exactly what it claimed.
+HO = hash of expected output O
+
+T = globally ordered timestamp
+
+PLX = physical-layer integrity object (PL-X)
+
+PSX = psycho-social integrity object (PS-X)
+
+HVET is the canonical fingerprint of the event before it happens.
 
 3. Recursive Global Audit Chain (RGAC)
+Each event is appended into an infinite, tamper-evident chain:
 
-Each Execution Identity Receipt becomes input for the next, forming a tamper-evident chain.
+text
+Copy code
+RGACₙ = H( RGACₙ₋₁ ∥ HVETₙ ∥ EIRₙ ∥ Tₙ ∥ PLXₙ ∥ PSXₙ )
+Any tampering anywhere invalidates everything forward.
 
 4. Execution Identity Receipt (EIR)
+The EIR is issued before action occurs and proves:
 
-Issued before action occurs and stored locally or externally as verifiable evidence.
+Who acted
+
+On what data
+
+Under what rule
+
+At what time
+
+On which device
+
+Under which jurisdiction
+
+With what intent profile
+
+It’s the mathematical “signature” of the decision itself.
 
 🛠 What NOVAK Is
 ✔ A new computing safety layer
-
 Not encryption, not blockchain, not monitoring.
 
 ✔ A pre-execution integrity governor
-
 Actions can’t run unless proof passes.
 
 ✔ A universal automation safety rule
+Applies to government, finance, healthcare, robotics, AI, aerospace, and more.
 
-Applies to government, finance, healthcare, robotics, AI, aerospace.
+✔ A new primitive, at the same conceptual level as:
 
-✔ A new primitive
+SSL/TLS → network security
 
-Equivalent in impact to:
+Hashing → data integrity
 
-SSL/TLS (network security)
+Public-key crypto → authentication
 
-Hashing (data integrity)
-
-Public-key crypto (authentication)
-But NOVAK is:
+…but NOVAK’s domain is:
 
 Execution Integrity
+When is a machine allowed to ACT?
+
 🚫 What NOVAK Is Not
+NOVAK is not:
 
-❌ Not blockchain
+❌ Blockchain
 
-❌ Not Bitcoin
+❌ Bitcoin / cryptocurrency
 
-❌ Not encryption
+❌ Encryption scheme
 
-❌ Not SSL/TLS
+❌ SSL/TLS or VPN
 
-❌ Not a storage system
+❌ A storage system
 
-❌ Not a database
+❌ A database
 
-❌ Not a trust system
+❌ A “trust me” system
 
-❌ Not a network protocol
+❌ A network protocol
+
+All of those can still allow bad decisions to execute.
 
 NOVAK does what none of these can:
-
 It forces systems to prove correctness before executing.
-🌎 Industries Served
 
-U.S. Department of Veterans Affairs
+🌎 Industries & Systems Served
+U.S. Department of Veterans Affairs (claims, ratings, audits)
 
 Healthcare / clinical automation
 
@@ -144,31 +195,66 @@ Defense and aerospace
 
 Insurance rating & underwriting
 
-Critical infrastructure
+Critical infrastructure (energy, grid, transport, SCADA)
 
 Public sector audit & oversight
 
 🧪 Live Demo
+Public, educational NOVAK hash & integrity demo:
 
 🔗 https://novakprotocol.github.io/NOVAK-Hash-Monitor
 
-Fully local.
-No storage.
-No transmission.
-No logging.
-No backend.
+Fully local
+
+No storage
+
+No transmission
+
+No logging
+
+No backend
+
+💡 In real deployments, this auto-hash logic becomes part of a larger NOVAK Safety Gate, EIR, HVET, and RGAC implementation — forcing proof-before-action at scale.
+
+📚 Documentation (Full 10-Part NOVAK Release)
+If you add a /docs folder, you can wire these filenames directly.
+
+📘 Part 1 — Executive Summary + Why NOVAK Exists
+
+📘 Part 2 — What NOVAK Is (Formal & Simple Definitions)
+
+📘 Part 3 — Scientific Foundations (Safety Gate, EIR, RGAC, HVET)
+
+📘 Part 4 — Cryptographic Architecture (HVET, EIR, RGAC, Laws L0–L15, PL-X, PS-X)
+
+📘 Part 5 — System Model & Full Execution Flow (Request → Proof → Action)
+
+📘 Part 6 — Implementation Layers (Hardware → AI → Government Systems)
+
+📘 Part 7 — Security Model & Threat Surfaces (Insider, Nation-State, AI, Robotics)
+
+📘 Part 8 — Governance, Compliance, Cross-Jurisdiction Enforcement
+
+📘 Part 9 — Formal Technical Whitepaper
+
+📘 Part 10 — Final Summary, Use Cases & Application Framework
+
+(These live as docs/PART-1_...md etc. in this repo.)
 
 🏛 Legal + Intellectual Property
-
-NOVAK Protocol, HVET, Execution Identity Receipt, Recursive Global Audit Chain, NOVAK Safety Gate, and all associated terminology are:
+NOVAK Protocol, HVET (Hash-Verified Execution Trace),
+Execution Identity Receipt (EIR),
+Recursive Global Audit Chain (RGAC),
+NOVAK Safety Gate,
+and all associated terminology are:
 
 Patent Pending © 2025 Matthew S. Novak
 All Rights Reserved
+
 Use governed by the NOVAK Public Safety License (NPSL).
 
 📂 Repository Status
-
-This repository provides a public educational demonstration only.
+This repository currently provides a public educational demonstration only.
 
 It does not perform:
 
@@ -180,10 +266,10 @@ Financial approvals
 
 Federal benefit calculations
 
-No data is stored, transmitted, logged, or shared.
+No data is stored, transmitted, logged, or shared by this demo.
+All hashing and verification run locally in the browser via WebCrypto.
 
 🤝 Contact
-
 For federal evaluation, research collaboration, or licensing:
 
 📧 licensing@novakprotocol.com
@@ -192,5 +278,9 @@ Donations (optional):
 📧 paypal: matthew@novakprotocol.com
 
 🔧 Contributions
-
 External contributions are not accepted at this time.
+
+Bug reports, technical feedback, and formal review inquiries can be sent via email.
+
+Everything good in this work belongs to God.
+Everything flawed belongs to me. — Matthew Novak
