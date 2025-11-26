@@ -1,0 +1,20 @@
+NOVAK Protocol  
+Copyright © 2025 Matthew S. Novak  
+All Rights Reserved – Licensed under the NOVAK Public Safety License (NPSL) v1.0
+
+This repository contains the NOVAK Protocol, associated standards (SP-1 through SP-8), 
+technical manuals, diagrams, threat models (NTM-1 through NTM-3), cryptographic 
+specifications (HVET, EIR, RGAC), Safety Gate (PL-X / PS-X), execution laws, 
+and the full implementation reference.
+
+Government use (United States) is permitted except for the Department of War.  
+Commercial use requires a valid license.
+
+No part of this work may be sublicensed or redistributed under GPL, AGPL, LGPL, 
+or any other copyleft or viral license.
+
+Attribution is required in all uses:
+
+“This system incorporates the NOVAK Protocol (© Matthew S. Novak, 2025), the first deterministic cryptographic execution-integrity model.”
+
+This NOTICE file is not a license. See LICENSE-NOVAK.txt for the full terms.
