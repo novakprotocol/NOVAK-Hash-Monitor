@@ -55,3 +55,66 @@ HO = SHA-256(output_blob)
 t  = ISO-8601 timestamp
 
 HVET = SHA-256(HR || HD || HO || t)
+
+Where || means concatenation.
+
+Why this matters
+
+If any of these change:
+
+different rule version
+
+different input data
+
+different output
+
+forged timestamp
+
+…then HVET changes. That’s the foundation for NOVAK’s “execution integrity”.
+
+4. EIR — Execution Identity Receipt
+
+An Execution Identity Receipt (EIR) is NOVAK’s canonical record of a vetted decision:
+
+eir_id – unique ID
+
+HR – hash of governing rule set
+
+HD – hash of input data
+
+HO – hash of output
+
+timestamp
+
+HVET – binding hash
+
+recorded_at – when it was written to the audit log
+
+version – NOVAK-EIR-v1, etc.
+
+Think of an EIR as a tamper-evident invoice for what the system decided.
+
+5. RGAC — Recursive Global Audit Chain
+
+EIRs are chained together with a simple hash link, forming RGAC:
+
+link_i = SHA-256(HVET_{i-1} || HVET_i)
+
+
+First entry uses "GENESIS" as the previous value.
+
+Each link commits to the entire history up to that point.
+
+If any past EIR is altered, a verifier can detect it by recomputing the chain.
+
+6. Safety Gate, PL-X, and PS-X (very high level)
+
+Before a decision is allowed to execute, NOVAK’s Safety Gate runs:
+
+PL-X — Physical Layer Drift
+Detects corruption / impossible values (e.g., sensor glitches, nonsensical encodings, overflows).
+
+PS-X — Psycho-Social Manipulation
+Heuristics / rules for spotting manipulative or policy-violating instructions, prompts, or rule changes.
+
+If PL-X or PS-X flags a violation, execution is blocked and no EIR is issued.
