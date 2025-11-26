@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NOVAK Documentation Hub</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="icon" type="image/png" href="../assets/NOVAK.png" />
+  <style>
+    .doc-card {
+      background: var(--card-bg, #1f2937);
+      padding: 24px;
+      border-radius: 14px;
+      margin-bottom: 28px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+    .doc-card h2 {
+      margin-bottom: 14px;
+      font-size: 1.6rem;
+    }
+    .doc-links a {
+      display: block;
+      padding: 6px 0;
+      opacity: 0.9;
+    }
+    .doc-links a:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+    .category-title {
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin: 16px 0 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="top-nav">
+    <div class="nav-left">
+      <a href="../index.html" class="logo-link" style="display:flex;align-items:center;gap:10px;">
+        <img src="../assets/NOVAK.png" alt="NOVAK Logo"
+             style="height:32px;width:32px;border-radius:6px;" />
+        <span style="font-weight:700;">NOVAK Protocol Docs</span>
+      </a>
+    </div>
+    <div class="nav-right">
+      <button class="pill-btn" onclick="window.location.href='../index.html'">← Back to Main Site</button>
+    </div>
+  </header>
+
+  <main class="main-container" style="max-width:900px;margin:40px auto 60px;">
+    <h1 style="margin-bottom:20px;">NOVAK Protocol — Full Documentation Library</h1>
+    <p style="opacity:0.85; margin-bottom:32px;">
+      This is the complete technical library for the NOVAK Protocol — including execution integrity
+      standards, cryptographic specifications, threat models, adversarial test suites, and
+      regulatory governance. Everything here is authoritative and GitHub-mirrored.
+    </p>
+
+    <!-- ===================== -->
+    <!--   CRYPTOGRAPHY 101    -->
+    <!-- ===================== -->
+    <section class="doc-card">
+      <h2>🔐 Cryptography 101 — Start Here</h2>
+      <p>A plain-English engineering explanation of NOVAK’s hashing, HVET, EIR, and RGAC.</p>
+
+      <div class="doc-links">
+        <a href="cryptography-101.html">📘 NOVAK Cryptography 101 — Hashes, HVET, EIR & RGAC</a>
+      </div>
+    </section>
+
+    <!-- ===================== -->
+    <!--   EXECUTION STANDARDS -->
+    <!-- ===================== -->
+    <section class="doc-card">
+      <h2>📘 NOVAK Standards (SP-1 through SP-8)</h2>
+
+      <div class="category-title">Core Standards</div>
+      <div class="doc-links">
+        <a href="SP-1.pdf">SP-1 — Execution Integrity Standard</a>
+        <a href="SP-2.pdf">SP-2 — HVET / EIR / RGAC Cryptographic Standard</a>
+        <a href="SP-3.pdf">SP-3 — Safety Gate, PL-X, PS-X Standard</a>
+        <a href="SP-4.pdf">SP-4 — Implementation Requirements</a>
+        <a href="SP-5.pdf">SP-5 — Certification Standard</a>
+        <a href="SP-6.pdf">SP-6 — Conformance Testing Suite</a>
+        <a href="SP-7.pdf">SP-7 — Federal Adoption & Compliance</a>
+        <a href="SP-8.pdf">SP-8 — NOVAK Governance, Compatibility & Oversight</a>
+      </div>
+    </section>
+
+    <!-- ===================== -->
+    <!--       THREAT MODELS   -->
+    <!-- ===================== -->
+    <section class="doc-card">
+      <h2>⚠️ Threat Models (NTM-1, NTM-2, NTM-3)</h2>
+
+      <div class="doc-links">
+        <a href="NTM-1.pdf">NTM-1 — Internal System Threat Model</a>
+        <a href="NTM-2.pdf">NTM-2 — AI / Autonomous Decision Threat Model</a>
+        <a href="NTM-3.pdf">NTM-3 — Adversarial AI Test Suite</a>
+      </div>
+    </section>
+
+    <!-- ===================== -->
+    <!--    APPENDICES / LIBS  -->
+    <!-- ===================== -->
+    <section class="doc-card">
+      <h2>📚 Appendices & Test Suites</h2>
+
+      <div class="doc-links">
+        <a href="Appendix-A.pdf">Appendix A — Adversarial Prompt Library</a>
+        <a href="Appendix-B.pdf">Appendix B — Gradient-Space Simulation Vectors</a>
+        <a href="A13-Multilingual-Ambiguity.pdf">A13 Supplemental — Multilingual Ambiguity Matrix</a>
+      </div>
+    </section>
+
+    <!-- ===================== -->
+    <!-- GLOSSARY + SUMMARIES  -->
+    <!-- ===================== -->
+    <section class="doc-card">
+      <h2>🔎 Glossaries & Summaries</h2>
+
+      <div class="doc-links">
+        <a href="NOVAK-Glossary.pdf">Unified Glossary of Terms</a>
+        <a href="NOVAK-Alphabetical-Glossary.pdf">Alphabetical Glossary (A–Z)</a>
+        <a href="Summary.pdf">Unified Summary (All Parts)</a>
+      </div>
+    </section>
+
+    <!-- ===================== -->
+    <!--     WHITEPAPERS       -->
+    <!-- ===================== -->
+    <section class="doc-card">
+      <h2>📄 Whitepapers & Formal Papers</h2>
+
+      <div class="doc-links">
+        <a href="Novak-Whitepaper-Part-1.pdf">Whitepaper Part 1 — Executive Summary</a>
+        <a href="Novak-Whitepaper-Part-2.pdf">Whitepaper Part 2 — Definitions & Foundations</a>
+        <a href="Novak-Whitepaper-Part-3.pdf">Whitepaper Part 3 — Scientific Foundations</a>
+        <a href="Novak-Cryptographic-Challenge.pdf">NOVAK Cryptographic Challenge</a>
+      </div>
+    </section>
+
+    <!-- ===================== -->
+    <!--    GITHUB REPOSITORY  -->
+    <!-- ===================== -->
+    <section class="doc-card">
+      <h2>🧬 GitHub Repository</h2>
+
+      <p>All NOVAK documents, code, diagrams, proofs, and research materials are mirrored here:</p>
+
+      <a class="action-btn"
+         href="https://github.com/novakprotocol/NOVAK-Hash-Monitor"
+         target="_blank" rel="noopener noreferrer">
+        Open NOVAK GitHub Repository →
+      </a>
+    </section>
+
+    <!-- ===================== -->
+    <!--  SECRET DO-NOT-TOUCH  -->
+    <!-- ===================== -->
+    <!--
+    <section class="doc-card" id="dont-touch-secret">
+      <h2>🧨 Do Not Touch</h2>
+      <p>Seriously. Don’t.</p>
+      <button class="action-btn" onclick="openSecret()">Do Not Touch</button>
+    </section>
+
+    <script>
+      function openSecret() {
+        const confirmed = confirm("This opens all NOVAK technical materials. Continue?");
+        if (confirmed) window.location.href = "https://github.com/novakprotocol/NOVAK-Hash-Monitor/tree/main/docs";
+      }
+    </script>
+    -->
+
+  </main>
+</body>
+</html>
