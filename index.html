@@ -916,6 +916,46 @@ NOVAK does not collect, store, transmit, or retain data, but user responsibility
     <em>Provide input to begin...</em>
   </div>
 </div>
+
+<!-- ✅ FILE DRAG & DROP VERIFICATION -->
+<div class="card" style="margin-top:22px;">
+  <h3 class="section-title" style="font-size:20px;">Verify Any File</h3>
+
+<p style="margin-top:6px; font-size:13px; opacity:0.85;">
+🚫 Never use real patients, real claims, or real medical documents here — training data only.
+</p>
+  <p>
+    Upload a PDF, medical record, scanned document, CSV, screenshot, legal filing —
+    NOVAK proves originality instantly using real cryptography.
+  </p>
+
+  <div id="dropzone"
+       style="margin-top:14px; padding:22px; border:2px dashed var(--border);
+              border-radius:10px; text-align:center; cursor:pointer;">
+    📁 Drop file here or click to select
+    <input id="fileInput" type="file" style="display:none" />
+  </div>
+
+  <div id="fileHashResult"
+       style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></div>
+</div>
+
+<!-- ✅ STRUCTURED DATA VALIDATION -->
+<div class="card" style="margin-top:32px;">
+  <h2 class="section-title">Validate Structured Data</h2>
+
+  <p>🚫 Never use real patients, real claims, or real medical documents here — training data only.</p>
+  <p>Upload JSON, SQL, XML, or TXT — NOVAK proves it hasn’t changed before execution.</p>
+
+  <input id="structuredFile"
+         type="file"
+         accept=".json,.sql,.xml,.txt"
+         style="margin-top:16px;">
+
+  <pre id="structuredResult"
+       style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></pre>
+</div>
+
   
 <div class="card" style="margin-top:26px;">
   <h2 class="section-title">What Can I Actually Do With This Hash?</h2>
@@ -1113,45 +1153,6 @@ NOVAK does not collect, store, transmit, or retain data, but user responsibility
   <p style="margin-top:16px; font-weight:600;">
     That is the NOVAK invention.
   </p>
-</div>
-
-<!-- ✅ FILE DRAG & DROP VERIFICATION -->
-<div class="card" style="margin-top:22px;">
-  <h3 class="section-title" style="font-size:20px;">Verify Any File</h3>
-
-<p style="margin-top:6px; font-size:13px; opacity:0.85;">
-🚫 Never use real patients, real claims, or real medical documents here — training data only.
-</p>
-  <p>
-    Upload a PDF, medical record, scanned document, CSV, screenshot, legal filing —
-    NOVAK proves originality instantly using real cryptography.
-  </p>
-
-  <div id="dropzone"
-       style="margin-top:14px; padding:22px; border:2px dashed var(--border);
-              border-radius:10px; text-align:center; cursor:pointer;">
-    📁 Drop file here or click to select
-    <input id="fileInput" type="file" style="display:none" />
-  </div>
-
-  <div id="fileHashResult"
-       style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></div>
-</div>
-
-<!-- ✅ STRUCTURED DATA VALIDATION -->
-<div class="card" style="margin-top:32px;">
-  <h2 class="section-title">Validate Structured Data</h2>
-
-  <p>🚫 Never use real patients, real claims, or real medical documents here — training data only.</p>
-  <p>Upload JSON, SQL, XML, or TXT — NOVAK proves it hasn’t changed before execution.</p>
-
-  <input id="structuredFile"
-         type="file"
-         accept=".json,.sql,.xml,.txt"
-         style="margin-top:16px;">
-
-  <pre id="structuredResult"
-       style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></pre>
 </div>
 
 <!-- ✅ AI TRANSPARENCY MODE -->
