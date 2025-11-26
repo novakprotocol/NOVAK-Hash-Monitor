@@ -2150,6 +2150,100 @@ startStoryMode = function() {
 };
   
 </script>
- 
+
+<script>
+(function () {
+  const autoToggle  = document.getElementById('autoVerifyToggle');
+  const autoStatus  = document.getElementById('autoVerifyStatus');
+  const rgacEl      = document.getElementById('rgac');
+
+  // 🔁 CHANGE THIS if your main input has a different id than "novakInput"
+  const watchedInput = document.getElementById('novakInput');
+
+  if (!autoToggle || !autoStatus || !watchedInput) {
+    console.warn('NOVAK auto-verification demo: missing elements.');
+    return;
+  }
+
+  // Very simple hash for demo purposes (NOT cryptographic!)
+  function simpleHash(str) {
+    let hash = 0, i, chr;
+    if (str.length === 0) return '0';
+    for (i = 0; i < str.length; i++) {
+      chr = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + chr;
+      hash |= 0; // convert to 32-bit int
+    }
+    // hex string
+    return ('00000000' + (hash >>> 0).toString(16)).slice(-8);
+  }
+
+  let lastApprovedHash = null;
+
+  function updateStatus() {
+    if (!autoToggle.checked) {
+      autoStatus.textContent = 'Auto-verification is disabled.';
+      autoStatus.style.borderColor = 'var(--border)';
+      return;
+    }
+
+    const value = watchedInput.value.trim();
+
+    // No text yet
+    if (!value) {
+      autoStatus.textContent = 'Waiting for input...';
+      autoStatus.style.borderColor = 'var(--border)';
+      if (rgacEl) {
+        rgacEl.innerHTML = '<em>Provide input to begin...</em>';
+      }
+      lastApprovedHash = null;
+      return;
+    }
+
+    const currentHash = simpleHash(value);
+
+    // First time: treat as approved baseline
+    if (!lastApprovedHash) {
+      lastApprovedHash = currentHash;
+      autoStatus.textContent =
+        '✅ Baseline approved. HVET demo hash = ' + currentHash;
+      autoStatus.style.borderColor = '#16a34a'; // green
+
+      if (rgacEl) {
+        rgacEl.textContent = 'Block 1  →  ' + currentHash;
+      }
+      return;
+    }
+
+    // Subsequent edits: compare to baseline
+    if (currentHash === lastApprovedHash) {
+      autoStatus.textContent =
+        '✅ No drift detected. Output still matches last approved hash.';
+      autoStatus.style.borderColor = '#16a34a';
+      if (rgacEl) {
+        rgacEl.textContent = 'Block 1  →  ' + currentHash + '  (no drift)';
+      }
+    } else {
+      autoStatus.textContent =
+        '⚠️ Drift detected. New output no longer matches the last approved hash.';
+      autoStatus.style.borderColor = '#f97316'; // orange
+      if (rgacEl) {
+        rgacEl.textContent =
+          'Block 1  →  ' + lastApprovedHash +
+          '  →  Block 2 (drift)  →  ' + currentHash;
+      }
+    }
+  }
+
+  // Re-run when text changes or the toggle is flipped
+  watchedInput.addEventListener('input', updateStatus);
+  autoToggle.addEventListener('change', updateStatus);
+
+  // Initial render
+  updateStatus();
+})();
+</script>
+
+  
 </body>
 </html>
