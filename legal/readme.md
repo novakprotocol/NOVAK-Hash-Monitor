@@ -14,12 +14,3 @@ Contents:
 
 - **NOVAK_LICENSE_SUMMARY.md**  
   Plain-English breakdown of rights, restrictions, and required attribution.
-
-- **COPYRIGHT_REGISTRATION_GUIDE.md**  
-  Step-by-step legal instructions for filing NOVAK with the U.S. Copyright Office.
-
-- **TRADEMARK_REGISTRATION_GUIDE.md**  
-  Instructions for registering NOVAK™ and related terms as official trademarks.
-
-These documents collectively define the authoritative legal position of the
-NOVAK Protocol and all derivative works.
