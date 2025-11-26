@@ -17,6 +17,92 @@
 
   <style>
 
+/* =============================== */
+/* NOVAK Documentation Dropdown    */
+/* =============================== */
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-btn {
+  padding: 7px 16px;
+  font-size: 14px;
+  border-radius: 999px;
+  border: 1px solid var(--blue);
+  background: transparent;
+  cursor: pointer;
+  color: var(--blue);
+  transition: 0.25s;
+  white-space: nowrap;
+}
+
+.dropdown-btn:hover {
+  background: var(--blue);
+  color: #fff;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 42px;
+  right: 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  min-width: 310px;
+  box-shadow: 0 4px 18px rgba(0,0,0,.25);
+  z-index: 99999;
+  padding: 10px 0;
+}
+
+.dropdown-header {
+  font-weight: 700;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 10px 18px;
+  font-size: 14px;
+  color: var(--text);
+  text-decoration: none;
+  transition: 0.12s;
+  white-space: nowrap;
+}
+
+.dropdown-content a:hover {
+  background: rgba(26,79,179,0.10);
+}
+
+.dropdown-divider {
+  margin: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+/* DARK MODE SUPPORT */
+html[data-theme="dark"] .dropdown-btn {
+  color: #fff;
+  border-color: #fff;
+}
+
+html[data-theme="dark"] .dropdown-btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+html[data-theme="dark"] .dropdown-content {
+  background: var(--card-dark);
+  border-color: var(--border-dark);
+}
+
+html[data-theme="dark"] .dropdown-content a:hover {
+  background: #1e293b;
+}
+
+    
 /* ========== FIX TOP GAP (B) ========== */
 html {
   scroll-padding-top: 50px; /* header height */
@@ -401,6 +487,44 @@ html[data-theme="dark"] .aud-btn.active {
     </div>
     <button id="mobileMenuBtn" onclick="toggleMobileMenu()">☰</button>
   </div>
+
+<!-- ===== Documentation Dropdown Button ===== -->
+<div class="dropdown">
+  <button class="dropdown-btn" onclick="toggleDocsMenu()">Docs ▼</button>
+
+  <div id="docsMenu" class="dropdown-content">
+    <div class="dropdown-header">NOVAK Documentation</div>
+
+    <!-- PARTS 1–10 -->
+    <a href="docs/Part-1_Executive_summary.md" target="_blank">PART 1 — Executive Summary</a>
+    <a href="docs/PART-2_What-NOVAK-Is.md" target="_blank">PART 2 — What NOVAK Is</a>
+    <a href="docs/PART-3_Scientific_Foundations.md" target="_blank">PART 3 — Scientific Foundations</a>
+    <a href="docs/PART-4_Formal_Architecture.md" target="_blank">PART 4 — Formal Architecture</a>
+    <a href="docs/PART-5_System_Model.md" target="_blank">PART 5 — System Model</a>
+    <a href="docs/PART-6_Implementation_Layers.md" target="_blank">PART 6 — Implementation Layers</a>
+    <a href="docs/PART-7_Security_Model.md" target="_blank">PART 7 — Security Model</a>
+    <a href="docs/PART-8_Governance_and_Compliance.md" target="_blank">PART 8 — Governance & Compliance</a>
+    <a href="docs/PART-9_Formal_Whitepaper.md" target="_blank">PART 9 — Formal Whitepaper</a>
+    <a href="docs/PART-10_Final_Summary_Use_Cases.md" target="_blank">PART 10 — Final Summary + Use Cases</a>
+
+    <div class="dropdown-divider"></div>
+
+    <!-- APPENDICES -->
+    <a href="docs/Appendix-A_Glossary.md" target="_blank">Appendix A — Glossary</a>
+    <a href="docs/Appendix-B_Mathematical_Notation_Guide.md" target="_blank">Appendix B — Math Notation</a>
+    <a href="docs/Appendix-C_Regulatory_Mapping.md" target="_blank">Appendix C — Regulatory Mapping</a>
+    <a href="docs/Appendix-D_Threat_Model_and_Security_Proof.md" target="_blank">Appendix D — Threat Model</a>
+    <a href="docs/Appendix-E_Government_Pitch_Deck.md" target="_blank">Appendix E — Pitch Deck</a>
+    <a href="docs/Appendix-F_High_School_Level_Explanation_of_the_NOVAK_PROTOCOL.md" target="_blank">Appendix F — High School Explanation</a>
+
+    <div class="dropdown-divider"></div>
+
+    <!-- Legal -->
+    <a href="docs/LICENSE-NOVAK.txt" target="_blank">LICENSE-NOVAK</a>
+    <a href="docs/SECURITY.md" target="_blank">SECURITY.md</a>
+  </div>
+</div>
+  
 </header>
 
 <!-- ✅ MOBILE DROPDOWN -->
@@ -1792,6 +1916,28 @@ SHA-256: ${sha}
 
 This proves what existed, when, and under what rules.`;
 }
+
+/* ===============================
+   Documentation Dropdown
+================================ */
+function toggleDocsMenu() {
+  const menu = document.getElementById("docsMenu");
+  const isOpen = menu.style.display === "block";
+  menu.style.display = isOpen ? "none" : "block";
+}
+
+// auto-close dropdown when clicking outside
+document.addEventListener("click", function (e) {
+  const menu = document.getElementById("docsMenu");
+  const button = document.querySelector(".dropdown-btn");
+
+  if (!menu || !button) return;
+
+  if (!menu.contains(e.target) && !button.contains(e.target)) {
+    menu.style.display = "none";
+  }
+});
+
 
 /* ============================
    WALKTHROUGH MODE
