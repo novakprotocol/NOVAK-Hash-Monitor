@@ -1,0 +1,302 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{fullpage}
+\usepackage{mathrsfs}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{enumitem}
+
+\title{\textbf{NOVAK Protocol — Formal Mathematical Appendix}\\
+\large Deterministic Execution Integrity, HVET/EIR/RGAC, and Safety Gate Model}
+\author{Matthew S. Novak (2025)}
+\date{}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+\newpage
+
+% ---------------------------------------------------------
+\section{Introduction}
+% ---------------------------------------------------------
+
+This appendix provides the complete formal mathematical foundation of the
+NOVAK Protocol: a deterministic proof-before-action execution–integrity system
+governing autonomous computation, regulatory logic evaluation, and machine-level decision handling.
+
+The appendix defines:
+
+\begin{itemize}
+  \item Deterministic execution mapping
+  \item Cryptographic binding equations (HVET)
+  \item Execution Identity Receipt (EIR)
+  \item Recursive Global Audit Chain (RGAC)
+  \item Safety Gate functions (logical, physical, and psycho-social)
+  \item Drift-space, ambiguity-space, and deception-space models
+  \item Constraint sets defining legal, regulatory, and interpretive invariants
+\end{itemize}
+
+This appendix is normative and mathematically authoritative.
+
+% ---------------------------------------------------------
+\section{Global Definitions}
+% ---------------------------------------------------------
+
+Let:
+
+\begin{itemize}
+  \item $\mathcal{D}$ : The attested input domain  
+  \item $\mathcal{R}$ : The governing rule domain  
+  \item $\mathcal{O}$ : The output domain  
+  \item $\mathcal{T}$ : The timestamp domain  
+  \item $\mathcal{I}$ : The execution-identity domain  
+  \item $H(\cdot)$ : A cryptographic hash function (e.g., SHA-256)  
+  \item $\oplus$ : Concatenation operator  
+  \item $\mathcal{C}$ : RGAC chain  
+  \item $\mathcal{S}$ : Safety Gate state  
+\end{itemize}
+
+NOVAK defines a deterministic tri-mapping:
+
+\[
+f : (\mathcal{D},\mathcal{R}) \rightarrow \mathcal{O}
+\]
+
+subject to purity constraints.
+
+% ---------------------------------------------------------
+\section{Equation 1 — Deterministic Purity Law}
+% ---------------------------------------------------------
+
+For any rule set $R \in \mathcal{R}$ and input $D \in \mathcal{D}$:
+
+\[
+f(D,R) = O
+\quad\text{and}\quad
+f(D,R) = O' \implies O = O'
+\]
+
+No stochastic behavior is permitted.
+
+% ---------------------------------------------------------
+\section{Equation 2 — Rule Non-Malleability}
+% ---------------------------------------------------------
+
+A rule $R$ is non-malleable if:
+
+\[
+H(R) = H(R') \implies R = R'
+\]
+
+Hence, rule identity is hash-equivalent to rule content.
+
+% ---------------------------------------------------------
+\section{Equation 3 — Input Non-Malleability}
+% ---------------------------------------------------------
+
+\[
+H(D) = H(D') \implies D = D'
+\]
+
+No silent alteration of inputs may occur.
+
+% ---------------------------------------------------------
+\section{Equation 4 — Output Non-Malleability}
+% ---------------------------------------------------------
+
+\[
+H(O) = H(O') \implies O = O'
+\]
+
+Together, Eq. 2–4 form the “Immutable Triplet.”
+
+% ---------------------------------------------------------
+\section{Equation 5 — Hash-Verified Execution Trace (HVET)}
+% ---------------------------------------------------------
+
+The HVET value is defined as:
+
+\[
+HVET = H\big( H(R) \oplus H(D) \oplus H(O) \oplus T \big)
+\]
+
+This binds the entire computation into one irreversible token.
+
+% ---------------------------------------------------------
+\section{Equation 6 — Execution Identity Receipt (EIR)}
+% ---------------------------------------------------------
+
+An EIR is a tuple:
+
+\[
+EIR = (ID, H(R), H(D), H(O), T, HVET)
+\]
+
+where:
+
+\[
+ID = H(\mathcal{I})
+\]
+
+is the hashed execution identity (machine, user, model, agent).
+
+% ---------------------------------------------------------
+\section{Equation 7 — RGAC Linking Function}
+% ---------------------------------------------------------
+
+Let $\mathcal{C} = (EIR_1, EIR_2, \dots, EIR_n)$.
+
+A chain entry is linked as:
+
+\[
+Link_i = H\big(HVET_i \oplus HVET_{i-1}\big)
+\]
+
+with $HVET_0 = GENESIS$.
+
+% ---------------------------------------------------------
+\section{Equation 8 — Full RGAC Entry}
+% ---------------------------------------------------------
+
+Each RGAC entry is:
+
+\[
+RGAC_i = \big(EIR_i, Link_i, Link_{i-1}\big)
+\]
+
+forming a recursive lineage of computation.
+
+% ---------------------------------------------------------
+\section{Equation 9 — Safety Gate Function}
+% ---------------------------------------------------------
+
+Let $S$ be the safety-gate decision function:
+
+\[
+S(D,R,O) =
+  \begin{cases}
+    1 & \text{if valid and no violation detected} \\
+    0 & \text{otherwise}
+  \end{cases}
+\]
+
+The Safety Gate governs execution permission.
+
+% ---------------------------------------------------------
+\section{Equation 10 — PL-X Physical Drift Bound}
+% ---------------------------------------------------------
+
+Let $\Delta_{phys}$ represent physical-layer drift (timing, voltage, metastability):
+
+\[
+\Delta_{phys} \leq \epsilon_{phys}
+\]
+
+Execution is permitted iff:
+
+\[
+\epsilon_{phys} < \epsilon_{threshold}
+\]
+
+% ---------------------------------------------------------
+\section{Equation 11 — PS-X Psycho-Social Manipulation Bound}
+% ---------------------------------------------------------
+
+Let $\Delta_{ps}$ represent deceptive or adversarial manipulations:
+
+\[
+\Delta_{ps} \leq \epsilon_{ps}
+\]
+
+Violation:
+
+\[
+\Delta_{ps} > \epsilon_{ps} \implies S(D,R,O) = 0
+\]
+
+% ---------------------------------------------------------
+\section{Equation 12 — Composite High-Assurance Integrity Constraint}
+% ---------------------------------------------------------
+
+NOVAK requires:
+
+\[
+S(D,R,O) = 1 \iff
+\begin{cases}
+\Delta_{phys} \leq \epsilon_{phys} \\
+\Delta_{ps} \leq \epsilon_{ps} \\
+HVET \text{ verified} \\
+RGAC \text{ recursion valid}
+\end{cases}
+\]
+
+% ---------------------------------------------------------
+\section{Equation 13 — Proof-Before-Action Final Law}
+% ---------------------------------------------------------
+
+Execution may only occur if:
+
+\[
+Execute(D,R) \iff S(D,R,f(D,R)) = 1
+\]
+
+Else:
+
+\[
+Execute(D,R) = \varnothing
+\]
+
+This is the NOVAK foundational enforcement rule.
+
+% ---------------------------------------------------------
+\section{Drift-Space Formalization}
+% ---------------------------------------------------------
+
+Define a drift space:
+
+\[
+\mathscr{D} = \{ \delta : D \rightarrow D' \mid H(D) \neq H(D') \}
+\]
+
+NOVAK prohibits undetected movement through $\mathscr{D}$.
+
+% ---------------------------------------------------------
+\section{Ambiguity-Space Formalization}
+% ---------------------------------------------------------
+
+Define ambiguity space:
+
+\[
+\mathscr{A} = \{ D \mid D \text{ interpreted differently by } R_1, R_2 \}
+\]
+
+NOVAK requires:
+
+\[
+|\mathscr{A}| = 0
+\]
+
+after rule normalization.
+
+% ---------------------------------------------------------
+\section{Deception-Space Formalization}
+% ---------------------------------------------------------
+
+\[
+\mathscr{S}_{adv} = \{ (D,R) \rightarrow O' \mid O' \neq f(D,R) \}
+\]
+
+NOVAK enforces:
+
+\[
+\forall O' \in \mathscr{S}_{adv},\; S(D,R,O') = 0
+\]
+
+% ---------------------------------------------------------
+\section{Conclusion}
+% ---------------------------------------------------------
+
+These equations formalize the mathematical invariants underlying the NOVAK Protocol’s deterministic execution, cryptographic binding, and cross-domain safety guarantees.
+
+\end{document}
