@@ -856,7 +856,7 @@ NOVAK does not collect, store, transmit, or retain data, but user responsibility
 </div>
 
 </div>
-
+  
 <!-- ✅ HASH OUTPUT -->
 <div class="card" style="margin-top:22px;">
   <h3 class="section-title" style="font-size:20px;">Cryptographic Hashes</h3>
@@ -867,6 +867,56 @@ NOVAK does not collect, store, transmit, or retain data, but user responsibility
   </div>
 </div>
 
+  <!-- ✅ AUTO-VERIFICATION TOGGLE -->
+<div class="card" style="margin-top:32px;">
+  <label style="display:flex; align-items:center; gap:10px; font-size:16px;">
+    <input type="checkbox" id="autoVerifyToggle" checked>
+    <strong>Enable Proof-Before-Action Engine (NOVAK Auto-Verification)</strong>
+  </label>
+  <p style="margin-top:6px; font-size:14px; opacity:0.8;">
+    When enabled, NOVAK automatically checks whether any change breaks integrity 
+    <strong>before</strong> execution.
+  </p>
+</div>
+
+
+<!-- ✅ AUTO-INJECT PROOF-BEFORE-ACTION DEMO -->
+<div class="card" style="margin-top:22px;">
+  <h3 class="section-title" style="font-size:20px;">
+    NOVAK Auto-Verification — Proof-Before-Action
+  </h3>
+
+  <p>
+    Modify the text above and NOVAK instantly checks whether the new output
+    still matches the last approved cryptographic truth.
+  </p>
+
+  <div id="autoVerifyStatus"
+       style="margin-top:14px; 
+              font-family:'JetBrains Mono', monospace; 
+              font-size:15px;
+              padding:14px;
+              border-radius:8px;
+              background:var(--card);
+              border:1px solid var(--border);">
+    Waiting for input...
+  </div>
+</div>
+  
+  <!-- ✅ RGAC VISUALIZATION -->
+<div class="card" style="margin-top:22px;">
+  <h3 class="section-title" style="font-size:20px;">RGAC — Recursive Global Audit Chain</h3>
+
+  <p style="margin-bottom:12px;">
+    In NOVAK, every approved output becomes the next input — forming a self-verifying integrity chain.
+  </p>
+
+  <div id="rgac"
+       style="font-family:'JetBrains Mono', monospace; font-size:14px;">
+    <em>Provide input to begin...</em>
+  </div>
+</div>
+  
 <div class="card" style="margin-top:26px;">
   <h2 class="section-title">What Can I Actually Do With This Hash?</h2>
 
@@ -1063,56 +1113,6 @@ NOVAK does not collect, store, transmit, or retain data, but user responsibility
   <p style="margin-top:16px; font-weight:600;">
     That is the NOVAK invention.
   </p>
-</div>
-
-  <!-- ✅ AUTO-VERIFICATION TOGGLE -->
-<div class="card" style="margin-top:32px;">
-  <label style="display:flex; align-items:center; gap:10px; font-size:16px;">
-    <input type="checkbox" id="autoVerifyToggle" checked>
-    <strong>Enable Proof-Before-Action Engine (NOVAK Auto-Verification)</strong>
-  </label>
-  <p style="margin-top:6px; font-size:14px; opacity:0.8;">
-    When enabled, NOVAK automatically checks whether any change breaks integrity 
-    <strong>before</strong> execution.
-  </p>
-</div>
-
-
-<!-- ✅ AUTO-INJECT PROOF-BEFORE-ACTION DEMO -->
-<div class="card" style="margin-top:22px;">
-  <h3 class="section-title" style="font-size:20px;">
-    NOVAK Auto-Verification — Proof-Before-Action
-  </h3>
-
-  <p>
-    Modify the text above and NOVAK instantly checks whether the new output
-    still matches the last approved cryptographic truth.
-  </p>
-
-  <div id="autoVerifyStatus"
-       style="margin-top:14px; 
-              font-family:'JetBrains Mono', monospace; 
-              font-size:15px;
-              padding:14px;
-              border-radius:8px;
-              background:var(--card);
-              border:1px solid var(--border);">
-    Waiting for input...
-  </div>
-</div>
-  
-  <!-- ✅ RGAC VISUALIZATION -->
-<div class="card" style="margin-top:22px;">
-  <h3 class="section-title" style="font-size:20px;">RGAC — Recursive Global Audit Chain</h3>
-
-  <p style="margin-bottom:12px;">
-    In NOVAK, every approved output becomes the next input — forming a self-verifying integrity chain.
-  </p>
-
-  <div id="rgac"
-       style="font-family:'JetBrains Mono', monospace; font-size:14px;">
-    <em>Provide input to begin...</em>
-  </div>
 </div>
 
 <!-- ✅ FILE DRAG & DROP VERIFICATION -->
