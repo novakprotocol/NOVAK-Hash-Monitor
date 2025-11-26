@@ -2134,68 +2134,7 @@ startStoryMode = function() {
   clearInterval(storyInterval);
   _startStoryMode();    // now increments properly
 };
-
-<!-- =============================================== -->
-<!-- NOVAK Option C — Isolated Proof-Before-Action JS -->
-<!-- =============================================== -->
-<script>
-(function NOVAK_OPTION_C() {
-
-  /* ↓↓↓ Paste the entire Option-C script here ↓↓↓ */
-
-  /* ============================================================
-     NOVAK Protocol — Enhanced Cryptographic Simulator (Option C)
-     Full Proof-Before-Action Engine
-     Includes HVET, EIR, RGAC, Safety Gate, PL-X, PS-X
-     All local; no backend required
-     ============================================================ */
-
-  /* ---------- GLOBAL STATE ---------- */
-  let lastApprovedHVET = null;
-  let rgacChain = [];
-  let lastApprovedText = "";
-
-  /* ---------- SHA-256 Helper ---------- */
-  async function sha256(input) { ... }
-
-  /* ---------- Generate full HVET ---------- */
-  async function generateHVET(...) { ... }
-
-  /* ---------- EIR ---------- */
-  function createEIR(...) { ... }
-
-  /* ---------- RGAC Append ---------- */
-  function appendToRGAC(...) { ... }
-
-  /* ---------- Render RGAC ---------- */
-  function renderRGAC() { ... }
-
-  /* ---------- Safety Gate ---------- */
-  function safetyGateChecks(text) { ... }
-
-  /* ---------- Auto Verification ---------- */
-  async function runAutoVerification(newText) { ... }
-
-  function approveNewState(...) { ... }
-  async function approveFromUser(...) { ... }
-
-  /* ---------- Escape helper ---------- */
-  function escapeJS(str) { ... }
-
-  /* ---------- Global monitor ---------- */
-  let lastObservedText = "";
-
-document.getElementById("novakInput").addEventListener("input", (e) => {
-    runAutoVerification(e.target.value);
-});
-
-
-  /* ↑↑↑ END pasted Option-C engine ↑↑↑ */
-
-})();
-</script>
-
-
+  
 </script>
  
 </body>
