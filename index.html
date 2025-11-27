@@ -959,7 +959,7 @@ html[data-theme="dark"] .aud-btn.active {
   </div>
 </div>
   
-  <!-- ✅ RGAC VISUALIZATION -->
+<!-- ✅ RGAC VISUALIZATION -->
 <div class="card" style="margin-top:22px;">
   <h3 class="section-title" style="font-size:20px;">RGAC — Recursive Global Audit Chain</h3>
 
@@ -974,82 +974,77 @@ html[data-theme="dark"] .aud-btn.active {
 </div>
 
 <!-- =============================================== -->
-<!-- ✅ COLLAPSIBLE VERIFICATION SUITE (DEFAULT CLOSED) -->
+<!-- ✅ COLLAPSIBLE VERIFICATION SUITE -->
 <!-- =============================================== -->
 
-<details class="novak-collapse" style="margin-top:32px;">
-  <summary style="cursor:pointer; font-size:18px; padding:14px 0;">
-    🔐 Upload & Verify Files (Click to Expand)
-  </summary>
+<div class="card" style="margin-top:32px; padding:20px;">
+  <details class="novak-collapse">
+    <summary style="cursor:pointer; font-size:18px; padding:14px 0;">
+      🔐 Upload & Verify Files (Click to Expand)
+    </summary>
 
-  <div class="card" style="margin-top:12px; padding:28px;">
+    <div class="collapse-inner">
 
-    <h2 class="section-title" style="font-size:22px; margin-bottom:18px;">
-      Universal Verification Suite
-    </h2>
+      <h2 class="section-title" style="font-size:22px; margin-bottom:18px;">
+        Universal Verification Suite
+      </h2>
 
-    <p style="font-size:14px; opacity:0.9;">
-      Upload any file or structured dataset — NOVAK proves it hasn’t silently changed before execution.
-    </p>
+      <p style="font-size:14px; opacity:0.9;">
+        Upload any file or structured dataset — NOVAK proves it hasn’t silently changed before execution.
+      </p>
 
-    <!-- ============================= -->
-    <!-- VERIFY ANY FILE -->
-    <!-- ============================= -->
-    <h3 style="margin-top:28px; font-size:18px;">Verify Any File</h3>
+      <!-- VERIFY ANY FILE -->
+      <h3 style="margin-top:28px; font-size:18px;">Verify Any File</h3>
 
-    <p style="margin-top:6px; font-size:13px; opacity:0.85;">
-      🚫 Never use real patients, real claims, or real medical documents here — training data only.
-    </p>
+      <p style="margin-top:6px; font-size:13px; opacity:0.85;">
+        🚫 Never use real patients, real claims, or real medical documents here — training data only.
+      </p>
 
-    <p>
-      Upload a PDF, medical record, scanned document, CSV, screenshot, or legal filing —
-      NOVAK proves originality instantly using real cryptography.
-    </p>
+      <p>
+        Upload a PDF, medical record, scanned document, CSV, screenshot, or legal filing —
+        NOVAK proves originality instantly using real cryptography.
+      </p>
 
-    <div id="dropzone"
-        style="margin-top:14px; padding:22px; border:2px dashed var(--border);
-              border-radius:10px; text-align:center; cursor:pointer;">
-      📁 Drop file here or click to select
-      <input id="fileInput" type="file" style="display:none;">
+      <div id="dropzone"
+          style="margin-top:14px; padding:22px; border:2px dashed var(--border);
+                border-radius:10px; text-align:center; cursor:pointer;">
+        📁 Drop file here or click to select
+        <input id="fileInput" type="file" style="display:none;">
+      </div>
+
+      <div id="fileHashResult"
+          style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></div>
+
+      <hr style="margin:32px 0; border:0; border-top:1px solid var(--border); opacity:0.6;">
+
+      <!-- VALIDATE STRUCTURED DATA -->
+      <h3 style="margin-top:0; font-size:18px;">Validate Structured Data</h3>
+
+      <p style="font-size:13px; opacity:0.85;">
+        🚫 Never use real patients, real claims, or real medical documents here — training data only.
+      </p>
+
+      <p>
+        Upload JSON, SQL, XML, or TXT — NOVAK proves the structured data hasn’t changed before execution.
+      </p>
+
+      <input id="structuredFile"
+            type="file"
+            accept=".json,.sql,.xml,.txt"
+            style="margin-top:16px;">
+
+      <pre id="structuredResult"
+          style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></pre>
+
     </div>
+  </details>
+</div>
 
-    <div id="fileHashResult"
-        style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></div>
+<!-- =============================================== -->
+<!-- ✅ INTEGRITY RECEIPT (NOT COLLAPSIBLE) -->
+<!-- =============================================== -->
 
-
-    <!-- ============================= -->
-    <!-- DIVIDER -->
-    <!-- ============================= -->
-    <hr style="margin:32px 0; border:0; border-top:1px solid var(--border); opacity:0.6;">
-
-
-    <!-- ============================= -->
-    <!-- VALIDATE STRUCTURED DATA -->
-    <!-- ============================= -->
-    <h3 style="margin-top:0; font-size:18px;">Validate Structured Data</h3>
-
-    <p style="font-size:13px; opacity:0.85;">
-      🚫 Never use real patients, real claims, or real medical documents here — training data only.
-    </p>
-
-    <p>
-      Upload JSON, SQL, XML, or TXT — NOVAK proves the structured data hasn’t changed before execution.
-    </p>
-
-    <input id="structuredFile"
-          type="file"
-          accept=".json,.sql,.xml,.txt"
-          style="margin-top:16px;">
-
-    <pre id="structuredResult"
-        style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></pre>
-
-  </div>
-</details>
-
-
-<!-- ✅ INTEGRITY RECEIPT -->
-<div class="card" style="margin-top:32px;">
+<div class="card" style="margin-top:32px; padding:20px;">
   <h2 class="section-title">Integrity Receipt</h2>
 
   <p>
@@ -1062,55 +1057,54 @@ html[data-theme="dark"] .aud-btn.active {
   </button>
 
   <pre id="receiptOutput"
-       style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px; white-space:pre-wrap;"></pre>
+      style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px; white-space:pre-wrap;"></pre>
 </div>
-  
-<details class="novak-collapse">
-  <summary>📌 What Can I Actually Do With This Hash?</summary>
 
-  <div class="collapse-inner">
+<!-- =============================================== -->
+<!-- 📌 WHAT CAN I DO WITH THIS HASH? -->
+<!-- =============================================== -->
 
-  <p>
-    Think of the hash as a <strong>digital fingerprint</strong> — a unique, unforgeable identifier
-    of the exact text or file you verified.
-  </p>
+<div class="card" style="margin-top:28px; padding:20px;">
+  <details class="novak-collapse">
+    <summary>📌 What Can I Actually Do With This Hash?</summary>
 
-    <h3 style="margin-top:14px;">What a normal person can do with it:</h3>
-  
-    <ul style="margin-left:20px; margin-top:10px; line-height:1.55;">
-    <li><strong>Prove “this is the exact thing I had before.”</strong><br></li>
-    Copy it and save it somewhere safe.<br>
-        Paste into an email, document, claim note, or evidence file as:<br>
+    <div class="collapse-inner">
+
+      <p>
+        Think of the hash as a <strong>digital fingerprint</strong> — a unique, unforgeable identifier
+        of the exact text or file you verified.
+      </p>
+
+      <h3 style="margin-top:14px;">What a normal person can do with it:</h3>
+
+      <ul style="margin-left:20px; margin-top:10px; line-height:1.55;">
+        <li><strong>Prove “this is the exact thing I had before.”</strong></li>
+        Copy it and save it somewhere safe.<br>
+        Paste into an email, document, claim note, or evidence file:<br>
         <code>NOVAK Integrity Hash (SHA-256): &lt;your hash&gt;</code>
-    </li>
 
-    <li style="margin-top:10px;"><strong>Later, paste the SAME text/file back in.</strong><br>
-        Paste the identical content back into NOVAK.<br>
-        • If the hash <strong>matches</strong> → ✅ nothing changed.<br>
-        • If the hash <strong>differs</strong> → 🟥 content was altered (even by one invisible character).</li>
+        <li style="margin-top:10px;"><strong>Later, paste the SAME text/file back in.</strong><br>
+            If the hash <strong>matches</strong> → nothing changed.<br>
+            If the hash <strong>differs</strong> → altered (even one invisible character).</li>
 
-    <li style="margin-top:12px;"><strong>Use it as mathematical proof.</strong><br>
-        This provides a cryptographic guarantee that the claim, record, log, or file
-        hasn't been silently changed between two points in time.</li>
+        <li style="margin-top:12px;"><strong>Use it as mathematical proof.</strong></li>
 
-    <li style="margin-top:10px;"><strong>Catch invisible changes.</strong><br>
-        Even a space or dot changes the hash completely — exposing silent edits that steal money,
-        reduce ratings, alter decisions, or manipulate claims.</li>
+        <li style="margin-top:10px;"><strong>Catch invisible changes.</strong></li>
 
-    <li style="margin-top:10px;"><strong>Anchor a moment in time.</strong><br>
-        “On this date, this exact text existed.” Courts, audits, and oversight can recompute the hash
-        anytime to prove authenticity.</li>
-  </ul>
+        <li style="margin-top:10px;"><strong>Anchor a moment in time.</strong></li>
+      </ul>
 
-  <p style="margin-top:16px; font-weight:600;">
-    👉 In short: <strong>Save the hash, compare it later. If it matches, nothing has changed.</strong><br><br>
-    The hash is your before/after truth anchor.
-  </p>
-  <p style="margin-top:16px;">
-    <strong>In full NOVAK deployments:</strong> Systems are <em>not even allowed to act</em> unless the hashes match the last approved truth.
-  </p>
-  </div>
-</details>
+      <p style="margin-top:16px; font-weight:600;">
+        👉 <strong>Save the hash. Compare it later. If it matches — nothing has changed.</strong>
+      </p>
+
+      <p style="margin-top:16px;">
+        <strong>In full NOVAK deployments:</strong> Systems <em>cannot act</em> unless the hashes match the last approved truth.
+      </p>
+
+    </div>
+  </details>
+</div>
   
 <!-- ====================================================== -->
 <!-- COLLAPSIBLE: WHY CAN'T I PASTE THE HASH BACK IN?       -->
