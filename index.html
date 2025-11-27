@@ -1006,92 +1006,106 @@ html[data-theme="dark"] .aud-btn.active {
   </p>
   </div>
 
-  <div class="card" style="margin-top:26px;">
-  <h2 class="section-title">Why Can't I Paste the Hash Back In?</h2>
+<!-- ====================================================== -->
+<!-- COLLAPSIBLE: WHY CAN'T I PASTE THE HASH BACK IN?       -->
+<!-- ====================================================== -->
+<div class="card" style="margin-top:28px; padding:20px;">
+  <details>
+    <summary style="cursor:pointer; font-size:18px; font-weight:600;">
+      🔒 Why Can't I Paste the Hash Back In?
+    </summary>
 
-  <p>
-    A cryptographic hash is a <strong>one-way fingerprint</strong>. 
-    When you paste the <em>hash itself</em> into the box, NOVAK creates a 
-    <strong>new hash of the hash</strong> — it does <em>not</em> recover the original text.
-  </p>
+    <div style="margin-top:16px; font-size:15px; line-height:1.55;">
 
-  <p style="margin-top:12px;">
-    That is expected. No cryptographic hash (SHA-256, SHA-512, SHA-3, etc.) is reversible.
-  </p>
+      <p>
+        A cryptographic hash is a <strong>one-way fingerprint</strong>.  
+        When you paste the <em>hash itself</em> into the box, NOVAK creates a 
+        <strong>new hash of the hash</strong> — it does <em>not</em> recover the original text.
+      </p>
 
-  <h3 style="margin-top:16px;">So what do you actually do with a saved hash?</h3>
+      <p>
+        That is expected. No cryptographic hash (SHA-256, SHA-512, SHA-3, etc.) is reversible.
+      </p>
 
-  <ul style="margin-left:20px; margin-top:10px; line-height:1.6;">
-    <li><strong>Save the hash</strong> somewhere safe (email, PDF, note, claim file).</li>
+      <h4 style="margin-top:16px;">So what do you actually do with a saved hash?</h4>
 
-    <li style="margin-top:10px;">
-      Later, paste the <strong>original text or file</strong> back into NOVAK.
-    </li>
+      <ul>
+        <li>✔ Save the <strong>hash somewhere safe</strong> (email, PDF, note, claim file).</li>
+        <li>✔ Later, paste the <strong>original text or file</strong> back into NOVAK.</li>
+      </ul>
 
-    <li style="margin-top:10px;">
-      If the hash <strong>matches</strong> → nothing changed.<br>
-      If the hash <strong>does not match</strong> → something was changed 
-      (even one invisible character).
-    </li>
-  </ul>
+      <p>If the hash <strong>matches</strong> → nothing changed.</p>
+      <p>If the hash <strong>does not match</strong> → something was changed (even one invisible character).</p>
 
-  <p style="margin-top:16px; font-weight:600;">
-    👉 Pasting the hash itself is not the correct way.<br><br>
-    You always re-verify by re-entering the <strong>original content</strong>.
-  </p>
+      <p>⚠️ <strong>Pasting the hash itself is not the correct way.</strong></p>
 
-  <p style="margin-top:8px;">
-    In a full NOVAK deployment, this process is automatic — systems cannot act 
-    unless their current hash matches the last approved truth.
-  </p>
+      <p>
+        You always re-verify by <strong>re-entering the original content</strong>.
+      </p>
+
+      <p>
+        In a full NOVAK deployment, this is automatic — systems cannot act unless their current hash 
+        matches the last approved truth.
+      </p>
+
+    </div>
+  </details>
 </div>
+
   
-<!-- ========================================= -->
-<!-- GPU, Hashing, and Why NOVAK Is Different   -->
-<!-- ========================================= -->
+<!-- ====================================================== -->
+<!-- COLLAPSIBLE: HOW NOVAK COMPUTES HASHES                 -->
+<!-- ====================================================== -->
+<div class="card" style="margin-top:28px; padding:20px;">
+  <details>
+    <summary style="cursor:pointer; font-size:18px; font-weight:600;">
+      ⚙️ How NOVAK Computes Hashes — And Why This Matters
+    </summary>
 
-<div class="card" style="margin-top:32px;">
-  <h2 class="section-title">How NOVAK Computes Hashes — And Why This Matters</h2>
+    <div style="margin-top:16px; font-size:15px; line-height:1.55;">
 
-  <h3 style="margin-top:14px;">Are These Real Cryptographic Hashes?</h3>
-  <p>
-    ✔ <strong>YES.</strong>  
-    Your browser is using the <strong>WebCrypto API</strong> — the same cryptographic engine used by:
-  </p>
+      <h4>Are These Real Cryptographic Hashes?</h4>
 
-  <ul style="margin-left:20px;">
-    <li>Google Chrome internal security modules</li>
-    <li>Apple WebKit encryption</li>
-    <li>Federal FIPS-validatable cryptographic paths</li>
-    <li>Progressive Web Apps (PWAs)</li>
-  </ul>
-  <br>
-  <p>
-    Nothing is sent to a server.  
-    Nothing leaves your device.  
-    Everything runs <strong>locally, client-side, instantly.</strong>
-  </p>
+      <p><strong>✔ YES.</strong> Your browser is using the 
+      <strong>WebCrypto API</strong> — the same cryptographic engine used by:</p>
 
-  <h3 style="margin-top:18px;">Why Isn’t My GPU Being Used?</h3>
-  <p>
-    ✔ GPUs are not used for SHA-256/384/512 because hashing is not a parallel-friendly operation.
-  </p>
-  <br>
-  <p>
-    ✔ The browser delegates hashing to <strong>CPU hardware acceleration</strong>, not your graphics card.
-  </p>
+      <ul>
+        <li>Google Chrome internal security modules</li>
+        <li>Apple WebKit encryption</li>
+        <li>Federal FIPS-validatable cryptographic paths</li>
+        <li>Progressive Web Apps (PWAs)</li>
+      </ul>
 
-  <p style="margin-top:6px;">
-    <strong>Hashing uses:</strong><br>
-    • CPU<br>
-    • Hardware-accelerated WebCrypto<br><br>
-    <strong>NOT GPU compute.</strong>
-  </p>
+      <p>
+        Nothing is sent to a server. Nothing leaves your device.  
+        Everything runs <strong>locally, client-side, instantly</strong>.
+      </p>
 
-  <p>
-    This is exactly what makes NOVAK strong — it uses <em>verified, standard, secure cryptographic primitives</em> already supported at the hardware level.
-  </p>
+      <h4 style="margin-top:16px;">Why Isn’t My GPU Being Used?</h4>
+
+      <ul>
+        <li>✔ GPUs are not used for SHA-256/384/512 because hashing is not a parallel-friendly operation.</li>
+        <li>✔ The browser delegates hashing to <strong>CPU hardware acceleration</strong>, not your graphics card.</li>
+      </ul>
+
+      <h4>Hashing uses:</h4>
+
+      <ul>
+        <li>✔ CPU</li>
+        <li>✔ Hardware-accelerated WebCrypto</li>
+      </ul>
+
+      <p><strong>NOT GPU compute.</strong></p>
+
+      <p>
+        This is exactly what makes NOVAK strong — it uses 
+        <strong>verified, standard, secure cryptographic primitives</strong> already supported at the hardware level.
+      </p>
+
+    </div>
+  </details>
 </div>
+
 
 <!-- ====================================================== -->
 <!-- COLLAPSIBLE: HOW IS THIS DIFFERENT THAN TODAY?         -->
