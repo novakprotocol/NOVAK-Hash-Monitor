@@ -184,31 +184,39 @@ body {
       --border: var(--border-light);
     }
 
-    /* Dark Mode */
-    html[data-theme="dark"] {
-      --bg: var(--bg-dark);
-      --text: var(--text-dark);
-      --card: var(--card-dark);
-      --border: var(--border-dark);
-    }
+   /* Dark Mode */
+html[data-theme="dark"] {
+  --bg: var(--bg-dark);
+  --text: var(--text-dark);
+  --card: var(--card-dark);
+  --border: var(--border-dark);
+}
 
-    /* Ensure readable buttons in Dark Mode */
-    html[data-theme="dark"] .explain-btn,
-    html[data-theme="dark"] .action-btn,
-    html[data-theme="dark"] .theme-toggle,
-    html[data-theme="dark"] .aud-btn {
-      color: #ffffff !important;
-      border-color: #ffffff !important;
-    }
+/* Ensure readable buttons in Dark Mode */
+html[data-theme="dark"] .explain-btn,
+html[data-theme="dark"] .action-btn,
+html[data-theme="dark"] .theme-toggle,
+html[data-theme="dark"] .aud-btn {
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
 
-    html[data-theme="dark"] .theme-toggle:hover {
-      background: #ffffff;
-      color: #000000 !important;
-    }
+html[data-theme="dark"] .theme-toggle:hover {
+  background: #ffffff;
+  color: #000000 !important;
+}
 
-    html[data-theme="dark"] .card {
-      color: var(--text-dark);
-    }
+html[data-theme="dark"] .card {
+  color: var(--text-dark);
+}
+
+/* ✅ NEW: keep active audience button readable in dark mode */
+html[data-theme="dark"] .aud-btn.active {
+  background: #ffffff;
+  color: #000000 !important;   /* dark text on white pill */
+  border-color: #ffffff;
+  box-shadow: 0 0 0 2px #ffffff;
+}
 
     /* ====================================================================== */
     /* ✅ STICKY HEADER — CENTERED BRAND + SITE + THEME TOGGLE                */
