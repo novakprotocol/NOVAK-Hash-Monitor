@@ -863,10 +863,6 @@ html[data-theme="dark"] .aud-btn.active {
 
 <!-- ✅ PART 2 — Try It + Hash Engine + Example Data + File Drop + VIN + Games -->
 
-<!-- ✅ TRY IT — LIVE HASH INPUT -->
-<div class="card" style="margin-top:38px;">
-  <h2 class="section-title">Try It — Prove Integrity Yourself</h2>
-
 <!-- =============================================== -->
 <!-- ✅ COLLAPSIBLE TEST EXAMPLE — PREMIUM EDITION -->
 <!-- =============================================== -->
@@ -1001,6 +997,144 @@ html[data-theme="dark"] .aud-btn.active {
   </div>
 </details>
 
+
+
+<!-- ===================================================== -->
+<!-- ⭐ NEW DROPDOWN: WHAT IS SHA? (6th Grade + Full Technical) -->
+<!-- ===================================================== -->
+
+<details class="novak-collapse" style="margin-top:26px;">
+  <summary style="cursor:pointer; font-size:17px; padding:10px 0;">
+    ❓ What Is SHA? (Simple + Technical)
+  </summary>
+
+  <div class="card" style="padding:20px; margin-top:10px; line-height:1.6; font-size:16px;">
+
+    <!-- ===================================================== -->
+    <!-- 1 — SIMPLE EXPLANATION -->
+    <!-- ===================================================== -->
+
+    <h3 style="margin-top:0;">🟦 1. Super Simple (6th Grade Version)</h3>
+
+    <p>
+      <strong>SHA</strong> stands for <strong>Secure Hash Algorithm</strong>.  
+      It’s like a super-powerful digital blender for information.
+    </p>
+
+    <p>
+      Put in any data — a word, a VIN, a file, a claim, a photo — and SHA creates  
+      a <strong>unique 64-character code</strong> called a <strong>hash</strong>.
+    </p>
+
+    <p>
+      Change even <em>one letter</em>, and the entire hash becomes completely different.  
+      This is called the <strong>avalanche effect</strong>.
+    </p>
+
+    <p style="font-style:italic;">
+      A hash is like a magic seal that tells you if anything has been changed.
+    </p>
+
+
+    <hr style="margin:22px 0; opacity:0.35;">
+
+
+    <!-- ===================================================== -->
+    <!-- 2 — SHA FAMILY: TYPES & SECURITY LEVELS -->
+    <!-- ===================================================== -->
+
+    <h3>🟪 2. SHA Types, Versions & Security</h3>
+
+    <p>The SHA family has several versions, each with different security levels:</p>
+
+    <ul style="margin-left:20px;">
+      <li><strong>SHA-1 — ❌ Broken</strong><br>
+          Collisions have been demonstrated. No longer safe.</li>
+
+      <li style="margin-top:8px;">
+        <strong>SHA-256 — ✅ Industry Standard</strong><br>
+        Most widely used secure hash. Fast. Extremely reliable. FIPS-approved.
+      </li>
+
+      <li style="margin-top:8px;">
+        <strong>SHA-384 — ✅ High-security variant</strong><br>
+        Used with DoD “Suite-B” ECC-384 cryptography.
+      </li>
+
+      <li style="margin-top:8px;">
+        <strong>SHA-512 — 🔐 Strongest in the SHA-2 family</strong><br>
+        Twice the internal state size of SHA-256.
+      </li>
+
+      <li style="margin-top:8px;">
+        <strong>SHA-3-256 — 🔬 Newest design</strong><br>
+        Sponge function (Keccak). Resistant to different attack classes.
+      </li>
+    </ul>
+
+
+    <hr style="margin:22px 0; opacity:0.35;">
+
+
+    <!-- ===================================================== -->
+    <!-- 3 — WHERE EACH SHA IS USED IN REAL LIFE -->
+    <!-- ===================================================== -->
+
+    <h3>🟩 3. Where These Hashes Are Used (Real-World Examples)</h3>
+
+    <ul style="margin-left:20px;">
+
+      <li><strong>VA, Federal Agencies, Healthcare Systems</strong><br>
+          → SHA-256 (FIPS 180-4) for integrity logs, secure audit trails, document verification.</li>
+
+      <li style="margin-top:10px;">
+        <strong>Banking, Finance, IRS, Loan Processing</strong><br>
+        → SHA-256 + SHA-512 for digital signatures, secure messaging, record integrity.</li>
+
+      <li style="margin-top:10px;">
+        <strong>TLS/HTTPS Security Certificates</strong><br>
+        → SHA-256 / SHA-384 for browser trust chains.</li>
+
+      <li style="margin-top:10px;">
+        <strong>DoD / National Security</strong><br>
+        → SHA-384 (ECC-384 Suite-B)</li>
+
+      <li style="margin-top:10px;">
+        <strong>Blockchain (Bitcoin, Ethereum)</strong><br>
+        → Bitcoin uses SHA-256 (mining + transactions).  
+        → Ethereum uses Keccak (close to SHA-3).</li>
+
+    </ul>
+
+
+    <hr style="margin:22px 0; opacity:0.35;">
+
+
+    <!-- ===================================================== -->
+    <!-- 4 — WHY NOVAK USES SHA-256 (AUTHORITATIVE REASONING) -->
+    <!-- ===================================================== -->
+
+    <h3>🟦 4. Why NOVAK Uses SHA-256 (Authoritative Justification)</h3>
+
+    <p>NOVAK uses <strong>SHA-256</strong> as the primary hash function because:</p>
+
+    <ul style="margin-left:20px;">
+      <li>✔ <strong>FIPS-approved</strong> (federally recognized)</li>
+      <li>✔ <strong>Collision-resistant</strong> (practically impossible to fake)</li>
+      <li>✔ <strong>Deterministic</strong> every time</li>
+      <li>✔ <strong>Hardware-accelerated</strong> in all modern CPUs</li>
+      <li>✔ <strong>Supported in WebCrypto</strong> (no server needed)</li>
+      <li>✔ <strong>Fast enough for real-time decision gating</strong></li>
+      <li>✔ <strong>Trusted across government, finance, healthcare, and security</strong></li>
+    </ul>
+
+    <p style="margin-top:14px;">
+      In full NOVAK deployments, <strong>systems are not allowed to act</strong>  
+      unless SHA-256 proves that the data, rule, and output match the last known truth.
+    </p>
+
+  </div>
+</details>
 
 <!-- ======================================================= -->
 <!-- STYLES for HASH BOXES, META, BUTTONS, WARN STATES -->
