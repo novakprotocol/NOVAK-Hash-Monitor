@@ -1160,52 +1160,117 @@ html[data-theme="dark"] .aud-btn.active {
   </p>
 </div>
 
-<!-- ========================================= -->
+<<!-- ========================================= -->
 <!-- 💻 HOW NOVAK SURVIVES PACKET SNIFFING     -->
 <!-- ========================================= -->
 <div class="card" style="margin-top:28px; padding:20px;">
   <details>
     <summary style="cursor:pointer; font-size:18px; font-weight:600;">
-      💻 How NOVAK Survives Packet Sniffing, MITM & Traffic Capture
+      💻 How NOVAK Survives Packet Sniffing (Explained for Everyone)
     </summary>
+
     <div style="margin-top:16px; font-size:15px; line-height:1.55;">
-      <p><strong>Short answer:</strong> You can packet-sniff NOVAK all day — you still can't cheat it.</p>
+      
+      <h3 style="font-size:17px; margin-bottom:8px;">🧒 What is Packet Sniffing? (6th Grade Explanation)</h3>
 
-      <p>NOVAK is not secrecy-based (like TLS or encryption).  
-      It is <strong>mathematical integrity–based</strong>. Sniffing the traffic lets attackers <em>observe</em>,  
-      but they cannot alter or forge anything.</p>
-
-      <h4>🔍 What packet sniffing actually sees</h4>
-      <ul>
-        <li>Input text</li>
-        <li>Output text</li>
-        <li>The hash (HVET)</li>
-        <li>The execution receipt (EIR)</li>
-      </ul>
-
-      <p>There are no keys, no shared secrets, no privileged tokens — nothing to steal.</p>
-
-      <h4>🚫 What attackers <em>cannot</em> do</h4>
-      <ul>
-        <li>They cannot forge a new HVET (hash mismatch)</li>
-        <li>They cannot forge a valid EIR (receipt mismatch)</li>
-        <li>They cannot bypass the Safety Gate</li>
-        <li>They cannot MITM the rule → output → receipt chain</li>
-        <li>They cannot force NOVAK to accept drifted or corrupted output</li>
-      </ul>
-
-      <h4>🛡 Why sniffing doesn't help</h4>
-      <p>NOVAK binds <strong>input + rule + output</strong> cryptographically.  
-      Any change instantly breaks verification. Observing packets gives no advantage.</p>
-
-      <h4>📌 Final word</h4>
       <p>
-        Traditional systems fail when sniffed because they rely on secrecy.  
-        NOVAK succeeds because it relies on <strong>mathematical correctness</strong>.
+        Imagine you're passing a note to your friend in class.  
+        A kid in the middle tries to peek at the note while it moves across the room.
       </p>
+
+      <p>
+        <strong>Packet sniffing</strong> is the computer version of that.  
+        Someone tries to look at the messages (the “packets”) computers send across the internet.
+      </p>
+
+      <p>
+        Packet sniffing can:
+        <ul>
+          <li>See what was sent</li>
+          <li>See what was received</li>
+          <li>Watch the communication happen</li>
+        </ul>
+      </p>
+
+      <p>
+        But here’s the important part:
+        <strong>Just seeing the note doesn’t let you change the note</strong>  
+        — and that’s where NOVAK wins.
+      </p>
+
+      <hr style="margin:22px 0; opacity:0.4;">
+
+      <h3 style="font-size:17px; margin-bottom:8px;">🔧 What Packet Sniffing Sees (Technical)</h3>
+
+      <p>
+        Sniffers like Wireshark or tcpdump can observe:
+      </p>
+
+      <ul>
+        <li>📨 Input text</li>
+        <li>📤 Output text</li>
+        <li>🔐 HVET hash (public)</li>
+        <li>🧾 EIR receipt (public)</li>
+      </ul>
+
+      <p>There are <strong>no secret keys or tokens</strong> to steal.</p>
+
+      <hr style="margin:22px 0; opacity:0.4;">
+
+      <h3 style="font-size:17px; margin-bottom:8px;">🚫 What Attackers Still Cannot Do</h3>
+      <ul>
+        <li>They cannot forge a hash — HVET won't match</li>
+        <li>They cannot fake an EIR — receipt won't match</li>
+        <li>They cannot inject modified output — Safety Gate rejects it</li>
+        <li>They cannot MITM the rule → output → receipt chain</li>
+        <li>They cannot drift the content — auto-verification catches it</li>
+      </ul>
+
+      <p>
+        NOVAK treats any mismatch as a failure →  
+        <strong>the system stops instead of acting on bad data.</strong>
+      </p>
+
+      <hr style="margin:22px 0; opacity:0.4;">
+
+      <h3 style="font-size:17px; margin-bottom:8px;">🛡 Why Sniffing Doesn't Help (The Core NOVAK Insight)</h3>
+
+      <p>
+        NOVAK binds <strong>input + rule + output</strong> with HVET and verifies everything
+        <strong>before</strong> execution.
+      </p>
+
+      <p>Even if an attacker sees the data, they cannot:</p>
+
+      <ul>
+        <li>Change it</li>
+        <li>Reorder it</li>
+        <li>Modify it secretly</li>
+        <li>Insert fake results</li>
+      </ul>
+
+      <p>
+        Because the moment anything changes,  
+        <strong>NOVAK's cryptographic truth no longer matches</strong> — the system freezes.
+      </p>
+
+      <hr style="margin:22px 0; opacity:0.4;">
+
+      <h3 style="font-size:17px; margin-bottom:8px;">📌 Final Word</h3>
+
+      <p>
+        Traditional systems break when sniffed because they rely on secrecy.
+        NOVAK doesn't rely on secrecy — it relies on <strong>mathematical correctness</strong>.
+      </p>
+
+      <p style="margin-top:8px;"><strong>
+        Sniff all you want — you cannot bypass NOVAK without breaking math.
+      </strong></p>
+
     </div>
   </details>
 </div>
+
 
 
 <!-- ✅ AI TRANSPARENCY MODE -->
