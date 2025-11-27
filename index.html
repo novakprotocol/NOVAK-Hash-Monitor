@@ -906,44 +906,80 @@ html[data-theme="dark"] .aud-btn.active {
   </div>
 </div>
 
-<!-- ✅ FILE DRAG & DROP VERIFICATION -->
-<div class="card" style="margin-top:22px;">
-  <h3 class="section-title" style="font-size:20px;">Verify Any File</h3>
+<!-- =============================================== -->
+<!-- ✅ COLLAPSIBLE VERIFICATION SUITE (DEFAULT CLOSED) -->
+<!-- =============================================== -->
 
-<p style="margin-top:6px; font-size:13px; opacity:0.85;">
-🚫 Never use real patients, real claims, or real medical documents here — training data only.
-</p>
-  <p>
-    Upload a PDF, medical record, scanned document, CSV, screenshot, legal filing —
-    NOVAK proves originality instantly using real cryptography.
-  </p>
+<details class="novak-collapse" style="margin-top:32px;">
+  <summary style="cursor:pointer; font-size:18px; padding:14px 0;">
+    🔐 Upload & Verify Files (Click to Expand)
+  </summary>
 
-  <div id="dropzone"
-       style="margin-top:14px; padding:22px; border:2px dashed var(--border);
+  <div class="card" style="margin-top:12px; padding:28px;">
+
+    <h2 class="section-title" style="font-size:22px; margin-bottom:18px;">
+      Universal Verification Suite
+    </h2>
+
+    <p style="font-size:14px; opacity:0.9;">
+      Upload any file or structured dataset — NOVAK proves it hasn’t silently changed before execution.
+    </p>
+
+    <!-- ============================= -->
+    <!-- VERIFY ANY FILE -->
+    <!-- ============================= -->
+    <h3 style="margin-top:28px; font-size:18px;">Verify Any File</h3>
+
+    <p style="margin-top:6px; font-size:13px; opacity:0.85;">
+      🚫 Never use real patients, real claims, or real medical documents here — training data only.
+    </p>
+
+    <p>
+      Upload a PDF, medical record, scanned document, CSV, screenshot, or legal filing —
+      NOVAK proves originality instantly using real cryptography.
+    </p>
+
+    <div id="dropzone"
+        style="margin-top:14px; padding:22px; border:2px dashed var(--border);
               border-radius:10px; text-align:center; cursor:pointer;">
-    📁 Drop file here or click to select
-    <input id="fileInput" type="file" style="display:none" />
+      📁 Drop file here or click to select
+      <input id="fileInput" type="file" style="display:none;">
+    </div>
+
+    <div id="fileHashResult"
+        style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></div>
+
+
+    <!-- ============================= -->
+    <!-- DIVIDER -->
+    <!-- ============================= -->
+    <hr style="margin:32px 0; border:0; border-top:1px solid var(--border); opacity:0.6;">
+
+
+    <!-- ============================= -->
+    <!-- VALIDATE STRUCTURED DATA -->
+    <!-- ============================= -->
+    <h3 style="margin-top:0; font-size:18px;">Validate Structured Data</h3>
+
+    <p style="font-size:13px; opacity:0.85;">
+      🚫 Never use real patients, real claims, or real medical documents here — training data only.
+    </p>
+
+    <p>
+      Upload JSON, SQL, XML, or TXT — NOVAK proves the structured data hasn’t changed before execution.
+    </p>
+
+    <input id="structuredFile"
+          type="file"
+          accept=".json,.sql,.xml,.txt"
+          style="margin-top:16px;">
+
+    <pre id="structuredResult"
+        style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></pre>
+
   </div>
+</details>
 
-  <div id="fileHashResult"
-       style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></div>
-</div>
-
-<!-- ✅ STRUCTURED DATA VALIDATION -->
-<div class="card" style="margin-top:32px;">
-  <h2 class="section-title">Validate Structured Data</h2>
-
-  <p>🚫 Never use real patients, real claims, or real medical documents here — training data only.</p>
-  <p>Upload JSON, SQL, XML, or TXT — NOVAK proves it hasn’t changed before execution.</p>
-
-  <input id="structuredFile"
-         type="file"
-         accept=".json,.sql,.xml,.txt"
-         style="margin-top:16px;">
-
-  <pre id="structuredResult"
-       style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></pre>
-</div>
 
 <!-- ✅ INTEGRITY RECEIPT -->
 <div class="card" style="margin-top:32px;">
