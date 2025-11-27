@@ -999,139 +999,179 @@ html[data-theme="dark"] .aud-btn.active {
 
 
 
-<!-- ===================================================== -->
-<!-- ⭐ NEW DROPDOWN: WHAT IS SHA? (Simple + Full Technical) -->
-<!-- ===================================================== -->
+<!-- ======================================================= -->
+<!-- ⭐ NOVAK SHA EDUCATION SUITE — SINGLE EXPANDABLE MODULE -->
+<!-- ======================================================= -->
 
-<details class="novak-collapse" style="margin-top:26px;">
-  <summary style="cursor:pointer; font-size:17px; padding:10px 0;">
-    ❓ What Is SHA? (Simple + Technical)
+<details class="novak-collapse" style="margin-top:32px;">
+  <summary style="cursor:pointer; font-size:18px; padding:12px 0;">
+    ❓ What Is SHA? — Simple → Technical → Diagrams → NOVAK Use
   </summary>
 
-  <div class="card" style="padding:20px; margin-top:10px; line-height:1.6; font-size:16px;">
+  <div class="card" style="padding:26px; margin-top:16px; font-size:16px; line-height:1.6;">
 
-    <!-- ===================================================== -->
-    <!-- 1 — SIMPLE EXPLANATION -->
-    <!-- ===================================================== -->
-
-    <h3 style="margin-top:0;">🟦 1. Super Simple</h3>
-
-    <p>
-      <strong>SHA</strong> stands for <strong>Secure Hash Algorithm</strong>.  
-      It’s like a super-powerful digital blender for information.
-    </p>
+    <!-- =================================================== -->
+    <!-- 1. SIMPLE / 6TH GRADE EXPLANATION -->
+    <!-- =================================================== -->
+    <h2 style="margin-top:0;">🟦 1. SHA Explained (6th Grade Level)</h2>
 
     <p>
-      Put in any data — a word, a VIN, a file, a claim, a photo — and SHA creates  
-      a <strong>unique 64-character code</strong> called a <strong>hash</strong>.
+      <strong>SHA</strong> stands for <strong>Secure Hash Algorithm</strong>.
+      Think of it like putting information into a magic blender:
+    </p>
+
+    <pre class="diagram-box">
+INPUT  →  [ SHA Blender ]  →  UNIQUE OUTPUT
+    </pre>
+
+    <p>
+      You can put in:
+      <br>• A word  
+      • A VA claim  
+      • A VIN  
+      • A PDF  
+      • A medical note  
+      • A whole book
     </p>
 
     <p>
-      Change even <em>one letter</em>, and the entire hash becomes completely different.  
-      This is called the <strong>avalanche effect</strong>.
+      SHA turns it into a <strong>64-character fingerprint</strong>.
     </p>
 
-    <p style="font-style:italic;">
-      A hash is like a magic seal that tells you if anything has been changed.
+    <p style="font-weight:600;">
+      Change even ONE letter → the entire fingerprint becomes totally different.
     </p>
 
 
-    <hr style="margin:22px 0; opacity:0.35;">
+    <!-- =================================================== -->
+    <!-- 2. SHA FAMILY OVERVIEW WITH COLOR CODE -->
+    <!-- =================================================== -->
+    <hr style="margin:26px 0; opacity:0.35;">
 
+    <h2>🟪 2. The SHA Family (Versions & Security)</h2>
 
-    <!-- ===================================================== -->
-    <!-- 2 — SHA FAMILY: TYPES & SECURITY LEVELS -->
-    <!-- ===================================================== -->
-
-    <h3>🟪 2. SHA Types, Versions & Security</h3>
-
-    <p>The SHA family has several versions, each with different security levels:</p>
-
-    <ul style="margin-left:20px;">
-      <li><strong>SHA-1 — ❌ Broken</strong><br>
-          Collisions have been demonstrated. No longer safe.</li>
-
-      <li style="margin-top:8px;">
-        <strong>SHA-256 — ✅ Industry Standard</strong><br>
-        Most widely used secure hash. Fast. Extremely reliable. FIPS-approved.
-      </li>
-
-      <li style="margin-top:8px;">
-        <strong>SHA-384 — ✅ High-security variant</strong><br>
-        Used with DoD “Suite-B” ECC-384 cryptography.
-      </li>
-
-      <li style="margin-top:8px;">
-        <strong>SHA-512 — 🔐 Strongest in the SHA-2 family</strong><br>
-        Twice the internal state size of SHA-256.
-      </li>
-
-      <li style="margin-top:8px;">
-        <strong>SHA-3-256 — 🔬 Newest design</strong><br>
-        Sponge function (Keccak). Resistant to different attack classes.
-      </li>
-    </ul>
-
-
-    <hr style="margin:22px 0; opacity:0.35;">
-
-
-    <!-- ===================================================== -->
-    <!-- 3 — WHERE EACH SHA IS USED IN REAL LIFE -->
-    <!-- ===================================================== -->
-
-    <h3>🟩 3. Where These Hashes Are Used (Real-World Examples)</h3>
-
-    <ul style="margin-left:20px;">
-
-      <li><strong>VA, Federal Agencies, Healthcare Systems</strong><br>
-          → SHA-256 (FIPS 180-4) for integrity logs, secure audit trails, document verification.</li>
-
-      <li style="margin-top:10px;">
-        <strong>Banking, Finance, IRS, Loan Processing</strong><br>
-        → SHA-256 + SHA-512 for digital signatures, secure messaging, record integrity.</li>
-
-      <li style="margin-top:10px;">
-        <strong>TLS/HTTPS Security Certificates</strong><br>
-        → SHA-256 / SHA-384 for browser trust chains.</li>
-
-      <li style="margin-top:10px;">
-        <strong>DoD / National Security</strong><br>
-        → SHA-384 (ECC-384 Suite-B)</li>
-
-      <li style="margin-top:10px;">
-        <strong>Blockchain (Bitcoin, Ethereum)</strong><br>
-        → Bitcoin uses SHA-256 (mining + transactions).  
-        → Ethereum uses Keccak (close to SHA-3).</li>
-
-    </ul>
-
-
-    <hr style="margin:22px 0; opacity:0.35;">
-
-
-    <!-- ===================================================== -->
-    <!-- 4 — WHY NOVAK USES SHA-256 (AUTHORITATIVE REASONING) -->
-    <!-- ===================================================== -->
-
-    <h3>🟦 4. Why NOVAK Uses SHA-256 (Authoritative Justification)</h3>
-
-    <p>NOVAK uses <strong>SHA-256</strong> as the primary hash function because:</p>
-
-    <ul style="margin-left:20px;">
-      <li>✔ <strong>FIPS-approved</strong> (federally recognized)</li>
-      <li>✔ <strong>Collision-resistant</strong> (practically impossible to fake)</li>
-      <li>✔ <strong>Deterministic</strong> every time</li>
-      <li>✔ <strong>Hardware-accelerated</strong> in all modern CPUs</li>
-      <li>✔ <strong>Supported in WebCrypto</strong> (no server needed)</li>
-      <li>✔ <strong>Fast enough for real-time decision gating</strong></li>
-      <li>✔ <strong>Trusted across government, finance, healthcare, and security</strong></li>
-    </ul>
-
-    <p style="margin-top:14px;">
-      In full NOVAK deployments, <strong>systems are not allowed to act</strong>  
-      unless SHA-256 proves that the data, rule, and output match the last known truth.
+    <p>
+      SHA has several generations, from old and broken → to modern and secure.
     </p>
+
+    <div class="sha-table">
+
+      <div class="sha-row">
+        <div class="sha-name sha-broken">SHA-1</div>
+        <div class="sha-desc">❌ Broken — collisions discovered, unsafe</div>
+      </div>
+
+      <div class="sha-row">
+        <div class="sha-name sha-good">SHA-256</div>
+        <div class="sha-desc">✅ Modern standard — fast, secure, FIPS-approved</div>
+      </div>
+
+      <div class="sha-row">
+        <div class="sha-name sha-good">SHA-384</div>
+        <div class="sha-desc">🔐 Used in DoD Suite-B ECC-384 cryptography</div>
+      </div>
+
+      <div class="sha-row">
+        <div class="sha-name sha-good">SHA-512</div>
+        <div class="sha-desc">🔒 Strongest classic SHA-2 variant (512-bit state)</div>
+      </div>
+
+      <div class="sha-row">
+        <div class="sha-name sha-new">SHA-3</div>
+        <div class="sha-desc">🧪 Newest generation (Keccak sponge function)</div>
+      </div>
+
+    </div>
+
+
+    <!-- =================================================== -->
+    <!-- 3. REAL-WORLD USAGE MAP (DIAGRAM) -->
+    <!-- =================================================== -->
+    <hr style="margin:26px 0; opacity:0.35;">
+
+    <h2>🟩 3. Where SHA Is Used in Real Life</h2>
+
+    <pre class="diagram-box">
+VA / Federal Agencies     → SHA-256
+Healthcare Systems        → SHA-256
+Banking & IRS             → SHA-256 / SHA-512
+TLS / HTTPS Certificates  → SHA-256 / SHA-384
+DoD / National Security   → SHA-384
+Bitcoin                   → SHA-256
+Ethereum                  → Keccak (SHA-3 family)
+    </pre>
+
+    <p>
+      SHA is everywhere you trust: websites, banking, government, military,
+      cybersecurity, even your phone.
+    </p>
+
+
+    <!-- =================================================== -->
+    <!-- 4. TECHNICAL BREAKDOWN (BIT WIDTH, OUTPUT, SPEED) -->
+    <!-- =================================================== -->
+    <hr style="margin:26px 0; opacity:0.35;">
+
+    <h2>🧠 4. Technical Breakdown (For Engineers & Auditors)</h2>
+
+    <pre class="diagram-box">
+Algorithm: SHA-256  
+Output:    256-bit digest  
+Length:    64 hex characters  
+Speed:     Hardware accelerated (Intel / AMD / ARM)  
+FIPS:      Approved (FIPS 180-4)
+Use:       Integrity, digital signatures, decision-gating
+    </pre>
+
+    <p>
+      SHA-256 is collision-resistant:  
+      <strong>No one on earth can create two different documents with the same hash.</strong>
+    </p>
+
+
+    <!-- =================================================== -->
+    <!-- 5. AVALANCHE EFFECT (DIAGRAM) -->
+    <!-- =================================================== -->
+    <hr style="margin:26px 0; opacity:0.35;">
+
+    <h2>⚡ 5. Avalanche Effect (Why SHA Is Powerful)</h2>
+
+    <pre class="diagram-box">
+"TEST" → 94ee0593...
+"TeST" → 8d3b72f1...
+"test" → 9f86d081...
+
+ONE tiny change → COMPLETELY different hash.
+    </pre>
+
+    <p>
+      This is why SHA reveals invisible tampering that humans cannot see.
+    </p>
+
+
+    <!-- =================================================== -->
+    <!-- 6. WHY NOVAK USES SHA-256 (FORMAL JUSTIFICATION) -->
+    <!-- =================================================== -->
+    <hr style="margin:26px 0; opacity:0.35;">
+
+    <h2>🔵 6. Why NOVAK Chooses SHA-256</h2>
+
+    <p>NOVAK uses <strong>SHA-256</strong> because it is:</p>
+
+    <ul style="margin-left:20px;">
+      <li>✔ FIPS-approved and federally recognized</li>
+      <li>✔ Supported in WebCrypto (no server, instant verification)</li>
+      <li>✔ Resistant to collisions and tampering</li>
+      <li>✔ Hardware-accelerated on all major CPUs</li>
+      <li>✔ Fast enough for real-time execution gating</li>
+      <li>✔ Trustable across VA, DoD, finance, security, and industry</li>
+    </ul>
+
+    <p style="margin-top:12px; font-weight:600;">
+      In full NOVAK deployments:
+      <br><strong>No system may ACT unless SHA-256 proves the data is unchanged.</strong>
+    </p>
+
 
   </div>
 </details>
