@@ -962,8 +962,10 @@ html[data-theme="dark"] .aud-btn.active {
        style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px; white-space:pre-wrap;"></pre>
 </div>
   
-<div class="card" style="margin-top:26px;">
-  <h2 class="section-title">What Can I Actually Do With This Hash?</h2>
+<details class="novak-collapse">
+  <summary>📌 What Can I Actually Do With This Hash?</summary>
+
+  <div class="collapse-inner">
 
   <p>
     Think of the hash as a <strong>digital fingerprint</strong> — a unique, unforgeable identifier
@@ -1005,7 +1007,8 @@ html[data-theme="dark"] .aud-btn.active {
     <strong>In full NOVAK deployments:</strong> Systems are <em>not even allowed to act</em> unless the hashes match the last approved truth.
   </p>
   </div>
-
+</details>
+  
 <!-- ====================================================== -->
 <!-- COLLAPSIBLE: WHY CAN'T I PASTE THE HASH BACK IN?       -->
 <!-- ====================================================== -->
@@ -1320,66 +1323,57 @@ html[data-theme="dark"] .aud-btn.active {
 </div>
 
 <!-- ✅ COMPARISON SECTION -->
-<div class="card"
-     style="margin-top:48px; font-size:15px; line-height:1.63;">
-  <h2 class="section-title">Why TLS, Blockchain & Bitcoin Cannot Prevent Automated Harm — but NOVAK Can</h2>
+<details class="novak-collapse">
+  <summary>🔍 Why TLS, Blockchain & Bitcoin Cannot Prevent Automated Harm — but NOVAK Can</summary>
 
-  <h3 style="margin-top:18px;">❌ TLS / SSL</h3>
-  <ul style="margin-left:20px;">
+  <div class="collapse-inner">
+
+  <h4>❌ TLS / SSL</h4>
+  <ul>
     <li>Encrypts transmission — not correctness</li>
     <li>Assumes data and rules are already valid</li>
     <li>Cannot stop wrongful automation</li>
+    <li>Protects communication — not decisions</li>
   </ul>
-  ✅ Protects communication — not decisions.
 
-  <h3 style="margin-top:18px;">❌ Blockchain</h3>
-  <ul style="margin-left:20px;">
+  <h4>❌ Blockchain</h4>
+  <ul>
     <li>Records history after execution</li>
     <li>Slow, expensive, consensus-dependent</li>
-    <li>Stores corrupted decisions forever</li>
+    <li>Cannot fix wrong decisions already made</li>
+    <li>Makes immutable logs — not integrity</li>
   </ul>
-  ✅ Creates immutable logs — not integrity.
 
-  <h3 style="margin-top:18px;">❌ Bitcoin & Cryptocurrency</h3>
-  <ul style="margin-left:20px;">
+  <h4>❌ Bitcoin & Cryptocurrency</h4>
+  <ul>
     <li>Designed for ownership & payments</li>
-    <li>Not legally, medically, or operationally authoritative</li>
+    <li>Not medical, legal, or operationally authoritative</li>
     <li>Solves accounting — not correctness</li>
+    <li>Proves who paid — not whether a decision was right</li>
   </ul>
-  ✅ Proves who paid — not whether a decision was right.
 
-  <h3 style="margin-top:18px;">❌ Logging, Audits, SIEM</h3>
-  <ul style="margin-left:20px;">
+  <h4>❌ Logging, Audits & SIEM</h4>
+  <ul>
     <li>Detect failure AFTER damage</li>
     <li>Human investigation required</li>
-    <li>No prevention, only forensics</li>
-  </ul>
-  ✅ Finds harm — doesn't stop it.
-
-  <h3 style="margin-top:22px;">✅ NOVAK Protocol</h3>
-  <ul style="margin-left:20px; font-weight:600;">
-    <li>Requires mathematical proof-before-action</li>
-    <li>Cryptographically binds input → rule → output</li>
-    <li>Blocks execution if ANYTHING changes</li>
-    <li>Produces tamper-proof receipts instantly</li>
-    <li>No blockchain, tokens, mining, or consensus required</li>
-    <li>Runs locally, offline, universally</li>
+    <li>Finds harm — doesn’t stop it</li>
   </ul>
 
-  ✅ Protects humans, veterans, patients, taxpayers, agencies & national security.
-</div>
+  <h3>✅ NOVAK Protocol</h3>
 
-<!-- ✅ EXECUTIVE REPORT EXPORT -->
-<div class="card" style="margin-top:36px;">
-  <h2 class="section-title">Generate Executive Report</h2>
-  <p>A clean, one-page NOVAK briefing for policymakers, executives, and investors.</p>
+  <ul>
+    <li>Requires mathematical <strong>proof-before-action</strong></li>
+    <li>Binds input → rule → output cryptographically</li>
+    <li><strong>Blocks execution</strong> if anything changes</li>
+    <li>Generates tamper-proof receipts instantly</li>
+    <li>No tokens, mining, blockchain, or consensus</li>
+    <li>Runs locally, offline, everywhere</li>
+    <li>Protects humans, veterans, taxpayers, and national security</li>
+  </ul>
 
-  <button class="action-btn"
-          onclick="exportBriefing()"
-          style="margin-top:12px;">
-    📄 Export Executive Report
-  </button>
-</div>
+  </div>
+</details>
+
 
   <div class="card" style="margin-top:36px;">
       <h1>Deterministic Execution Integrity</h1>
