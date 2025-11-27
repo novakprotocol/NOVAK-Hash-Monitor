@@ -467,6 +467,38 @@ html[data-theme="dark"] .aud-btn.active {
         display: block;
       }
     }
+
+    /* =============================== */
+/* Expert Mode Buttons & Heatmap   */
+/* =============================== */
+
+.digest-btn {
+  margin-right: 8px;
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  background: none;
+  color: var(--text);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.digest-btn:hover {
+  background: var(--border);
+}
+
+/* Heatmap Colors */
+.bit-same {
+  width: 100%;
+  height: 12px;
+  background: #4ade80; /* green */
+}
+
+.bit-diff {
+  width: 100%;
+  height: 12px;
+  background: #ef4444; /* red */
+}
+
   </style>
 </head>
 
@@ -1093,6 +1125,103 @@ ${mutated}
   document.getElementById("avalancheOutput").innerText = result;
 }
 
+/* ========================================================= */
+/* MODE 1 — LIVE HASHING                                     */
+/* ========================================================= */
+async function computeSHA(text) {
+  const enc = new TextEncoder().encode(text);
+  const buf = await crypto.subtle.digest("SHA-256", enc);
+  return Array.from(new Uint8Array(buf))
+      .map(b => b.toString(16).padStart(2, "0"))
+      .join("");
+}
+
+document.getElementById("expertInput").addEventListener("input", async e => {
+  const hash = await computeSHA(e.target.value);
+  document.getElementById("expertHash").textContent = "SHA-256 → " + hash;
+  updateDigestOutputs(hash);
+});
+
+/* ========================================================= */
+/* MODE 2 — DIGEST VIEWER                                    */
+/* ========================================================= */
+let currentDigest = "";
+
+function updateDigestOutputs(hex) {
+  currentDigest = hex;
+  showDigestFormat("hex");
+}
+
+function showDigestFormat(type) {
+  if (!currentDigest) return;
+
+  if (type === "hex") {
+    document.getElementById("digestOutput").textContent = currentDigest;
+  }
+
+  if (type === "binary") {
+    document.getElementById("digestOutput").textContent =
+      currentDigest.split("")
+        .map(c => parseInt(c, 16).toString(2).padStart(4, "0"))
+        .join("");
+  }
+
+  if (type === "base64") {
+    const bytes = currentDigest.match(/.{2}/g).map(x => parseInt(x, 16));
+    const bin = new Uint8Array(bytes);
+    document.getElementById("digestOutput").textContent =
+      btoa(String.fromCharCode(...bin));
+  }
+}
+
+/* ========================================================= */
+/* MODE 3 — HEATMAP                                          */
+/* ========================================================= */
+async function computeHeatmap() {
+  const a = document.getElementById("heatA").value;
+  const b = document.getElementById("heatB").value;
+  const hA = await computeSHA(a);
+  const hB = await computeSHA(b);
+
+  const bitsA = hexToBits(hA);
+  const bitsB = hexToBits(hB);
+
+  const heatEl = document.getElementById("heatmap");
+  heatEl.innerHTML = "";
+
+  for (let i = 0; i < bitsA.length; i++) {
+    const cell = document.createElement("div");
+    cell.className = bitsA[i] === bitsB[i] ? "bit-same" : "bit-diff";
+    heatEl.appendChild(cell);
+  }
+}
+
+function hexToBits(hex) {
+  return hex.split("")
+    .map(h => parseInt(h, 16).toString(2).padStart(4, "0"))
+    .join("")
+    .split("");
+}
+
+/* ========================================================= */
+/* MODE 4 — AVALANCHE ANIMATION                              */
+/* ========================================================= */
+async function startAvalanche() {
+  const input = document.getElementById("avalancheInput").value;
+  const out = document.getElementById("avalancheFrame");
+  out.textContent = "";
+
+  let frame = input;
+
+  for (let i = 0; i < 20; i++) {
+    const hash = await computeSHA(frame);
+    out.textContent += `Frame ${i+1} → ${hash}\n`;
+    frame = hash; // chain hashing
+    await new Promise(r => setTimeout(r, 40));
+  }
+}
+
+  
 </script>
 
 </details>
@@ -1829,6 +1958,76 @@ ${mutated}
     🔇
   </button>
 </div>
+
+<details class="novak-collapse" style="margin-top:32px;">
+  <summary style="cursor:pointer; font-size:20px; padding:14px 0;">
+    🧠 Expert Mode — Cryptographic Visualizers (Click to Expand)
+  </summary>
+
+  <div class="card" style="margin-top:16px; padding:24px;">
+
+    <h2 class="section-title">Expert Mode</h2>
+    <p style="opacity:0.9; font-size:14px;">
+      These tools show NOVAK’s underlying mathematics, hashing behavior, avalanche effect,
+      and digest formats using native WebCrypto — all computed locally on your device.
+    </p>
+
+    <h3 style="margin-top:28px;">🔹 Live WebCrypto Hashing</h3>
+    <textarea id="expertInput"
+              placeholder="Type here — live SHA-256 will appear..."
+              style="width:100%; height:90px; margin-top:10px; padding:12px; font-family:'JetBrains Mono', monospace;"></textarea>
+
+    <pre id="expertHash"
+         style="margin-top:14px; font-family:'JetBrains Mono', monospace; white-space:pre-wrap;"></pre>
+
+    <hr style="margin:32px 0; opacity:0.4;">
+
+    <h3>🔹 Multi-Format Digest Viewer</h3>
+
+    <div style="margin-top:12px;">
+      <button class="digest-btn" onclick="showDigestFormat('hex')">HEX</button>
+      <button class="digest-btn" onclick="showDigestFormat('base64')">BASE64</button>
+      <button class="digest-btn" onclick="showDigestFormat('binary')">BINARY</button>
+    </div>
+
+    <pre id="digestOutput"
+         style="margin-top:14px; font-family:'JetBrains Mono', monospace; white-space:pre-wrap;"></pre>
+
+    <hr style="margin:32px 0; opacity:0.4;">
+
+    <h3>🔹 Bit-Difference Heatmap</h3>
+
+    <div style="margin-top:10px;">
+      <input id="heatA" placeholder="Input A"
+             style="width:48%; padding:8px; font-family:'JetBrains Mono', monospace;">
+      <input id="heatB" placeholder="Input B"
+             style="width:48%; padding:8px; font-family:'JetBrains Mono', monospace; margin-left:4%;">
+    </div>
+
+    <button class="action-btn" style="margin-top:12px;" onclick="computeHeatmap()">
+      Compute Heatmap
+    </button>
+
+    <div id="heatmap"
+         style="margin-top:16px; display:grid; grid-template-columns:repeat(64, 1fr); gap:2px;"></div>
+
+    <hr style="margin:32px 0; opacity:0.4;">
+
+    <h3>🔹 Avalanche Animation</h3>
+    <input id="avalancheInput"
+           placeholder="Type anything…"
+           style="width:100%; padding:10px; font-family:'JetBrains Mono', monospace;">
+
+    <button class="action-btn" style="margin-top:12px;" onclick="startAvalanche()">
+      Run Avalanche Animation
+    </button>
+
+    <pre id="avalancheFrame"
+         style="margin-top:16px; font-family:'JetBrains Mono', monospace; white-space:pre-wrap;"></pre>
+
+  </div>
+</details>
+
 
 <!-- ✅ GAME RENDER CONTAINER -->
 <div id="gameBox" class="card" style="margin-top:20px; display:none;"></div>
