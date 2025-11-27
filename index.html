@@ -758,37 +758,67 @@ html[data-theme="dark"] .aud-btn.active {
 <!-- Moved this here -->
 </div>
 
-<!-- ✅ FOR ENGINEERS / DEEP DOCS -->
-<section class="card" id="engineer-deep-docs" style="margin-top:32px;">
-  <h2 style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
-    <span>For Engineers, Cryptographers & Auditors</span>
-  </h2>
+<!-- =============================================== -->
+<!--  COLLAPSIBLE — ENGINEERS / CRYPTOGRAPHERS AREA -->
+<!-- =============================================== -->
 
-  <p style="margin-bottom:12px;">
-    Want to see exactly how NOVAK binds <strong>input → rules → output → receipt</strong>?
-    This section links directly into the full standards and threat models.
-  </p>
+<details class="novak-collapse" style="margin-top:38px;">
+  <summary 
+    style="cursor:pointer; 
+           padding:14px 22px; 
+           border:2px solid #d0d7de; 
+           border-radius:10px; 
+           font-size:18px; 
+           display:inline-block;
+           transition:0.2s;">
+    🔧 Show “For Engineers, Cryptographers & Auditors”
+  </summary>
 
-  <ul style="margin-bottom:18px; padding-left:18px; line-height:1.6;">
-    <li><strong>Cryptography 101:</strong> hashes, HVET, EIR, and RGAC explained in plain engineering terms</li>
-    <li><strong>Standards SP-1–SP-8:</strong> execution integrity, HVET/EIR/RGAC, conformance, certification & adoption</li>
-    <li><strong>Threat Models NTM-1–NTM-3:</strong> internal, AI/automation, and adversarial drift models</li>
-    <li><strong>Adversarial Test Suites & Appendices:</strong> prompt libraries, gradient vectors, multilingual ambiguity matrices</li>
-  </ul>
+  <div class="card" style="margin-top:22px; padding:24px;">
 
-  <div style="display:flex; flex-wrap:wrap; gap:10px;">
-    <a href="docs/cryptography-101.html" class="action-btn">
-      🔐 Cryptography 101 — Hashes & HVET
-    </a>
-    <a href="standards/" class="action-btn" style="background:#111827;">
-      📘 NOVAK Standards (SP-1–SP-8)
-    </a>
-    <a href="https://github.com/novakprotocol/NOVAK-Hash-Monitor" 
-       class="action-btn" target="_blank" rel="noopener noreferrer">
-      🧬 Full GitHub Repository
-    </a>
+    <h2 style="font-size:26px; margin-bottom:18px;">
+      For Engineers, Cryptographers & Auditors
+    </h2>
+
+    <p>
+      Want to see exactly how NOVAK binds 
+      <strong>input → rules → output → receipt</strong>?  
+      This section links directly into the full standards and threat models.
+    </p>
+
+    <ul style="margin-top:18px; line-height:1.6;">
+      <li><strong>Cryptography 101</strong>: hashes, HVET, EIR, and RGAC explained in plain engineering terms</li>
+      <li><strong>Standards SP-1–SP-8</strong>: execution integrity, HVET/EIR/RGAC, conformance & adoption</li>
+      <li><strong>Threat Models NTM-1–NTM-3</strong>: internal, AI/automation, and adversarial drift models</li>
+      <li><strong>Adversarial Test Suites & Appendices</strong>: prompt libraries, gradient vectors, multilingual ambiguity matrices</li>
+    </ul>
+
+    <div style="margin-top:24px; display:flex; flex-wrap:wrap; gap:12px;">
+
+      <a href="#"
+         style="padding:12px 18px; background:#edf2ff; border-radius:8px; 
+                text-decoration:none; border:1px solid #c7d1ff;">
+         🔐 Cryptography 101 → Hashes & HVET
+      </a>
+
+      <a href="#"
+         style="padding:12px 18px; background:#edf2ff; border-radius:8px; 
+                text-decoration:none; border:1px solid #c7d1ff;">
+         📘 NOVAK Standards (SP-1–SP-8)
+      </a>
+
+      <a href="https://github.com/novakprotocol"
+         target="_blank"
+         style="padding:12px 18px; background:#edf2ff; border-radius:8px; 
+                text-decoration:none; border:1px solid #c7d1ff;">
+         📁 Full GitHub Repository
+      </a>
+
+    </div>
+
   </div>
-</section>
+</details>
+
 
 <!-- ✅ PART 2 — Try It + Hash Engine + Example Data + File Drop + VIN + Games -->
 
