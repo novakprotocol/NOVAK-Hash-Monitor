@@ -1160,6 +1160,54 @@ html[data-theme="dark"] .aud-btn.active {
   </p>
 </div>
 
+<!-- ========================================= -->
+<!-- 💻 HOW NOVAK SURVIVES PACKET SNIFFING     -->
+<!-- ========================================= -->
+<div class="card" style="margin-top:28px; padding:20px;">
+  <details>
+    <summary style="cursor:pointer; font-size:18px; font-weight:600;">
+      💻 How NOVAK Survives Packet Sniffing, MITM & Traffic Capture
+    </summary>
+    <div style="margin-top:16px; font-size:15px; line-height:1.55;">
+      <p><strong>Short answer:</strong> You can packet-sniff NOVAK all day — you still can't cheat it.</p>
+
+      <p>NOVAK is not secrecy-based (like TLS or encryption).  
+      It is <strong>mathematical integrity–based</strong>. Sniffing the traffic lets attackers <em>observe</em>,  
+      but they cannot alter or forge anything.</p>
+
+      <h4>🔍 What packet sniffing actually sees</h4>
+      <ul>
+        <li>Input text</li>
+        <li>Output text</li>
+        <li>The hash (HVET)</li>
+        <li>The execution receipt (EIR)</li>
+      </ul>
+
+      <p>There are no keys, no shared secrets, no privileged tokens — nothing to steal.</p>
+
+      <h4>🚫 What attackers <em>cannot</em> do</h4>
+      <ul>
+        <li>They cannot forge a new HVET (hash mismatch)</li>
+        <li>They cannot forge a valid EIR (receipt mismatch)</li>
+        <li>They cannot bypass the Safety Gate</li>
+        <li>They cannot MITM the rule → output → receipt chain</li>
+        <li>They cannot force NOVAK to accept drifted or corrupted output</li>
+      </ul>
+
+      <h4>🛡 Why sniffing doesn't help</h4>
+      <p>NOVAK binds <strong>input + rule + output</strong> cryptographically.  
+      Any change instantly breaks verification. Observing packets gives no advantage.</p>
+
+      <h4>📌 Final word</h4>
+      <p>
+        Traditional systems fail when sniffed because they rely on secrecy.  
+        NOVAK succeeds because it relies on <strong>mathematical correctness</strong>.
+      </p>
+    </div>
+  </details>
+</div>
+
+
 <!-- ✅ AI TRANSPARENCY MODE -->
 <div class="card" style="margin-top:32px;" id="transparencyCard">
   <h2 class="section-title">AI Transparency Mode</h2>
