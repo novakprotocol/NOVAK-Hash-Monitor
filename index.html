@@ -836,44 +836,47 @@ html[data-theme="dark"] .aud-btn.active {
   <h2 class="section-title">Try It — Prove Integrity Yourself</h2>
 
 <!-- =============================================== -->
-<!-- ✅ COLLAPSIBLE TEST EXAMPLE (DEFAULT CLOSED) -->
+<!-- ✅ COLLAPSIBLE TEST EXAMPLE (FULLY UPGRADED) -->
 <!-- =============================================== -->
 
-<div class="card" style="padding:26px; margin-top:12px;">
+<details class="novak-collapse" style="margin-top:32px;">
+  <summary style="cursor:pointer; font-size:18px; padding:12px 0;">
+    🧪 TEST Example — Click to Expand
+  </summary>
 
-  <h2 class="section-title" style="font-size:24px; margin-bottom:12px;">
-    Try It — Prove Integrity Yourself
-  </h2>
+  <div class="card" style="padding:26px; margin-top:12px;">
 
-  <p style="font-size:16px; line-height:1.6;">
-    If you type exactly <strong>TEST</strong>, all in capitals, into the field below,
-    NOVAK will generate the following cryptographic result:
-  </p>
+    <h2 class="section-title" style="font-size:24px; margin-bottom:12px;">
+      Try It — Prove Integrity Yourself
+    </h2>
 
-  <!-- ========================== -->
-  <!--   SINGLE HASH EXAMPLE      -->
-  <!-- ========================== -->
+    <p style="font-size:16px; line-height:1.6;">
+      If you type exactly <strong>TEST</strong>, all in capitals, into the field below,
+      NOVAK will generate the following cryptographic result:
+    </p>
 
-  <div style="margin-top:22px; font-size:17px;">
-    <strong>TEST →</strong>
+    <!-- ========================== -->
+    <!--   MAIN "TEST" HASH BLOCK    -->
+    <!-- ========================== -->
 
-    <div class="hash-box">
-      94ee059335e587e501cc4bf90613e0814f00a7b08bc7c648fd865a2af6a22c2
-      <button class="copy-btn" onclick="copyHash(this)">📋</button>
+    <div style="margin-top:22px; font-size:17px;">
+      <strong>TEST →</strong>
+
+      <div class="hash-box">
+        94ee059335e587e501cc4bf90613e0814f00a7b08bc7c648fd865a2af6a22c2
+        <button class="copy-btn" onclick="copyHash(this)">📋</button>
+      </div>
     </div>
-  </div>
 
-  <p style="margin-top:22px; font-weight:600; font-size:16px;">
-    Change one thing — and the entire result changes:
-  </p>
+    <p style="margin-top:22px; font-weight:600; font-size:16px;">
+      Change one thing — and the entire result changes:
+    </p>
 
-  <!-- ========================== -->
-  <!--    MULTIPLE HASH BLOCKS    -->
-  <!-- ========================== -->
+    <!-- ========================== -->
+    <!--   ALL VARIANT HASH BLOCKS   -->
+    <!-- ========================== -->
 
-  <div style="margin-top:12px; font-size:16px; line-height:1.6;">
-
-    <strong>Test →</strong>
+    <strong style="margin-top:16px; display:block;">Test →</strong>
     <div class="hash-box">
       532eaabd9574880dbf76b9b8cc00832c20a6ec113d682299550d7a6e0f345e25
       <button class="copy-btn" onclick="copyHash(this)">📋</button>
@@ -891,19 +894,19 @@ html[data-theme="dark"] .aud-btn.active {
       <button class="copy-btn" onclick="copyHash(this)">📋</button>
     </div>
 
+    <p style="margin-top:26px; font-size:16px; line-height:1.6;">
+      Type, paste, or modify anything in the box below — NOVAK instantly generates
+      cryptographic hashes locally on your device. Nothing is ever stored, logged,
+      transmitted, or uploaded.
+    </p>
+
   </div>
+</details>
 
-  <p style="margin-top:26px; font-size:16px; line-height:1.6;">
-    Type, paste, or modify anything in the box below — NOVAK instantly generates
-    cryptographic hashes locally on your device. Nothing is ever stored, logged,
-    transmitted, or uploaded.
-  </p>
+<!-- =============================================== -->
+<!--   HASH BOX CSS + COPY BUTTON BEHAVIOR          -->
+<!-- =============================================== -->
 
-</div>
-
-<!-- =============================== -->
-<!--   CSS FOR BEAUTIFUL HASH BOXES  -->
-<!-- =============================== -->
 <style>
 .hash-box {
   margin-top:6px;
@@ -917,6 +920,7 @@ html[data-theme="dark"] .aud-btn.active {
   white-space: normal;
   word-break: break-all;
   position: relative;
+  overflow-wrap: break-word;
   transition: 0.2s;
 }
 
@@ -944,9 +948,6 @@ html[data-theme="dark"] .aud-btn.active {
 }
 </style>
 
-<!-- =============================== -->
-<!--   COPY FUNCTION (WORKS ANYWHERE) -->
-<!-- =============================== -->
 <script>
 function copyHash(btn) {
   const text = btn.parentElement.innerText.trim();
