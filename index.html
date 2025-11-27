@@ -826,6 +826,32 @@ html[data-theme="dark"] .aud-btn.active {
   </div>
 </details>
 
+<!-- =============================================== -->
+<!-- ✅ COLLAPSIBLE EXAMPLE DATASETS (DEFAULT CLOSED) -->
+<!-- =============================================== -->
+
+<details class="novak-collapse" style="margin-top:22px;">
+  <summary style="cursor:pointer; font-size:18px; padding:12px 0;">
+    📂 Example Datasets — Click to Expand
+  </summary>
+
+  <div class="card" style="padding:22px; margin-top:12px;">
+    <h3 class="section-title" style="font-size:20px;">Example Datasets</h3>
+
+    <p style="margin-top:6px; font-size:14px;">
+      Select a dataset below — it instantly loads into the input above so you can hash it locally.
+    </p>
+
+    <div class="pill-row" style="margin-top:16px; display:flex; flex-wrap:wrap; gap:14px;">
+      <button class="pill-btn" onclick="loadExample('va')">🎖️ VA Disability Claim</button>
+      <button class="pill-btn" onclick="loadExample('finance')">💰 Financial Transaction</button>
+      <button class="pill-btn" onclick="loadExample('robot')">🤖 Robotics Command</button>
+      <button class="pill-btn" onclick="loadExample('ai')">🧠 System Log</button>
+      <button class="pill-btn" onclick="loadExample('legal')">⚖️ Legal Filing</button>
+    </div>
+  </div>
+</details>
+
   
   <textarea id="novakInput"
     placeholder="Example: VA claim, invoice, VIN, contract, JSON, SQL, XML..."
@@ -845,19 +871,6 @@ html[data-theme="dark"] .aud-btn.active {
   Never use real patients, real claims, or real medical documents here — training data only.
   NOVAK does not collect, store, transmit, or retain data, but user responsibility applies.
 </p>
-
-<!-- ✅ EXAMPLE DATASETS  -->
-<div class="card" style="margin-top:32px;">
-  <p>Example Datasets - Select one — it instantly loads into the input above.</p>
-
-  <div class="pill-row" style="margin-top:16px;">
-    <button class="pill-btn" onclick="loadExample('va')">🎖️ VA Disability Claim</button>
-    <button class="pill-btn" onclick="loadExample('finance')">💰 Financial Transaction</button>
-    <button class="pill-btn" onclick="loadExample('robot')">🤖 Robotics Command</button>
-    <button class="pill-btn" onclick="loadExample('ai')">🧠 System Log</button>
-    <button class="pill-btn" onclick="loadExample('legal')">⚖️ Legal Filing</button>
-  </div>
-</div>
 
 </div>
   
