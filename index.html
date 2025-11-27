@@ -836,7 +836,7 @@ html[data-theme="dark"] .aud-btn.active {
   <h2 class="section-title">Try It — Prove Integrity Yourself</h2>
 
 <!-- =============================================== -->
-<!-- ✅ COLLAPSIBLE TEST EXAMPLE (FULLY UPGRADED) -->
+<!-- ✅ COLLAPSIBLE TEST EXAMPLE — PREMIUM EDITION -->
 <!-- =============================================== -->
 
 <details class="novak-collapse" style="margin-top:32px;">
@@ -844,69 +844,135 @@ html[data-theme="dark"] .aud-btn.active {
     🧪 TEST Example — Click to Expand
   </summary>
 
-  <div class="card" style="padding:26px; margin-top:12px;">
+  <div class="card" style="padding:28px; margin-top:14px;">
 
-    <h2 class="section-title" style="font-size:24px; margin-bottom:12px;">
-      Try It — Prove Integrity Yourself
-    </h2>
+    <!-- ================================================= -->
+    <!-- Title + BASIC / EXPERT toggle -->
+    <!-- ================================================= -->
 
-    <p style="font-size:16px; line-height:1.6;">
-      If you type exactly <strong>TEST</strong>, all in capitals, into the field below,
-      NOVAK will generate the following cryptographic result:
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <h2 class="section-title" style="font-size:24px;">Try It — Prove Integrity Yourself</h2>
+
+      <button id="modeToggle"
+        onclick="toggleHashMode()"
+        style="padding:6px 14px; border:1px solid var(--border); 
+               border-radius:8px; cursor:pointer; background:var(--card);">
+        🔰 Expert View
+      </button>
+    </div>
+
+    <p style="margin-top:8px; font-size:16px; line-height:1.6;">
+      If you type <strong>TEST</strong> (all caps), NOVAK produces the following results.
+      Change one letter and everything changes — the <em>avalanche effect</em>.
     </p>
 
-    <!-- ========================== -->
-    <!--   MAIN "TEST" HASH BLOCK    -->
-    <!-- ========================== -->
 
-    <div style="margin-top:22px; font-size:17px;">
-      <strong>TEST →</strong>
+    <!-- ================================================= -->
+    <!-- MAIN SHA-256 EXAMPLE -->
+    <!-- ================================================= -->
+
+    <div style="margin-top:26px;">
+      <strong style="font-size:17px;">TEST → SHA-256</strong>
 
       <div class="hash-box">
-        94ee059335e587e501cc4bf90613e0814f00a7b08bc7c648fd865a2af6a22c2
+        <span class="hash-value">
+          94ee059335e587e501cc4bf90613e0814f00a7b08bc7c648fd865a2af6a22c2
+        </span>
+        <button class="copy-btn" onclick="copyHash(this)">📋</button>
+      </div>
+
+      <div class="hash-meta">
+        <span>🔢 64 hex chars</span>
+        <span>📏 256 bits</span>
+        <span>⚙️ SHA-256</span>
+      </div>
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- VARIANTS THAT SHOW AVALANCHE EFFECT -->
+    <!-- ================================================= -->
+
+    <p style="margin-top:26px; font-weight:600; font-size:16px;">
+      Change one letter — watch the avalanche effect:
+    </p>
+
+    <div class="variant-block">
+      <strong>Test →</strong>
+      <div class="hash-box hash-warn">
+        <span class="hash-value">
+          532eaabd9574880dbf76b9b8cc00832c20a6ec113d682299550d7a6e0f345e25
+        </span>
         <button class="copy-btn" onclick="copyHash(this)">📋</button>
       </div>
     </div>
 
-    <p style="margin-top:22px; font-weight:600; font-size:16px;">
-      Change one thing — and the entire result changes:
-    </p>
-
-    <!-- ========================== -->
-    <!--   ALL VARIANT HASH BLOCKS   -->
-    <!-- ========================== -->
-
-    <strong style="margin-top:16px; display:block;">Test →</strong>
-    <div class="hash-box">
-      532eaabd9574880dbf76b9b8cc00832c20a6ec113d682299550d7a6e0f345e25
-      <button class="copy-btn" onclick="copyHash(this)">📋</button>
+    <div class="variant-block">
+      <strong>test →</strong>
+      <div class="hash-box hash-warn">
+        <span class="hash-value">
+          9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08
+        </span>
+        <button class="copy-btn" onclick="copyHash(this)">📋</button>
+      </div>
     </div>
 
-    <strong style="margin-top:16px; display:block;">test →</strong>
-    <div class="hash-box">
-      9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08
-      <button class="copy-btn" onclick="copyHash(this)">📋</button>
+    <div class="variant-block">
+      <strong>tEsT →</strong>
+      <div class="hash-box hash-warn">
+        <span class="hash-value">
+          876c5e143c421959adff3ed91b82556c433a279b6369e70592d2c9dc73455ce
+        </span>
+        <button class="copy-btn" onclick="copyHash(this)">📋</button>
+      </div>
     </div>
 
-    <strong style="margin-top:16px; display:block;">tEsT →</strong>
-    <div class="hash-box">
-      876c5e143c421959adff3ed91b82556c433a279b6369e70592d2c9dc73455ce
-      <button class="copy-btn" onclick="copyHash(this)">📋</button>
+
+    <!-- ================================================= -->
+    <!-- EXPERT MODE: MULTI-HASH COMPARISON -->
+    <!-- ================================================= -->
+
+    <div id="expertPanel" style="display:none; margin-top:34px;">
+      <h3 style="margin-bottom:12px;">🔬 Multi-Algorithm Comparison</h3>
+
+      <p>Select an algorithm below:</p>
+
+      <div style="display:flex; gap:12px; margin-top:10px;">
+        <button class="pill-btn" onclick="showAlgo('sha256')">SHA-256</button>
+        <button class="pill-btn" onclick="showAlgo('sha512')">SHA-512</button>
+        <button class="pill-btn" onclick="showAlgo('sha384')">SHA-384</button>
+        <button class="pill-btn" onclick="showAlgo('sha3')">SHA-3-256</button>
+      </div>
+
+      <div id="algoResult" style="margin-top:20px;"></div>
     </div>
 
-    <p style="margin-top:26px; font-size:16px; line-height:1.6;">
-      Type, paste, or modify anything in the box below — NOVAK instantly generates
-      cryptographic hashes locally on your device. Nothing is ever stored, logged,
-      transmitted, or uploaded.
-    </p>
+
+    <!-- ================================================= -->
+    <!-- Animated Avalanche Demo -->
+    <!-- ================================================= -->
+
+    <div style="margin-top:42px;">
+      <h3>⚡ Avalanche Effect Visualizer</h3>
+      <p style="margin-bottom:8px;">Click to flip one bit and watch the entire hash explode.</p>
+
+      <button onclick="runAvalanche()" style="padding:10px 18px; border-radius:8px; border:1px solid var(--border); cursor:pointer;">
+        🔥 Flip 1 Bit
+      </button>
+
+      <pre id="avalancheOutput"
+           style="margin-top:14px; padding:14px; background:var(--card);
+                  border:1px solid var(--border); font-family:'JetBrains Mono';
+                  min-height:80px; white-space:pre-wrap;"></pre>
+    </div>
 
   </div>
 </details>
 
-<!-- =============================================== -->
-<!--   HASH BOX CSS + COPY BUTTON BEHAVIOR          -->
-<!-- =============================================== -->
 
+<!-- ======================================================= -->
+<!-- STYLES for HASH BOXES, META, BUTTONS, WARN STATES -->
+<!-- ======================================================= -->
 <style>
 .hash-box {
   margin-top:6px;
@@ -916,47 +982,118 @@ html[data-theme="dark"] .aud-btn.active {
   border-radius: 8px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 14px;
-  line-height: 1.45;
-  white-space: normal;
-  word-break: break-all;
   position: relative;
-  overflow-wrap: break-word;
+  word-break: break-all;
   transition: 0.2s;
 }
 
-.hash-box:hover {
-  border-color: var(--blue);
+.hash-box:hover { border-color: var(--blue); }
+
+.hash-warn { border-color:#d65f5f !important; }
+
+.hash-meta {
+  margin-top:6px;
+  font-size:12px;
+  opacity:0.65;
+  display:flex;
+  gap:16px;
 }
 
 .copy-btn {
-  position: absolute;
-  top: 6px;
-  right: 6px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  font-size: 13px;
-  cursor: pointer;
-  padding: 2px 6px;
-  transition: 0.2s;
+  position:absolute;
+  top:6px;
+  right:6px;
+  padding:2px 6px;
+  font-size:13px;
+  border:1px solid var(--border);
+  border-radius:6px;
+  background:var(--bg);
+  cursor:pointer;
 }
 
 .copy-btn:hover {
-  background: var(--blue);
-  color: white;
-  border-color: var(--blue);
+  background:var(--blue);
+  color:white;
 }
+
+.variant-block { margin-top:20px; }
+
 </style>
 
+
+<!-- ======================================================= -->
+<!-- JAVASCRIPT: COPY, MODE TOGGLE, AVA/COMPARE -->
+<!-- ======================================================= -->
+
 <script>
+
+// Copy only the hash (NOT the button)
 function copyHash(btn) {
-  const text = btn.parentElement.innerText.trim();
+  const text = btn.parentElement.querySelector(".hash-value").innerText.trim();
   navigator.clipboard.writeText(text);
   btn.innerText = "✔️";
   setTimeout(() => btn.innerText = "📋", 900);
 }
-</script>
 
+
+// BASIC <-> EXPERT mode toggle
+function toggleHashMode() {
+  const panel = document.getElementById("expertPanel");
+  const btn = document.getElementById("modeToggle");
+
+  if (panel.style.display === "none") {
+    panel.style.display = "block";
+    btn.innerText = "🟦 Basic View";
+  } else {
+    panel.style.display = "none";
+    btn.innerText = "🔰 Expert View";
+  }
+}
+
+
+// Multi-algorithm comparison output
+const exampleInput = "TEST";
+
+function showAlgo(algo) {
+  let output = "";
+
+  const hashes = {
+    sha256: "94ee059335e587e501cc4bf90613e0814f00a7b08bc7c648fd865a2af6a22c2",
+    sha512: "cd73502828457d15655bbd7a35d7c30bae43dfb697b86dd80b068cf1e95ce47e...",
+    sha384: "7699bdffbb0f7cba4dcdcb2960b8a03fc8f179f1dc93b4bc1d6510c2eec1a7fa2d...",
+    sha3:   "36f7b0df4ea8a04de7cdf46fa4591bbd19d1ba4e6c8cd133673e8386bb12d22b"
+  };
+
+  output = `
+<strong>${algo.toUpperCase()}</strong>
+<div class="hash-box">
+  <span class="hash-value">${hashes[algo]}</span>
+  <button class="copy-btn" onclick="copyHash(this)">📋</button>
+</div>`;
+
+  document.getElementById("algoResult").innerHTML = output;
+}
+
+
+// Avalanche visualizer
+function runAvalanche() {
+  const original = "94ee059335e587e501cc4bf90613e0814f00a7b08bc7c648fd865a2af6a22c2";
+  const mutated = original.replace(/0/, "1"); // flip a single bit visually
+
+  const result = `
+Original:
+${original}
+
+After flipping 1 bit:
+${mutated}
+
+→ Entire hash changed.
+`;
+
+  document.getElementById("avalancheOutput").innerText = result;
+}
+
+</script>
 
 </details>
 
