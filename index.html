@@ -1951,7 +1951,6 @@ async function sha256(message) {
     .join("");
 }
 
-// SHA engine ------------------------------------------------------------
 async function updateHashes() {
   const input = document.getElementById("novakInput");
   const output = document.getElementById("hashOutputList");
@@ -1964,62 +1963,56 @@ async function updateHashes() {
     return;
   }
 
-  const hash = await sha256(text);
+  // --- check which algorithms are selected ---
+  const selected = [...document.querySelectorAll('input[type=checkbox][value]')]
+    .filter(c => c.checked)
+    .map(c => c.value);
 
-  output.innerHTML = `
-    <div>SHA-256 → <strong>${hash}</strong></div>
-  `;
+  let html = "";
 
-  window.lastSHA = hash;
+  // ---- compute SHA-256 ----
+  if (selected.includes("sha256")) {
+    const h = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+    html += `<div>SHA-256 → <strong>${hex(h)}</strong></div>`;
+  }
 
+  // ---- compute SHA-384 ----
+  if (selected.includes("sha384")) {
+    const h = await crypto.subtle.digest("SHA-384", new TextEncoder().encode(text));
+    html += `<div>SHA-384 → <strong>${hex(h)}</strong></div>`;
+  }
+
+  // ---- compute SHA-512 ----
+  if (selected.includes("sha512")) {
+    const h = await crypto.subtle.digest("SHA-512", new TextEncoder().encode(text));
+    html += `<div>SHA-512 → <strong>${hex(h)}</strong></div>`;
+  }
+
+  // ---- compute SHA-3-256 (JS implementation) ----
+  if (selected.includes("sha3_256")) {
+    const h = sha3_256(text); // requires the SHA-3 helper placed below
+    html += `<div>SHA-3-256 → <strong>${h}</strong></div>`;
+  }
+
+  output.innerHTML = html;
+
+  // update auto-verify
+  window.lastSHA = html;
   if (document.getElementById("autoVerifyToggle").checked) {
     updateAutoVerify();
   }
 }
 
-// AUTO VERIFY ----------------------------------------------------------
-function toggleAutoVerify() {
-  const enabled = document.getElementById('autoVerifyToggle').checked;
-
-  document.getElementById('rgacWrapper').style.display    = enabled ? 'block' : 'none';
-  document.getElementById('receiptWrapper').style.display = enabled ? 'block' : 'none';
-
-  updateAutoVerify();
+// helper to convert buffer → hex
+function hex(buffer) {
+  return [...new Uint8Array(buffer)]
+    .map(b => b.toString(16).padStart(2, "0"))
+    .join("");
 }
 
-window.lastApproved = null;
-window.rgacCounter = 1;
-
-async function updateAutoVerify() {
-  const status = document.getElementById("autoVerifyStatus");
-  const input = document.getElementById("novakInput").value.trim();
-
-  if (!document.getElementById("autoVerifyToggle").checked) {
-    status.textContent = "Auto-verification is disabled.";
-    return;
-  }
-
-  if (!input) {
-    status.textContent = "Waiting for input...";
-    return;
-  }
-
-  const current = await sha256(input);
-
-  if (!window.lastApproved) {
-    window.lastApproved = current;
-    status.textContent = "Baseline approved.";
-    updateRGAC(current);
-    return;
-  }
-
-  if (current === window.lastApproved) {
-    status.textContent = "✔ No drift detected.";
-    updateRGAC(current, true);
-  } else {
-    status.textContent = "⚠️ Drift detected.";
-    updateRGAC(current, false);
-  }
+// SHA-3-256 pure JS fallback
+function sha3_256(msg) {
+  return sha3_256_create().update(msg).hex();
 }
 
 // RGAC -----------------------------------------------------------------
@@ -4322,7 +4315,8 @@ document.getElementById("autoVerifyToggle").addEventListener("change", toggleAut
 updateHashes();
 </script>
 
-  
+<script src="https://cdn.jsdelivr.net/npm/js-sha3/dist/sha3.min.js"></script>
+
 </script>
   
 </body>
