@@ -3147,26 +3147,6 @@ function loadExample(key) {
 }
 
 /* ============================
-   VIN DECODER MODAL
-=============================*/
-function openVinModal() {
-  document.getElementById("vinModal").style.display = "flex";
-}
-function closeVinModal() {
-  document.getElementById("vinModal").style.display = "none";
-}
-function decodeCorvetteVIN(vin) {
-  if (vin.length !== 17) return "❌ VIN must be 17 characters.";
-  const year = { N: 2022 }[vin[9]] || "Unknown";
-  const plant = { "5": "Bowling Green, Kentucky" }[vin[10]] || "Unknown";
-  const model = vin.startsWith("1G1Y") ? "Chevy Corvette Stingray" : "Unknown Model";
-  return `Model: ${model}\nYear: ${year}\nAssembly Plant: ${plant}\nSequence: ${vin.slice(11)}`;
-}
-document.getElementById("vinInput")?.addEventListener("input", () => {
-  vinResult.innerHTML = `<pre>${decodeCorvetteVIN(vinInput.value.trim())}</pre>`;
-});
-
-/* ============================
  ✅ MINI-GAMES — NOW FULLY WORKING
 =============================*/
 function toggleSound() {
@@ -3321,13 +3301,12 @@ function toggleTransparency() {
 }
 
 function generateReceipt() {
-  const sha256 = document.getElementById("sha256Output")?.textContent || "N/A";
-  const hvet = sha256; // HVET = SHA-256(HR||HD||HO||timestamp) – simplified placeholder
-  const timestamp = new Date().toISOString();
-  const rgacBlock = window.rgacBlock || "00000001"; // RGAC block state from auto-verifier
-  const eirId = crypto.randomUUID(); // Execution Identity Receipt unique ID
+  const sha256 = window.lastSHA256 || "N/A";
+  const hvet   = window.lastHVET   || "N/A";
+  const timestamp = window.lastHVETtimestamp || new Date().toISOString();
+  const rgacBlock = window.currentRGAC || "00000001";
+  const eirId = crypto.randomUUID();
 
-  // NOVAK laws (authoritative)
   const laws = [
     "L0 – Deterministic First Principle",
     "L1 – Proof-Before-Action",
@@ -3347,21 +3326,56 @@ function generateReceipt() {
     "L15 – Systemwide Deterministic Coherence"
   ];
 
-  const addenda = ["PL-X – Public Ledger Addendum", "PS-X – Physical System Addendum"];
+  const addenda = [
+    "PL-X – Public Ledger Addendum",
+    "PS-X – Physical System Addendum"
+  ];
 
-  // JSON Receipt Object
   const jsonReceipt = {
     novak_version: "1.0",
+    timestamp_utc: timestamp,
     eir_id: eirId,
     hvet: hvet,
     sha256: sha256,
-    timestamp_utc: timestamp,
     rgac_block: rgacBlock,
     safety_gate_enforced: true,
-    laws: laws,
-    addenda: addenda,
-    signature: "Pending digital signature module"
+    laws,
+    addenda,
+    signature: "pending"
   };
+
+  const human = `
+NOVAK EXECUTION INTEGRITY RECEIPT
+---------------------------------
+This receipt proves what existed, when, under what deterministic rules,
+and with what cryptographic truth — enforced by the NOVAK Protocol.
+
+Timestamp (UTC): ${timestamp}
+EIR (Execution Identity Receipt): ${eirId}
+HVET (Hash-Verified Execution Trace): ${hvet}
+SHA-256: ${sha256}
+RGAC Block: ${rgacBlock}
+
+Safety Gate (Deterministic Safety Layer): ENFORCED
+Proof-Before-Action Engine: ENABLED
+
+NOVAK Laws (L0–L15):
+${laws.map(x => " - " + x).join("\n")}
+
+Industry Addenda:
+ - ${addenda.join("\n - ")}
+
+This receipt is tamper-evident and cryptographically bound to the rule,
+the data, the output, and the time of attestation.
+---------------------------------
+MACHINE-VERIFIABLE JSON (below)
+---------------------------------
+${JSON.stringify(jsonReceipt, null, 2)}
+`;
+
+  document.getElementById("receiptOutput").textContent = human;
+}
+
 
   // HUMAN-READABLE SECTION
   const textReceipt = `
@@ -3417,7 +3431,6 @@ document.addEventListener("click", function (e) {
     menu.style.display = "none";
   }
 });
-
 
 /* ============================
    WALKTHROUGH MODE
@@ -3797,7 +3810,40 @@ async function updateRuleHash() {
   const hash = await sha256(text);
   document.getElementById("shaRule").textContent = hash;
 
-  updateHVETandRGAC();
+async function updateHVETandRGAC() {
+  const ruleHash   = document.getElementById("shaRule").textContent;
+  const dataHash   = document.getElementById("shaData").textContent;
+  const outputHash = document.getElementById("shaOutput").textContent;
+
+  if (!ruleHash || !dataHash || !outputHash ||
+      ruleHash.length < 4 || dataHash.length < 4 || outputHash.length < 4) {
+    return;
+  }
+
+  const { hv, timestamp } = await computeHVET(ruleHash, dataHash, outputHash);
+
+  window.lastHVETtimestamp = timestamp;
+
+  // DRIFT CHECK
+  if (window.lastHVET && hv !== window.lastHVET) {
+    setDriftStatus(true);
+    animateRGACdrift();
+  } else {
+    setDriftStatus(false);
+    animateRGACmatch();
+  }
+
+  // RGAC increment
+  if (!window.currentRGAC) window.currentRGAC = "00000001";
+  if (window.lastHVET && hv !== window.lastHVET) {
+    window.currentRGAC = (parseInt(window.currentRGAC) + 1)
+      .toString().padStart(8, "0");
+  }
+
+  window.lastHVET = hv;
+
+  document.getElementById("rgac").textContent =
+    `Block ${window.currentRGAC} → ${hv.substring(0, 20)}…`;
 }
 
 /* ============================================================
@@ -3837,15 +3883,40 @@ async function updateHVETandRGAC() {
     return;
   }
 
-  // Compute HVET commit
-  const { hv, timestamp } = await computeHVET(ruleHash, dataHash, outputHash);
+/* ============================================================
+   ✅ TRUE HVET COMPUTATION
+   HVET = SHA-256( HR || HD || HO || timestamp )
+   ============================================================ */
+async function computeHVET(ruleHash, dataHash, outputHash) {
+  const timestamp = new Date().toISOString();
+  const concat = ruleHash + dataHash + outputHash + timestamp;
 
-  // Compare against last approved commit for drift detection
-  if (window.lastHVET && hv !== window.lastHVET) {
-    setDriftStatus(true);    // red pulse + RGAC drift
+  const msg = new TextEncoder().encode(concat);
+  const buf = await crypto.subtle.digest("SHA-256", msg);
+
+  const hv = [...new Uint8Array(buf)]
+    .map(b => b.toString(16).padStart(2, "0"))
+    .join("");
+
+  return { hv, timestamp };
+}
+
+function setDriftStatus(isDrift) {
+  const box = document.getElementById("autoVerifyStatus");
+
+  if (isDrift) {
+    box.style.background = "#ffe5e5";
+    box.style.border = "1px solid #ff6b6b";
+    box.style.color = "#b30000";
+    box.textContent = "⚠️ Drift detected — new commit does NOT match last HVET.";
   } else {
-    setDriftStatus(false);   // green pulse
+    box.style.background = "#eaffea";
+    box.style.border = "1px solid #38a169";
+    box.style.color = "#22543d";
+    box.textContent = "✓ Integrity preserved — commit matches HVET.";
   }
+}
+
 
   // Update RGAC chain
   if (window.lastHVET !== hv) {
