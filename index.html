@@ -1768,7 +1768,7 @@ async function startAvalanche() {
 <!-- ✅ AUTO-VERIFICATION TOGGLE -->
 <div class="card" style="margin-top:32px;">
   <label style="display:flex; align-items:center; gap:10px; font-size:16px;">
-    <input type="checkbox" id="autoVerifyToggle">
+    <input type="checkbox" id="autoVerifyToggle" onchange="toggleAutoVerify()">
     <strong>Enable Proof-Before-Action Engine (NOVAK Auto-Verification)</strong>
   </label>
 
@@ -1777,18 +1777,17 @@ async function startAvalanche() {
     <strong>before</strong> execution.
   </p>
 
-<!-- ❗️ HIDDEN UNTIL CHECKBOX ENABLED -->
-<div id="autoVerifyBlock" class="card" style="margin-top:22px; display:none;">
-  <h3 class="section-title" style="font-size:20px;">
-    NOVAK Auto-Verification — Proof-Before-Action
-  </h3>
+  <!-- ❗️ HIDDEN UNTIL CHECKBOX ENABLED -->
+  <div id="autoVerifyBlock" class="card" style="margin-top:22px; display:none;">
+    <h3 class="section-title" style="font-size:20px;">
+      NOVAK Auto-Verification — Proof-Before-Action
+    </h3>
 
-  <p>
-    Modify the text above and NOVAK instantly checks whether the new output
-    still matches the last approved cryptographic truth.
-  </p>
-  
-</div>
+    <p>
+      Modify the text above and NOVAK instantly checks whether the new output
+      still matches the last approved cryptographic truth.
+    </p>
+  </div>
 
   <div id="autoVerifyStatus"
        style="margin-top:14px; 
@@ -1801,42 +1800,47 @@ async function startAvalanche() {
     Auto-verification is disabled.
   </div>
 
-<!-- ✅ RGAC VISUALIZATION -->
-<div class="card" style="margin-top:22px;">
-  <h3 class="section-title" style="font-size:20px;">RGAC — Recursive Global Audit Chain</h3>
+  <!-- =============================================== -->
+  <!-- ✅ RGAC — NOW HIDDEN UNTIL AUTO-VERIFY IS ENABLED -->
+  <!-- =============================================== -->
 
-  <p style="margin-bottom:12px;">
-    In NOVAK, every approved output becomes the next input — forming a self-verifying integrity chain.
-  </p>
+  <div id="rgacWrapper" class="card" style="margin-top:22px; display:none;">
+    <h3 class="section-title" style="font-size:20px;">RGAC — Recursive Global Audit Chain</h3>
 
-  <div id="rgac"
-       style="font-family:'JetBrains Mono', monospace; font-size:14px;">
-    <em>Provide input to begin...</em>
+    <p style="margin-bottom:12px;">
+      In NOVAK, every approved output becomes the next input — forming a self-verifying integrity chain.
+    </p>
+
+    <div id="rgac"
+         style="font-family:'JetBrains Mono', monospace; font-size:14px;">
+      <em>Waiting for input…</em>
+    </div>
+  </div>
+
+  <!-- =============================================== -->
+  <!-- ✅ INTEGRITY RECEIPT — NOW HIDDEN UNTIL ENABLED -->
+  <!-- =============================================== -->
+
+  <div id="receiptWrapper" class="card" style="margin-top:32px; padding:20px; display:none;">
+    <h2 class="section-title">Integrity Receipt</h2>
+
+    <p>
+      NOVAK generates a tamper-proof receipt proving what existed, when, and under what rules —
+      useful for courts, claims, audits, cybersecurity, safety systems, and AI oversight.
+    </p>
+
+    <button class="action-btn" onclick="generateReceipt()" style="margin-top:12px;">
+      Generate Receipt
+    </button>
+
+    <pre id="receiptOutput"
+        style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px; white-space:pre-wrap;"></pre>
   </div>
 </div>
 
 <!-- =============================================== -->
-<!-- ✅ INTEGRITY RECEIPT (NOT COLLAPSIBLE) -->
+<!-- END AUTO-VERIFY BLOCKS -->
 <!-- =============================================== -->
-
-<div class="card" style="margin-top:32px; padding:20px;">
-  <h2 class="section-title">Integrity Receipt</h2>
-
-  <p>
-    NOVAK generates a tamper-proof receipt proving what existed, when, and under what rules —
-    useful for courts, claims, audits, cybersecurity, safety systems, and AI oversight.
-  </p>
-
-  <button class="action-btn" onclick="generateReceipt()" style="margin-top:12px;">
-    Generate Receipt
-  </button>
-
-  <pre id="receiptOutput"
-      style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px; white-space:pre-wrap;"></pre>
-</div>
-
-
-</div>
 
 <!-- =============================================== -->
 <!-- ✅ COLLAPSIBLE VERIFICATION SUITE -->
