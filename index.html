@@ -836,53 +836,6 @@ html[data-theme="dark"] .aud-btn.active {
     </button>
   </div>
 
-<!-- ====================================================== -->
-<!-- ⭐ NOVAK SELF-VERIFICATION BLOCK -->
-<!-- ====================================================== -->
-<details class="novak-collapse" style="margin-top:32px;">
-  <summary style="cursor:pointer; font-size:20px; padding:14px 0;">
-    🔍 Verify NOVAK Itself (Source, Laws, Version, Hashes)
-  </summary>
-
-  <div class="card" style="padding:28px; margin-top:16px; font-size:16px;">
-
-    <h2 style="margin-top:0;">NOVAK Self-Verification</h2>
-
-    <p>
-      NOVAK practices what it enforces:  
-      <strong>we verify ourselves using our own rules.</strong>
-    </p>
-
-    <pre class="diagram-box" style="white-space:pre; font-size:14px;">
-NOVAK Version:     1.0.0
-Laws Included:     L0–L15 + PL-X + PS-X
-Protocol Modules:  HVET + EIR + RGAC + Safety Gate
-
-SHA-256 (source):  <span id="novakSourceHash">[computed live]</span>
-SHA-256 (laws):    <span id="novakLawsHash">[computed live]</span>
-SHA-256 (UI):      <span id="novakUIHash">[computed live]</span>
-Timestamp:         <span id="novakTimestamp">[local time]</span>
-    </pre>
-
-    <p>
-      This block demonstrates that NOVAK uses its own cryptographic process  
-      to guarantee the authenticity of:
-    </p>
-
-    <ul style="margin-left:20px;">
-      <li>✔ The Laws</li>
-      <li>✔ The Protocol definitions</li>
-      <li>✔ The user interface used to verify data</li>
-      <li>✔ The entire educational suite</li>
-    </ul>
-
-    <p style="margin-top:18px; font-weight:600;">
-      When even the protocol verifies itself — trust becomes mathematical.
-    </p>
-
-  </div>
-</details>
-  
    <!-- EXPLAINER BUTTONS -->
   <div style="margin-top:26px;" class="pill-row">
     <button class="pill-btn explain-btn" onclick="showExplain('simple')">🤯 I don't get it</button>
@@ -1065,7 +1018,6 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
       </div>
     </div>
 
-
     <!-- ================================================= -->
     <!-- EXPERT MODE: MULTI-HASH COMPARISON -->
     <!-- ================================================= -->
@@ -1084,7 +1036,6 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
 
       <div id="algoResult" style="margin-top:20px;"></div>
     </div>
-
 
     <!-- ================================================= -->
     <!-- Animated Avalanche Demo -->
@@ -1229,7 +1180,6 @@ INPUT  →  [ SHA Blender ]  →  UNIQUE OUTPUT
 
     </div>
 
-
     <!-- =================================================== -->
     <!-- 3. REAL-WORLD USAGE MAP -->
     <!-- =================================================== -->
@@ -1266,7 +1216,6 @@ SHA-3     | 🧪 New       | Crypto research, Ethereum
   </div>
 </details>
 
-
     </pre>
 
     <!-- =================================================== -->
@@ -1290,7 +1239,6 @@ Use:       Integrity, digital signatures, decision-gating
       <strong>No one can create two different documents with the same hash.</strong>
     </p>
 
-
     <!-- =================================================== -->
     <!-- 5. AVALANCHE EFFECT -->
     <!-- =================================================== -->
@@ -1309,7 +1257,6 @@ ONE tiny change → COMPLETELY different hash.
     <p>
       This makes SHA able to catch invisible tampering that humans cannot see.
     </p>
-
 
     <!-- =================================================== -->
     <!-- 6. WHY NOVAK USES SHA-256 -->
@@ -1333,7 +1280,6 @@ ONE tiny change → COMPLETELY different hash.
       In a full NOVAK deployment:<br>
       <strong>No system may ACT unless SHA-256 proves the data is unchanged.</strong>
     </p>
-
 
     <!-- =================================================== -->
     <!-- 7. WHY NOVAK IS MODULAR (NEW SECTION) -->
@@ -1384,6 +1330,52 @@ ONE tiny change → COMPLETELY different hash.
       NOVAK’s integrity model stays the same — only the math block swaps.
     </p>
 
+  </div>
+</details>
+
+<!-- ====================================================== -->
+<!-- ⭐ NOVAK SELF-VERIFICATION BLOCK -->
+<!-- ====================================================== -->
+<details class="novak-collapse" style="margin-top:32px;">
+  <summary style="cursor:pointer; font-size:20px; padding:14px 0;">
+    🔍 Verify NOVAK Itself (Source, Laws, Version, Hashes)
+  </summary>
+
+  <div class="card" style="padding:28px; margin-top:16px; font-size:16px;">
+
+    <h2 style="margin-top:0;">NOVAK Self-Verification</h2>
+
+    <p>
+      NOVAK practices what it enforces:  
+      <strong>we verify ourselves using our own rules.</strong>
+    </p>
+
+    <pre class="diagram-box" style="white-space:pre; font-size:14px;">
+NOVAK Version:     1.0.0
+Laws Included:     L0–L15 + PL-X + PS-X
+Protocol Modules:  HVET + EIR + RGAC + Safety Gate
+
+SHA-256 (source):  <span id="novakSourceHash">[computed live]</span>
+SHA-256 (laws):    <span id="novakLawsHash">[computed live]</span>
+SHA-256 (UI):      <span id="novakUIHash">[computed live]</span>
+Timestamp:         <span id="novakTimestamp">[local time]</span>
+    </pre>
+
+    <p>
+      This block demonstrates that NOVAK uses its own cryptographic process  
+      to guarantee the authenticity of:
+    </p>
+
+    <ul style="margin-left:20px;">
+      <li>✔ The Laws</li>
+      <li>✔ The Protocol definitions</li>
+      <li>✔ The user interface used to verify data</li>
+      <li>✔ The entire educational suite</li>
+    </ul>
+
+    <p style="margin-top:18px; font-weight:600;">
+      When even the protocol verifies itself — trust becomes mathematical.
+    </p>
 
   </div>
 </details>
@@ -1438,7 +1430,6 @@ ONE tiny change → COMPLETELY different hash.
 
 </style>
 
-
 <!-- ======================================================= -->
 <!-- JAVASCRIPT: COPY, MODE TOGGLE, AVA/COMPARE -->
 <!-- ======================================================= -->
@@ -1453,7 +1444,6 @@ function copyHash(btn) {
   setTimeout(() => btn.innerText = "📋", 900);
 }
 
-
 // BASIC <-> EXPERT mode toggle
 function toggleHashMode() {
   const panel = document.getElementById("expertPanel");
@@ -1467,7 +1457,6 @@ function toggleHashMode() {
     btn.innerText = "🔰 Expert View";
   }
 }
-
 
 // Multi-algorithm comparison output
 const exampleInput = "TEST";
@@ -1491,7 +1480,6 @@ function showAlgo(algo) {
 
   document.getElementById("algoResult").innerHTML = output;
 }
-
 
 // Avalanche visualizer
 function runAvalanche() {
