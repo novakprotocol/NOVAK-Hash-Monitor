@@ -3774,6 +3774,89 @@ function setDriftStatus(isDrift) {
     rgacBox.style.color = "#22543d";
   }
 }
+
+/* ============================================================
+   ✅ SHA-256 Utility
+   ============================================================ */
+async function sha256(message) {
+  const msgUint8 = new TextEncoder().encode(message);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8);
+  return Array.from(new Uint8Array(hashBuffer))
+      .map(b => b.toString(16).padStart(2, "0"))
+      .join("");
+}
+
+/* ============================================================
+   ✅ UPDATE RULE HASH
+   ============================================================ */
+async function updateRuleHash() {
+  const text = document.getElementById("ruleInput").value;
+  const hash = await sha256(text);
+  document.getElementById("shaRule").textContent = hash;
+
+  updateHVETandRGAC();
+}
+
+/* ============================================================
+   ✅ UPDATE DATA HASH
+   ============================================================ */
+async function updateDataHash() {
+  const text = document.getElementById("dataInput").value;
+  const hash = await sha256(text);
+  document.getElementById("shaData").textContent = hash;
+
+  updateHVETandRGAC();
+}
+
+/* ============================================================
+   ✅ UPDATE OUTPUT HASH
+   ============================================================ */
+async function updateOutputHash() {
+  const text = document.getElementById("outputInput").value;
+  const hash = await sha256(text);
+  document.getElementById("shaOutput").textContent = hash;
+
+  updateHVETandRGAC();
+}
+
+/* ============================================================
+   ✅ Recompute HVET + Update Drift + Update RGAC
+   ============================================================ */
+async function updateHVETandRGAC() {
+  const ruleHash = document.getElementById("shaRule").textContent;
+  const dataHash = document.getElementById("shaData").textContent;
+  const outputHash = document.getElementById("shaOutput").textContent;
+
+  // Ignore empty state
+  if (ruleHash.includes("waiting") || 
+      dataHash.includes("waiting") || 
+      outputHash.includes("waiting")) {
+    return;
+  }
+
+  // Compute HVET commit
+  const { hv, timestamp } = await computeHVET(ruleHash, dataHash, outputHash);
+
+  // Compare against last approved commit for drift detection
+  if (window.lastHVET && hv !== window.lastHVET) {
+    setDriftStatus(true);    // red pulse + RGAC drift
+  } else {
+    setDriftStatus(false);   // green pulse
+  }
+
+  // Update RGAC chain
+  if (window.lastHVET !== hv) {
+    window.currentRGAC = (parseInt(window.currentRGAC || "1") + 1)
+                          .toString().padStart(8, "0");
+  }
+
+  // Save last HVET for future comparison
+  window.lastHVET = hv;
+
+  // Update RGAC display box
+  document.getElementById("rgac").textContent =
+    `Block ${window.currentRGAC} → ${hv.substring(0, 20)}…`;
+}
   
 </script>
   
