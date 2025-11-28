@@ -1,12 +1,31 @@
 {
-  "artifact": "Break the Chain",
-  "artifact_url": "https://novakprotocol.github.io/NOVAK-Hash-Monitor/audio/Break the Chain.mp3",
-  "artifact_hash": "lececaf4fe82c37e3c7d4e9104b51da177e22ab76106f194ed997c945a3769a",
-  "rule_hash": "aa2b7e6cbe7c77a91b776c30bb88cf00e30f57a39b1dc6b859e43e903ed2e9bf",
-  "output_hash": "c2be7037d0b570334740bb894869f7a73ee41abe3e83cc4456ddc967b293af2b",
-  "hvet": "89d9e51634f47859423951a826207fe3cf481074ab2a40b6ef75e7f5781cb6cf",
-  "timestamp": "2025-11-27T00:00:00Z",
-  "novak_version": "1.0.0",
-  "laws": "L0–L15 + PL-X + PS-X",
-  "modules": "HVET + EIR + RGAC + Safety Gate"
+  "artifact": {
+    "name": "Break the Chain",
+    "type": "audio/mp3",
+    "version": "1.0",
+    "source_url": "https://novakprotocol.github.io/NOVAK-Hash-Monitor/audio/Break%20the%20Chain.mp3",
+    "sha256": "1ecceaf4fe82e3c773c7d4e9104b5d1a77e22ab7610691f94ed997c945a3769a"
+  },
+  "rule": {
+    "description": "Audio playback only — no gain, no transforms, no DSP, no alteration.",
+    "rule_hash": "7a3b0b41f261204d3c0ada95309239e6ec6e4e0699eeacf4131366d9b16f1b27"
+  },
+  "output": {
+    "description": "Decoded PCM transcript hash under strict mode.",
+    "output_hash": "04f84ea1cbfbe66e523356353056f436f587d5ae4db9e5dbb934e4fd5623d220"
+  },
+  "hvet": {
+    "digest": "41e8fae06d838b973780ea76d78504e38266f510ab6346850acb6f774e83db8b",
+    "timestamp": "2025-11-27T00:00:00Z"
+  },
+  "novak": {
+    "version": "1.0.0",
+    "laws": "L0–L15 + PL-X + PS-X",
+    "modules": [
+      "HVET (Recursive Global Audit Chain)",
+      "EIR (Execution Identity Receipt)",
+      "Safety Gate (Deterministic Safety Layer)",
+      "HVET Strict Mode"
+    ]
+  }
 }
