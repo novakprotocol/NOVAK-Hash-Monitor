@@ -1,8 +1,8 @@
-{
-  "artifact": "Break the Chain",
-  "sha256": "afe53399b59eb0f1acb90e5c0c7140f4ab5150cd26607d2fbafc8c1c8d06d7f7",
-  "hvet": "41e8fae06d838b973780ea76d78504e38266f510ab6346850acb6f774e83db8b",
-  "timestamp": "2025-11-27T00:00:00Z",
-  "novak": "Strict Mode",
-  "laws": "L0–L15 + PL-X + PS-X"
-}
+NOVAK-EIR-V1
+artifact=Break the Chain
+type=audio/mp3
+sha256=1ecceaf4fe82e3c773c7d4e9104b5d1a77e22ab7610691f94ed997c945a3769a
+hvet=41e8fae06d838b973780ea76d78504e38266f510ab6346850acb6f774e83db8b
+url=https://novakprotocol.github.io/NOVAK-Hash-Monitor/audio/Break%20the%20Chain.mp3
+timestamp=2025-11-27T05:12:33-05:00
+laws=L0-L15+PL-X+PS-X
