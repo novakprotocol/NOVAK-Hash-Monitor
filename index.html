@@ -1789,14 +1789,16 @@ async function startAvalanche() {
     </p>
   </div>
 
+  <!-- 🔥 DRIFT / SUCCESS STATUS PANEL -->
   <div id="autoVerifyStatus"
-       style="margin-top:14px; 
-              font-family:'JetBrains Mono', monospace; 
+       style="margin-top:14px;
+              font-family:'JetBrains Mono', monospace;
               font-size:15px;
               padding:14px;
               border-radius:8px;
               background:var(--card);
-              border:1px solid var(--border);">
+              border:1px solid var(--border);
+              transition: background 0.3s ease, border 0.3s ease, color 0.3s ease;">
     Auto-verification is disabled.
   </div>
 
@@ -1812,7 +1814,13 @@ async function startAvalanche() {
     </p>
 
     <div id="rgac"
-         style="font-family:'JetBrains Mono', monospace; font-size:14px;">
+         style="font-family:'JetBrains Mono', monospace;
+                font-size:14px;
+                padding:12px;
+                border-radius:6px;
+                border:1px solid var(--border);
+                background:var(--card);
+                transition: background 0.3s ease, border 0.3s ease, color 0.3s ease;">
       <em>Waiting for input…</em>
     </div>
   </div>
@@ -1834,7 +1842,11 @@ async function startAvalanche() {
     </button>
 
     <pre id="receiptOutput"
-        style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px; white-space:pre-wrap;"></pre>
+         style="margin-top:16px; 
+                font-family:'JetBrains Mono', monospace; 
+                font-size:14px; 
+                white-space:pre-wrap;">
+    </pre>
   </div>
 </div>
 
@@ -3731,6 +3743,35 @@ function toggleAutoVerify() {
 
   document.getElementById('autoVerifyStatus').textContent = 
     enabled ? "Auto-verification is enabled." : "Auto-verification is disabled.";
+}
+
+function setDriftStatus(isDrift) {
+  const statusBox = document.getElementById("autoVerifyStatus");
+  const rgacBox = document.getElementById("rgac");
+
+  if (isDrift) {
+    // 🔥 Drift highlight (soft red)
+    statusBox.style.background = "#fff5f5";
+    statusBox.style.border = "1px solid #ff6b6b";
+    statusBox.style.color = "#b30000";
+    statusBox.textContent = "⚠️ Drift detected. New output no longer matches the last approved hash.";
+
+    // RGAC drift (soft orange)
+    rgacBox.style.background = "#fff7e6";
+    rgacBox.style.border = "1px solid #ffa94d";
+    rgacBox.style.color = "#7a3e00";
+
+  } else {
+    // ✅ Match = green confirmation
+    statusBox.style.background = "var(--card)";
+    statusBox.style.border = "1px solid var(--border)";
+    statusBox.style.color = "inherit";
+    statusBox.textContent = "✓ Output matches the last approved hash. Integrity preserved.";
+
+    rgacBox.style.background = "#f0fff4";
+    rgacBox.style.border = "1px solid #38a169";
+    rgacBox.style.color = "#22543d";
+  }
 }
   
 </script>
