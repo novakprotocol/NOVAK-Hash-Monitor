@@ -1,0 +1,21 @@
+{
+  "artifact": {
+    "name": "Break the Chain",
+    "type": "audio/mp3",
+    "version": "1.0",
+    "size_mb": 5.4
+  },
+  "hashes": {
+    "sha256_audio": "afe53399b59eb0f1acb90e5c0c7140f4ab5150cd26607d2fbafc8c1c8d06d7f7",
+    "sha256_rule": "7a3b0b41f261204d3c0ada95309239e6ec6e4e0699eeacf4131366d9b16f1b27",
+    "sha256_output": "04f84ea1cbfbe66e523356353056f436f587d5ae4db9e5dbb934e4fd5623d220",
+    "sha256_hvet": "41e8fae06d838b973780ea76d78504e38266f510ab6346850acb6f774e83db8b"
+  },
+  "timestamp": "2025-11-27T00:00:00Z",
+  "novak": {
+    "version": "1.0.0",
+    "laws": "L0–L15 + PL-X + PS-X",
+    "modules": ["HVET", "EIR", "RGAC", "Safety Gate"]
+  },
+  "integrity": "NOVAK Strict Mode Enabled — Proof-Before-Action Verified"
+}
