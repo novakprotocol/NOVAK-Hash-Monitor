@@ -1833,11 +1833,23 @@ async function startAvalanche() {
           Generate Receipt
         </button>
 
-        <pre id="receiptOutput"
-             style="margin-top:16px;
-                    font-family:'JetBrains Mono', monospace;
-                    font-size:14px;
-                    white-space:pre-wrap;"></pre>
+<!-- JSON receipt -->
+<pre id="receiptOutput"
+     style="margin-top:16px;
+            font-family:'JetBrains Mono', monospace;
+            font-size:14px;
+            white-space:pre-wrap;"></pre>
+
+<!-- QR code -->
+<div id="qrContainer" 
+     style="margin-top:20px; text-align:center;"></div>
+
+<!-- JSON download link -->
+<a id="jsonDownloadLink"
+   style="margin-top:18px; display:none; text-decoration:underline; cursor:pointer;">
+   ⬇ Download Receipt JSON
+</a>
+
       </div>
 
     </div><!-- inner NOVAK block -->
@@ -2923,8 +2935,7 @@ function isAutoVerifyEnabled() {
     }
   });
 }
-
-  
+ 
 }
 
 document.getElementById("novakInput").addEventListener("input", () => {
@@ -2937,7 +2948,6 @@ document.getElementById("novakInput").addEventListener("input", () => {
       "<em>Auto-Verification disabled.</em>";
   }
 });
-
 
 /* ============================
    RGAC VISUALIZER
@@ -3179,23 +3189,52 @@ function toggleTransparency() {
     `DATA ➜ RULE ➜ OUTPUT\n\nMathematically bound, cryptographically verified.`;
 }
 
-/* ============================
-   EXECUTION RECEIPT
-=============================*/
+// ================================
+// 🔐 GENERATE RECEIPT + QR + JSON
+// ================================
 async function generateReceipt() {
-  const text = document.getElementById("novakInput").value.trim();
-  if (!text) return alert("Enter something first!");
 
-  const sha = await computeHash("SHA-256", text);
-  const timestamp = new Date().toISOString();
+  // Collect all hashes currently visible
+  const receiptData = {
+    timestamp: new Date().toISOString(),
+    hashes: {
+      sha256: window.lastHashes?.sha256 || null,
+      sha384: window.lastHashes?.sha384 || null,
+      sha512: window.lastHashes?.sha512 || null,
+      sha3_256: window.lastHashes?.sha3_256 || null
+    },
+    hvet: window.hvetValue || null,
+    rgac: {
+      block: window.rgacCounter || 1,
+      value: window.lastApproved || null
+    }
+  };
 
-  receiptOutput.textContent =
-`NOVAK Execution Integrity Receipt
-----------------------------------
-Timestamp: ${timestamp}
-SHA-256: ${sha}
+  // Display JSON in receipt panel
+  document.getElementById("receiptOutput").textContent =
+    JSON.stringify(receiptData, null, 2);
 
-This proves what existed, when, and under what rules.`;
+  // ===== QR Code Generation =====
+  const qrContainer = document.getElementById("qrContainer");
+  qrContainer.innerHTML = ""; // clear old QR
+
+  new QRCode(qrContainer, {
+    text: JSON.stringify(receiptData),
+    width: 130,
+    height: 130,
+    correctLevel: QRCode.CorrectLevel.M
+  });
+
+  // ===== JSON Download =====
+  const blob = new Blob([JSON.stringify(receiptData, null, 2)], {
+    type: "application/json"
+  });
+
+  const url = URL.createObjectURL(blob);
+  const dl = document.getElementById("jsonDownloadLink");
+  dl.href = url;
+  dl.download = `NOVAK_Receipt_${Date.now()}.json`;
+  dl.style.display = "inline-block";
 }
 
 /* ===============================
@@ -3530,6 +3569,8 @@ document.getElementById("autoVerifyToggle").addEventListener("change", toggleAut
 updateHashes();
 
 </script>
-  
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
 </body>
 </html>
