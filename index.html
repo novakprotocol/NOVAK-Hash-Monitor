@@ -3802,24 +3802,6 @@ async function sha256(message) {
       .join("");
 }
 
-/* ============================================================
-   ✅ UPDATE RULE HASH
-   ============================================================ */
-async function updateRuleHash() {
-  const text = document.getElementById("ruleInput").value;
-  const hash = await sha256(text);
-  document.getElementById("shaRule").textContent = hash;
-
-async function updateHVETandRGAC() {
-  const ruleHash   = document.getElementById("shaRule").textContent;
-  const dataHash   = document.getElementById("shaData").textContent;
-  const outputHash = document.getElementById("shaOutput").textContent;
-
-  if (!ruleHash || !dataHash || !outputHash ||
-      ruleHash.length < 4 || dataHash.length < 4 || outputHash.length < 4) {
-    return;
-  }
-
   const { hv, timestamp } = await computeHVET(ruleHash, dataHash, outputHash);
 
   window.lastHVETtimestamp = timestamp;
@@ -3847,27 +3829,40 @@ async function updateHVETandRGAC() {
 }
 
 /* ============================================================
-   ✅ UPDATE DATA HASH
+   UPDATE RULE HASH
+   ============================================================ */
+async function updateRuleHash() {
+  const text = document.getElementById("ruleInput").value;
+  const hash = await sha256(text);
+  document.getElementById("shaRule").textContent = hash;
+  updateHVETandRGAC();
+}
+
+/* ============================================================
+   UPDATE DATA HASH
    ============================================================ */
 async function updateDataHash() {
   const text = document.getElementById("dataInput").value;
   const hash = await sha256(text);
   document.getElementById("shaData").textContent = hash;
-
   updateHVETandRGAC();
 }
 
 /* ============================================================
-   ✅ UPDATE OUTPUT HASH
+   UPDATE OUTPUT HASH
    ============================================================ */
 async function updateOutputHash() {
   const text = document.getElementById("outputInput").value;
   const hash = await sha256(text);
   document.getElementById("shaOutput").textContent = hash;
 
+  // Save last SHA256 for receipt
+  window.lastSHA256 = hash;
+
   updateHVETandRGAC();
 }
 
+  
 /* ============================================================
    ✅ Recompute HVET + Update Drift + Update RGAC
    ============================================================ */
