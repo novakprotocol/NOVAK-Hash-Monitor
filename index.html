@@ -2526,39 +2526,76 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
 <!-- ✅ GAME RENDER CONTAINER -->
 <div id="gameBox" class="card" style="margin-top:20px; display:none;"></div>
 
-<!-- SONG: BREAK THE CHAIN (Collapsible + Audio Player) -->
-<details class="novak-collapse" style="margin-top:32px;">
-  <summary style="cursor:pointer; font-size:20px; padding:14px 0;">
-    🎧 “Break the Chain” — AI-Assisted Song (Listen + Lyrics)
-  </summary>
+<!-- ====================================================== -->
+<!-- 🎧 ADVANCED AUDIO PLAYER (GITHUB /audio/ + NOVAK Hash) -->
+<!-- ====================================================== -->
+<div class="card" style="margin-top:26px; padding:20px;">
+  <details>
+    <summary style="cursor:pointer; font-size:20px; font-weight:600;">
+      🎧 “Break the Chain” — AI-Assisted Track (Listen + Verify)
+    </summary>
 
-  <div class="card" style="padding:24px; margin-top:16px; font-size:16px; line-height:1.6;">
+    <div style="margin-top:18px; font-size:15px; line-height:1.55;">
 
-    <h2 class="section-title">“Break the Chain” — AI Assist</h2>
+      <p>
+        Power of math, audio engineering, and AI.  
+        Stored in <code>/audio/</code> inside the GitHub repo.
+      </p>
 
-    <p>
-      Power of Math and AI. This is a track and lyrics I produced using an AI assist —
-      about breaking invisible chains of harm, bias, and corruption in automated systems.
-    </p>
+      <!-- AUDIO PLAYER -->
+      <div style="margin-top:18px;">
+        <audio id="novakAudio" controls preload="metadata" style="width:100%; border-radius:8px;">
+          <source src="https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/YOUR_REPO/main/audio/song.mp3" type="audio/mpeg">
+        </audio>
+      </div>
 
-    <p style="margin-top:6px;">
-      Lots of bass! Adjust volume depending on mood and taste.
-    </p>
+      <!-- WAVEFORM BAR (simple fake visualizer) -->
+      <div id="waveformBar"
+           style="margin:14px 0; height:6px; width:100%;
+                  background:var(--border);
+                  border-radius:4px; overflow:hidden;">
+        <div id="waveformProgress"
+             style="height:6px; width:0%;
+                    transition:width 0.1s linear;
+                    background:var(--accent, #4fa3ff);">
+        </div>
+      </div>
 
-    <!-- AUDIO PLAYER -->
-    <audio controls style="width:100%; margin-top:18px; border-radius:8px;">
-    <source src="https://novakprotocol.github.io/NOVAK-Hash-Monitor/audio/break-the-chain.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
+      <!-- DOWNLOAD BUTTON -->
+      <a id="downloadSong"
+         href="https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/YOUR_REPO/main/audio/song.mp3"
+         download="BreakTheChain.mp3"
+         class="action-btn"
+         style="margin-top:10px; display:inline-block;">
+        ⬇ Download Track
+      </a>
 
-    <!-- LYRICS COLLAPSIBLE -->
-    <details style="margin-top:18px;">
-      <summary style="cursor:pointer; padding:10px 0; font-size:16px;">
-        📜 Show / Hide Lyrics
-      </summary>
+      <!-- HASH VERIFICATION -->
+      <div style="margin-top:22px;">
+        <h3 style="font-size:17px;">🔐 NOVAK Audio Integrity Check</h3>
+        <p>This verifies the exact MP3 you downloaded:</p>
 
-      <pre style="margin-top:14px; white-space:pre-wrap; font-family:'JetBrains Mono', monospace; font-size:14px;">
+        <button onclick="verifyAudioHash()" class="action-btn">
+          🧪 Verify Audio Hash (SHA-256)
+        </button>
 
+        <pre id="audioHashOutput"
+             style="margin-top:12px; font-family:'JetBrains Mono', monospace;
+                    font-size:14px; white-space:pre-wrap; background:var(--card);
+                    padding:12px; border-radius:8px; border:1px solid var(--border);">
+Awaiting verification…
+        </pre>
+      </div>
+
+      <!-- LYRICS COLLAPSE -->
+      <details style="margin-top:24px;">
+        <summary style="cursor:pointer; font-size:18px;">
+          🎤 Show / Hide Lyrics
+        </summary>
+
+        <pre style="margin-top:14px; white-space:pre-wrap;
+                    font-family:'JetBrains Mono', monospace;
+                    font-size:14px;">
 [Intro]
 YEAH!
 Pressure on the brain—
@@ -2615,18 +2652,44 @@ I’m ’bout to break the chain!
 Freedom roars inside my brain.
 When that fire hits my veins—
 I’M! BOUT! TO! BREAK! THE! CHAIN!
+        </pre>
+      </details>
 
-      </pre>
-    </details>
+    </div>
+  </details>
+</div>
 
-  </div>
-</details>
-
-
+<!-- ============================= -->
+<!-- 🎧 AUDIO PLAYER JS LOGIC      -->
+<!-- ============================= -->
 <script>
-function toggleSongLyrics() {
-  const block = document.getElementById("songBlock");
-  block.style.display = block.style.display === "none" ? "block" : "none";
+// WAVEFORM PROGRESS BAR
+const audio = document.getElementById('novakAudio');
+const bar = document.getElementById('waveformProgress');
+
+audio.addEventListener('timeupdate', () => {
+  const p = (audio.currentTime / audio.duration) * 100;
+  bar.style.width = p + "%";
+});
+
+// NOVAK AUDIO HASH VERIFICATION
+async function verifyAudioHash() {
+  const url = document.querySelector('#novakAudio source').src;
+  const output = document.getElementById('audioHashOutput');
+
+  output.textContent = "Downloading audio for hash verification…";
+
+  const buffer = await fetch(url).then(r => r.arrayBuffer());
+  const hashBuffer = await crypto.subtle.digest("SHA-256", buffer);
+
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+
+  output.textContent = 
+`SHA-256 Audio Hash:
+${hashHex}
+
+Use this hash in NOVAK EIR / HVET to bind audio integrity.`;
 }
 </script>
   
