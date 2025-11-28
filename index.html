@@ -28,9 +28,9 @@
   padding: 14px;
   border-radius: 8px;
   font-family: 'JetBrains Mono', monospace;
-  text-align: center;        /* NEW FIX */
-  white-space: pre-wrap;     /* already present */
+  white-space: pre-wrap;
   margin-top: 12px;
+  text-align: center;   /* ✅ FIX ALIGNMENT */
 }
 
 .sha-table { margin-top: 14px; }
@@ -42,7 +42,6 @@
 .sha-good   { background:#e2f4ff; border:1px solid #6aa7ff; }
 .sha-new    { background:#eae1ff; border:1px solid #a78bfa; }
 
-    
 .dropdown {
   position: relative;
   display: inline-block;
@@ -123,8 +122,7 @@ html[data-theme="dark"] .dropdown-content {
 html[data-theme="dark"] .dropdown-content a:hover {
   background: #1e293b;
 }
-
-    
+  
 /* ========== FIX TOP GAP (B) ========== */
 html {
   scroll-padding-top: 50px; /* header height */
@@ -431,7 +429,6 @@ html[data-theme="dark"] .aud-btn.active {
   background: #ffffff;
   color: #000000;
 }
-
 
     /* Restore buttons under cards */
     .restore-btn {
@@ -1055,7 +1052,6 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
         <span>⚙️ SHA-256</span>
       </div>
     </div>
-
 
     <!-- ================================================= -->
     <!-- VARIANTS THAT SHOW AVALANCHE EFFECT -->
