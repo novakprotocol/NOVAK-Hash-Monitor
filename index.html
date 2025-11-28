@@ -709,106 +709,156 @@ html[data-theme="dark"] .aud-btn.active {
   </button>
 </div>
 
- <!-- WHAT IS NOVAK? (Name + NOT Blockchain/Bitcoin/SSL) -->
-  <div id="whatIsNovakCard" class="card" style="margin-top:24px; position:relative;">
-    <h2 class="section-title">What is NOVAK?</h2>
+<!-- ================================================================ -->
+<!-- PERSISTENT RESTORE BUTTONS                                      -->
+<!-- ================================================================ -->
+<div class="pill-row" style="justify-content:center; margin-top:16px;">
+  
+  <button id="restoreWhatIsBtn"
+    onclick="restoreWhatIsNovakSection()"
+    class="restore-btn"
+    style="display:none;">
+    🔄 Show “What is NOVAK?”
+  </button>
+  
+  <button id="restoreWhyBtn"
+    onclick="restoreWhyNovakSection()"
+    class="restore-btn"
+    style="display:none;">
+    🔄 Show “Why NOVAK — Why Now?”
+  </button>
 
-    <p style="margin-bottom:10px;">
-      <strong>NOVAK</strong> stands for
-      <strong>Novak Objective Verification of Autonomous Knowledge</strong>.
-      It is a cryptographic “governor” that forces any automated system to prove integrity
-      <em>before</em> it is allowed to act.
+  <button id="restoreWhatBtn"
+    onclick="restoreWhatChangesSection()"
+    class="restore-btn"
+    style="display:none;">
+    🔄 Show “What Changes With NOVAK?”
+  </button>
+</div>
+
+<!-- ================================================================ -->
+<!-- WHAT IS NOVAK?                                                   -->
+<!-- ================================================================ -->
+<div id="whatIsNovakCard" class="card" style="margin-top:24px; position:relative;">
+  <h2 class="section-title">What is NOVAK?</h2>
+
+  <p style="margin-bottom:10px;">
+    <strong>NOVAK</strong> stands for
+    <strong>Novak Objective Verification of Autonomous Knowledge</strong>.
+    It is a cryptographic “governor” that forces any automated system to prove integrity
+    <em>before</em> it is allowed to act.
+  </p>
+
+  <ul style="margin-left:20px; margin-bottom:14px;">
+    <li>Humans, AI, or malware cannot silently bypass it.</li>
+    <li>Every decision has a math-checkable receipt.</li>
+    <li>A hardened layer that enforces proof-before-action.</li>
+  </ul>
+
+  <p style="margin-bottom:8px; font-weight:600;">
+    NOVAK is <u>not</u>:
+  </p>
+  <ul style="margin-left:20px; margin-bottom:6px;">
+    <li>❌ Not a blockchain</li>
+    <li>❌ Not a cryptocurrency or token</li>
+    <li>❌ Not SSL/TLS or a VPN tunnel</li>
+    <li>❌ Not a logging system that reacts after harm</li>
+  </ul>
+
+  <p>
+    NOVAK sits <em>in front</em> of critical actions and demands cryptographic proof that
+    <strong>data, rules, and outputs all match</strong> the approved baseline.
+  </p>
+
+  <!-- Close X -->
+  <button onclick="dismissWhatIsNovak()"
+    style="position:absolute; top:14px; right:14px; background:none; border:none; font-size:20px; cursor:pointer;">
+    ✕
+  </button>
+
+  <!-- Confirm hide -->
+  <button onclick="dismissWhatIsNovak()" class="action-btn" style="margin-top:18px;">
+    ✅ Got it — Hide
+  </button>
+</div>
+
+<!-- ================================================================ -->
+<!-- WHY NOVAK — WHY NOW?                                             -->
+<!-- ================================================================ -->
+<div id="whyNovakCard" class="card" style="margin-top:24px; position:relative;">
+  <h2 class="section-title">Why NOVAK — Why Now?</h2>
+
+  <p>
+    Automation approves mortgages, denies benefits, sets insurance rates,
+    steers vehicles, recommends surgeries, and moves trillions of dollars —
+    often without proof of correctness, legality, or integrity.
+  </p>
+
+  <p style="margin-top:12px;">
+    NOVAK requires mathematical proof <strong>before</strong> any automated action occurs.
+  </p>
+
+  <ul style="margin-top:12px; margin-left:20px;">
+    <li>If data changes → NOVAK detects instantly</li>
+    <li>If rule is wrong → NOVAK blocks execution</li>
+    <li>If fraud occurs → NOVAK produces evidence</li>
+    <li>If system glitches → NOVAK prevents harm</li>
+  </ul>
+
+  <p style="margin-top:14px; font-weight:600;">
+    No blockchain. No crypto. No SSL/TLS tunnel. No central authority.
+    Just cryptographic proof-before-action execution integrity.
+  </p>
+
+  <!-- Close X -->
+  <button onclick="dismissWhyNovak()"
+    style="position:absolute; top:14px; right:14px; background:none; border:none; font-size:20px; cursor:pointer;">
+    ✕
+  </button>
+
+  <!-- Confirm hide -->
+  <button onclick="dismissWhyNovak()" class="action-btn" style="margin-top:18px;">
+    ✅ Got it — Hide
+  </button>
+</div>
+
+<!-- ================================================================ -->
+<!-- WHAT CHANGES WITH NOVAK                                          -->
+<!-- ================================================================ -->
+<div id="whatChangesCard" class="card" style="margin-top:32px; position:relative;">
+  <h2 class="section-title">What Changes With NOVAK?</h2>
+
+  <p>
+    Most systems today rely on logging <strong>after</strong> something already happened.
+    NOVAK requires proof <strong>before</strong> action.
+  </p>
+
+  <div style="margin-top:14px;">
+    <p style="color:var(--red); font-weight:600; margin-bottom:6px;">❌ Without NOVAK</p>
+    <p style="margin-bottom:14px;">
+      System executes even if data is wrong — Hash exists but cannot stop harm —
+      Fraud found weeks or years later — No mathematical guarantee — Human trust required.
     </p>
 
-    <ul style="margin-left:20px; margin-bottom:14px;">
-      <li><strong></strong>Humans, AI, or malware cannot silently bypass it.</li>
-      <li><strong></strong>Every decision has a math-checkable receipt.</li>
-      <li><strong></strong>A small, hardened layer that sits beside existing systems and
-          enforces proof-before-action.</li>
-    </ul>
-
-    <p style="margin-bottom:8px; font-weight:600;">
-      NOVAK is <u>not</u>:
-    </p>
-    <ul style="margin-left:20px; margin-bottom:6px;">
-      <li>❌ Not a blockchain</li>
-      <li>❌ Not a cryptocurrency or token</li>
-      <li>❌ Not SSL/TLS or a VPN tunnel</li>
-      <li>❌ Not a logging system that only reacts after harm</li>
-    </ul>
-
+    <p style="color:var(--green); font-weight:600; margin-bottom:6px;">✅ With NOVAK</p>
     <p>
-      Instead, NOVAK sits <em>in front</em> of critical actions and demands cryptographic proof that
-      <strong>data, rules, and outputs all match</strong> what was approved. If anything is off — it refuses
-      to execute.
+      Proof-before-action — Data, rules & output bound together —
+      Fraud blocked instantly — Evidence auto-generated — Trust replaced with math.
     </p>
-
-    <!-- Close X -->
-    <button onclick="dismissWhatIsNovak()"
-      style="
-        position:absolute;
-        top:14px;
-        right:14px;
-        background:none;
-        border:none;
-        font-size:20px;
-        cursor:pointer;
-      "
-      aria-label="Hide What is NOVAK section">
-      ✕
-    </button>
-
-    <!-- Confirm hide -->
-    <button onclick="dismissWhatIsNovak()" class="action-btn" style="margin-top:18px;">
-      ✅ Got it — Hide
-    </button>
   </div>
 
-    <!-- WHY NOVAK — WHY NOW? -->
-  <div id="whyNovakCard" class="card" style="margin-top:24px; position:relative;">
-    <h2 class="section-title">Why NOVAK — Why Now?</h2>
+  <!-- Close X -->
+  <button onclick="dismissWhatChanges()"
+    style="position:absolute; top:14px; right:14px; background:none; border:none; font-size:20px; cursor:pointer;">
+    ✕
+  </button>
 
-    <p>
-      Automation now approves mortgages, denies veterans’ benefits, sets insurance rates, steers vehicles,
-      recommends surgeries, and moves trillions of dollars — often without proof of correctness, legality, or integrity.
-    </p>
+  <!-- Confirm hide -->
+  <button onclick="dismissWhatChanges()" class="action-btn" style="margin-top:18px;">
+    ✅ Got it — Hide
+  </button>
+</div>
 
-    <p style="margin-top:12px;">
-      NOVAK changes this — requiring mathematical proof <strong>before</strong> any automated action occurs.
-    </p>
-
-    <ul style="margin-top:12px; margin-left:20px;">
-      <li>If data changes → NOVAK detects instantly</li>
-      <li>If rule is wrong → NOVAK blocks execution</li>
-      <li>If fraud occurs → NOVAK produces evidence</li>
-      <li>If system glitches → NOVAK prevents harm</li>
-    </ul>
-
-    <p style="margin-top:14px; font-weight:600;">
-      No blockchain. No cryptocurrency. No SSL/TLS tunnel. No central authority. Just cryptographic
-      proof-before-action execution integrity.
-    </p>
-
-    <!-- Close X -->
-    <button onclick="dismissWhyNovak()"
-      style="
-        position:absolute;
-        top:14px;
-        right:14px;
-        background:none;
-        border:none;
-        font-size:20px;
-        cursor:pointer;
-      "
-      aria-label="Hide Why NOVAK section">
-      ✕
-    </button>
-
-    <!-- Confirm hide -->
-    <button onclick="dismissWhyNovak()" class="action-btn" style="margin-top:18px;">
-      ✅ Got it — Hide
-    </button>
-  </div>
 
  <!-- WHAT CHANGES WITH NOVAK -->
   <div id="whatChangesCard" class="card" style="margin-top:32px; position:relative;">
@@ -4057,6 +4107,73 @@ function setDriftStatus(isDrift) {
   document.getElementById("rgac").textContent =
     `Block ${window.currentRGAC} → ${hv.substring(0, 20)}…`;
 }
+
+/* =======================================================
+   PERSISTENT PANEL VISIBILITY USING LOCALSTORAGE
+   ======================================================= */
+
+// WHAT IS NOVAK
+function dismissWhatIsNovak() {
+  document.getElementById("whatIsNovakCard").style.display = "none";
+  localStorage.setItem("panel_whatIs", "hidden");
+  document.getElementById("restoreWhatIsBtn").style.display = "inline-flex";
+}
+
+function restoreWhatIsNovakSection() {
+  document.getElementById("whatIsNovakCard").style.display = "block";
+  localStorage.setItem("panel_whatIs", "shown");
+  document.getElementById("restoreWhatIsBtn").style.display = "none";
+}
+
+// WHY NOVAK
+function dismissWhyNovak() {
+  document.getElementById("whyNovakCard").style.display = "none";
+  localStorage.setItem("panel_why", "hidden");
+  document.getElementById("restoreWhyBtn").style.display = "inline-flex";
+}
+
+function restoreWhyNovakSection() {
+  document.getElementById("whyNovakCard").style.display = "block";
+  localStorage.setItem("panel_why", "shown");
+  document.getElementById("restoreWhyBtn").display = "none";
+}
+
+// WHAT CHANGES
+function dismissWhatChanges() {
+  document.getElementById("whatChangesCard").style.display = "none";
+  localStorage.setItem("panel_changes", "hidden");
+  document.getElementById("restoreWhatBtn").style.display = "inline-flex";
+}
+
+function restoreWhatChangesSection() {
+  document.getElementById("whatChangesCard").style.display = "block";
+  localStorage.setItem("panel_changes", "shown");
+  document.getElementById("restoreWhatBtn").style.display = "none";
+}
+
+/* =======================================================
+   RESTORE STATE ON PAGE LOAD
+   ======================================================= */
+window.addEventListener("DOMContentLoaded", () => {
+
+  // WHAT IS NOVAK
+  if (localStorage.getItem("panel_whatIs") === "hidden") {
+    document.getElementById("whatIsNovakCard").style.display = "none";
+    document.getElementById("restoreWhatIsBtn").style.display = "inline-flex";
+  }
+
+  // WHY NOVAK
+  if (localStorage.getItem("panel_why") === "hidden") {
+    document.getElementById("whyNovakCard").style.display = "none";
+    document.getElementById("restoreWhyBtn").style.display = "inline-flex";
+  }
+
+  // WHAT CHANGES
+  if (localStorage.getItem("panel_changes") === "hidden") {
+    document.getElementById("whatChangesCard").style.display = "none";
+    document.getElementById("restoreWhatBtn").style.display = "inline-flex";
+  }
+});
   
 </script>
   
