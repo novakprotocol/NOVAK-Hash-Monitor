@@ -1762,147 +1762,91 @@ async function startAvalanche() {
   </div>
 </div>
 
-<!-- ✅ AUTO-VERIFICATION TOGGLE -->
+<!-- =============================================== -->
+<!-- ✅ AUTO-VERIFICATION TOGGLE + HIDDEN BLOCKS -->
+<!-- =============================================== -->
+
 <div class="card" style="margin-top:32px;">
   <label style="display:flex; align-items:center; gap:10px; font-size:16px;">
-    <input type="checkbox" id="autoVerifyToggle">
+    <input type="checkbox" id="autoVerifyToggle" onchange="toggleAutoVerify()">
     <strong>Enable Proof-Before-Action Engine (NOVAK Auto-Verification)</strong>
   </label>
 
   <p style="margin-top:6px; font-size:14px; opacity:0.8;">
-    When enabled, NOVAK automatically checks whether any change breaks integrity 
+    When enabled, NOVAK automatically checks whether any change breaks integrity
     <strong>before</strong> execution.
   </p>
-<!-- ❗️ HIDDEN UNTIL CHECKBOX ENABLED -->
-<div id="autoVerifyBlock" class="card" style="margin-top:22px; display:none;">
-  <h3 class="section-title" style="font-size:20px;">
-    NOVAK Auto-Verification — Proof-Before-Action
-  </h3>
 
-  <p>
-    Modify the text above and NOVAK instantly checks whether the new output
-    still matches the last approved cryptographic truth.
-  </p>
+  <!-- ======================================================= -->
+  <!-- 🚫 HIDDEN UNTIL CHECKED -->
+  <!-- ======================================================= -->
+  <div id="autoVerifyBlock" style="display:none; margin-top:20px;">
 
-  <!-- ✅ RGAC VISUALIZATION -->
-<div class="card" style="margin-top:22px;">
-  <h3 class="section-title" style="font-size:20px;">RGAC — Recursive Global Audit Chain</h3>
-
-  <p style="margin-bottom:12px;">
-    In NOVAK, every approved output becomes the next input — forming a self-verifying integrity chain.
-  </p>
-
-  <div id="rgac"
-       style="font-family:'JetBrains Mono', monospace; font-size:14px;">
-    <em>Provide input to begin...</em>
-  </div>
-</div>
-
-</div>
-
-  <div id="autoVerifyStatus"
-       style="margin-top:14px; 
-              font-family:'JetBrains Mono', monospace; 
-              font-size:15px;
-              padding:14px;
-              border-radius:8px;
-              background:var(--card);
-              border:1px solid var(--border);">
-    Auto-verification is disabled.
-  </div>
-
-<!-- =============================================== -->
-<!-- ✅ INTEGRITY RECEIPT (NOT COLLAPSIBLE) -->
-<!-- =============================================== -->
-
-<div class="card" style="margin-top:32px; padding:20px;">
-  <h2 class="section-title">Integrity Receipt</h2>
-
-  <p>
-    NOVAK generates a tamper-proof receipt proving what existed, when, and under what rules —
-    useful for courts, claims, audits, cybersecurity, safety systems, and AI oversight.
-  </p>
-
-  <button class="action-btn" onclick="generateReceipt()" style="margin-top:12px;">
-    Generate Receipt
-  </button>
-
-  <pre id="receiptOutput"
-      style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px; white-space:pre-wrap;"></pre>
-</div>
-
-</div>
-
-<!-- =============================================== -->
-<!-- ✅ COLLAPSIBLE VERIFICATION SUITE -->
-<!-- =============================================== -->
-
-<div class="card" style="margin-top:32px; padding:20px;">
-  <details class="novak-collapse">
-    <summary style="cursor:pointer; font-size:18px; padding:14px 0;">
-      🔐 Upload & Verify Files (Click to Expand)
-    </summary>
-
-    <div class="collapse-inner">
-
-      <h2 class="section-title" style="font-size:22px; margin-bottom:18px;">
-        Universal Verification Suite
-      </h2>
-
-      <p style="font-size:14px; opacity:0.9;">
-        Upload any file or structured dataset — NOVAK proves it hasn’t silently changed before execution.
-      </p>
-
-      <!-- VERIFY ANY FILE -->
-      <h3 style="margin-top:28px; font-size:18px;">Verify Any File</h3>
-
-<p style="margin-top:6px; font-size:13px; opacity:0.85;">
-🚫This public demo is for educational purposes only — NOT for HIPAA-regulated environments.
-  Never use real patients, real claims, or real medical documents here — training data only.
-  NOVAK does not collect, store, transmit, or retain data, but user responsibility applies.
-</p>
+    <!-- NOVAK AUTO-VERIFICATION -->
+    <div class="card" style="padding:20px;">
+      <h3 class="section-title" style="font-size:20px;">
+        NOVAK Auto-Verification — Proof-Before-Action
+      </h3>
 
       <p>
-        Upload a PDF, medical record, scanned document, CSV, screenshot, or legal filing —
-        NOVAK proves originality instantly using real cryptography.
+        Modify the text above and NOVAK instantly checks whether the new output
+        still matches the last approved cryptographic truth.
       </p>
 
-      <div id="dropzone"
-          style="margin-top:14px; padding:22px; border:2px dashed var(--border);
-                border-radius:10px; text-align:center; cursor:pointer;">
-        📁 Drop file here or click to select
-        <input id="fileInput" type="file" style="display:none;">
+      <!-- STATUS (Now Inside Block) -->
+      <div id="autoVerifyStatus"
+           style="margin-top:14px; 
+                  font-family:'JetBrains Mono', monospace;
+                  font-size:15px;
+                  padding:14px;
+                  background:var(--card);
+                  border:1px solid var(--border);
+                  border-radius:8px;">
+        Waiting for input…
       </div>
 
-      <div id="fileHashResult"
-          style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></div>
+      <!-- RGAC -->
+      <div class="card" style="margin-top:26px; padding:18px;">
+        <h3 class="section-title" style="font-size:20px;">
+          RGAC — Recursive Global Audit Chain
+        </h3>
 
-      <hr style="margin:32px 0; border:0; border-top:1px solid var(--border); opacity:0.6;">
+        <p style="margin-bottom:12px;">
+          In NOVAK, every approved output becomes the next input — forming a self-verifying integrity chain.
+        </p>
 
-      <!-- VALIDATE STRUCTURED DATA -->
-      <h3 style="margin-top:0; font-size:18px;">Validate Structured Data</h3>
+        <div id="rgac"
+             style="font-family:'JetBrains Mono', monospace;
+                    font-size:14px; padding-top:6px;">
+          <em>Provide input to begin…</em>
+        </div>
+      </div>
 
-<p style="margin-top:6px; font-size:13px; opacity:0.85;">
-🚫This public demo is for educational purposes only — NOT for HIPAA-regulated environments.
-  Never use real patients, real claims, or real medical documents here — training data only.
-  NOVAK does not collect, store, transmit, or retain data, but user responsibility applies.
-</p>
+      <!-- RECEIPT -->
+      <div class="card" style="margin-top:26px; padding:20px;">
+        <h2 class="section-title">Integrity Receipt</h2>
 
-      <p>
-        Upload JSON, SQL, XML, or TXT — NOVAK proves the structured data hasn’t changed before execution.
-      </p>
+        <p>
+          NOVAK generates a tamper-proof receipt proving what existed, when, and under what rules —
+          useful for courts, claims, audits, cybersecurity, safety systems, and AI oversight.
+        </p>
 
-      <input id="structuredFile"
-            type="file"
-            accept=".json,.sql,.xml,.txt"
-            style="margin-top:16px;">
+        <button class="action-btn" onclick="generateReceipt()" style="margin-top:12px;">
+          Generate Receipt
+        </button>
 
-      <pre id="structuredResult"
-          style="margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:14px;"></pre>
+        <pre id="receiptOutput"
+             style="margin-top:16px;
+                    font-family:'JetBrains Mono', monospace;
+                    font-size:14px;
+                    white-space:pre-wrap;"></pre>
+      </div>
 
-    </div>
-  </details>
-</div>
+    </div><!-- end inner NOVAK block -->
+
+  </div><!-- end autoVerifyBlock -->
+
+</div><!-- end outer wrapper -->
 
 <!-- =============================================== -->
 <!-- 📌 WHAT CAN I DO WITH THIS HASH? -->
