@@ -2525,53 +2525,45 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
 <!-- ✅ GAME RENDER CONTAINER -->
 <div id="gameBox" class="card" style="margin-top:20px; display:none;"></div>
 
-<!-- ====================================================== -->
-<!-- ⭐ COLLAPSIBLE SONG BLOCK — "BREAK THE CHAIN"          -->
-<!-- ====================================================== -->
-
-<details class="novak-collapse" style="margin-top:36px;">
+<!-- SONG: BREAK THE CHAIN (Collapsible + Audio Player) -->
+<details class="novak-collapse" style="margin-top:32px;">
   <summary style="cursor:pointer; font-size:20px; padding:14px 0;">
-    🎵 “Break the Chain” — AI-Assisted Song (Click to Expand)
+    🎧 “Break the Chain” — AI-Assisted Song (Listen + Lyrics)
   </summary>
 
-  <div class="card" style="margin-top:16px;">
+  <div class="card" style="padding:24px; margin-top:16px; font-size:16px; line-height:1.6;">
 
-    <h2 class="section-title">“Break the Chain” — AI Assist with this Song</h2>
+    <h2 class="section-title">“Break the Chain” — AI Assist</h2>
 
     <p>
-      Power of Math and AI.  
-      This is a track and lyrics I made and mixed using an AI assist —
-      it is about breaking invisible chains of harm, bias, and corruption
-      in automated systems.
+      Power of Math and AI. This is a track and lyrics I produced using an AI assist —
+      about breaking invisible chains of harm, bias, and corruption in automated systems.
     </p>
 
-    <p style="margin-top:10px;">
-      — exactly what I felt like while making this.
-    </p>
-
-    <p style="margin-top:10px;">
+    <p style="margin-top:6px;">
       Lots of bass! Adjust volume depending on mood and taste.
     </p>
 
-    <button class="action-btn" style="margin-top:16px;" onclick="toggleSongLyrics()">
-      🎧 Show / Hide Lyrics
-    </button>
+    <!-- AUDIO PLAYER -->
+    <audio controls style="width:100%; margin-top:18px; border-radius:8px;">
+      <source src="https://novakprotocol.github.io/NOVAK-Hash-Monitor/audio/break-the-chain.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
 
-    <div id="songBlock" style="display:none; margin-top:16px;">
-      <p>
-        <a id="songLink" href="#" target="_blank" rel="noopener noreferrer">
-          ▶ Listen to “Break the Chain” (link coming soon)
-        </a>
-      </p>
+    <!-- LYRICS COLLAPSIBLE -->
+    <details style="margin-top:18px;">
+      <summary style="cursor:pointer; padding:10px 0; font-size:16px;">
+        📜 Show / Hide Lyrics
+      </summary>
 
-      <pre style="margin-top:14px; white-space:pre-wrap; font-family:'JetBrains Mono', monospace; font-size:14px;">[Intro]
+      <pre style="margin-top:14px; white-space:pre-wrap; font-family:'JetBrains Mono', monospace; font-size:14px;">
 
+[Intro]
 YEAH!
 Pressure on the brain—
 Chain on my neck, weight in my name!
 
 [Verse 1]
-
 Heartbeat drum, it’s a war inside,
 Every step I take, somethin’ gotta die.
 Dreams in a chokehold, breath runnin’ thin,
@@ -2582,8 +2574,7 @@ Concrete talk, that streetlight bite.
 Every scar got a story to tell,
 Every loss lit a match in hell.
 
-[Hook / Chorus]
-
+[Chorus]
 I’m ’bout to break the chain!
 Ain’t no fear left in my veins.
 I’m ’bout to break the chain!
@@ -2592,7 +2583,6 @@ Walls can’t hold this pain—
 I’m ’bout to break the chain!
 
 [Verse 2]
-
 Born in the static, raised in the grime,
 Life hit hard but I stayed in time.
 Eyes wide open, soul don’t sleep,
@@ -2604,7 +2594,6 @@ If the devil want a piece, he can try—
 I bite back twice before I die.
 
 [Hook 2]
-
 I’m ’bout to break the chain!
 Whole world feel that strain.
 I’m ’bout to break the chain!
@@ -2613,7 +2602,6 @@ Ain’t no cage for this brain—
 I’m ’bout to break the chain!
 
 [Bridge / Breakdown]
-
 (beat drops to filtered 808 + vocal echo)
 Gotta fight my way, gotta earn my crown,
 Every time they push, I won’t back down.
@@ -2626,11 +2614,13 @@ I’m ’bout to break the chain!
 Freedom roars inside my brain.
 When that fire hits my veins—
 I’M! BOUT! TO! BREAK! THE! CHAIN!
-      </pre>
 
-    </div>
+      </pre>
+    </details>
+
   </div>
 </details>
+
 
 <script>
 function toggleSongLyrics() {
