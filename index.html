@@ -3663,6 +3663,18 @@ async function getCanonicalAudioHash() {
   const hashArray = [...new Uint8Array(hashBuffer)];
   return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
 }
+
+function toggleAutoVerify() {
+  const enabled = document.getElementById('autoVerifyToggle').checked;
+
+  document.getElementById('autoVerifyBlock').style.display = enabled ? 'block' : 'none';
+  document.getElementById('rgacWrapper').style.display        = enabled ? 'block' : 'none';
+  document.getElementById('receiptWrapper').style.display     = enabled ? 'block' : 'none';
+
+  document.getElementById('autoVerifyStatus').textContent = 
+    enabled ? "Auto-verification is enabled." : "Auto-verification is disabled.";
+}
+  
 </script>
   
 </body>
