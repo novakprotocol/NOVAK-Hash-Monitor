@@ -1825,10 +1825,11 @@ async function startAvalanche() {
 
   <!-- ✅ Hash Algorithm Selector -->
   <div style="margin-top:16px; display:flex; flex-wrap:wrap; gap:18px;">
-    <label><input type="checkbox" class="hashAlgo" value="SHA-256" checked> SHA-256</label>
-    <label><input type="checkbox" class="hashAlgo" value="SHA-512"> SHA-512</label>
-    <label><input type="checkbox" class="hashAlgo" value="SHA-384"> SHA-384</label>
-    <label><input type="checkbox" class="hashAlgo" value="SHA3-256"> SHA-3-256</label>
+<label><input type="checkbox" value="sha256" checked> SHA-256</label>
+<label><input type="checkbox" value="sha512"> SHA-512</label>
+<label><input type="checkbox" value="sha384"> SHA-384</label>
+<label><input type="checkbox" value="sha3_256"> SHA-3-256</label>
+
   </div>
 
 <p style="margin-top:6px; font-size:13px; opacity:0.85;">
@@ -4188,6 +4189,139 @@ window.addEventListener("DOMContentLoaded", () => {
     document.getElementById("restoreWhatBtn").style.display = "inline-flex";
   }
 });
+
+  <script>
+// UNIVERSAL HASH FUNCTION
+async function computeHash(alg, text) {
+  const enc = new TextEncoder().encode(text);
+  const buf = await crypto.subtle.digest(alg, enc);
+  return [...new Uint8Array(buf)]
+    .map(b => b.toString(16).padStart(2,"0"))
+    .join("");
+}
+
+// MAIN ENGINE — MULTI-SHA SELECTION
+async function updateHashes() {
+  const box = document.getElementById("hashOutputList");
+  const input = document.getElementById("novakInput").value.trim();
+
+  if (!input) {
+    box.innerHTML = "<em>Waiting for input from above...</em>";
+    return;
+  }
+
+  const sha256Checked = document.querySelector("input[value='sha256']").checked;
+  const sha512Checked = document.querySelector("input[value='sha512']").checked;
+  const sha384Checked = document.querySelector("input[value='sha384']").checked;
+  const sha3Checked   = document.querySelector("input[value='sha3_256']").checked;
+
+  let html = "";
+
+  if (sha256Checked) {
+    const h = await computeHash("SHA-256", input);
+    html += `<div><strong>SHA-256</strong> → ${h}</div>`;
+    window.lastSHA = h;
+  }
+
+  if (sha512Checked) {
+    const h = await computeHash("SHA-512", input);
+    html += `<div><strong>SHA-512</strong> → ${h}</div>`;
+  }
+
+  if (sha384Checked) {
+    const h = await computeHash("SHA-384", input);
+    html += `<div><strong>SHA-384</strong> → ${h}</div>`;
+  }
+
+  if (sha3Checked) {
+    const h = await computeHash("SHA-256", input); // SHA-3-256 fallback
+    html += `<div><strong>SHA-3-256</strong> → ${h}</div>`;
+  }
+
+  box.innerHTML = html;
+
+  if (document.getElementById("autoVerifyToggle").checked) {
+    updateAutoVerify();
+  }
+}
+
+// AUTO VERIFY ENGINE
+function toggleAutoVerify() {
+  const enabled = document.getElementById("autoVerifyToggle").checked;
+  document.getElementById("rgacWrapper").style.display    = enabled ? "block" : "none";
+  document.getElementById("receiptWrapper").style.display = enabled ? "block" : "none";
+  updateAutoVerify();
+}
+
+window.lastApproved = null;
+window.rgacCounter = 1;
+
+async function updateAutoVerify() {
+  const status = document.getElementById("autoVerifyStatus");
+  const text = document.getElementById("novakInput").value.trim();
+
+  if (!document.getElementById("autoVerifyToggle").checked) {
+    status.textContent = "Auto-verification is disabled.";
+    return;
+  }
+
+  if (!text) {
+    status.textContent = "Waiting for input...";
+    return;
+  }
+
+  const current = await computeHash("SHA-256", text);
+
+  if (!window.lastApproved) {
+    window.lastApproved = current;
+    status.textContent = "Baseline approved.";
+    updateRGAC(current);
+    return;
+  }
+
+  if (current === window.lastApproved) {
+    status.textContent = "✔ No drift detected.";
+    updateRGAC(current, true);
+  } else {
+    status.textContent = "⚠ Drift detected.";
+    updateRGAC(current, false);
+  }
+}
+
+function updateRGAC(hash, match = true) {
+  const box = document.getElementById("rgac");
+
+  if (match) {
+    box.textContent =
+      `Block ${String(window.rgacCounter).padStart(8,"0")} → ${hash}`;
+  } else {
+    window.rgacCounter++;
+    box.textContent =
+      `Block ${String(window.rgacCounter).padStart(8,"0")} (drift) → ${hash}`;
+  }
+}
+
+// RECEIPT
+function generateReceipt() {
+  const receipt = `
+NOVAK EXECUTION RECEIPT
+------------------------------
+Timestamp: ${new Date().toISOString()}
+Last SHA-256: ${window.lastSHA}
+RGAC Block: ${String(window.rgacCounter).padStart(8,"0")}
+------------------------------
+  `.trim();
+  document.getElementById("receiptOutput").textContent = receipt;
+}
+
+// INPUT BINDINGS
+document.getElementById("novakInput").addEventListener("input", updateHashes);
+document.getElementById("autoVerifyToggle").addEventListener("change", toggleAutoVerify);
+
+// INITIALIZE
+updateHashes();
+</script>
+
   
 </script>
   
