@@ -827,42 +827,43 @@ html[data-theme="dark"] .aud-btn.active {
     </button>
   </div>
 
- <!-- ====================================================== -->
-<!-- ⭐ NOVAK vs THE WORLD — COLLAPSIBLE DIAGRAM BLOCK -->
-<!-- ====================================================== -->
-<details class="novak-collapse" style="margin-top:32px;">
-  <summary style="cursor:pointer; font-size:20px; padding:14px 0;">
-    🌍 NOVAK vs TLS, Blockchain, Logging & AI Safety (Diagram)
-  </summary>
+<!-- =================================================== -->
+<!-- 3. REAL-WORLD USAGE MAP -->
+<!-- =================================================== -->
+<hr style="margin:26px 0; opacity:0.35;">
 
-  <div class="card" style="padding:26px; margin-top:16px; font-size:16px; line-height:1.6;">
+<h2>🟩 3. Where SHA Is Used in Real Life</h2>
 
-    <h2 style="margin-top:0;">NOVAK vs Existing Technologies</h2>
+<pre class="diagram-box">
+VA / Federal Agencies     → SHA-256
+Healthcare Systems        → SHA-256
+Banking & IRS             → SHA-256 / SHA-512
+TLS / HTTPS Certificates  → SHA-256 / SHA-384
+DoD / Nat. Security       → SHA-384
+Bitcoin                   → SHA-256
+Ethereum                  → Keccak (SHA-3 family)
+</pre>
 
-    <pre class="diagram-box" style="white-space:pre; font-size:14px;">
+<p>
+  SHA protects websites, banking, federal systems, medical systems, 
+  military communications, blockchain, and your everyday devices.
+</p>
 
-SYSTEM           | WHEN IT CHECKS | WHAT IT GUARANTEES     | CAN IT STOP BAD ACTION?
------------------|----------------|-------------------------|--------------------------
-TLS / SSL        | During transit | Encryption only         | ❌ No
-Blockchain       | After action   | Historical record       | ❌ No
-Logging / SIEM   | After action   | Audit trail             | ❌ No
-AI Safety Rules  | Before action  | Policy hints            | ❌ No (easily bypassed)
-Bitcoin / Crypto | After action   | Ledger correctness      | ❌ No
-NOVAK Protocol   | BEFORE action  | Input=Rule=Output match | ✅ YES
-    </pre>
-
-    <p style="margin-top:18px;">
-      Only NOVAK performs <strong>real-time cryptographic gating</strong> of automated actions.
-    </p>
-
-    <p style="font-weight:600;">
-      That is what makes NOVAK civilization infrastructure — not just a tool.
-    </p>
-
+<details class="sub-collapse" style="margin-top:32px;">
+  <summary>📊 SHA vs MD5 vs CRC (Click to Compare)</summary>
+  <div class="sub-card">
+<pre>
+ALGORITHM | SECURITY     | USE TODAY
+----------|--------------|----------------------
+CRC32     | ❌ None       | File transfers only
+MD5       | ❌ Broken     | Legacy checks
+SHA-256   | ✅ Strong     | NOVAK, VA, DoD, banking
+SHA-3     | 🧪 New       | Crypto research, Ethereum
+</pre>
   </div>
 </details>
 
-  <!-- ====================================================== -->
+<!-- ====================================================== -->
 <!-- ⭐ NOVAK SELF-VERIFICATION BLOCK -->
 <!-- ====================================================== -->
 <details class="novak-collapse" style="margin-top:32px;">
