@@ -2528,7 +2528,7 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
 <div id="gameBox" class="card" style="margin-top:20px; display:none;"></div>
 
 <!-- ====================================================== -->
-<!-- 🎧 ADVANCED AUDIO PLAYER (GITHUB /audio/ + NOVAK Hash) -->
+<!-- 🎧 ADVANCED AUDIO PLAYER (STRICT MODE + HASH VERIFY)   -->
 <!-- ====================================================== -->
 <div class="card" style="margin-top:26px; padding:20px;">
   <details>
@@ -2544,13 +2544,13 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
       </p>
 
       <!-- ====================================================== -->
-      <!-- 🎵 AUDIO PLAYER (theme-aware + waveform progress bar)  -->
+      <!-- 🎵 STRICT-MODE AUDIO PLAYER (theme-aware + waveform)   -->
       <!-- ====================================================== -->
 
       <div style="margin-top:18px;">
         <audio id="novakAudio" controls preload="metadata"
                style="width:100%; border-radius:8px;">
-          <source src="https://novakprotocol.github.io/NOVAK-Hash-Monitor/audio/Break the Chain.mp3" 
+          <source src="https://novakprotocol.github.io/NOVAK-Hash-Monitor/audio/Break%20the%20Chain.mp3" 
                   type="audio/mpeg">
         </audio>
       </div>
@@ -2571,7 +2571,7 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
       <!-- ⬇ DOWNLOAD MP3                                         -->
       <!-- ====================================================== -->
       <a id="downloadSong"
-         href="https://novakprotocol.github.io/NOVAK-Hash-Monitor/audio/Break the Chain.mp3"
+         href="https://novakprotocol.github.io/NOVAK-Hash-Monitor/audio/Break%20the%20Chain.mp3"
          download="Break_The_Chain.mp3"
          class="action-btn"
          style="margin-top:10px; display:inline-block;">
@@ -2579,11 +2579,14 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
       </a>
 
       <!-- ====================================================== -->
-      <!-- 🔐 NOVAK AUDIO INTEGRITY CHECK                         -->
+      <!-- 🔐 NOVAK STRICT-MODE HASH VERIFICATION                 -->
       <!-- ====================================================== -->
       <div style="margin-top:22px;">
         <h3 style="font-size:17px;">🔐 NOVAK Audio Integrity Check</h3>
-        <p>This verifies the exact MP3 you downloaded with SHA-256:</p>
+        <p>
+          NOVAK Strict Mode binds the audio file to an HVET entry.  
+          This verifies the <strong>exact bytes</strong> of the MP3 you downloaded.
+        </p>
 
         <button onclick="verifyAudioHash()" class="action-btn">
           🧪 Verify Audio Hash (SHA-256)
@@ -2672,7 +2675,7 @@ I’M! BOUT! TO! BREAK! THE! CHAIN!
 </div>
 
 <!-- ============================= -->
-<!-- 🎧 AUDIO PLAYER JS LOGIC      -->
+<!-- 🎧 STRICT-MODE AUDIO JS       -->
 <!-- ============================= -->
 <script>
 // WAVEFORM PROGRESS
@@ -2681,16 +2684,15 @@ const bar = document.getElementById('waveformProgress');
 
 audio.addEventListener('timeupdate', () => {
   if (!audio.duration) return;
-  const p = (audio.currentTime / audio.duration) * 100;
-  bar.style.width = p + "%";
+  bar.style.width = ((audio.currentTime / audio.duration) * 100) + "%";
 });
 
-// NOVAK AUDIO HASH VERIFICATION
+// NOVAK AUDIO HASH VERIFICATION (Strict Mode)
 async function verifyAudioHash() {
   const url = document.querySelector('#novakAudio source').src;
   const output = document.getElementById('audioHashOutput');
 
-  output.textContent = "Downloading audio for hash verification…";
+  output.textContent = "Downloading audio for strict verification…";
 
   try {
     const buffer = await fetch(url).then(r => r.arrayBuffer());
@@ -2703,7 +2705,10 @@ async function verifyAudioHash() {
 `SHA-256 Audio Hash:
 ${hashHex}
 
-Use this hash in NOVAK EIR / HVET to bind audio integrity.`;
+NOVAK Strict Mode:
+• You may embed this hash into HVET
+• Bind audio → rule → output
+• Produce an EIR receipt`;
   } catch (err) {
     output.textContent = "❌ Error verifying audio: " + err;
   }
