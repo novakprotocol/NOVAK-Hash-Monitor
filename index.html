@@ -2368,24 +2368,52 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
   </button>
 </div>
   
-  <div class="card" style="margin-top:36px;">
-      <h1>Deterministic Execution Integrity</h1>
-    <div class="quote-text">
-        Asimov gave robots fictional ethics.<br><br>
-      <p> Turing defined when a machine is allowed to compute. </p>
-        <br>
-        <strong>NOVAK defines when a machine is allowed to <span class="quote-highlight">ACT</span></strong> — and forces it to prove it obeyed the law before it does.
+<!-- ====================================================== -->
+<!-- ⭐ DETERMINISTIC EXECUTION INTEGRITY (COLLAPSIBLE) -->
+<!-- ====================================================== -->
+
+<details class="novak-collapse" style="margin-top:36px;">
+  <summary 
+    style="
+      cursor:pointer; 
+      padding:14px 22px; 
+      border:2px solid #d0d7de; 
+      border-radius:10px; 
+      font-size:20px; 
+      display:inline-block;
+      transition:0.2s;">
+    ⚖️ Deterministic Execution Integrity
+  </summary>
+
+  <div class="card" style="margin-top:22px; padding:26px; font-size:17px; line-height:1.65;">
+
+    <h2 style="margin-top:0; font-size:26px;">Deterministic Execution Integrity</h2>
+
+    <div class="quote-text" style="margin-top:10px;">
+      Asimov gave robots fictional ethics.<br><br>
+      <p style="margin:0;">Turing defined when a machine is allowed to compute.</p>
+      <br>
+      <strong>
+        NOVAK defines when a machine is allowed to 
+        <span class="quote-highlight" style="color:var(--blue); font-weight:700;">ACT</span>
+      </strong> 
+      — and forces it to prove it obeyed the law before it does.
     </div>
-    <br>
-    <div class="quote-separator">
-        - That is the difference between science fiction and civilization infrastructure.
+
+    <div class="quote-separator" 
+         style="margin:18px 0; font-style:italic; opacity:0.85;">
+      — That is the difference between science fiction and civilization infrastructure.
     </div>
-    <br>
-    <div class="quote-text">
-        <div class="quote-highlight">Deterministic Execution Integrity - No system may execute without provable truth!</div>
+
+    <div class="quote-text" style="margin-top:10px;">
+      <div class="quote-highlight" 
+           style="font-weight:700; font-size:18px; color:var(--blue);">
+        Deterministic Execution Integrity — No system may execute without provable truth!
+      </div>
     </div>
-    <br>
+
   </div>
+</details>
 
 <!-- ====================================================== -->
 <!-- 🧠 NOVAK EXPERT MODE — ALL FOUR CRYPTO VISUALIZERS     -->
@@ -2497,19 +2525,35 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
 <!-- ✅ GAME RENDER CONTAINER -->
 <div id="gameBox" class="card" style="margin-top:20px; display:none;"></div>
 
- <!-- SONG: BREAK THE CHAIN -->
-  <div class="card">
-    <h2 class="section-title">“Break the Chain” - AI Assist with this song</h2>
-    <p>Power of Math and AI. This is a track and lyrics I made and mixed using an AI assist</p> 
-      <p> — it is about breaking invisible chains of harm, bias, and corruption in automated systems</p>
-    <br>
-       <p>  - exactly what I felt like while making this.</p>
-<br>
+<!-- ====================================================== -->
+<!-- ⭐ COLLAPSIBLE SONG BLOCK — "BREAK THE CHAIN"          -->
+<!-- ====================================================== -->
+
+<details class="novak-collapse" style="margin-top:36px;">
+  <summary style="cursor:pointer; font-size:20px; padding:14px 0;">
+    🎵 “Break the Chain” — AI-Assisted Song (Click to Expand)
+  </summary>
+
+  <div class="card" style="margin-top:16px;">
+
+    <h2 class="section-title">“Break the Chain” — AI Assist with this Song</h2>
+
     <p>
-    Lot's of bass! So depending on mood and taste adjust volume as appropriate.
+      Power of Math and AI.  
+      This is a track and lyrics I made and mixed using an AI assist —
+      it is about breaking invisible chains of harm, bias, and corruption
+      in automated systems.
     </p>
-    
-    <button class="action-btn" style="margin-top:10px;" onclick="toggleSongLyrics()">
+
+    <p style="margin-top:10px;">
+      — exactly what I felt like while making this.
+    </p>
+
+    <p style="margin-top:10px;">
+      Lots of bass! Adjust volume depending on mood and taste.
+    </p>
+
+    <button class="action-btn" style="margin-top:16px;" onclick="toggleSongLyrics()">
       🎧 Show / Hide Lyrics
     </button>
 
@@ -2582,11 +2626,18 @@ I’m ’bout to break the chain!
 Freedom roars inside my brain.
 When that fire hits my veins—
 I’M! BOUT! TO! BREAK! THE! CHAIN!
-
       </pre>
+
     </div>
   </div>
+</details>
 
+<script>
+function toggleSongLyrics() {
+  const block = document.getElementById("songBlock");
+  block.style.display = block.style.display === "none" ? "block" : "none";
+}
+</script>
   
 <!-- ✅ FOOTER -->
 <footer style="text-align:center; margin-top:60px; font-size:14px; opacity:0.85; line-height:1.5;">
