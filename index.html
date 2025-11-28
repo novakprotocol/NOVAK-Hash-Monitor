@@ -1699,19 +1699,21 @@ async function startAvalanche() {
   </div>
 </div>
 
-  <!-- ✅ AUTO-VERIFICATION TOGGLE -->
+<!-- ✅ AUTO-VERIFICATION TOGGLE -->
 <div class="card" style="margin-top:32px;">
   <label style="display:flex; align-items:center; gap:10px; font-size:16px;">
-    <input type="checkbox" id="autoVerifyToggle" unchecked>
+    <input type="checkbox" id="autoVerifyToggle">
     <strong>Enable Proof-Before-Action Engine (NOVAK Auto-Verification)</strong>
   </label>
+
   <p style="margin-top:6px; font-size:14px; opacity:0.8;">
     When enabled, NOVAK automatically checks whether any change breaks integrity 
     <strong>before</strong> execution.
   </p>
+</div>
 
-<!-- ✅ AUTO-INJECT PROOF-BEFORE-ACTION DEMO -->
-<div class="card" style="margin-top:22px;">
+<!-- ❗️ HIDDEN UNTIL CHECKBOX ENABLED -->
+<div id="autoVerifyBlock" class="card" style="margin-top:22px; display:none;">
   <h3 class="section-title" style="font-size:20px;">
     NOVAK Auto-Verification — Proof-Before-Action
   </h3>
@@ -1729,12 +1731,10 @@ async function startAvalanche() {
               border-radius:8px;
               background:var(--card);
               border:1px solid var(--border);">
-    Waiting for input...
+    Auto-verification is disabled.
   </div>
 </div>
 
-</div>
-  
 <!-- ✅ RGAC VISUALIZATION -->
 <div class="card" style="margin-top:22px;">
   <h3 class="section-title" style="font-size:20px;">RGAC — Recursive Global Audit Chain</h3>
@@ -3336,6 +3336,20 @@ startStoryMode = function() {
 })();
 </script>
 
+  <script>
+document.getElementById("autoVerifyToggle").addEventListener("change", function () {
+  const block = document.getElementById("autoVerifyBlock");
+  const status = document.getElementById("autoVerifyStatus");
+
+  if (this.checked) {
+    block.style.display = "block";
+    status.textContent = "Waiting for input...";
+  } else {
+    block.style.display = "none";
+    status.textContent = "Auto-verification is disabled.";
+  }
+});
+</script>
   
 </body>
 </html>
