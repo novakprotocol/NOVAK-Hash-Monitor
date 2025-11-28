@@ -1896,139 +1896,224 @@ async function startAvalanche() {
 <!-- ============================= -->
 <!-- 🔐 CRYPTOGRAPHIC HASH OUTPUT -->
 <!-- ============================= -->
-<div class="card" style="margin-top:32px;">
 
-  <h3 class="section-title" style="font-size:20px; text-align:center;">
-    Cryptographic Hashes
-  </h3>
+<!-- MAIN HASH + RGAC + RECEIPT ENGINE -->
+<div id="novakIntegritySuite">
 
-  <div id="hashOutputList"
-       style="margin-top:10px;
-              font-family:'JetBrains Mono', monospace;
-              font-size:14px;
-              text-align:center;">
-    <em>Waiting for input from above...</em>
-  </div>
-
-</div>
-
-<!-- ============================================== -->
-<!-- 🌐 UNIFIED CENTER CONTAINER -->
-<!-- ============================================== -->
-<div id="novakCenter" 
-     style="
-       max-width: 820px;
-       margin-left: auto;
-       margin-right: auto;
-       width: 100%;
-     ">
-
-<!-- ========================================================= -->
-<!-- AUTO-VERIFICATION + RGAC + RECEIPT -->
-<!-- ========================================================= -->
-
-<div class="card" style="margin-top:32px;">
-
-  <label style="display:flex; align-items:center; gap:10px; font-size:16px;">
-    <input type="checkbox" id="autoVerifyToggle" onchange="toggleAutoVerify()">
-    <strong>Enable Proof-Before-Action Engine (NOVAK Auto-Verification)</strong>
-  </label>
-
-  <p style="margin-top:6px; font-size:14px; opacity:0.8;">
-    When enabled, NOVAK automatically checks whether any change breaks integrity
-    <strong>before</strong> execution.
-  </p>
-
-  <!-- AUTO-VERIFY EXPLANATION -->
-  <div id="autoVerifyBlock"
-       class="card"
-       style="margin-top:22px; padding:18px; display:none;">
+  <!-- HASH OUTPUT -->
+  <div class="card" style="margin-top:32px;">
     <h3 class="section-title" style="font-size:20px; text-align:center;">
-      NOVAK Auto-Verification — Proof-Before-Action
-    </h3>
-    <p style="text-align:center;">
-      Modify the text above and NOVAK instantly checks whether the new output
-      still matches the last approved cryptographic truth.
-    </p>
-  </div>
-
-  <!-- STATUS BOX -->
-  <div id="autoVerifyStatus"
-       style="margin-top:14px;
-              font-family:'JetBrains Mono', monospace;
-              font-size:15px;
-              padding:14px;
-              border-radius:8px;
-              background:var(--card);
-              border:1px solid var(--border);
-              text-align:center;">
-    Auto-verification is disabled.
-  </div>
-
-  <!-- RGAC -->
-  <div id="rgacWrapper"
-       class="card"
-       style="margin-top:22px; display:none; padding:18px;">
-
-    <h3 class="section-title" style="font-size:20px; text-align:center;">
-      RGAC — Recursive Global Audit Chain
+      Cryptographic Hashes
     </h3>
 
-    <p style="margin-bottom:12px; text-align:center;">
-      Each verified output becomes the next input — forming an immutable audit chain.
-    </p>
-
-    <div id="rgac"
-         style="font-family:'JetBrains Mono', monospace;
+    <div id="hashOutputList"
+         style="margin-top:10px;
+                font-family:'JetBrains Mono', monospace;
                 font-size:14px;
-                padding:12px;
-                border-radius:6px;
+                text-align:center;">
+      <em>Waiting for input from above...</em>
+    </div>
+  </div>
+
+  <!-- AUTO VERIFY ENGINE -->
+  <div class="card" style="margin-top:32px;">
+
+    <label style="display:flex; align-items:center; gap:10px; font-size:16px;">
+      <input type="checkbox" id="autoVerifyToggle">
+      <strong>Enable Proof-Before-Action Engine (NOVAK Auto-Verification)</strong>
+    </label>
+
+    <p style="margin-top:6px; font-size:14px; opacity:0.8;">
+      When enabled, NOVAK automatically checks whether any change breaks integrity
+      <strong>before</strong> execution.
+    </p>
+
+    <div id="autoVerifyStatus"
+         style="margin-top:14px;
+                font-family:'JetBrains Mono', monospace;
+                font-size:15px;
+                padding:14px;
+                border-radius:8px;
                 border:1px solid var(--border);
                 background:var(--card);
                 text-align:center;">
-      <em>Waiting for input…</em>
+      Auto-verification is disabled.
     </div>
 
-  </div>
+    <!-- RGAC -->
+    <div id="rgacWrapper"
+         class="card"
+         style="margin-top:22px; display:none; padding:18px;">
 
-  <!-- RECEIPT -->
-  <div id="receiptWrapper"
-       class="card"
-       style="margin-top:32px; padding:20px; display:none;">
+      <h3 class="section-title" style="font-size:20px; text-align:center;">
+        RGAC — Recursive Global Audit Chain
+      </h3>
 
-    <h2 class="section-title" style="text-align:center;">Integrity Receipt</h2>
+      <p style="margin-bottom:12px; text-align:center;">
+        Each verified output becomes the next input — forming an immutable audit chain.
+      </p>
 
-    <p style="text-align:center;">
-      NOVAK generates a tamper-proof receipt proving what existed and when.
-    </p>
-
-    <div style="text-align:center;">
-      <button class="action-btn" onclick="generateReceipt()" style="margin-top:12px;">
-        Generate Receipt
-      </button>
+      <div id="rgac"
+           style="font-family:'JetBrains Mono', monospace;
+                  font-size:14px;
+                  padding:12px;
+                  border-radius:6px;
+                  border:1px solid var(--border);
+                  background:var(--card);
+                  text-align:center;">
+        <em>Waiting for input…</em>
+      </div>
     </div>
 
-    <pre id="receiptOutput"
-         style="margin-top:16px;
-                font-family:'JetBrains Mono', monospace;
-                font-size:14px;
-                white-space:pre-wrap;">
-    </pre>
+    <!-- RECEIPT -->
+    <div id="receiptWrapper"
+         class="card"
+         style="margin-top:32px; padding:20px; display:none;">
+
+      <h2 class="section-title" style="text-align:center;">Integrity Receipt</h2>
+      <p style="text-align:center;">
+        NOVAK generates a tamper-proof receipt proving what existed and when.
+      </p>
+
+      <div style="text-align:center;">
+        <button class="action-btn" onclick="generateReceipt()" style="margin-top:12px;">
+          Generate Receipt
+        </button>
+      </div>
+
+      <pre id="receiptOutput"
+           style="margin-top:16px;
+                  font-family:'JetBrains Mono', monospace;
+                  font-size:14px;
+                  white-space:pre-wrap;"></pre>
+    </div>
   </div>
-
 </div>
 
-<!-- =============================================== -->
-<!-- END OF VERIFICATION SUITE -->
-<!-- =============================================== -->
 
+<!-- ============================= -->
+<!-- 🔧 COMPLETE WORKING JAVASCRIPT -->
+<!-- ============================= -->
 
+<script>
+// REAL CRYPTO ----------------------------------------------------------
+async function sha256(message) {
+  const msgUint8 = new TextEncoder().encode(message);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8);
+  return Array.from(new Uint8Array(hashBuffer))
+    .map(b => b.toString(16).padStart(2, "0"))
+    .join("");
+}
 
-</div>
+// SHA engine ------------------------------------------------------------
+async function updateHashes() {
+  const input = document.getElementById("novakInput");
+  const output = document.getElementById("hashOutputList");
+
+  if (!input || !output) return;
+
+  const text = input.value.trim();
+  if (!text) {
+    output.innerHTML = "<em>Waiting for input from above...</em>";
+    return;
+  }
+
+  const hash = await sha256(text);
+
+  output.innerHTML = `
+    <div>SHA-256 → <strong>${hash}</strong></div>
+  `;
+
+  window.lastSHA = hash;
+
+  if (document.getElementById("autoVerifyToggle").checked) {
+    updateAutoVerify();
+  }
+}
+
+// AUTO VERIFY ----------------------------------------------------------
+function toggleAutoVerify() {
+  const enabled = document.getElementById('autoVerifyToggle').checked;
+
+  document.getElementById('rgacWrapper').style.display    = enabled ? 'block' : 'none';
+  document.getElementById('receiptWrapper').style.display = enabled ? 'block' : 'none';
+
+  updateAutoVerify();
+}
+
+window.lastApproved = null;
+window.rgacCounter = 1;
+
+async function updateAutoVerify() {
+  const status = document.getElementById("autoVerifyStatus");
+  const input = document.getElementById("novakInput").value.trim();
+
+  if (!document.getElementById("autoVerifyToggle").checked) {
+    status.textContent = "Auto-verification is disabled.";
+    return;
+  }
+
+  if (!input) {
+    status.textContent = "Waiting for input...";
+    return;
+  }
+
+  const current = await sha256(input);
+
+  if (!window.lastApproved) {
+    window.lastApproved = current;
+    status.textContent = "Baseline approved.";
+    updateRGAC(current);
+    return;
+  }
+
+  if (current === window.lastApproved) {
+    status.textContent = "✔ No drift detected.";
+    updateRGAC(current, true);
+  } else {
+    status.textContent = "⚠️ Drift detected.";
+    updateRGAC(current, false);
+  }
+}
+
+// RGAC -----------------------------------------------------------------
+function updateRGAC(hash, match = true) {
+  const box = document.getElementById("rgac");
+
+  if (match) {
+    box.textContent = `Block ${String(window.rgacCounter).padStart(8, "0")} → ${hash}`;
+  } else {
+    window.rgacCounter++;
+    box.textContent = `Block ${String(window.rgacCounter).padStart(8, "0")} (drift) → ${hash}`;
+  }
+}
+
+// RECEIPT --------------------------------------------------------------
+function generateReceipt() {
+  const receipt = `
+NOVAK EXECUTION RECEIPT
+------------------------------
+Timestamp: ${new Date().toISOString()}
+Last SHA-256: ${window.lastSHA}
+RGAC Block: ${String(window.rgacCounter).padStart(8, "0")}
+------------------------------
+  `.trim();
+
+  document.getElementById("receiptOutput").textContent = receipt;
+}
+
+// EVENT BINDINGS --------------------------------------------------------
+document.getElementById("novakInput").addEventListener("input", updateHashes);
+document.getElementById("autoVerifyToggle").addEventListener("change", toggleAutoVerify);
+
+// Initial load
+updateHashes();
+</script>
 
 <!-- =============================================== -->
 <!-- ✅ COLLAPSIBLE VERIFICATION SUITE -->
 <!-- =============================================== -->
+
 
 <div class="card" style="margin-top:32px; padding:20px;">
   <details class="novak-collapse">
