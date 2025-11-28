@@ -1777,9 +1777,7 @@ async function startAvalanche() {
     <strong>before</strong> execution.
   </p>
 
-  <!-- ======================================================= -->
   <!-- 🚫 HIDDEN UNTIL CHECKED -->
-  <!-- ======================================================= -->
   <div id="autoVerifyBlock" style="display:none; margin-top:20px;">
 
     <!-- NOVAK AUTO-VERIFICATION -->
@@ -1793,7 +1791,7 @@ async function startAvalanche() {
         still matches the last approved cryptographic truth.
       </p>
 
-      <!-- STATUS (Now Inside Block) -->
+      <!-- STATUS -->
       <div id="autoVerifyStatus"
            style="margin-top:14px; 
                   font-family:'JetBrains Mono', monospace;
@@ -1842,11 +1840,11 @@ async function startAvalanche() {
                     white-space:pre-wrap;"></pre>
       </div>
 
-    </div><!-- end inner NOVAK block -->
+    </div><!-- inner NOVAK block -->
 
-  </div><!-- end autoVerifyBlock -->
+  </div><!-- autoVerifyBlock -->
 
-</div><!-- end outer wrapper -->
+</div><!-- outer wrapper -->
 
 <!-- =============================================== -->
 <!-- 📌 WHAT CAN I DO WITH THIS HASH? -->
@@ -3526,6 +3524,11 @@ document.getElementById("autoVerifyToggle").addEventListener("change", function 
     status.textContent = "Auto-verification is disabled.";
   }
 });
+
+    document.getElementById("novakInput").addEventListener("input", updateHashes);
+document.getElementById("autoVerifyToggle").addEventListener("change", toggleAutoVerify);
+updateHashes();
+
 </script>
   
 </body>
