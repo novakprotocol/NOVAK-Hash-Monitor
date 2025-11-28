@@ -1997,7 +1997,7 @@ async function updateHashes() {
   output.innerHTML = html;
 
   // update auto-verify
-  window.lastSHA = html;
+window.lastHashValue = hash;   // actual single hash value
   if (document.getElementById("autoVerifyToggle").checked) {
     updateAutoVerify();
   }
@@ -4317,6 +4317,87 @@ updateHashes();
 
 <script src="https://cdn.jsdelivr.net/npm/js-sha3/dist/sha3.min.js"></script>
 
+<script>
+// =========================================================
+// TRUE AUTO-VERIFY + RGAC + RECEIPT (FIXED VERSION)
+// =========================================================
+
+// storage
+window.lastApproved = null;
+window.rgacCounter = 1;
+window.lastHashValue = null;   // <--- important fix
+
+// called when checkbox is clicked
+function toggleAutoVerify() {
+  const enabled = document.getElementById('autoVerifyToggle').checked;
+
+  document.getElementById('rgacWrapper').style.display    = enabled ? 'block' : 'none';
+  document.getElementById('receiptWrapper').style.display = enabled ? 'block' : 'none';
+
+  updateAutoVerify();
+}
+
+// main drift engine
+async function updateAutoVerify() {
+  const status = document.getElementById("autoVerifyStatus");
+  const enabled = document.getElementById("autoVerifyToggle").checked;
+
+  if (!enabled) {
+    status.textContent = "Auto-verification is disabled.";
+    return;
+  }
+
+  const hash = window.lastHashValue;   // <--- FIX: actual hash, not HTML
+  if (!hash) {
+    status.textContent = "Waiting for input...";
+    return;
+  }
+
+  // First run
+  if (!window.lastApproved) {
+    window.lastApproved = hash;
+    status.textContent = "Baseline approved.";
+    updateRGAC(hash, true);
+    return;
+  }
+
+  // Compare
+  if (hash === window.lastApproved) {
+    status.textContent = "✔ No drift detected.";
+    updateRGAC(hash, true);
+  } else {
+    status.textContent = "⚠ Drift detected. New output no longer matches the last approved hash.";
+    updateRGAC(hash, false);
+  }
+}
+
+// RGAC block update
+function updateRGAC(hash, match = true) {
+  const box = document.getElementById("rgac");
+
+  if (match) {
+    box.textContent = `Block ${String(window.rgacCounter).padStart(8,'0')} → ${hash}`;
+  } else {
+    window.rgacCounter++;
+    box.textContent = `Block ${String(window.rgacCounter).padStart(8,'0')} (drift) → ${hash}`;
+  }
+}
+
+// Receipt generator
+function generateReceipt() {
+  const receipt = `
+NOVAK EXECUTION RECEIPT
+------------------------------
+Timestamp: ${new Date().toISOString()}
+Last Hash: ${window.lastHashValue}
+RGAC Block: ${String(window.rgacCounter).padStart(8, "0")}
+------------------------------
+`.trim();
+
+  document.getElementById("receiptOutput").textContent = receipt;
+}
+</script>
+  
 </script>
   
 </body>
