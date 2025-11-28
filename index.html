@@ -1621,6 +1621,83 @@ document.getElementById("expertInput").addEventListener("input", async e => {
 });
 
 /* ========================================================= */
+/* MASTER HASH ENGINE — updateHashes()                       */
+/* ========================================================= */
+
+async function updateHashes() {
+
+  const input = document.getElementById("novakInput").value.trim();
+  const output = document.getElementById("hashOutputList");
+
+  if (!input) {
+    output.innerHTML = "<em>Waiting for input from above...</em>";
+    return;
+  }
+
+  const selected = [...document.querySelectorAll('.hashAlgo')]
+    .filter(c => c.checked)
+    .map(c => c.value);
+
+  let html = "";
+  let sha256Hash = null;
+  let sha384Hash = null;
+  let sha512Hash = null;
+  let sha3Hash  = null;
+
+  // SHA-256 -----------------------------------------------------
+  if (selected.includes("SHA-256")) {
+    const h = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(input));
+    sha256Hash = [...new Uint8Array(h)].map(b=>b.toString(16).padStart(2,"0")).join("");
+    html += `<div>SHA-256 → <strong>${sha256Hash}</strong></div>`;
+  }
+
+  // SHA-384 -----------------------------------------------------
+  if (selected.includes("SHA-384")) {
+    const h = await crypto.subtle.digest("SHA-384", new TextEncoder().encode(input));
+    sha384Hash = [...new Uint8Array(h)].map(b=>b.toString(16).padStart(2,"0")).join("");
+    html += `<div>SHA-384 → <strong>${sha384Hash}</strong></div>`;
+  }
+
+  // SHA-512 -----------------------------------------------------
+  if (selected.includes("SHA-512")) {
+    const h = await crypto.subtle.digest("SHA-512", new TextEncoder().encode(input));
+    sha512Hash = [...new Uint8Array(h)].map(b=>b.toString(16).padStart(2,"0")).join("");
+    html += `<div>SHA-512 → <strong>${sha512Hash}</strong></div>`;
+  }
+
+  // SHA3-256 (client-side JS lib) -------------------------------
+  if (selected.includes("SHA3-256")) {
+    if (typeof sha3_256 === "function") {
+      sha3Hash = sha3_256(input);
+      html += `<div>SHA3-256 → <strong>${sha3Hash}</strong></div>`;
+    } else {
+      html += `<div>SHA3-256 → <em>sha3_256() not loaded</em></div>`;
+    }
+  }
+
+  // OUTPUT HASHES
+  output.innerHTML = html;
+
+  // =============================================================
+  // STORE HASHES FOR RECEIPT + JSON + QR
+  // =============================================================
+  window.lastHashes = {
+    sha256: sha256Hash,
+    sha384: sha384Hash,
+    sha512: sha512Hash,
+    sha3_256: sha3Hash
+  };
+
+  // HVET placeholder (first 16 chars of SHA-256)
+  window.hvetValue = sha256Hash ? sha256Hash.substring(0,16) : null;
+
+  // If auto-verify enabled → update RGAC + status
+  if (document.getElementById("autoVerifyToggle").checked) {
+    updateAutoVerify();
+  }
+}
+
+/* ========================================================= */
 /* MODE 2 — DIGEST VIEWER                                    */
 /* ========================================================= */
 let currentDigest = "";
