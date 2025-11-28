@@ -2542,38 +2542,47 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
         Stored in <code>/audio/</code> inside the GitHub repo.
       </p>
 
-      <!-- AUDIO PLAYER -->
+      <!-- ====================================================== -->
+      <!-- 🎵 AUDIO PLAYER (theme-aware + waveform progress bar)  -->
+      <!-- ====================================================== -->
+
       <div style="margin-top:18px;">
-        <audio id="novakAudio" controls preload="metadata" style="width:100%; border-radius:8px;">
-          <source src="https://novakprotocol.github.io/NOVAK-Hash-Monitor/audio/Break the Chain.mp3" type="audio/mpeg">
+        <audio id="novakAudio" controls preload="metadata"
+               style="width:100%; border-radius:8px;">
+          <source src="https://novakprotocol.github.io/NOVAK-Hash-Monitor/audio/break_the_chain.mp3" 
+                  type="audio/mpeg">
         </audio>
       </div>
 
-      <!-- WAVEFORM BAR (simple fake visualizer) -->
+      <!-- Theme-aware waveform -->
       <div id="waveformBar"
            style="margin:14px 0; height:6px; width:100%;
                   background:var(--border);
                   border-radius:4px; overflow:hidden;">
         <div id="waveformProgress"
              style="height:6px; width:0%;
-                    transition:width 0.1s linear;
-                    background:var(--accent, #4fa3ff);">
+                    transition:width 0.08s linear;
+                    background:var(--blue);">
         </div>
       </div>
 
-      <!-- DOWNLOAD BUTTON -->
+      <!-- ====================================================== -->
+      <!-- ⬇ DOWNLOAD MP3                                         -->
+      <!-- ====================================================== -->
       <a id="downloadSong"
-         href="https://novakprotocol.github.io/NOVAK-Hash-Monitor/audio/Break the Chain.mp3"
-         download="BreakTheChain.mp3"
+         href="https://novakprotocol.github.io/NOVAK-Hash-Monitor/audio/break_the_chain.mp3"
+         download="Break_The_Chain.mp3"
          class="action-btn"
          style="margin-top:10px; display:inline-block;">
         ⬇ Download Track
       </a>
 
-      <!-- HASH VERIFICATION -->
+      <!-- ====================================================== -->
+      <!-- 🔐 NOVAK AUDIO INTEGRITY CHECK                         -->
+      <!-- ====================================================== -->
       <div style="margin-top:22px;">
         <h3 style="font-size:17px;">🔐 NOVAK Audio Integrity Check</h3>
-        <p>This verifies the exact MP3 you downloaded:</p>
+        <p>This verifies the exact MP3 you downloaded with SHA-256:</p>
 
         <button onclick="verifyAudioHash()" class="action-btn">
           🧪 Verify Audio Hash (SHA-256)
@@ -2587,7 +2596,9 @@ Awaiting verification…
         </pre>
       </div>
 
-      <!-- LYRICS COLLAPSE -->
+      <!-- ====================================================== -->
+      <!-- 🎤 LYRICS COLLAPSE                                     -->
+      <!-- ====================================================== -->
       <details style="margin-top:24px;">
         <summary style="cursor:pointer; font-size:18px;">
           🎤 Show / Hide Lyrics
@@ -2663,11 +2674,12 @@ I’M! BOUT! TO! BREAK! THE! CHAIN!
 <!-- 🎧 AUDIO PLAYER JS LOGIC      -->
 <!-- ============================= -->
 <script>
-// WAVEFORM PROGRESS BAR
+// WAVEFORM PROGRESS
 const audio = document.getElementById('novakAudio');
 const bar = document.getElementById('waveformProgress');
 
 audio.addEventListener('timeupdate', () => {
+  if (!audio.duration) return;
   const p = (audio.currentTime / audio.duration) * 100;
   bar.style.width = p + "%";
 });
@@ -2679,19 +2691,24 @@ async function verifyAudioHash() {
 
   output.textContent = "Downloading audio for hash verification…";
 
-  const buffer = await fetch(url).then(r => r.arrayBuffer());
-  const hashBuffer = await crypto.subtle.digest("SHA-256", buffer);
+  try {
+    const buffer = await fetch(url).then(r => r.arrayBuffer());
+    const hashBuffer = await crypto.subtle.digest("SHA-256", buffer);
 
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
 
-  output.textContent = 
+    output.textContent =
 `SHA-256 Audio Hash:
 ${hashHex}
 
 Use this hash in NOVAK EIR / HVET to bind audio integrity.`;
+  } catch (err) {
+    output.textContent = "❌ Error verifying audio: " + err;
+  }
 }
 </script>
+
   
 <!-- ✅ FOOTER -->
 <footer style="text-align:center; margin-top:60px; font-size:14px; opacity:0.85; line-height:1.5;">
