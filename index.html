@@ -3812,20 +3812,13 @@ startStoryMode = function() {
 })();
 </script>
 
-  <script>
+<script>
 document.getElementById("autoVerifyToggle").addEventListener("change", function () {
-  const block = document.getElementById("autoVerifyBlock");
-  const status = document.getElementById("autoVerifyStatus");
-
-  if (this.checked) {
-    block.style.display = "block";
-    status.textContent = "Waiting for input...";
-  } else {
-    block.style.display = "none";
-    status.textContent = "Auto-verification is disabled.";
-  }
+  // Delegate to the main handler so RGAC + Receipt are shown/hidden correctly
+  toggleAutoVerify();
 });
 </script>
+
 
 <script>
 async function getCanonicalAudioHash() {
