@@ -2621,9 +2621,26 @@ Laws: L0–L15 + PL-X + PS-X
           This verifies the <strong>exact bytes</strong> of the MP3 you downloaded.
         </p>
 
-        <button onclick="verifyAudioHash()" class="action-btn">
-          🧪 Verify Audio Hash (SHA-256)
-        </button>
+<button onclick="verifyAudioHash()" class="action-btn">
+  🧪 Verify Audio Hash (Strict Mode)
+</button>
+
+<pre id="audioHashOutput"></pre>
+
+<script>
+async function verifyAudioHash() {
+  const output = document.getElementById("audioHashOutput");
+  output.textContent = "Downloading and hashing audio…";
+
+  try {
+    const hash = await getCanonicalAudioHash();
+    output.textContent = `Canonical SHA-256 (GitHub MP3):\n${hash}`;
+  } catch (e) {
+    output.textContent = "❌ Error hashing file: " + e;
+  }
+}
+</script>
+
 
         <pre id="audioHashOutput"
              style="margin-top:12px; font-family:'JetBrains Mono', monospace;
@@ -3620,6 +3637,20 @@ document.getElementById("autoVerifyToggle").addEventListener("change", function 
     status.textContent = "Auto-verification is disabled.";
   }
 });
+</script>
+
+<script>
+async function getCanonicalAudioHash() {
+  const url = "https://novakprotocol.github.io/NOVAK-Hash-Monitor/audio/Break the Chain.mp3";
+
+  // Force a fresh download (NO CACHING!)
+  const response = await fetch(url, { cache: "reload" });
+  const buffer = await response.arrayBuffer();
+
+  const hashBuffer = await crypto.subtle.digest("SHA-256", buffer);
+  const hashArray = [...new Uint8Array(hashBuffer)];
+  return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+}
 </script>
   
 </body>
