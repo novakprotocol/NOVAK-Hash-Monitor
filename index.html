@@ -1843,41 +1843,79 @@ async function startAvalanche() {
 
 </div>
   
-<!-- ✅ HASH OUTPUT -->
-<div class="card" style="margin-top:22px;">
-  <h3 class="section-title" style="font-size:20px;">Cryptographic Hashes</h3>
+<!-- ========================================================= -->
+<!-- CENTERED HASH + AUTO-VERIFICATION + RGAC + RECEIPT BLOCK -->
+<!-- ========================================================= -->
+
+<div class="card"
+     style="margin-top:32px; 
+            max-width:820px; 
+            margin-left:auto; 
+            margin-right:auto;">
+
+  <!-- ============================= -->
+  <!-- 🔐 CRYPTOGRAPHIC HASH OUTPUT -->
+  <!-- ============================= -->
+  <h3 class="section-title" style="font-size:20px; text-align:center;">
+    Cryptographic Hashes
+  </h3>
 
   <div id="hashOutputList"
-       style="margin-top:10px; font-family:'JetBrains Mono', monospace; font-size:14px;">
+       style="margin-top:10px; 
+              font-family:'JetBrains Mono', monospace; 
+              font-size:14px; 
+              text-align:center;">
     <em>Waiting for input from above...</em>
   </div>
 </div>
 
-<!-- ✅ AUTO-VERIFICATION TOGGLE -->
-<div class="card" style="margin-top:32px;">
-  <label style="display:flex; align-items:center; gap:10px; font-size:16px;">
+
+<!-- ========================================================= -->
+<!--  AUTO-VERIFICATION + RGAC + RECEIPT (CENTERED CONTAINER) -->
+<!-- ========================================================= -->
+
+<div class="card"
+     style="margin-top:32px; 
+            max-width:820px; 
+            margin-left:auto; 
+            margin-right:auto;">
+
+  <label style="display:flex; 
+                align-items:center; 
+                gap:10px; 
+                font-size:16px;">
     <input type="checkbox" id="autoVerifyToggle" onchange="toggleAutoVerify()">
     <strong>Enable Proof-Before-Action Engine (NOVAK Auto-Verification)</strong>
   </label>
 
-  <p style="margin-top:6px; font-size:14px; opacity:0.8;">
+  <p style="margin-top:6px; 
+            font-size:14px; 
+            opacity:0.8;">
     When enabled, NOVAK automatically checks whether any change breaks integrity 
     <strong>before</strong> execution.
   </p>
 
-  <!-- ❗️ HIDDEN UNTIL CHECKBOX ENABLED -->
-  <div id="autoVerifyBlock" class="card" style="margin-top:22px; display:none;">
-    <h3 class="section-title" style="font-size:20px;">
+  <!-- ============================= -->
+  <!-- 🧩 AUTO-VERIFY EXPLANATION -->
+  <!-- ============================= -->
+  <div id="autoVerifyBlock" 
+       class="card" 
+       style="margin-top:22px; 
+              padding:18px; 
+              display:none;">
+    <h3 class="section-title" style="font-size:20px; text-align:center;">
       NOVAK Auto-Verification — Proof-Before-Action
     </h3>
 
-    <p>
+    <p style="text-align:center;">
       Modify the text above and NOVAK instantly checks whether the new output
       still matches the last approved cryptographic truth.
     </p>
   </div>
 
-  <!-- 🔥 DRIFT / SUCCESS STATUS PANEL -->
+  <!-- ============================= -->
+  <!-- 🚦 DRIFT / MATCH STATUS BOX -->
+  <!-- ============================= -->
   <div id="autoVerifyStatus"
        style="margin-top:14px;
               font-family:'JetBrains Mono', monospace;
@@ -1886,18 +1924,24 @@ async function startAvalanche() {
               border-radius:8px;
               background:var(--card);
               border:1px solid var(--border);
-              transition: background 0.3s ease, border 0.3s ease, color 0.3s ease;">
+              transition:background .3s ease, border .3s ease, color .3s ease;
+              text-align:center;">
     Auto-verification is disabled.
   </div>
 
-  <!-- =============================================== -->
-  <!-- ✅ RGAC — NOW HIDDEN UNTIL AUTO-VERIFY IS ENABLED -->
-  <!-- =============================================== -->
+  <!-- ============================= -->
+  <!-- 🔗 RGAC — GLOBAL AUDIT CHAIN -->
+  <!-- ============================= -->
+  <div id="rgacWrapper" 
+       class="card" 
+       style="margin-top:22px; 
+              display:none; 
+              padding:18px;">
+    <h3 class="section-title" style="font-size:20px; text-align:center;">
+      RGAC — Recursive Global Audit Chain
+    </h3>
 
-  <div id="rgacWrapper" class="card" style="margin-top:22px; display:none;">
-    <h3 class="section-title" style="font-size:20px;">RGAC — Recursive Global Audit Chain</h3>
-
-    <p style="margin-bottom:12px;">
+    <p style="margin-bottom:12px; text-align:center;">
       In NOVAK, every approved output becomes the next input — forming a self-verifying integrity chain.
     </p>
 
@@ -1908,26 +1952,34 @@ async function startAvalanche() {
                 border-radius:6px;
                 border:1px solid var(--border);
                 background:var(--card);
-                transition: background 0.3s ease, border 0.3s ease, color 0.3s ease;">
+                transition:background .3s ease, border .3s ease, color .3s ease;
+                text-align:center;">
       <em>Waiting for input…</em>
     </div>
   </div>
 
-  <!-- =============================================== -->
-  <!-- ✅ INTEGRITY RECEIPT — NOW HIDDEN UNTIL ENABLED -->
-  <!-- =============================================== -->
+  <!-- ============================= -->
+  <!-- 🧾 INTEGRITY RECEIPT SECTION -->
+  <!-- ============================= -->
+  <div id="receiptWrapper" 
+       class="card" 
+       style="margin-top:32px; 
+              padding:20px; 
+              display:none;">
+    <h2 class="section-title" style="text-align:center;">Integrity Receipt</h2>
 
-  <div id="receiptWrapper" class="card" style="margin-top:32px; padding:20px; display:none;">
-    <h2 class="section-title">Integrity Receipt</h2>
-
-    <p>
+    <p style="text-align:center;">
       NOVAK generates a tamper-proof receipt proving what existed, when, and under what rules —
       useful for courts, claims, audits, cybersecurity, safety systems, and AI oversight.
     </p>
 
-    <button class="action-btn" onclick="generateReceipt()" style="margin-top:12px;">
-      Generate Receipt
-    </button>
+    <div style="text-align:center;">
+      <button class="action-btn" 
+              onclick="generateReceipt()" 
+              style="margin-top:12px;">
+        Generate Receipt
+      </button>
+    </div>
 
     <pre id="receiptOutput"
          style="margin-top:16px; 
@@ -1938,9 +1990,6 @@ async function startAvalanche() {
   </div>
 </div>
 
-<!-- =============================================== -->
-<!-- END AUTO-VERIFY BLOCKS -->
-<!-- =============================================== -->
 
 <!-- =============================================== -->
 <!-- ✅ COLLAPSIBLE VERIFICATION SUITE -->
@@ -3810,7 +3859,17 @@ startStoryMode = function() {
 <script>
 document.getElementById("autoVerifyToggle").addEventListener("change", function () {
   // Delegate to the main handler so RGAC + Receipt are shown/hidden correctly
-  toggleAutoVerify();
+function toggleAutoVerify() {
+  const enabled = document.getElementById('autoVerifyToggle').checked;
+
+  document.getElementById('autoVerifyBlock').style.display  = enabled ? 'block' : 'none';
+  document.getElementById('rgacWrapper').style.display       = enabled ? 'block' : 'none';
+  document.getElementById('receiptWrapper').style.display    = enabled ? 'block' : 'none';
+
+  document.getElementById('autoVerifyStatus').textContent = 
+    enabled ? "Auto-verification is enabled." : "Auto-verification is disabled.";
+}
+
 });
 </script>
 
