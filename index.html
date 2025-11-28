@@ -1973,6 +1973,31 @@ async function sha256(message) {
 }
 
 async function updateHashes() {
+
+// =============================================================
+// ADVANCED MODE (ENABLE SHA-3)
+// =============================================================
+function enableAdvancedSHA3() {
+  document.getElementById("sha3box").disabled = false;
+  document.getElementById("sha3box").parentElement.style.opacity = "1";
+  document.getElementById("sha3box").parentElement.style.cursor = "pointer";
+  document.getElementById("advancedNote").style.display = "block";
+}
+
+// =============================================================
+// BUFFER → HEX
+// =============================================================
+function hex(buffer) {
+  return [...new Uint8Array(buffer)]
+    .map(b => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
+// =============================================================
+// MAIN HASH ENGINE
+// =============================================================
+async function updateHashes() {
+
   const input = document.getElementById("novakInput");
   const output = document.getElementById("hashOutputList");
 
@@ -1982,6 +2007,48 @@ async function updateHashes() {
   if (!text) {
     output.innerHTML = "<em>Waiting for input from above...</em>";
     return;
+  }
+
+  const selected = [...document.querySelectorAll('input[type=checkbox][value]')]
+    .filter(c => c.checked)
+    .map(c => c.value);
+
+  let html = "";
+
+  // SHA-256 ---------------------------------------------------
+  if (selected.includes("sha256")) {
+    const h = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+    html += `<div>SHA-256 → <strong>${hex(h)}</strong></div>`;
+  }
+
+  // SHA-384 ---------------------------------------------------
+  if (selected.includes("sha384")) {
+    const h = await crypto.subtle.digest("SHA-384", new TextEncoder().encode(text));
+    html += `<div>SHA-384 → <strong>${hex(h)}</strong></div>`;
+  }
+
+  // SHA-512 ---------------------------------------------------
+  if (selected.includes("sha512")) {
+    const h = await crypto.subtle.digest("SHA-512", new TextEncoder().encode(text));
+    html += `<div>SHA-512 → <strong>${hex(h)}</strong></div>`;
+  }
+
+  // SHA-3-256 (JavaScript fallback) ---------------------------
+  if (selected.includes("sha3_256")) {
+    const h = sha3_256(text);  // from js-sha3 library
+    html += `<div>SHA-3-256 → <strong>${h}</strong></div>`;
+  }
+
+  output.innerHTML = html;
+
+  // Auto-verify integration
+  window.lastSHA = html;
+  if (document.getElementById("autoVerifyToggle").checked) {
+    updateAutoVerify();
+  }
+}
+
+  
   }
 
   // --- check which algorithms are selected ---
