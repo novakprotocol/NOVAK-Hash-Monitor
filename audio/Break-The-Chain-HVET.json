@@ -1,0 +1,16 @@
+{
+  "hvet": {
+    "rule_hash": "7a3b0b41f261204d3c0ada95309239e6ec6e4e0699eeacf4131366d9b16f1b27",
+    "data_hash": "afe53399b59eb0f1acb90e5c0c7140f4ab5150cd26607d2fbafc8c1c8d06d7f7",
+    "output_hash": "04f84ea1cbfbe66e523356353056f436f587d5ae4db9e5dbb934e4fd5623d220",
+    "timestamp": "2025-11-27T00:00:00Z",
+    "digest": "41e8fae06d838b973780ea76d78504e38266f510ab6346850acb6f774e83db8b"
+  },
+  "explanation": {
+    "HR": "Cryptographic hash of rule constraints for the audio pipeline",
+    "HD": "Hash of the original MP3",
+    "HO": "Hash of processed output or transcript",
+    "timestamp": "ISO-8601 execution time",
+    "digest": "Final binding of HR + HD + HO + timestamp"
+  }
+}
