@@ -1826,15 +1826,19 @@ async function startAvalanche() {
 <!-- HASH ALGORITHM SELECTOR -->
 <div style="margin-top:16px; display:flex; flex-wrap:wrap; gap:18px;">
 
-  <label><input type="checkbox" value="sha256" checked> SHA-256</label>
-  <label><input type="checkbox" value="sha512"> SHA-512</label>
-  <label><input type="checkbox" value="sha384"> SHA-384</label>
+  <label><input type="checkbox" value="sha256" checked> SHA-256 (Browser Native)</label>
+<label><input type="checkbox" value="sha512"> SHA-512 (Browser Native)</label>
+<label><input type="checkbox" value="sha384"> SHA-384 (Browser Native)</label>
 
-  <!-- SHA-3 DISABLED UNTIL ADVANCED MODE ENABLED -->
-  <label style="opacity:0.4; cursor:not-allowed;">
-    <input type="checkbox" value="sha3_256" id="sha3box" disabled>
-    SHA-3-256
-  </label>
+<label style="opacity:0.45; cursor:not-allowed;">
+  <input type="checkbox" value="sha3_256" disabled>
+  SHA-3-256 (NOT Browser Native — WebCrypto does not support SHA-3)
+</label>
+
+<p style="font-size:13px; opacity:0.7;">
+  ⚠️ SHA-3-256 is disabled because browsers do NOT support it in WebCrypto.
+  It cannot be computed client-side. Native only: SHA-256 / SHA-384 / SHA-512.
+</p>
 
 </div>
 
