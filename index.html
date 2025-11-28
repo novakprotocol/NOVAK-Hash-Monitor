@@ -245,6 +245,25 @@ html[data-theme="dark"] .aud-btn.active {
   box-shadow: 0 0 0 2px #ffffff;
 }
 
+    details > summary {
+  list-style: none;
+}
+
+details summary {
+  text-align: center;
+}
+
+.card details summary {
+  text-align: left;   /* normal look for inside cards */
+}
+
+#hashOutputList,
+#whatCanIDoCard,
+.collapse-inner {
+  text-align: left;
+}
+
+    
     /* ====================================================================== */
     /* ✅ STICKY HEADER — CENTERED BRAND + SITE + THEME TOGGLE                */
     /* ====================================================================== */
@@ -866,6 +885,76 @@ html[data-theme="dark"] .aud-btn.active {
 <!-- Moved this here -->
 </div>
 
+<script>
+/* ============================================================
+   RESTORE ALL CLICKABLE CARD + AUDIENCE FUNCTIONS
+   ============================================================ */
+
+/* ---------- AUDIENCE SELECTOR ---------- */
+function setAudience(role) {
+  const map = {
+    public: "NOVAK protects everyday people by preventing wrong automated decisions.",
+    government: "NOVAK enforces proof-before-action across federal systems.",
+    investor: "NOVAK is the first enforcement-grade execution integrity framework.",
+    cyber: "NOVAK provides deterministic pre-execution verification.",
+    academic: "NOVAK formalizes input→rule→output correctness under L0–L15."
+  };
+
+  document.querySelectorAll(".aud-btn").forEach(b => b.classList.remove("active"));
+  document.getElementById("btn-" + role).classList.add("active");
+
+  document.getElementById("audienceContent").innerHTML = map[role];
+}
+
+/* ---------- WHAT IS NOVAK? ---------- */
+function dismissWhatIsNovak() {
+  document.getElementById("whatIsNovakCard").style.display = "none";
+}
+function restoreWhatIsNovakSection() {
+  const el = document.getElementById("whatIsNovakCard");
+  el.style.display = "block";
+  el.scrollIntoView({ behavior: "smooth" });
+}
+
+/* ---------- WHY NOVAK? ---------- */
+function dismissWhyNovak() {
+  document.getElementById("whyNovakCard").style.display = "none";
+}
+function restoreWhyNovakSection() {
+  const el = document.getElementById("whyNovakCard");
+  el.style.display = "block";
+  el.scrollIntoView({ behavior: "smooth" });
+}
+
+/* ---------- WHAT CHANGES WITH NOVAK ---------- */
+function dismissWhatChanges() {
+  document.getElementById("whatChangesCard").style.display = "none";
+}
+function restoreWhatChangesSection() {
+  const el = document.getElementById("whatChangesCard");
+  el.style.display = "block";
+  el.scrollIntoView({ behavior: "smooth" });
+}
+
+/* ---------- EXPLAINER BUTTONS ---------- */
+function showExplain(type) {
+  const panel = document.getElementById("explainerOutput");
+  panel.style.display = "block";
+
+  const content = {
+    simple: "NOVAK forces proof-before-action using cryptographic binding.",
+    milkshake: "A milkshake recipe analogy showing rules + ingredients + output binding.",
+    pencil: "A pencil test proving tamper-evident correctness.",
+    key: "NOVAK acts like a cryptographic ignition key.",
+    gov: "Federal agencies save billions by eliminating wrong automated decisions.",
+    how: "Input → Rule → Output → HVET → EIR → RGAC → Allow/Block."
+  };
+
+  panel.innerHTML = content[type];
+  panel.scrollIntoView({ behavior: "smooth" });
+}
+</script>
+  
 <!-- =============================================== -->
 <!--  COLLAPSIBLE — ENGINEERS / CRYPTOGRAPHERS AREA -->
 <!-- =============================================== -->
