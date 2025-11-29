@@ -1603,6 +1603,55 @@ ${mutated}
   document.getElementById("avalancheOutput").innerText = result;
 }
 
+// =====================================================
+// Example Dataset Loader
+// =====================================================
+function loadExample(type) {
+  const input = document.getElementById("novakInput");
+  if (!input) return;
+
+  const examples = {
+    va: `VA Disability Claim Example:
+- Veteran: John Doe
+- Claim Type: PTSD
+- Evidence: Service records, buddy statement
+- C&P Exam: Pending
+- Status: Under Review`,
+
+    finance: `Financial Transaction Example:
+{
+  "from": "Account 3321",
+  "to": "Account 9944",
+  "amount": 1275.33,
+  "currency": "USD",
+  "timestamp": "2025-01-14T09:33:22Z"
+}`,
+
+    robot: `Robotics Command Packet:
+MOVE 12.8m
+ROTATE 43°
+GRIPPER: OPEN
+SCAN: TARGET-LOCK
+EXECUTE: BLOCK-12`,
+
+    ai: `AI System Log Entry:
+[INFO] Model checkpoint loaded.
+[WARN] Drift detected in layer 13.
+[TRACE] Integrity recheck triggered.`,
+
+    legal: `Legal Filing Example:
+Case #22-4819-B
+Plaintiff: Jane Smith
+Defendant: Northstar Holdings
+Filing: Motion to Compel Discovery
+Submitted: 10/22/2025`
+  };
+
+  input.value = examples[type] || "";
+  updateHashes();   // auto-run hashing
+}
+
+  
 /* ========================================================= */
 /* MODE 1 — LIVE HASHING                                     */
 /* ========================================================= */
