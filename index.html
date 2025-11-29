@@ -3697,9 +3697,14 @@ document.getElementById("autoVerifyToggle").addEventListener("change", function 
   }
 });
 
-    document.getElementById("novakInput").addEventListener("input", updateHashes);
+document.getElementById("novakInput").addEventListener("input", updateHashes);
 document.getElementById("autoVerifyToggle").addEventListener("change", toggleAutoVerify);
 updateHashes();
+
+// ✅ Default audience content to Public on load
+if (typeof setAudience === "function") {
+  setAudience("public");
+}
 
 </script>
 
