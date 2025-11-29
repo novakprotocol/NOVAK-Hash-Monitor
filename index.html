@@ -1598,9 +1598,10 @@ ${mutated}
   document.getElementById("avalancheOutput").innerText = result;
 }
 
-// =====================================================
-// Example Dataset Loader
-// =====================================================
+<!-- ===================================================== -->
+<!-- Example Dataset Loader                                 -->
+<!-- ===================================================== -->
+<script>
 function loadExample(type) {
   const input = document.getElementById("novakInput");
   if (!input) return;
@@ -1643,13 +1644,25 @@ Submitted: 10/22/2025`
   };
 
   input.value = examples[type] || "";
-  updateHashes();   // auto-run hashing
+  updateHashes();   // Auto-run hashing when dataset loads
 }
+</script>
 
-  
-/* ========================================================= */
-/* MODE 1 — LIVE HASHING                                     */
-/* ========================================================= */
+<!-- ===================================================== -->
+<!-- DOM READY — REGISTER novakInput                        -->
+<!-- (THIS MUST RUN AFTER loadExample IS DEFINED)           -->
+<!-- ===================================================== -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  window.novakInput = document.getElementById("novakInput");
+});
+</script>
+
+
+<!-- ===================================================== -->
+<!-- MODE 1 — LIVE HASHING                                  -->
+<!-- ===================================================== -->
+<script>
 async function computeSHA(text) {
   const enc = new TextEncoder().encode(text);
   const buf = await crypto.subtle.digest("SHA-256", enc);
@@ -1663,10 +1676,14 @@ document.getElementById("expertInput").addEventListener("input", async e => {
   document.getElementById("expertHash").textContent = "SHA-256 → " + hash;
   updateDigestOutputs(hash);
 });
+</script>
 
-/* ========================================================= */
-/* MASTER HASH ENGINE — updateHashes()                       */
-/* ========================================================= */
+<!-- ===================================================== -->
+<!-- MASTER HASH ENGINE — updateHashes()                    -->
+<!-- (Your existing updateHashes() continues below)         -->
+<!-- ===================================================== -->
+
+<script>
 
 async function updateHashes() {
 
