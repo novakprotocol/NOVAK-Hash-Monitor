@@ -617,7 +617,7 @@ html[data-theme="dark"] .aud-btn.active {
         Before any automated system — VA claims, AI, robots, finance, healthcare —
         is allowed to <em>make a decision</em>, NOVAK forces it to prove:
       </p>
-
+      <br>
       <ul style="margin-left:20px;">
         <li>✔ The <strong>input</strong> is unchanged</li>
         <li>✔ The <strong>rule</strong> used is correct</li>
@@ -1696,21 +1696,21 @@ async function updateHashes() {
   // SHA-256 -----------------------------------------------------
   if (selected.includes("SHA-256")) {
     const h = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(input));
-    sha256Hash = [...new Uint8Array(h)].map(b=>b.toString(16).padStart(2,"0")).join("");
+sha256Hash = Array.from(new Uint8Array(h)).map(b => b.toString(16).padStart(2,"0")).join("");
     html += `<div>SHA-256 → <strong>${sha256Hash}</strong></div>`;
   }
 
   // SHA-384 -----------------------------------------------------
   if (selected.includes("SHA-384")) {
     const h = await crypto.subtle.digest("SHA-384", new TextEncoder().encode(input));
-    sha384Hash = [...new Uint8Array(h)].map(b=>b.toString(16).padStart(2,"0")).join("");
+sha384Hash = Array.from(new Uint8Array(h)).map(b => b.toString(16).padStart(2,"0")).join("");
     html += `<div>SHA-384 → <strong>${sha384Hash}</strong></div>`;
   }
 
   // SHA-512 -----------------------------------------------------
   if (selected.includes("SHA-512")) {
     const h = await crypto.subtle.digest("SHA-512", new TextEncoder().encode(input));
-    sha512Hash = [...new Uint8Array(h)].map(b=>b.toString(16).padStart(2,"0")).join("");
+sha512Hash = Array.from(new Uint8Array(h)).map(b => b.toString(16).padStart(2,"0")).join("");
     html += `<div>SHA-512 → <strong>${sha512Hash}</strong></div>`;
   }
 
@@ -3006,7 +3006,7 @@ async function updateHashes() {
     return;
   }
 
-  const selected = [...document.querySelectorAll(".hashAlgo:checked")].map(a => a.value);
+const selected = Array.from(document.querySelectorAll(".hashAlgo:checked")).map(a => a.value);
   if (!selected.length) {
     list.innerHTML = "<em>Select at least one hashing algorithm.</em>";
     return;
