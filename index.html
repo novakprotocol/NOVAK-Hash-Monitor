@@ -1695,9 +1695,9 @@ async function updateHashes() {
     return;
   }
 
-  const selected = [...document.querySelectorAll('.hashAlgo')]
-    .filter(c => c.checked)
-    .map(c => c.value);
+const selected = [...document.querySelectorAll('.hashAlgo')]
+  .filter(c => c.checked)
+  .map(c => c.value);
 
   let html = "";
   let sha256Hash = null;
