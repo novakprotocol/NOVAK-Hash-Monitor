@@ -3706,11 +3706,64 @@ if (typeof setAudience === "function") {
   setAudience("public");
 }
 
+/* ========================================================= */
+/* AUDIENCE SELECTOR — FIXED FULL FUNCTION                   */
+/* ========================================================= */
+function setAudience(aud) {
+
+  // 1. Remove active state from all buttons
+  document.querySelectorAll('.aud-btn').forEach(btn => btn.classList.remove('active'));
+
+  // 2. Add active state to selected button
+  const btn = document.getElementById(`btn-${aud}`);
+  if (btn) btn.classList.add('active');
+
+  // 3. Audience text block
+  const out = document.getElementById("audienceContent");
+
+  const messages = {
+    public: `
+      <h3>What NOVAK Means for the Public</h3>
+      <p>NOVAK prevents computers from acting on wrong or changed information.</p>
+      <ul>
+        <li>✔ Protects you from automated errors</li>
+        <li>✔ Blocks fraud before it happens</li>
+        <li>✔ Ensures every decision is mathematically verified</li>
+      </ul>
+    `,
+    government: `
+      <h3>What NOVAK Means for Government</h3>
+      <p>Mathematical proof-before-action for all automated systems.</p>
+    `,
+    investor: `
+      <h3>NOVAK for Investors</h3>
+      <p>Integrity infrastructure for all autonomous decision systems.</p>
+    `,
+    cyber: `
+      <h3>NOVAK for Cybersecurity</h3>
+      <p>A cryptographic enforcement layer stopping tampering in real time.</p>
+    `,
+    academic: `
+      <h3>NOVAK for Academics</h3>
+      <p>Formal verification, SHA-based binding, and deterministic execution models.</p>
+    `
+  };
+
+  // 4. Load correct block
+  out.innerHTML = messages[aud] || "";
+}
+
 </script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    setAudience('public');
+  });
+</script>
+  
 </body>
 </html>
