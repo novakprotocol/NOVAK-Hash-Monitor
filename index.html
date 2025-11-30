@@ -16,6 +16,34 @@
 
   <style>
 
+/* FIX LEFT SIDE STANDARDS DROPDOWN */
+.standards-menu {
+  left: 0 !important;
+  right: auto !important;
+  width: 320px !important;
+  max-height: 520px;
+  overflow-y: auto;
+  padding: 10px 0;
+  text-align: left;
+}
+
+.standards-menu a {
+  padding: 10px 16px !important;
+  font-size: 14px;
+  white-space: normal !important;
+  line-height: 1.3;
+}
+
+.standards-menu .dropdown-header {
+  padding: 12px 16px !important;
+  font-weight: 700;
+  background: var(--card);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+
 /* =============================== */
 /* NOVAK Documentation Dropdown    */
 /* =============================== */
@@ -530,7 +558,57 @@ html[data-theme="dark"] .aud-btn.active {
 
 <!-- ✅ GLOBAL HEADER -->
 <header id="mainHeader">
-  <div class="header-left"></div>
+<!-- ===== NOVAK Standards Dropdown (Left Side) ===== -->
+<div class="dropdown" style="margin-right: 12px;">
+  <button class="dropdown-btn" onclick="toggleStandardsMenu()">Standards ▼</button>
+
+<div id="standardsMenu" class="dropdown-content standards-menu">
+
+  <div class="dropdown-header">NOVAK Standards (SP-1 → SP-9)</div>
+  <a href="standards/SP-1 — NOVAK Execution Integrity Standard (Full GitHub-Ready Document).pdf" target="_blank">SP-1 — Execution Integrity</a>
+  <a href="standards/SP-2 — HVET EIR RGAC Cryptographic Standard.pdf" target="_blank">SP-2 — HVET / EIR / RGAC</a>
+  <a href="standards/SP-3 — Safety Gate + PL-X + PS-X Standard.pdf" target="_blank">SP-3 — Safety Gate + PL-X</a>
+  <a href="standards/SP-4 — NOVAK Implementation Requirements.pdf" target="_blank">SP-4 — Implementation Spec</a>
+  <a href="standards/SP-5 — NOVAK CERTIFICATION STANDARD.pdf" target="_blank">SP-5 — Certification Model</a>
+  <a href="standards/SP-6 — NOVAK Conformance Testing Suite.pdf" target="_blank">SP-6 — Conformance Levels</a>
+  <a href="standards/SP-7 — NOVAK Federal Adoption & Compliance Guide.pdf" target="_blank">SP-7 — Federal Adoption</a>
+  <a href="standards/SP-8 — NOVAK Interoperability & Integration Standard.pdf" target="_blank">SP-8 — Interoperability</a>
+  <a href="standards/SP-9 — NOVAK Federal Multi-Agency Deployment Standard.pdf" target="_blank">SP-9 — Multi-Domain Compliance</a>
+
+  <div class="dropdown-divider"></div>
+
+  <div class="dropdown-header">Threat Models (NTM-1 → NTM-3)</div>
+  <a href="threat-models/NTM-1 — NOVAK THREAT MODEL.pdf" target="_blank">NTM-1 — Base Threat Model</a>
+  <a href="threat-models/NTM-2 — NOVAK Red Team Adversarial Test Suite.pdf" target="_blank">NTM-2 — Red Team Test Suite</a>
+  <a href="threat-models/NTM-3 — NOVAK Adversarial AI Test Suite.pdf.pdf" target="_blank">NTM-3 — Adversarial Model</a>
+  <a href="threat-models/NTM-3 — NOVAK Adversarial AI Test Suite (Full Formal Edition).pdf" target="_blank">NTM-3 — Adversarial Model</a>
+
+  <div class="dropdown-divider"></div>
+
+  <div class="dropdown-header">Whitepapers</div>
+  <a href="whitepapers/PART_1__Executive_Summary.pdf" target="_blank">PART 1 — Executive Summary</a>
+  <a href="whitepapers/PART 2 — WHAT NOVAK IS.pdf" target="_blank">PART 2 — What NOVAK Is</a>
+  <a href="whitepapers/PART 3 — SCIENTIFIC FOUNDATIONS OF THE NOVAK PROTOCOL.pdf" target="_blank">PART 3 — Scientific Foundations</a>
+  <a href="whitepapers/PART 4 — CRYPTOGRAPHIC ARCHITECTURE OF THE NOVAK PROTOCOL.pdf" target="_blank">PART 4 — Cryptographic Framework</a>
+  <a href="whitepapers/PART 5 — SYSTEM MODEL & EXECUTION FLOW.pdf" target="_blank">PART 5 — System Model</a>
+  <a href="whitepapers/PART 6 — IMPLEMENTATION LAYERS.pdf" target="_blank">PART 6 — Implementation Layers</a>
+  <a href="whitepapers/PART 7 — SECURITY MODEL & THREAT SURFACES.pdf" target="_blank">PART 7 — Security Model</a>
+  <a href="whitepapers/PART 8 — GOVERNANCE, COMPLIANCE & CROSS-JURISDICTIONAL ENFORCEMENT.pdf" target="_blank">PART 8 — Governance & Compliance</a>
+  <a href="whitepapers/PART 9 — FORMAL TECHNICAL WHITEPAPER.pdf" target="_blank">PART 9 — Formal Technical</a>
+  <a href="whitepapers/PART_10__Final_Summary.pdf" target="_blank">PART 10 — Final Summary</a>
+
+  <div class="dropdown-divider"></div>
+
+  <div class="dropdown-header">Appendices</div>
+  <a href="whitepapers/Appendix_A_Glossary.pdf" target="_blank">Appendix A — Glossary</a>
+  <a href="whitepapers/Appendix_B_Math_Notation.pdf" target="_blank">Appendix B — Math Notation</a>
+  <a href="whitepapers/Appendix_C_Regulatory_Mapping.pdf" target="_blank">Appendix C — Regulatory Mapping</a>
+  <a href="whitepapers/Appendix_D_Threat_Model.pdf" target="_blank">Appendix D — Threat Model</a>
+  <a href="whitepapers/Appendix_E_Pitch_Deck.pdf" target="_blank">Appendix E — Pitch Deck</a>
+
+</div>
+
+</div>
 
   <div class="header-center">
     <div id="novakBrand">NOVAK Protocol</div>
@@ -664,6 +742,8 @@ html[data-theme="dark"] .aud-btn.active {
       </ul>
 
       <p style="margin-top:18px;">
+
+
         NOVAK is the world’s first <strong>proof-before-action</strong> system.
       </p>
 
@@ -927,7 +1007,7 @@ html[data-theme="dark"] .aud-btn.active {
 </details>
 </div>
 
-<!-- ✅ PART 2 — Try It + Hash Engine + Example Data + File Drop + VIN + Games -->
+<!-- ✅ PART 2 — Try It + Hash Engine + Example Data + File Drop + Games -->
 
 <!-- =============================================== -->
 <!-- ✅ COLLAPSIBLE TEST EXAMPLE — PREMIUM EDITION -->
@@ -1887,7 +1967,7 @@ async function startAvalanche() {
 
 <textarea id="novakInput"
           oninput="updateAutoDiff(this.value)"
-          placeholder="Example: VA claim, invoice, VIN, contract, JSON, SQL, XML..."
+          placeholder="Example: VA claim, invoice, contract, JSON, SQL, XML..."
           style="width:100%; height:170px; margin-top:16px; font-family:'JetBrains Mono', monospace;
                  font-size:14px; padding:12px;"></textarea>
 
@@ -2559,10 +2639,11 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
     </ul>
 
     <h3 style="margin-top:24px;">🔐 NOVAK Forces Proof-Before-Action</h3>
-    <p>
+<br> 
+   <p>
       With NOVAK, a title cannot be transferred unless all three match exactly:
     </p>
-
+<br>
     <ul style="margin-left:20px;">
       <li>✔ The <strong>input document</strong> is unchanged</li>
       <li>✔ The <strong>rule</strong> (state law) is correct</li>
@@ -2843,64 +2924,67 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
     Enable Transparency View
   </button>
 </div>
-<!-- ✅ TRANSPARENCY PANEL -->
+
+<!-- ====================================================== -->
+<!-- ✅ FIXED: Deterministic Execution Integrity block -->
+<!-- ====================================================== -->
 <div class="card" style="margin-top:28px; padding:20px;">
   <details>
     <summary style="cursor:pointer; font-size:18px; font-weight:600;">
-    ⚖️ Deterministic Execution Integrity
-  </summary>
+      ⚖️ Deterministic Execution Integrity
+    </summary>
 
-  <div class="card" style="margin-top:18px; padding:26px; font-size:17px; line-height:1.65;">
+    <div style="margin-top:18px; padding:26px; font-size:17px; line-height:1.65;">
 
-    <h2 style="margin-top:0; font-size:26px;">Deterministic Execution Integrity</h2>
-
-    <div class="quote-text" style="margin-top:10px;">
       Asimov gave robots fictional ethics.<br><br>
       <p style="margin:0;">Turing defined when a machine is allowed to compute.</p>
       <br>
       <strong>
-        NOVAK defines when a machine is allowed to 
+        NOVAK defines when a machine is allowed to
         <span class="quote-highlight" style="color:var(--blue); font-weight:700;">ACT</span>
-      </strong> 
+      </strong>
       — and forces it to prove it obeyed the law before it does.
-    </div>
 
-    <div class="quote-separator" 
-         style="margin:18px 0; font-style:italic; opacity:0.85;">
-      — That is the difference between science fiction and civilization infrastructure.
-    </div>
-
-    <div class="quote-text" style="margin-top:10px;">
-      <div class="quote-highlight" 
-           style="font-weight:700; font-size:18px; color:var(--blue);">
-        Deterministic Execution Integrity — No system may execute without provable truth!
+      <div class="quote-separator"
+           style="margin:18px 0; font-style:italic; opacity:0.85;">
+        — That is the difference between science fiction and civilization infrastructure.
       </div>
-    </div>
-<div>
-  </div>
-</details>
 
-<!-- ✅ INTERACTIVE MINI-GAMES -->
-<div class="card" style="margin-top:32px;">
-  <h2 class="section-title">Interactive Integrity Challenges</h2>
+      <div class="quote-text" style="margin-top:10px;">
+        <div class="quote-highlight"
+             style="font-weight:700; font-size:18px; color:var(--blue);">
+          Deterministic Execution Integrity — No system may execute without provable truth!
+        </div>
+      </div>
 
-  <p>Learn NOVAK by doing — spot fraud, detect tampering, prove originality.</p>
+    </div> <!-- ✅ THIS DIV WAS MISSING -->
+  </details> <!-- ✅ THIS CLOSING TAG WAS MISSING -->
+</div>
 
-  <div class="pill-row" style="margin-top:16px;">
+<!-- ====================================================== -->
+<!-- ✅ INTERACTIVE MINI-GAMES (now outside deterministic) -->
+<!-- ====================================================== -->
+<div class="card" style="margin-top:28px; padding:20px;">
+  <details>
+    <summary style="cursor:pointer; font-size:18px; font-weight:600;">
+      🎮 Interactive Integrity Challenges
+    </summary>
+
+    <p style="margin-top:14px;">
+      Learn NOVAK by doing — spot fraud, detect tampering, prove originality.
+    </p>
+<br>
     <button class="pill-btn" onclick="startGame('tamper')">🕵️ Spot the Tampering</button>
     <button class="pill-btn" onclick="startGame('memory')">🧠 Hash Memory Match</button>
     <button class="pill-btn" onclick="startGame('fraud')">🚨 Fraud Detector</button>
     <button class="pill-btn" onclick="startGame('avalanche')">⚡ Avalanche Animation (NOT WORKING)</button>
-  </div>
+    <button class="pill-btn" onclick="startGame('hashrace')">🏁 Hash Race (Reaction Game)</button>
 
-    <!-- game sound toggle -->
-  <button onclick="toggleSound()"
-          class="sound-toggle"
-          aria-label="Toggle game sound"
-          style="margin-top:14px; font-size:20px; background:none; border:none; cursor:pointer;">
-    🔇
-  </button>
+  </details>
 </div>
+
+<!-- GAME OUTPUT -->
+<div id="gameBox" class="card" style="margin-top:20px; display:none;"></div>
 
 <!-- ✅ GAME RENDER CONTAINER -->
 <div id="gameBox" class="card" style="margin-top:20px; display:none;"></div>
@@ -2908,9 +2992,9 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
 <!-- ====================================================== -->
 <!-- 🎧 ADVANCED AUDIO PLAYER (GITHUB /audio/ + NOVAK Hash) -->
 <!-- ====================================================== -->
-<div class="card" style="margin-top:26px; padding:20px;">
+<div class="card" style="margin-top:28px; padding:20px;">
   <details>
-    <summary style="cursor:pointer; font-size:20px; font-weight:600;">
+    <summary style="cursor:pointer; font-size:18px; font-weight:600;">
       🎧 “Break the Chain” — AI-Assisted Track (Listen + Verify)
     </summary>
 
@@ -3048,6 +3132,109 @@ I’M! BOUT! TO! BREAK! THE! CHAIN!
     </div>
   </details>
 </div>
+
+<!-- =============================================== -->
+<!-- 🔧 FIXED GAME ENGINE FOR HASH RACE + AVALANCHE -->
+<!-- =============================================== -->
+
+<script>
+
+function startGame(which) {
+  const box = document.getElementById("gameBox");
+  box.style.display = "block";
+
+  if (which === "race") return startHashRace();
+  if (which === "avalanche") return startAvalancheDemo();
+  if (which === "tamper") return startTamperGame();
+  if (which === "memory") return startMemoryMatch();
+  if (which === "fraud") return startFraudDetector();
+}
+
+/* ============================== */
+/* 🏁 HASH RACE — Reaction Timer   */
+/* ============================== */
+function startHashRace() {
+  const box = document.getElementById("gameBox");
+  box.innerHTML = `
+    <h2>🏁 Hash Race — Reaction Challenge</h2>
+    <p>Wait for GREEN, then hash as fast as you can!</p>
+    <button id="raceBtn" style="padding:14px 22px; font-size:18px;">Wait...</button>
+    <div id="raceResult" style="margin-top:18px; font-size:18px;"></div>
+  `;
+
+  const btn = document.getElementById("raceBtn");
+  const result = document.getElementById("raceResult");
+
+  btn.disabled = true;
+
+  const wait = Math.random() * 3000 + 2000;
+
+  setTimeout(() => {
+    btn.textContent = "GO! (Click!)";
+    btn.style.background = "#16a34a";
+    btn.style.color = "white";
+    btn.disabled = false;
+    var start = performance.now();
+
+    btn.onclick = () => {
+      const end = performance.now();
+      const ms = Math.round(end - start);
+      result.innerHTML = `⏱ Reaction Time: <strong>${ms} ms</strong>`;
+    };
+
+  }, wait);
+}
+
+/* ================================== */
+/* ⚡ AVALANCHE DEMO (FULLY WORKING)  */
+/* ================================== */
+function startAvalancheDemo() {
+  const box = document.getElementById("gameBox");
+  box.innerHTML = `
+    <h2>⚡ Avalanche Effect Demo</h2>
+    <p>One-bit change → massive SHA-256 output changes.</p>
+
+    <textarea id="av1" style="width:100%; height:70px; margin-top:10px;">NOVAK</textarea>
+    <textarea id="av2" style="width:100%; height:70px; margin-top:10px;">NOVAK.</textarea>
+
+    <button onclick="runAvalanche()" style="margin-top:16px;" class="action-btn">Compute Hashes</button>
+
+    <pre id="avOut" style="margin-top:18px; padding:14px; background:var(--card); border:1px solid var(--border); border-radius:8px;">Waiting…</pre>
+  `;
+}
+
+async function runAvalanche() {
+  const t1 = document.getElementById("av1").value;
+  const t2 = document.getElementById("av2").value;
+
+  const h1 = await digestText(t1);
+  const h2 = await digestText(t2);
+
+  let diff = "";
+  for (let i = 0; i < h1.length; i++) {
+    diff += (h1[i] === h2[i]) ? " " : "▲";
+  }
+
+  document.getElementById("avOut").textContent =
+`Input A SHA-256:
+${h1}
+
+Input B SHA-256:
+${h2}
+
+Diff Map:
+${diff}
+`;
+}
+
+async function digestText(txt) {
+  const enc = new TextEncoder().encode(txt);
+  const buf = await crypto.subtle.digest("SHA-256", enc);
+  return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,"0")).join("");
+}
+
+</script>
+
 
 <!-- ============================= -->
 <!-- 🎧 AUDIO PLAYER JS LOGIC      -->
@@ -3308,6 +3495,83 @@ function restoreWhatChangesSection() {
 }
 function restoreWhatChangesOnLoad() {
   if (localStorage.getItem("whatChangesDismissed") === "true") dismissWhatChanges();
+}
+
+/* ============================================================
+   🏁 GAME #4 — HASH RACE (Real-Time Reaction Game)
+   ============================================================ */
+
+function startGame(game) {
+  if (game === 'hashrace') {
+    launchHashRace();
+    return;
+  }
+
+  // existing game logic continues…
+}
+
+function launchHashRace() {
+  const box = document.getElementById("gameBox");
+  box.style.display = "block";
+
+  box.innerHTML = `
+    <h2>🏁 Hash Race — Reaction Challenge</h2>
+    <p>Click the button EXACTLY when the SHA-256 hash starts with <strong>00</strong>!</p>
+    <button id="raceBtn" class="action-btn" style="margin-top:12px;">Click When Ready</button>
+
+    <pre id="raceHash" 
+         style="margin-top:18px; padding:12px; background:var(--card);
+                border:1px solid var(--border); border-radius:8px; 
+                font-family:'JetBrains Mono'; font-size:15px;">
+    </pre>
+
+    <div id="raceResult" style="margin-top:18px; font-weight:600;"></div>
+  `;
+
+  const hashBox = document.getElementById("raceHash");
+  const resultBox = document.getElementById("raceResult");
+  const raceBtn = document.getElementById("raceBtn");
+
+  let interval = null;
+  let canClick = false;
+
+  raceBtn.onclick = () => {
+    if (!canClick) {
+      resultBox.innerHTML = "<span style='color:var(--red)'>❌ Too early!</span> Wait for a valid hash.";
+      return;
+    }
+  };
+
+  async function loopHash() {
+    const random = crypto.getRandomValues(new Uint8Array(16));
+    const hex = Array.from(random).map(b => b.toString(16).padStart(2, "0")).join("");
+
+    const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(hex));
+    const hash = Array.from(new Uint8Array(buf))
+      .map(b => b.toString(16).padStart(2, "0"))
+      .join("");
+
+    hashBox.textContent = hash;
+
+    if (hash.startsWith("00")) {
+      canClick = true;
+      raceBtn.innerHTML = "CLICK NOW!";
+      raceBtn.style.background = "var(--green)";
+      raceBtn.onclick = () => {
+        resultBox.innerHTML = `
+          <span style="color:var(--green)">✔ Correct!</span><br>
+          You stopped on hash:<br>${hash}
+        `;
+        clearInterval(interval);
+      };
+    } else {
+      canClick = false;
+      raceBtn.innerHTML = "Click When Ready";
+      raceBtn.style.background = "var(--blue)";
+    }
+  }
+
+  interval = setInterval(loopHash, 200);
 }
 
 /* ============================
@@ -4443,6 +4707,30 @@ async function generateReceipt() {
 }
 </script>
 
+<script>
+function toggleStandardsMenu() {
+  const menu = document.getElementById("standardsMenu");
+  const whiteMenu = document.getElementById("docsMenu");
+
+  // close whitepapers menu if open
+  if (whiteMenu && whiteMenu.style.display === "block") {
+    whiteMenu.style.display = "none";
+  }
+
+  menu.style.display = (menu.style.display === "block") ? "none" : "block";
+}
+
+// Close when clicking outside
+document.addEventListener("click", function(e) {
+  const menu = document.getElementById("standardsMenu");
+  const btn = document.querySelector(".dropdown-btn");
+
+  if (!menu || !btn) return;
+  if (!menu.contains(e.target) && !btn.contains(e.target)) {
+    menu.style.display = "none";
+  }
+});
+</script>
 
 </body>
 </html>
