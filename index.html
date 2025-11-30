@@ -43,6 +43,35 @@
   z-index: 5;
 }
 
+/* ======================================================= */
+/*  FIX RIGHT-SIDE LIBRARY MENU — MATCH LEFT SIDE EXACTLY  */
+/* ======================================================= */
+
+#docsMenu {
+  max-height: 520px !important;     /* identical to left scroll height */
+  overflow-y: auto !important;       /* enables scrolling */
+  width: 320px !important;           /* matches left menu width */
+  left: auto !important;             /* anchored to right edge */
+  right: 0 !important;
+  padding: 10px 0 !important;
+  text-align: left !important;
+}
+
+/* sticky section headers inside the Library menu */
+#docsMenu .dropdown-header {
+  position: sticky !important;
+  top: 0 !important;
+  background: var(--card);
+  z-index: 10;
+}
+
+/* optional: reduce whitespace on items, matches left */
+#docsMenu a {
+  white-space: normal !important;
+  padding: 10px 16px !important;
+}
+
+
 /* =============================== */
 /* NOVAK Documentation Dropdown    */
 /* =============================== */
@@ -567,6 +596,19 @@ html[data-theme="dark"] .aud-btn.active {
 
 <div id="standardsMenu" class="dropdown-content standards-menu">
 
+<input id="standardsSearch"
+       type="text"
+       placeholder="Search…"
+       style="
+         width: 88%;
+         margin: 10px auto 14px auto;
+         padding: 8px 12px;
+         display:block;
+         border-radius:8px;
+         border:1px solid var(--border);
+         font-size:14px;
+       ">
+
   <div class="dropdown-header">Cryptography 101</div>
   <a href="docs/standards/SP-2 — HVET EIR RGAC Cryptographic Standard.pdf" target="_blank">Cryptography 101</a>
 
@@ -642,65 +684,87 @@ html[data-theme="dark"] .aud-btn.active {
 
   <div id="docsMenu" class="dropdown-content">
 
+<input id="docsSearch"
+       type="text"
+       placeholder="Search…"
+       style="
+         width: 88%;
+         margin: 10px auto 14px auto;
+         padding: 8px 12px;
+         display:block;
+         border-radius:8px;
+         border:1px solid var(--border);
+         font-size:14px;
+       ">
+
+    <div class="dropdown-header">NOVAK Learning Series - LAWS Addenda</div>
+
+    <a href="docs/learning/NOVAK Learning Series - Cryptography 101 - A NOVAK Perspective.pdf" target="_blank">Cryptography 101 - A NOVAK Perspective</a>
+
+    <div class="dropdown-divider"></div>
+
     <div class="dropdown-header">NOVAK Learning Series - SPs</div>
 
-    <a href="docs/learning/NOVAK Learning Series - SP-1 Execution Integrity Standard.pdf" target="_blank">NOVAK Learning Series - SP-1 Execution Integrity Standard</a>
-    <a href="docs/learning/NOVAK Learning Series - SP-2 Cryptographic Standard.pdf" target="_blank">NOVAK Learning Series - SP-2 Cryptographic Standard</a>
-    <a href="docs/learning/NOVAK Learning Series - SP-3 Safety Gate Standard.pdf" target="_blank">NOVAK Learning Series - SP-3 Safety Gate Standard</a>
-    <a href="docs/learning/NOVAK Learning Series - SP-4 Implementation Requirements.pdf" target="_blank">NOVAK Learning Series - SP-4 Implementation Requirements</a>
-    <a href="docs/learning/NOVAK Learning Series - SP-5 Certification Standard.pdf" target="_blank">NOVAK Learning Series - SP-5 Certification Standard</a>
-    <a href="docs/learning/NOVAK Learning Series - SP-6 Conformance Testing.pdf" target="_blank">NOVAK Learning Series - SP-6 Conformance Testing</a>
-    <a href="docs/learning/NOVAK Learning Series - SP-7 Federal Adoption.pdf" target="_blank">NOVAK Learning Series - SP-7 Federal Adoption</a>
-    <a href="docs/learning/NOVAK Learning Series - SP-8 Interoperability Standard.pdf" target="_blank">NOVAK Learning Series - SP-8 Interoperability Standard</a>
-    <a href="docs/learning/NOVAK Learning Series - SP-9 Federal Multi-Agency Deployment.pdf" target="_blank">NOVAK Learning Series - SP-9 Federal Multi-Agency Deployment</a>
+    <a href="docs/learning/NOVAK Learning Series - SP-1 Execution Integrity Standard.pdf" target="_blank">SP-1 Execution Integrity Standard</a>
+    <a href="docs/learning/NOVAK Learning Series - SP-2 Cryptographic Standard.pdf" target="_blank">SP-2 Cryptographic Standard</a>
+    <a href="docs/learning/NOVAK Learning Series - SP-3 Safety Gate Standard.pdf" target="_blank">SP-3 Safety Gate Standard</a>
+    <a href="docs/learning/NOVAK Learning Series - SP-4 Implementation Requirements.pdf" target="_blank">SP-4 Implementation Requirements</a>
+    <a href="docs/learning/NOVAK Learning Series - SP-5 Certification Standard.pdf" target="_blank">SP-5 Certification Standard</a>
+    <a href="docs/learning/NOVAK Learning Series - SP-6 Conformance Testing.pdf" target="_blank">SP-6 Conformance Testing</a>
+    <a href="docs/learning/NOVAK Learning Series - SP-7 Federal Adoption.pdf" target="_blank">SP-7 Federal Adoption</a>
+    <a href="docs/learning/NOVAK Learning Series - SP-8 Interoperability Standard.pdf" target="_blank">SP-8 Interoperability Standard</a>
+    <a href="docs/learning/NOVAK Learning Series - SP-9 Federal Multi-Agency Deployment.pdf" target="_blank">SP-9 Federal Multi-Agency Deployment</a>
 
     <div class="dropdown-divider"></div>
 
     <div class="dropdown-header">NOVAK Learning Series - LAWS</div>
 
-    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L0 The Prime Directive.pdf" target="_blank">NOVAK Learning Series - NOVAK Law L0 The Prime Directive (Zeroth Law)</a>
-    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L1 Deterministic Rule Execution.pdf" target="_blank">NOVAK Learning Series - NOVAK Law L1 Deterministic Rule Execution</a>
-    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L2 Rule Hash.pdf" target="_blank">NOVAK Learning Series - NOVAK Law L2 Rule Hash</a>
-    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L3 Data Hash.pdf" target="_blank">NOVAK Learning Series - NOVAK Law L3 Data Hash</a>
-    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L4 Output Hash.pdf" target="_blank">NOVAK Learning Series - NOVAK Law L4 Output Hash</a>
-    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L5 Execution Binding.pdf" target="_blank">NOVAK Learning Series - NOVAK Law L5 Execution Binding</a>
-    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L6 Execution Identity Law.pdf" target="_blank">NOVAK Learning Series - NOVAK Law L6 Execution Identity Law</a>
-    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L7 Recursive Verifiability.pdf" target="_blank">NOVAK Learning Series - NOVAK Law L7 Recursive Verifiability</a>
-    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L8 Temporal Ordering.pdf" target="_blank">NOVAK Learning Series - NOVAK Law L8 Temporal Ordering</a>
-    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L9 Forward-Only Integrity.pdf" target="_blank">NOVAK Learning Series - NOVAK Law L9 Forward-Only Integrity</a>
-    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L10 Zero Trust Execution Model.pdf" target="_blank">NOVAK Learning Series - NOVAK Law L10 Zero Trust Execution Model</a>
-    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L11 No Hidden States.pdf" target="_blank">NOVAK Learning Series - NOVAK Law L11 No Hidden States</a>
-    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L12 Deterministic Safety Gate.pdf" target="_blank">NOVAK Learning Series - NOVAK Law L12 Deterministic Safety Gate</a>
-    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L13 Global Verifier Canon.pdf" target="_blank">NOVAK Learning Series - NOVAK Law L13 Global Verifier Canon</a>
-    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L14 Identity Receipt.pdf" target="_blank">NOVAK Learning Series - NOVAK Law L14 Identity Receipt</a>
-    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L15 Full Disclosure Rule.pdf" target="_blank">NOVAK Learning Series - NOVAK Law L15 Full Disclosure Rule</a>
+    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L0 The Prime Directive.pdf" target="_blank">Law L0 The Prime Directive (Zeroth Law)</a>
+    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L1 Deterministic Rule Execution.pdf" target="_blank">Law L1 Deterministic Rule Execution</a>
+    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L2 Rule Hash.pdf" target="_blank">Law L2 Rule Hash</a>
+    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L3 Data Hash.pdf" target="_blank">Law L3 Data Hash</a>
+    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L4 Output Hash.pdf" target="_blank">Law L4 Output Hash</a>
+    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L5 Execution Binding.pdf" target="_blank">Law L5 Execution Binding</a>
+    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L6 Execution Identity Law.pdf" target="_blank">Law L6 Execution Identity Law</a>
+    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L7 Recursive Verifiability.pdf" target="_blank">Law L7 Recursive Verifiability</a>
+    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L8 Temporal Ordering.pdf" target="_blank">Law L8 Temporal Ordering</a>
+    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L9 Forward-Only Integrity.pdf" target="_blank">Law L9 Forward-Only Integrity</a>
+    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L10 Zero Trust Execution Model.pdf" target="_blank">Law L10 Zero Trust Execution Model</a>
+    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L11 No Hidden States.pdf" target="_blank">Law L11 No Hidden States</a>
+    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L12 Deterministic Safety Gate.pdf" target="_blank">Law L12 Deterministic Safety Gate</a>
+    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L13 Global Verifier Canon.pdf" target="_blank">Law L13 Global Verifier Canon</a>
+    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L14 Identity Receipt.pdf" target="_blank">Law L14 Identity Receipt</a>
+    <a href="docs/learning/NOVAK Learning Series - NOVAK Law L15 Full Disclosure Rule.pdf" target="_blank">Law L15 Full Disclosure Rule</a>
 
     <div class="dropdown-header">NOVAK Learning Series - LAWS Addenda</div>
 
-    <a href="docs/learning/NOVAK Learning Series - Industry Addenda PL-X & PS-X.pdf" target="_blank">NOVAK Learning Series - Industry Addenda PL-X & PS-X</a>
+    <a href="docs/learning/NOVAK Learning Series - Industry Addenda PL-X & PS-X.pdf" target="_blank">Industry Addenda PL-X & PS-X</a>
 
     <div class="dropdown-divider"></div>
 
     <div class="dropdown-header">NOVAK Learning Series - Threat Models</div>
 
-    <a href="docs/learning/NOVAK Learning Series - Industry Addenda PL-X & PS-X.pdf" target="_blank">NOVAK Learning Series - Industry Addenda PL-X & PS-X</a>
-    <a href="docs/learning/NOVAK Learning Series - Industry Addenda PL-X & PS-X.pdf" target="_blank">NOVAK Learning Series - Industry Addenda PL-X & PS-X</a>
-    <a href="docs/learning/NOVAK Learning Series - Industry Addenda PL-X & PS-X.pdf" target="_blank">NOVAK Learning Series - Industry Addenda PL-X & PS-X</a>
+    <a href="docs/learning/NOVAK Learning Series - NTM-1 NOVAK Threat Model.pdf" target="_blank">NTM-1 NOVAK Threat Model</a>
+    <a href="docs/learning/NOVAK Learning Series - NTM-2 Red Team Adversarial Test Suite.pdf" target="_blank">NTM-2 Red Team Adversarial Test Suite</a>
+    <a href="docs/learning/NOVAK Learning Series - NTM-3 Adversarial AI Test Suite.pdf" target="_blank">NTM-3 Adversarial AI Test Suite</a>
+    <a href="docs/learning/NOVAK Learning Series - Appendix 13 Multilingual Ambiguity Matrix.pdf" target="_blank">Appendix 13 Multilingual Ambiguity Matrix</a>
+    <a href="docs/learning/NOVAK Learning Series - NTM-2 Red Team Adversarial Test Suite.pdf" target="_blank">NTM-2 Red Team Adversarial Test Suite</a>
+    <a href="docs/learning/NOVAK Learning Series - NTM-3 Adversarial AI Test Suite.pdf" target="_blank">NTM-3 Adversarial AI Test Suite</a>
 
     <div class="dropdown-divider"></div>
 
     <div class="dropdown-header">NOVAK Learning Series - Novak Overview</div>
 
-    <a href="docs/learning/NOVAK Learning Series - NOVAK Part 1 Executive Summary.pdf" target="_blank">NOVAK Learning Series - NOVAK Part 1 Executive Summary</a>
-    <a href="docs/learning/NOVAK Learning Series - NOVAK Part 2 - What Novak Is.pdf" target="_blank">NOVAK Learning Series - NOVAK Part 2 - What Novak Is</a>
-    <a href="docs/learning/NOVAK Learning Series - NOVAK Part 3 Scientific Foundations.pdf" target="_blank">NOVAK Learning Series - NOVAK Part 3 Scientific Foundations</a>
-    <a href="docs/learning/NOVAK Learning Series - NOVAK Part 4 Cryptographic Architecture.pdf" target="_blank">NOVAK Learning Series - NOVAK Part 4 Cryptographic Architecture</a>
-    <a href="docs/learning/NOVAK Learning Series - NOVAK Part 5 System Model.pdf" target="_blank">NOVAK Learning Series - NOVAK Part 5 System Model</a>
-    <a href="docs/learning/NOVAK Learning Series - NOVAK Part 6 Implementation Layers.pdf" target="_blank">NOVAK Learning Series - NOVAK Part 6 Implementation Layers</a>
-    <a href="docs/learning/NOVAK Learning Series - NOVAK Part 7 Security Model.pdf" target="_blank">NOVAK Learning Series - NOVAK Part 7 Security Model</a>
-    <a href="docs/learning/NOVAK Learning Series - NOVAK Protocol Part 8 Governance.pdf" target="_blank">NOVAK Learning Series - NOVAK Protocol Part 8 Governance</a>
-    <a href="docs/learning/NOVAK Learning Series - NOVAK Part 9 Formal Whitepaper.pdf" target="_blank">NOVAK Learning Series - NOVAK Part 9 Formal Whitepaper</a>
-    <a href="docs/learning/NOVAK Learning Series - NOVAK Part 10 Final Summary.pdf" target="_blank">NOVAK Learning Series - NOVAK Part 10 Final Summary</a>
+    <a href="docs/learning/NOVAK Learning Series - NOVAK Part 1 Executive Summary.pdf" target="_blank">Part 1 Executive Summary</a>
+    <a href="docs/learning/NOVAK Learning Series - NOVAK Part 2 - What Novak Is.pdf" target="_blank">Part 2 - What Novak Is</a>
+    <a href="docs/learning/NOVAK Learning Series - NOVAK Part 3 Scientific Foundations.pdf" target="_blank">Part 3 Scientific Foundations</a>
+    <a href="docs/learning/NOVAK Learning Series - NOVAK Part 4 Cryptographic Architecture.pdf" target="_blank">Part 4 Cryptographic Architecture</a>
+    <a href="docs/learning/NOVAK Learning Series - NOVAK Part 5 System Model.pdf" target="_blank">Part 5 System Model</a>
+    <a href="docs/learning/NOVAK Learning Series - NOVAK Part 6 Implementation Layers.pdf" target="_blank">Part 6 Implementation Layers</a>
+    <a href="docs/learning/NOVAK Learning Series - NOVAK Part 7 Security Model.pdf" target="_blank">Part 7 Security Model</a>
+    <a href="docs/learning/NOVAK Learning Series - NOVAK Protocol Part 8 Governance.pdf" target="_blank">Part 8 Governance</a>
+    <a href="docs/learning/NOVAK Learning Series - NOVAK Part 9 Formal Whitepaper.pdf" target="_blank">Part 9 Formal Whitepaper</a>
+    <a href="docs/learning/NOVAK Learning Series - NOVAK Part 10 Final Summary.pdf" target="_blank">Part 10 Final Summary</a>
 
     <div class="dropdown-divider"></div>
 
@@ -5059,6 +5123,36 @@ function showDigestFormat(fmt) {
   document.querySelectorAll(".digest-btn").forEach(btn => btn.classList.remove("active"));
   document.querySelector(`button[onclick="showDigestFormat('${fmt}')"]`).classList.add("active");
 }
+</script>
+
+<script>
+
+/* ======================================================= */
+/*  LIVE SEARCH FILTER FOR LIBRARY MENU                     */
+/* ======================================================= */
+document.getElementById("docsSearch").addEventListener("keyup", function () {
+  const filter = this.value.toLowerCase();
+  const items = document.querySelectorAll("#docsMenu a");
+
+  items.forEach(link => {
+    const txt = link.textContent.toLowerCase();
+    link.style.display = txt.includes(filter) ? "block" : "none";
+  });
+});
+
+/* ======================================================= */
+/*  LIVE SEARCH FILTER FOR LEFT MENU (STANDARDS)           */
+/* ======================================================= */
+document.getElementById("standardsSearch").addEventListener("keyup", function () {
+  const filter = this.value.toLowerCase();
+  const items = document.querySelectorAll("#standardsMenu a");
+
+  items.forEach(link => {
+    const txt = link.textContent.toLowerCase();
+    link.style.display = txt.includes(filter) ? "block" : "none";
+  });
+});
+
 </script>
 
 </body>
