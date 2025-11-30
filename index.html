@@ -248,16 +248,16 @@ html[data-theme="dark"] .aud-btn.active {
     /* ====================================================================== */
     /* ✅ STICKY HEADER — CENTERED BRAND + SITE + THEME TOGGLE                */
     /* ====================================================================== */
-    #mainHeader {
-      display: flex;
-      align-items: center;
-      padding: 14px 28px;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 9999;
-    }
+#mainHeader {
+  display: flex;
+  align-items: center;
+  padding: 14px 28px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  position: static;      /* ✅ FIXED — no longer follows scrolling */
+  z-index: 9999;
+}
+
 
     .header-left {
       width: 80px; /* spacer, can stay mostly empty */
