@@ -1,4 +1,3 @@
-<!-- ✅ NOVAK Protocol — Final Public Demo Build (PART 1 of 3) -->
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
@@ -41,7 +40,6 @@
   text-align: center; 
 }
 
-    
 .sha-table { margin-top: 14px; }
 .sha-row { display: flex; gap: 14px; margin-bottom: 8px; }
 .sha-name { width: 110px; font-weight: 700; padding:6px 10px; border-radius:6px; text-align:center; }
@@ -132,6 +130,15 @@ html[data-theme="dark"] .dropdown-content a:hover {
   background: #1e293b;
 }
   
+/* ========== FIX TOP GAP (B) ========== */
+html {
+  scroll-padding-top: 50px; /* header height */
+}
+
+body {
+  padding-top: 50px;  /* match header height exactly */
+}
+
 /* prevent double stacking */
 .card,
 #audienceContent,
@@ -239,16 +246,16 @@ html[data-theme="dark"] .aud-btn.active {
     /* ====================================================================== */
     /* ✅ STICKY HEADER — CENTERED BRAND + SITE + THEME TOGGLE                */
     /* ====================================================================== */
-#mainHeader {
-  display: flex;
-  align-items: center;
-  padding: 14px 28px;
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
-  position: static;      /* ✅ FIXED — no longer follows scrolling */
-  z-index: 9999;
-}
-
+    #mainHeader {
+      display: flex;
+      align-items: center;
+      padding: 14px 28px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+    }
 
     .header-left {
       width: 80px; /* spacer, can stay mostly empty */
@@ -697,30 +704,8 @@ html[data-theme="dark"] .aud-btn.active {
        class="card"
        style="margin-top:0; font-size:16px; line-height:1.55;">
   </div>
+ 
 
-<div class="pill-row" style="justify-content:center; margin-top:16px;">
-  
-  <button id="restoreWhatIsBtn"
-    onclick="restoreWhatIsNovakSection()"
-    class="restore-btn"
-    style="display:inline-flex;">
-    🔄 Show “What is NOVAK?”
-  </button>
-  
-    <button id="restoreWhyBtn"
-    onclick="restoreWhyNovakSection()"
-    class="restore-btn"
-    style="display:inline-flex;">
-    🔄 Show “Why NOVAK — Why Now?”
-  </button>
-
-  <button id="restoreWhatBtn"
-    onclick="restoreWhatChangesSection()"
-    class="restore-btn"
-    style="display:inline-flex;">
-    🔄 Show “What Changes With NOVAK?”
-  </button>
-</div>
 
  <!-- WHAT IS NOVAK? (Name + NOT Blockchain/Bitcoin/SSL) -->
   <div id="whatIsNovakCard" class="card" style="margin-top:24px; position:relative;">
@@ -896,24 +881,13 @@ html[data-theme="dark"] .aud-btn.active {
 <!--  COLLAPSIBLE — ENGINEERS / CRYPTOGRAPHERS AREA -->
 <!-- =============================================== -->
 
-
-<details class="novak-collapse" style="margin-top:38px;">
-  <summary 
-    style="cursor:pointer; 
-           padding:14px 22px; 
-           border:2px solid #d0d7de; 
-           border-radius:10px; 
-           font-size:18px; 
-           display:inline-block;
-           transition:0.2s;">
+<div class="card" style="margin-top:28px; padding:20px;">
+  <details>
+    <summary style="cursor:pointer; font-size:18px; font-weight:600;">
     🔧 Show “For Engineers, Cryptographers & Auditors”
   </summary>
 
-  <div class="card" style="margin-top:22px; padding:24px;">
-
-    <h2 style="font-size:26px; margin-bottom:18px;">
-      For Engineers, Cryptographers & Auditors
-    </h2>
+    <div style="margin-top:16px; font-size:15px; line-height:1.55;">
 
     <p>
       Want to see exactly how NOVAK binds 
@@ -951,6 +925,7 @@ html[data-theme="dark"] .aud-btn.active {
 
     </div>
 </details>
+</div>
 
 <!-- ✅ PART 2 — Try It + Hash Engine + Example Data + File Drop + VIN + Games -->
 
@@ -958,9 +933,9 @@ html[data-theme="dark"] .aud-btn.active {
 <!-- ✅ COLLAPSIBLE TEST EXAMPLE — PREMIUM EDITION -->
 <!-- =============================================== -->
 
-<div class="card" style="margin-top:32px; padding:24px;">
-  <details class="novak-collapse">
-    <summary style="cursor:pointer; font-size:18px; padding:0 0 8px 0;">
+<div class="card" style="margin-top:28px; padding:20px;">
+  <details>
+    <summary style="cursor:pointer; font-size:18px; font-weight:600;">
       🧪 TEST Example — Click to Expand
     </summary>
 
@@ -1059,7 +1034,6 @@ html[data-theme="dark"] .aud-btn.active {
         <button class="pill-btn" onclick="showAlgo('sha256')">SHA-256</button>
         <button class="pill-btn" onclick="showAlgo('sha512')">SHA-512</button>
         <button class="pill-btn" onclick="showAlgo('sha384')">SHA-384</button>
-        <button class="pill-btn" onclick="showAlgo('sha3')">SHA-3-256</button>
       </div>
 
       <div id="algoResult" style="margin-top:20px;"></div>
@@ -1090,9 +1064,9 @@ html[data-theme="dark"] .aud-btn.active {
 <!-- ⭐ NOVAK SHA EDUCATION SUITE — SINGLE EXPANDABLE MODULE -->
 <!-- ======================================================= -->
 
-<div class="card" style="margin-top:32px; padding:24px;">
-  <details class="novak-collapse">
-    <summary style="cursor:pointer; font-size:18px; padding:0 0 8px 0;">
+<div class="card" style="margin-top:28px; padding:20px;">
+  <details>
+    <summary style="cursor:pointer; font-size:18px; font-weight:600;">
       🔐 NOVAK SHA Knowledge Center — Simple → Deep → Interactive → Technical → Diagrams → NOVAK Use
     </summary>
 
@@ -1114,22 +1088,22 @@ INPUT  →  [ SHA Blender ]  →  UNIQUE OUTPUT
 
     <p>
       You can put in:
-      <br>• A word  
-      • A VA claim  
+      <br>• A word
+      • A VA claim 
       • A VIN  
       • A PDF  
       • A medical note  
       • A whole book
     </p>
-
+<br>
     <p>
       SHA turns it all into a <strong>64 hex character one-way fingerprint</strong>.
     </p>
-
+<br>
     <p style="font-weight:600;">
       Change even ONE letter → the entire fingerprint becomes totally different.
     </p>
-
+<br>
     <p>
       One tiny change gives a totally different fingerprint.  
       This is how NOVAK spots invisible tampering.
@@ -1138,7 +1112,7 @@ INPUT  →  [ SHA Blender ]  →  UNIQUE OUTPUT
 <!-- ====================================================== -->
 <!-- 2. CLICKABLE DEFINITIONS -->
 <!-- ====================================================== -->
-
+<br>
 <details class="sub-collapse">
   <summary>🔢 What is “64 hex characters”?</summary>
   <div class="sub-card">
@@ -1148,7 +1122,7 @@ INPUT  →  [ SHA Blender ]  →  UNIQUE OUTPUT
     </p>
   </div>
 </details>
-
+<br>
 <details class="sub-collapse">
   <summary>📏 What are “256 bits”?</summary>
   <div class="sub-card">
@@ -1158,7 +1132,7 @@ INPUT  →  [ SHA Blender ]  →  UNIQUE OUTPUT
     </p>
   </div>
 </details>
-
+<br>
 <details class="sub-collapse">
   <summary>⚙️ What is SHA-256?</summary>
   <div class="sub-card">
@@ -1294,7 +1268,7 @@ ONE tiny change → COMPLETELY different hash.
 
     <h2>🔵 6. Why NOVAK Chooses SHA-256</h2>
 
-    <p>NOVAK uses <strong>SHA-256</strong> because it is:</p>
+    <p>NOVAK uses <strong>SHA-256</strong> because it is:</p><br>
 
     <ul style="margin-left:20px;">
       <li>✔ FIPS-approved and federally recognized</li>
@@ -1321,7 +1295,7 @@ ONE tiny change → COMPLETELY different hash.
       NOVAK is not “locked” to SHA-256.  
       It is built as a <strong>modular cryptographic system</strong> where the hashing engine is 
       a plug-and-play component.
-    </p>
+    </p><br>
 
     <p>
       This means NOVAK can instantly switch to:
@@ -1347,7 +1321,7 @@ ONE tiny change → COMPLETELY different hash.
     <p>
       Because of this:
     </p>
-
+<br>
     <ul style="margin-left:20px;">
       <li>✔ NOVAK remains future-proof</li>
       <li>✔ Agencies can choose the hash that fits their policy</li>
@@ -1488,10 +1462,10 @@ NOVAK Protocol       | BEFORE action     | Input=Rule=Output match | ✅ YES
 <h3 style="margin-top:32px; font-size:20px;">❓ Why Isn’t This Already Being Done?</h3>
 
 <ul style="margin-left:20px; margin-top:8px; line-height:1.6;">
-  <li>• Legacy systems only verify <strong>after</strong> execution (logging model)</li>
-  <li>• No existing standard mandates proof-before-action</li>
-  <li>• Most agencies rely on “trust the system,” not “prove correctness”</li>
-  <li>• Hash checks are usually optional — not enforced at the execution layer</li>
+  <li>Legacy systems only verify <strong>after</strong> execution (logging model)</li>
+  <li>No existing standard mandates proof-before-action</li>
+  <li>Most agencies rely on “trust the system,” not “prove correctness”</li>
+  <li>Hash checks are usually optional — not enforced at the execution layer</li>
 </ul>
 
 <p style="margin-top:12px; font-weight:600;">
@@ -1660,14 +1634,14 @@ function loadExample(type) {
   "timestamp": "2025-01-14T09:33:22Z"
 }`,
 
-    robot: `Robotics Command Packet:
+    robotics: `Robotics Command Packet:
 MOVE 12.8m
 ROTATE 43°
 GRIPPER: OPEN
 SCAN: TARGET-LOCK
 EXECUTE: BLOCK-12`,
 
-    ai: `AI System Log Entry:
+    system: `AI System Log Entry:
 [INFO] Model checkpoint loaded.
 [WARN] Drift detected in layer 13.
 [TRACE] Integrity recheck triggered.`,
@@ -1775,8 +1749,6 @@ sha512Hash = Array.from(new Uint8Array(h)).map(b => b.toString(16).padStart(2,"0
   // OUTPUT HASHES
   output.innerHTML = html;
 
-  output.innerHTML = html;
-
   // =============================================================
   // STORE HASHES FOR RECEIPT + JSON + QR
   // =============================================================
@@ -1795,6 +1767,7 @@ sha512Hash = Array.from(new Uint8Array(h)).map(b => b.toString(16).padStart(2,"0
     updateAutoVerify();
   }
 
+} // 🔚 <-- CLOSES async function updateHashes()
 
 /* ========================================================= */
 /* MODE 2 — DIGEST VIEWER                                    */
@@ -1883,55 +1856,64 @@ async function startAvalanche() {
 <!-- ✅ COLLAPSIBLE EXAMPLE DATASETS (DEFAULT CLOSED) -->
 <!-- =============================================== -->
 
-<div class="card" style="margin-top:22px; padding:24px;">
-  <details class="novak-collapse">
-    <summary style="cursor:pointer; font-size:18px; padding:0 0 8px 0;">
+<div class="card" style="margin-top:28px; padding:20px;">
+  <details>
+    <summary style="cursor:pointer; font-size:18px; font-weight:600;">
       📂 Example Datasets — Click to Expand
     </summary>
 
     <div style="padding:2px 0 0 0; margin-top:10px;">
-      <h3 class="section-title" style="font-size:20px;">Example Datasets</h3>
 
-    <p style="margin-top:6px; font-size:14px;">
-      Select a dataset below — it instantly loads into the input below so you can hash it locally.
-    </p>
+      <p>
+        Select a dataset below — it instantly loads into the input below so you can hash it locally.
+      </p>
 
-    <div class="pill-row" style="margin-top:16px; display:flex; flex-wrap:wrap; gap:14px;">
-      <button class="pill-btn" onclick="loadExample('va')">🎖️ VA Disability Claim</button>
-      <button class="pill-btn" onclick="loadExample('finance')">💰 Financial Transaction</button>
-      <button class="pill-btn" onclick="loadExample('robot')">🤖 Robotics Command</button>
-      <button class="pill-btn" onclick="loadExample('ai')">🧠 System Log</button>
-      <button class="pill-btn" onclick="loadExample('legal')">⚖️ Legal Filing</button>
+      <div class="pill-row" style="margin-top:16px; display:flex; flex-wrap:wrap; gap:14px;">
+<button class="dataset-btn" onclick="loadExample('va')">🩺 VA Disability Claim</button>
+<button class="dataset-btn" onclick="loadExample('finance')">💰 Financial Transaction</button>
+<button class="dataset-btn" onclick="loadExample('robotics')">🤖 Robotics Command</button>
+<button class="dataset-btn" onclick="loadExample('system')">🧠 System Log</button>
+<button class="dataset-btn" onclick="loadExample('legal')">⚖️ Legal Filing</button>
+
+      </div>
     </div>
-  </div>
-</details>
+  </details>
+</div>
 
-    <textarea id="novakInput"
-    placeholder="Example: VA claim, invoice, VIN, contract, JSON, SQL, XML..."
-    style="width:100%; height:170px; margin-top:16px; font-family:'JetBrains Mono', monospace;
-           font-size:14px; padding:12px;"></textarea>
+<!-- Card 2: Text Input + Hash Engine (NO LONGER INSIDE Example Datasets) -->
+<div class="card" style="margin-top:22px; padding:24px;">
+
+  <h3 class="section-title" style="font-size:20px;">Try It Locally — Hash Any Dataset</h3>
+
+<textarea id="novakInput"
+          oninput="updateAutoDiff(this.value)"
+          placeholder="Example: VA claim, invoice, VIN, contract, JSON, SQL, XML..."
+          style="width:100%; height:170px; margin-top:16px; font-family:'JetBrains Mono', monospace;
+                 font-size:14px; padding:12px;"></textarea>
+
 
   <!-- ✅ Hash Algorithm Selector -->
   <div style="margin-top:16px; display:flex; flex-wrap:wrap; gap:18px;">
     <label><input type="checkbox" class="hashAlgo" value="SHA-256" checked> SHA-256</label>
     <label><input type="checkbox" class="hashAlgo" value="SHA-512"> SHA-512</label>
     <label><input type="checkbox" class="hashAlgo" value="SHA-384"> SHA-384</label>
-    <label><input type="checkbox" class="hashAlgo" value="SHA3-256"> SHA-3-256</label>
   </div>
 
-<p style="margin-top:6px; font-size:13px; opacity:0.85;">
-🚫This public demo is for educational purposes only — NOT for HIPAA-regulated environments.
-  Never use real patients, real claims, or real medical documents here — training data only.
-  NOVAK does not collect, store, transmit, or retain data, but user responsibility applies.
-</p>
+  <p style="margin-top:6px; font-size:13px; opacity:0.85;">
+    🚫This public demo is for educational purposes only — NOT for HIPAA-regulated environments.
+    Never use real patients, real claims, or real medical documents here — training data only.
+    NOVAK does not collect, store, transmit, or retain data, but user responsibility applies.
+  </p>
 
-<!-- ✅ HASH OUTPUT -->
-<h3 class="section-title" style="font-size:20px; margin-top:24px;">Cryptographic Hashes</h3>
+  <!-- ✅ HASH OUTPUT -->
+  <h3 class="section-title" style="font-size:20px; margin-top:24px;">Cryptographic Hashes</h3>
 
-<div id="hashOutputList"
-     style="margin-top:10px; font-family:'JetBrains Mono', monospace; font-size:14px;">
-  <em>Waiting for input from above...</em>
+  <div id="hashOutputList"
+       style="margin-top:10px; font-family:'JetBrains Mono', monospace; font-size:14px;">
+    <em>Waiting for input from above...</em>
+  </div>
 </div>
+
 
 <!-- =============================================== -->
 <!-- ✅ AUTO-VERIFICATION TOGGLE + HIDDEN BLOCKS -->
@@ -1990,6 +1972,77 @@ async function startAvalanche() {
           <em>Provide input to begin…</em>
         </div>
       </div>
+      </div>
+<!-- ====================================================== -->
+<!-- 🧠 NOVAK EXPERT MODE — ALL FOUR CRYPTO VISUALIZERS     -->
+<!-- ====================================================== -->
+
+  <div class="card" style="margin-top:18px; padding:26px; font-size:17px; line-height:1.65;">
+
+
+    <pre id="expertHash"
+         style="margin-top:14px; font-family:'JetBrains Mono', monospace; white-space:pre-wrap;"></pre>
+
+    <hr style="margin:32px 0; opacity:0.4;">
+
+    <!-- ====================================================== -->
+    <!-- MODE 2: DIGEST VIEWER                                 -->
+    <!-- ====================================================== -->
+    <h3>🔹 Multi-Format Digest Viewer</h3>
+
+    <div style="margin-top:12px;">
+      <button class="digest-btn" onclick="showDigestFormat('hex')">HEX</button>
+      <button class="digest-btn" onclick="showDigestFormat('base64')">BASE64</button>
+      <button class="digest-btn" onclick="showDigestFormat('binary')">BINARY</button>
+    </div>
+
+    <pre id="digestOutput"
+         style="margin-top:14px; font-family:'JetBrains Mono', monospace; white-space:pre-wrap;"></pre>
+
+    <hr style="margin:32px 0; opacity:0.4;">
+
+<h3>◆ Bit Difference Heatmap (Original vs Live Input)</h3>
+<p>
+  The moment you type the first value in the NOVAK Auto-Verification box above,
+  NOVAK freezes it as the <strong>“original.”</strong> Every change after that updates
+  the bit-difference display below.
+</p>
+
+<div id="heatmap"
+     style="
+       margin-top:14px;
+       border:1px solid var(--border);
+       border-radius:8px;
+       padding:10px;
+       min-height:40px;
+       display:grid;
+       grid-template-columns:repeat(64, 1fr);
+       gap:2px;
+     ">
+  <!-- Heatmap cells will be injected here -->
+</div>
+
+<hr style="margin:24px 0; opacity:0.4;">
+
+<h3>◆ Avalanche Visualizer (Live)</h3>
+<p>
+  Shows how many hash bits flipped between the original and the current value.
+  Type once to set the original, then edit to see the avalanche effect.
+</p>
+
+<pre id="avalancheFrame"
+     style="
+       margin-top:10px;
+       padding:10px 12px;
+       border:1px solid var(--border);
+       border-radius:8px;
+       font-family:'JetBrains Mono', monospace;
+       font-size:13px;
+       background:var(--card);
+       white-space:pre-wrap;
+     ">
+<!-- Avalanche stats will be injected here -->
+</pre>
 
       <!-- RECEIPT -->
       <div class="card" style="margin-top:26px; padding:20px;">
@@ -2101,8 +2154,8 @@ async function startAvalanche() {
       <h4 style="margin-top:16px;">So what do you actually do with a saved hash?</h4>
 <br>
       <ul>
-        <li>✔ Save the <strong>hash somewhere safe</strong> (email, PDF, note, claim file).</li>
-        <li>✔ Later, paste the <strong>original text or file</strong> back into NOVAK.</li>
+✔ Save the <strong>hash somewhere safe</strong> (email, PDF, note, claim file).</li>
+✔ Later, paste the <strong>original text or file</strong> back into NOVAK.</li>
       </ul>
 <br>
       <p>If the hash <strong>matches</strong> → nothing changed.</p>
@@ -2155,15 +2208,15 @@ async function startAvalanche() {
       <h4 style="margin-top:16px;">Why Isn’t My GPU Being Used?</h4><br>
 
       <ul>
-        <li>✔ GPUs are not used for SHA-256/384/512 because hashing is not a parallel-friendly operation.</li>
-        <li>✔ The browser delegates hashing to <strong>CPU hardware acceleration</strong>, not your graphics card.</li>
+✔ GPUs are not used for SHA-256/384/512 because hashing is not a parallel-friendly operation.
+✔ The browser delegates hashing to <strong>CPU hardware acceleration</strong>, not your graphics card.
       </ul><br>
 
       <h4>Hashing uses:</h4><br>
 
       <ul>
-        <li>✔ CPU</li>
-        <li>✔ Hardware-accelerated WebCrypto</li>
+✔ CPU
+✔ Hardware-accelerated WebCrypto
       </ul>
 <br>
       <p><strong>NOT GPU compute.</strong></p>
@@ -2393,24 +2446,16 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
 <!-- ====================================================== -->
 <!-- What NOVAK Does to Robocalls & Telemarketing -->
 <!-- ====================================================== -->
-<details class="novak-collapse" style="margin-top:22px;">
-  <summary 
-    style="cursor:pointer; 
-           padding:14px 22px; 
-           border:2px solid #d0d7de; 
-           border-radius:10px; 
-           font-size:18px; 
-           display:inline-flex; 
-           align-items:center; 
-           gap:10px;">
+
+<div class="card" style="margin-top:28px; padding:22px;">
+  <details>
+    <summary style="cursor:pointer; font-size:18px; font-weight:600;">
     🚫 What NOVAK Does to Robocalls & Telemarketing
+    </summary>
+
+    <div style="margin-top:14px; line-height:1.6;">
+
   </summary>
-
-  <div class="card" style="margin-top:22px; padding:24px; position:relative;">
-
-    <h2 style="font-size:24px; margin-bottom:14px;">
-      What NOVAK Does to Robocalls & Telemarketing
-    </h2>
 
     <p>
       Robocalls exist because today’s phone networks allow actions first and ask questions later.
@@ -2475,25 +2520,92 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
     </ul>
 
     <p style="margin-top:10px; font-weight:600;">
-      NOVAK does not reject these calls.<br>
+      NOVAK does not reject these calls.<br><br>
       It prevents them from existing.
     </p>
 
-  </div>
-</details>
+    </div>
+  </details>
+</div>
+
+<!-- ====================================================== -->
+<!-- 🚗🏠 TITLE THEFT PROTECTION -->
+<!-- ====================================================== -->
+
+<div class="card" style="margin-top:28px; padding:22px;">
+  <details>
+    <summary style="cursor:pointer; font-size:18px; font-weight:600;">
+    🏛️ What NOVAK Does to Title Theft (Property, Vehicles, Deeds)
+  </summary>
+
+    <div style="margin-top:14px; line-height:1.6;">
+
+  </summary>
+
+    <p>
+      Title theft exists because current systems accept documents and transfers 
+      <strong>without cryptographic proof</strong> that the input, rules, or output are correct. 
+      Criminals exploit paperwork, PDF editing, identity fraud, or insider access.
+    </p>
+
+    <ul style="margin-left:20px; margin-top:12px;">
+      <li>Forged deeds or signatures</li>
+      <li>Fake title documents</li>
+      <li>Tampered PDFs and registry entries</li>
+      <li>Unauthorized ownership transfers</li>
+      <li>Deed manipulation during refinancing</li>
+      <li>Elder exploitation title transfers</li>
+      <li>VIN/title swapping for vehicles</li>
+    </ul>
+
+    <h3 style="margin-top:24px;">🔐 NOVAK Forces Proof-Before-Action</h3>
+    <p>
+      With NOVAK, a title cannot be transferred unless all three match exactly:
+    </p>
+
+    <ul style="margin-left:20px;">
+      <li>✔ The <strong>input document</strong> is unchanged</li>
+      <li>✔ The <strong>rule</strong> (state law) is correct</li>
+      <li>✔ The <strong>output</strong> (new owner) matches the rule</li>
+      <li>✔ The entire chain forms an unbroken <strong>Execution Identity Receipt (EIR)</strong></li>
+    </ul>
+
+    <p style="margin-top:12px;">
+      If anything is tampered with — even 1 bit — NOVAK mathematically refuses the transfer.
+    </p>
+
+    <h3 style="margin-top:24px;">🚫 This Eliminates Entire Classes of Title Fraud</h3>
+    <ul style="margin-left:20px;">
+      <li>❌ Forged real estate transfers</li>
+      <li>❌ Fraudulent vehicle title swaps</li>
+      <li>❌ Mortgage/title manipulation</li>
+      <li>❌ Registry tampering</li>
+      <li>❌ Fake lien releases</li>
+      <li>❌ Deed fraud during escrow or refinancing</li>
+      <li>❌ Fake ownership filings</li>
+      <li>❌ Synthetic identity title theft schemes</li>
+    </ul>
+
+    <p style="margin-top:16px; font-weight:600;">
+      NOVAK makes title fraud <strong>mathematically impossible to execute</strong> — 
+      not detected later, but prevented entirely.
+    </p>
+
+    </div>
+  </details>
 </div>
 
 <!-- ====================================================== -->
 <!-- 🪪 IDENTITY THEFT & SYNTHETIC FRAUD PROTECTION -->
 <!-- ====================================================== -->
-<details class="novak-collapse" style="margin-top:28px;">
-  <summary style="cursor:pointer; font-size:20px; padding:14px 0;">
+<div class="card" style="margin-top:28px; padding:20px;">
+  <details>
+    <summary style="cursor:pointer; font-size:18px; font-weight:600;">
     🪪 What NOVAK Does to Identity Theft & Synthetic Identity Fraud
   </summary>
 
-  <div class="card" style="margin-top:16px; font-size:16px; line-height:1.6;">
+    <div style="margin-top:16px; font-size:15px; line-height:1.55;">
 
-    <h2 style="margin-top:0;">Why Identity Theft Happens Today</h2>
     <p>
       Identity theft and synthetic identity fraud thrive because systems accept 
       <strong>information without mathematical proof of correctness</strong>.  
@@ -2544,9 +2656,10 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
       No guessing. No heuristics. Just immutable cryptographic proof.
     </p>
 
-  </div>
-</details>
-  
+    </div>
+  </details>
+</div>
+
 <!-- ========================================= -->
 <!-- 💻 HOW NOVAK SURVIVES PACKET SNIFFING     -->
 <!-- ========================================= -->
@@ -2664,14 +2777,11 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
 <!-- 💻 Why TLS, Blockchain & Bitcoin Cannot Prevent Automated Harm — but NOVAK Can    -->
 <!-- ========================================= -->
 <div class="card" style="margin-top:28px; padding:20px;">
-
-  
-<!-- ✅ COMPARISON SECTION -->
-<details class="novak-collapse">
-  <summary>🔍 Why TLS, Blockchain & Bitcoin Cannot Prevent Automated Harm — but NOVAK Can</summary>
+  <details>
+    <summary style="cursor:pointer; font-size:18px; font-weight:600;">🔍 Why TLS, Blockchain & Bitcoin Cannot Prevent Automated Harm — but NOVAK Can</summary>
 
   <div class="collapse-inner">
-
+<br>
   <h4>❌ TLS / SSL</h4>
   <ul>
     <li>Encrypts transmission — not correctness</li>
@@ -2679,7 +2789,7 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
     <li>Cannot stop wrongful automation</li>
     <li>Protects communication — not decisions</li>
   </ul>
-
+<br>
   <h4>❌ Blockchain</h4>
   <ul>
     <li>Records history after execution</li>
@@ -2687,7 +2797,7 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
     <li>Cannot fix wrong decisions already made</li>
     <li>Makes immutable logs — not integrity</li>
   </ul>
-
+<br>
   <h4>❌ Bitcoin & Cryptocurrency</h4>
   <ul>
     <li>Designed for ownership & payments</li>
@@ -2695,16 +2805,16 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
     <li>Solves accounting — not correctness</li>
     <li>Proves who paid — not whether a decision was right</li>
   </ul>
-
+<br>
   <h4>❌ Logging, Audits & SIEM</h4>
   <ul>
     <li>Detect failure AFTER damage</li>
     <li>Human investigation required</li>
     <li>Finds harm — doesn’t stop it</li>
   </ul>
-
+<br>
   <h3>✅ NOVAK Protocol</h3>
-
+<br>
   <ul>
     <li>Requires mathematical <strong>proof-before-action</strong></li>
     <li>Binds input → rule → output cryptographically</li>
@@ -2732,25 +2842,11 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
   <button onclick="toggleTransparency()" class="action-btn" style="margin-top:16px;">
     Enable Transparency View
   </button>
-
+</div>
 <!-- ✅ TRANSPARENCY PANEL -->
-<div class="card"
-     id="transparencyView"
-     style="display:none; margin-top:20px; font-family:'JetBrains Mono', monospace; font-size:14px;">
-</div>
-  
-</div>
-  
-<details class="novak-collapse" style="margin:40px 0;">
-  <summary 
-    style="
-      cursor:pointer; 
-      padding:14px 22px; 
-      border:2px solid #d0d7de; 
-      border-radius:10px; 
-      font-size:20px; 
-      display:inline-block;
-      transition:0.2s;">
+<div class="card" style="margin-top:28px; padding:20px;">
+  <details>
+    <summary style="cursor:pointer; font-size:18px; font-weight:600;">
     ⚖️ Deterministic Execution Integrity
   </summary>
 
@@ -2780,99 +2876,7 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
         Deterministic Execution Integrity — No system may execute without provable truth!
       </div>
     </div>
-
-  </div>
-</details>
-
-<!-- ====================================================== -->
-<!-- 🧠 NOVAK EXPERT MODE — ALL FOUR CRYPTO VISUALIZERS     -->
-<!-- ====================================================== -->
-<details class="novak-collapse" style="margin:40px 0;">
-  <summary 
-    style="
-      cursor:pointer; 
-      padding:14px 22px; 
-      border:2px solid #d0d7de; 
-      border-radius:10px; 
-      font-size:20px; 
-      display:inline-block;
-      transition:0.2s;">
-    🧠 Expert Mode — Cryptographic Visualizers (Click to Expand)
-  </summary>
-
-  <div class="card" style="margin-top:18px; padding:26px; font-size:17px; line-height:1.65;">
-
-    <h2 class="section-title">Expert Mode</h2>
-    <p style="opacity:0.9; font-size:14px;">
-      These tools show NOVAK’s underlying mathematics, hashing behavior, avalanche effect,
-      and digest formats using native WebCrypto — all computed locally on your device.
-    </p>
-
-    <!-- ====================================================== -->
-    <!-- MODE 1: LIVE HASHING                                  -->
-    <!-- ====================================================== -->
-    <h3 style="margin-top:28px;">🔹 Live WebCrypto Hashing</h3>
-    <textarea id="expertInput"
-              placeholder="Type here — live SHA-256 will appear..."
-              style="width:100%; height:90px; margin-top:10px; padding:12px; font-family:'JetBrains Mono', monospace;"></textarea>
-
-    <pre id="expertHash"
-         style="margin-top:14px; font-family:'JetBrains Mono', monospace; white-space:pre-wrap;"></pre>
-
-    <hr style="margin:32px 0; opacity:0.4;">
-
-    <!-- ====================================================== -->
-    <!-- MODE 2: DIGEST VIEWER                                 -->
-    <!-- ====================================================== -->
-    <h3>🔹 Multi-Format Digest Viewer</h3>
-
-    <div style="margin-top:12px;">
-      <button class="digest-btn" onclick="showDigestFormat('hex')">HEX</button>
-      <button class="digest-btn" onclick="showDigestFormat('base64')">BASE64</button>
-      <button class="digest-btn" onclick="showDigestFormat('binary')">BINARY</button>
-    </div>
-
-    <pre id="digestOutput"
-         style="margin-top:14px; font-family:'JetBrains Mono', monospace; white-space:pre-wrap;"></pre>
-
-    <hr style="margin:32px 0; opacity:0.4;">
-
-    <!-- ====================================================== -->
-    <!-- MODE 3: BIT DIFFERENCE HEATMAP                        -->
-    <!-- ====================================================== -->
-    <h3>🔹 Bit-Difference Heatmap</h3>
-
-    <div style="margin-top:10px;">
-      <input id="heatA" placeholder="Input A"
-             style="width:48%; padding:8px; font-family:'JetBrains Mono', monospace;">
-      <input id="heatB" placeholder="Input B"
-             style="width:48%; padding:8px; font-family:'JetBrains Mono', monospace; margin-left:4%;">
-    </div>
-
-    <button class="action-btn" style="margin-top:12px;" onclick="computeHeatmap()">
-      Compute Heatmap
-    </button>
-
-    <div id="heatmap"
-         style="margin-top:16px; display:grid; grid-template-columns:repeat(64, 1fr); gap:2px;"></div>
-
-    <hr style="margin:32px 0; opacity:0.4;">
-
-    <!-- ====================================================== -->
-    <!-- MODE 4: AVALANCHE ANIMATION                           -->
-    <!-- ====================================================== -->
-    <h3>🔹 Avalanche Animation</h3>
-    <input id="avalancheInput"
-           placeholder="Type anything…"
-           style="width:100%; padding:10px; font-family:'JetBrains Mono', monospace;">
-
-    <button class="action-btn" style="margin-top:12px;" onclick="startAvalanche()">
-      Run Avalanche Animation
-    </button>
-
-    <pre id="avalancheFrame"
-         style="margin-top:16px; font-family:'JetBrains Mono', monospace; white-space:pre-wrap;"></pre>
-
+<div>
   </div>
 </details>
 
@@ -3084,64 +3088,122 @@ Use this hash in NOVAK EIR / HVET to bind audio integrity.`;
 }
 </script>
 
-<!-- ✅ FOOTER -->
-<footer style="text-align:center; margin-top:60px; font-size:14px; opacity:0.85; line-height:1.5;">
-  NOVAK Protocol<br>
-  Novak Objective Verification of Autonomous Knowledge<br>
+<!-- ====================================================== -->
+<!-- FOOTER — COLLAPSIBLE PERSONAL DETAILS                  -->
+<!-- ====================================================== -->
+
+<footer style="text-align:center; margin-top:15px; font-size:14px; opacity:0.85; line-height:1.6;">
+<br>
+      Nothing stored, logged, transmitted, analyzed, monitored, sold, or shared.<br>
+      100% local, private, client-side cryptographic verification.
+<br><br>
+  NOVAK Protocol- Novak Objective Verification of Autonomous Knowledge<br>
   Proof-Before-Action<br>
   Patent Pending<br>
-  Copyright © 2025 Matthew Novak<br><br>
 
-  PADI 30-Year Member IDC Staff Instructor #888850 —
-  <a href="https://www.padi.com" target="_blank" rel="noopener noreferrer">www.padi.com</a><br>
-<br>
-  PADI Project Aware Foundation
-  <a href="https://www.padi.com/aware target="_blank" rel="noopener noreferrer">www.padi.com/aware</a><br>
-<br>
-  o7 Star Citizen Referral —
-  <a href="https://www.robertsspaceindustries.com/enlist?referral=STAR-KRN7-SJTX"
-     target="_blank" rel="noopener noreferrer">STAR-KRN7-SJTX</a><br><br>
+  <!-- CLICKABLE NAME -->
+  <span id="footerName"
+        style="cursor:pointer; font-weight:600; text-decoration:underline;"><br>
+    Copyright © 2025 Matthew Stephen Novak
+  </span>
 
-<p>
-  Donations:
-  <a href="mailto:matthew@novakprotocol.com?subject=NOVAK%20Support%20or%20Donation">
-    matthew@novakprotocol.com
-  </a>
-</p>
+  <!-- HIDDEN SECTION -->
+  <div id="footerDetails" style="display:none; margin-top:18px;">
 
-  <br>
-  Nothing stored, logged, transmitted, analyzed, monitored, sold, or shared.<br><br>
-  100% local, private, client-side cryptographic verification.
+      PADI 30-Year Member IDC Staff Instructor #888850 — 
+      <a href="https://www.padi.com" target="_blank" rel="noopener noreferrer">
+        www.padi.com
+      </a>
+      <br><br>
+
+      PADI Project Aware Foundation — 
+      <a href="https://www.padi.com/aware" target="_blank" rel="noopener noreferrer">
+        www.padi.com/aware
+      </a>
+      <br><br>
+
+      o7 Star Citizen Referral — 
+      <a href="https://www.robertsspaceindustries.com/enlist?referral=STAR-KRN7-SJTX"
+         target="_blank" rel="noopener noreferrer">
+        STAR-KRN7-SJTX
+      </a>
+      <br><br>
+
+      Donations:<br>
+      <a href="mailto:matthew@novakprotocol.com?subject=NOVAK%20Support%20or%20Donation">
+        matthew@novakprotocol.com
+      </a>
+
+
+  </div>
+
 </footer>
 
-<!-- ✅ GLORY TO GOD -->
-<div style="display:flex; justify-content:center; margin-top:60px;">
-  <button class="action-btn" onclick="toggleGlorySection()"
-    style="font-size:16px; padding:12px 26px; border-radius:10px;">
+<!-- CLICK TO TOGGLE FOOTER DETAILS -->
+<script>
+  document.getElementById("footerName").addEventListener("click", function () {
+    const box = document.getElementById("footerDetails");
+    box.style.display = box.style.display === "none" ? "block" : "none";
+  });
+</script>
+
+<!-- ====================================================== -->
+<!-- GLORY TO GOD — CENTERED                               -->
+<!-- ====================================================== -->
+
+<!-- Button Centered -->
+<div style="display:flex; justify-content:center; width:100%; margin-top:25px;">
+  <button class="action-btn"
+          onclick="toggleGlorySection()"
+          style="font-size:16px; padding:12px 26px; border-radius:10px;">
     ✝️ Glory to God
   </button>
 </div>
 
-<div id="glorySection" class="card"
-  style="display:none; margin-top:26px; font-size:15px; line-height:1.63;">
-  <p style="font-style:italic; font-size:1.1rem; text-align:center; margin-bottom:22px;">
-    “The LORD detests lying lips, but He delights in those who act faithfully.” — Proverbs 12:22
+<!-- Card Centered -->
+<div id="glorySection"
+     class="card"
+     style="display:none; margin:26px auto 0 auto; max-width:850px; text-align:center;
+            font-size:15px; line-height:1.63;">
+
+  <p style="font-style:italic; font-size:1.15rem; margin-bottom:22px;">
+    “The LORD detests lying lips, but He delights in those who act faithfully.”
+    — Proverbs 12:22
   </p>
+
   <p>
-    The NOVAK Protocol exists because truth has intrinsic value — and wrongdoing, deception,
-    and hidden harm must be revealed, not rewarded.
+    The NOVAK Protocol exists because truth has intrinsic value — and wrongdoing,
+    deception, and hidden harm must be revealed, not rewarded.
   </p>
+
   <br>
+
   <p>
     Mathematical integrity reflects moral integrity — honesty, accountability, and justice.
   </p>
-    <br>
-  <p style="font-weight:600;">Everything good in this work belongs to God. Everything flawed belongs to me.</p>
-    <br>
-  <p>
-    May this technology protect the vulnerable, restrain corruption, and advance human dignity.
+
+  <br>
+
+  <p style="font-weight:600;">
+    Everything good in this work belongs to God. Everything flawed belongs to me.
   </p>
+
+  <br>
+
+  <p>
+    May this technology protect the vulnerable, restrain corruption,
+    and advance human dignity.
+  </p>
+
 </div>
+
+<!-- Script -->
+<script>
+  function toggleGlorySection() {
+    const box = document.getElementById("glorySection");
+    box.style.display = (box.style.display === "none") ? "block" : "none";
+  }
+</script>
 
 </div> <!-- END MAIN CONTAINER -->
 
@@ -3436,26 +3498,6 @@ function loadExample(key) {
   document.getElementById("novakInput").value = examples[key] || "";
   updateHashes();
 }
-
-/* ============================
-   VIN DECODER MODAL
-=============================*/
-function openVinModal() {
-  document.getElementById("vinModal").style.display = "flex";
-}
-function closeVinModal() {
-  document.getElementById("vinModal").style.display = "none";
-}
-function decodeCorvetteVIN(vin) {
-  if (vin.length !== 17) return "❌ VIN must be 17 characters.";
-  const year = { N: 2022 }[vin[9]] || "Unknown";
-  const plant = { "5": "Bowling Green, Kentucky" }[vin[10]] || "Unknown";
-  const model = vin.startsWith("1G1Y") ? "Chevy Corvette Stingray" : "Unknown Model";
-  return `Model: ${model}\nYear: ${year}\nAssembly Plant: ${plant}\nSequence: ${vin.slice(11)}`;
-}
-document.getElementById("vinInput")?.addEventListener("input", () => {
-  vinResult.innerHTML = `<pre>${decodeCorvetteVIN(vinInput.value.trim())}</pre>`;
-});
 
 /* ============================
  ✅ MINI-GAMES — NOW FULLY WORKING
@@ -4050,6 +4092,357 @@ function setAudience(aud) {
 </script>
 
 </div> <!-- moved container close: fixes alignment -->
-  
+
+<script>
+function loadExample(type) {
+    const textarea = document.getElementById("datasetInput");
+    if (!textarea) return;
+
+    const examples = {
+        va: `VA Disability Claim Example
+--------------------------------
+Veteran: John Doe
+SSN: 123-45-6789
+Condition: Lumbar Spine Degeneration
+Claim Date: 2024-02-10
+Notes: Chronic pain, range of motion loss.`,
+        
+        finance: `Financial Transaction Example
+--------------------------------
+FROM: ACC# 4882203
+TO: ACC# 2293842
+AMOUNT: $4,900.22
+TYPE: ACH TRANSFER
+DATE: 2025-01-02`,
+
+        robotics: `Robotics Command Example
+--------------------------------
+MOVE_ARM: +12.2°
+GRIP: CLOSE
+TARGET: COORD(4.2, 9.1, 1.0)
+AUTH: SESSION-99821`,
+
+        system: `System Log Example
+--------------------------------
+[WARN] 2025-11-01T14:05:22Z CHECKSUM_MISMATCH
+[INFO] 2025-11-01T14:05:23Z RETRYING
+[OK]   2025-11-01T14:05:24Z SUCCESS`,
+
+        legal: `Legal Filing Example
+--------------------------------
+Case: 2025-CV-99231
+Plaintiff: A. Johnson
+Defendant: R. Smith
+Motion: Summary Judgment`
+    };
+
+    textarea.value = examples[type] || "";
+    updateHashes();  // IMPORTANT — this recalculates SHA instantly
+}
+
+/* ========================================================= */
+/* AUTO DIFF ENGINE — original vs current input              */
+/* ========================================================= */
+
+let frozenOriginal = null;  // The first version user typed
+
+function updateAutoDiff(text) {
+  if (!frozenOriginal) {
+    frozenOriginal = text;            // Freeze first version
+  }
+
+  const hashA = sha256(frozenOriginal);
+  const hashB = sha256(text);
+
+  renderHeatmap(hashA, hashB);
+  renderAvalanche(hashA, hashB);
+}
+
+/* ========================================================= */
+/* Hashing Helper (SHA-256, returning hex string)            */
+/* ========================================================= */
+function sha256(str) {
+  const buf = new TextEncoder().encode(str);
+  return crypto.subtle.digest("SHA-256", buf).then(hash => {
+    return Array.from(new Uint8Array(hash))
+        .map(b => b.toString(16).padStart(2,"0"))
+        .join("");
+  });
+}
+
+/* ========================================================= */
+/* Heatmap Renderer                                          */
+/* ========================================================= */
+async function renderHeatmap(hexA, hexB) {
+  const a = (await hexA).match(/../g).map(h => parseInt(h, 16));
+  const b = (await hexB).match(/../g).map(h => parseInt(h, 16));
+
+  const map = document.getElementById("heatmap");
+  map.innerHTML = "";
+
+  for (let i = 0; i < 32; i++) {
+    const diff = a[i] ^ b[i];      // Bitwise XOR
+    const bits = diff.toString(2).padStart(8,"0");
+
+    for (const bit of bits) {
+      const cell = document.createElement("div");
+      cell.style.height = "10px";
+      cell.style.background = bit === "1" ? "#ff4f4f" : "#3c3c3c";
+      cell.style.borderRadius = "2px";
+      map.appendChild(cell);
+    }
+  }
+}
+
+/* ========================================================= */
+/* Avalanche Renderer                                        */
+/* ========================================================= */
+async function renderAvalanche(hexA, hexB) {
+  const a = (await hexA);
+  const b = (await hexB);
+
+  let out = "";
+  for (let i = 0; i < a.length; i++) {
+    const same = a[i] === b[i];
+    out += same ? a[i] : `[${b[i]}]`;   // highlight changed nibble
+  }
+  document.getElementById("avalancheFrame").textContent = out;
+}
+
+<script>
+let originalSnapshot = "";
+
+function updateAutoDiff(newValue) {
+
+  // store first version if empty
+  if (!originalSnapshot) {
+    originalSnapshot = newValue;
+  }
+
+  // compute bit-diff heatmap + avalanche chain
+  computeHeatmapAuto(originalSnapshot, newValue);
+  computeAvalancheAuto(newValue);
+}
+
+// auto-heatmap from single changing input
+async function computeHeatmapAuto(a, b) {
+  if (!a || !b) return;
+
+  const hA = await computeSHA(a);
+  const hB = await computeSHA(b);
+
+  const bitsA = hexToBits(hA);
+  const bitsB = hexToBits(hB);
+
+  const heatEl = document.getElementById("heatmap");
+  if (!heatEl) return;
+
+  heatEl.innerHTML = "";
+
+  for (let i = 0; i < bitsA.length; i++) {
+    const cell = document.createElement("div");
+    cell.className = bitsA[i] === bitsB[i] ? "bit-same" : "bit-diff";
+    heatEl.appendChild(cell);
+  }
+}
+
+// auto avalanche chain
+async function computeAvalancheAuto(val) {
+  const out = document.getElementById("avalancheFrame");
+  if (!out) return;
+
+  const hash = await computeSHA(val);
+  out.textContent = hash;
+}
+</script>
+
+<script>
+let originalFrozen = null;
+
+async function updateAutoDiff(value) {
+  // Freeze ORIGINAL snapshot only once
+  if (originalFrozen === null && value.trim().length > 0) {
+    originalFrozen = value;
+  }
+
+  if (!originalFrozen) return;
+
+  const hA = await computeSHA(originalFrozen);
+  const hB = await computeSHA(value);
+
+  // Update HEATMAP
+  const bitsA = hexToBits(hA);
+  const bitsB = hexToBits(hB);
+  const heatEl = document.getElementById("heatmap");
+  heatEl.innerHTML = "";
+
+  for (let i = 0; i < bitsA.length; i++) {
+    const cell = document.createElement("div");
+    cell.className = bitsA[i] === bitsB[i] ? "bit-same" : "bit-diff";
+    heatEl.appendChild(cell);
+  }
+
+  // Update AVALANCHE LIVE VIEW
+  document.getElementById("avalancheFrame").textContent =
+    "Original:  " + hA + "\n" +
+    "Now:       " + hB + "\n" +
+    "Bits changed: " + countBitDifferences(bitsA, bitsB);
+}
+
+function countBitDifferences(a, b) {
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] !== b[i]) diff++;
+  }
+  return diff;
+}
+</script>
+
+<script>
+/* ============================================================
+   MULTI-FORMAT DIGEST VIEWER (HEX / BASE64 / BINARY)
+   ============================================================ */
+
+async function computeSHA256(text) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(text);
+  const hash = await crypto.subtle.digest("SHA-256", data);
+  return new Uint8Array(hash);
+}
+
+function toHex(uint8Array) {
+  return Array.from(uint8Array)
+      .map(b => b.toString(16).padStart(2, "0"))
+      .join("");
+}
+
+function toBase64(uint8Array) {
+  let binary = "";
+  uint8Array.forEach(b => binary += String.fromCharCode(b));
+  return btoa(binary);
+}
+
+function toBinary(uint8Array) {
+  return Array.from(uint8Array)
+      .map(b => b.toString(2).padStart(8, "0"))
+      .join(" ");
+}
+
+async function showDigestFormat(format) {
+  const input = document.getElementById("expertInput");
+  if (!input) return;
+
+  const text = input.value.trim();
+  if (!text) {
+    document.getElementById("digestOutput").textContent = "(no input)";
+    return;
+  }
+
+  const digest = await computeSHA256(text);
+  let formatted;
+
+  switch (format) {
+    case "hex":
+      formatted = toHex(digest);
+      break;
+    case "base64":
+      formatted = toBase64(digest);
+      break;
+    case "binary":
+      formatted = toBinary(digest);
+      break;
+    default:
+      formatted = "";
+  }
+
+  document.getElementById("digestOutput").textContent = formatted;
+}
+</script>
+
+<!-- ====================================================== -->
+<!-- NOVAK INTEGRITY RECEIPT ENGINE                         -->
+<!-- ====================================================== -->
+<script>
+async function generateReceipt() {
+  const inputEl = document.getElementById("expertInput");
+  const out = document.getElementById("receiptOutput");
+  const qrBox = document.getElementById("qrContainer");
+  const dl = document.getElementById("jsonDownloadLink");
+
+  if (!inputEl) {
+    console.error("expertInput not found.");
+    return;
+  }
+
+  const text = inputEl.value.trim();
+  if (!text) {
+    out.textContent = "No input provided.";
+    return;
+  }
+
+  // Compute all hashes
+  const encoder = new TextEncoder();
+  const bytes = encoder.encode(text);
+
+  async function digest(alg) {
+    const h = await crypto.subtle.digest(alg, bytes);
+    return Array.from(new Uint8Array(h))
+      .map(b => b.toString(16).padStart(2,"0"))
+      .join("");
+  }
+
+  const sha256  = await digest("SHA-256");
+  const sha384  = await digest("SHA-384");
+  const sha512  = await digest("SHA-512");
+  const sha3_256 = null; // optional if using external lib
+
+  // HVET = Hash of Hashes (simple version)
+  const hvet = await digest("SHA-256");
+
+  // RGAC = Recursive Global Audit Chain (demo block increments)
+  const lastBlock = Number(localStorage.getItem("novak_rgac_block") || 0) + 1;
+  localStorage.setItem("novak_rgac_block", lastBlock);
+
+  const receipt = {
+    timestamp: new Date().toISOString(),
+    hashes: {
+      sha256,
+      sha384,
+      sha512,
+      sha3_256
+    },
+    hvet,
+    rgac: {
+      block: lastBlock,
+      value: hvet
+    }
+  };
+
+  // Show JSON
+  out.textContent = JSON.stringify(receipt, null, 2);
+
+  // Generate QR
+  qrBox.innerHTML = "";
+  new QRCode(qrBox, {
+    text: JSON.stringify(receipt),
+    width: 160,
+    height: 160
+  });
+
+  // Enable download
+  dl.style.display = "inline-block";
+  dl.onclick = () => {
+    const blob = new Blob([JSON.stringify(receipt, null, 2)], {type:"application/json"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "novak_receipt.json";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+}
+</script>
+
+
 </body>
 </html>
