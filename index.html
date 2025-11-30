@@ -43,7 +43,6 @@
   z-index: 5;
 }
 
-
 /* =============================== */
 /* NOVAK Documentation Dropdown    */
 /* =============================== */
@@ -552,6 +551,10 @@ html[data-theme="dark"] .aud-btn.active {
 }
 
   </style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 </head>
 
 <body>
@@ -563,6 +566,11 @@ html[data-theme="dark"] .aud-btn.active {
   <button class="dropdown-btn" onclick="toggleStandardsMenu()">Standards ▼</button>
 
 <div id="standardsMenu" class="dropdown-content standards-menu">
+
+  <div class="dropdown-header">Cryptography 101</div>
+  <a href="docs/standards/SP-2 — HVET EIR RGAC Cryptographic Standard.pdf" target="_blank">Cryptography 101</a>
+
+  <div class="dropdown-divider"></div>
 
   <div class="dropdown-header">NOVAK Standards (SP-1 → SP-9)</div>
   <a href="docs/standards/SP-1 — NOVAK Execution Integrity Standard (Full GitHub-Ready Document).pdf" target="_blank">SP-1 — Execution Integrity</a>
@@ -641,29 +649,18 @@ html[data-theme="dark"] .aud-btn.active {
 
     <div class="dropdown-divider"></div>
 
-
-    <div class="dropdown-header">Whitepapers (PAPER 1–11)</div>
-
+    <div class="dropdown-header">Preface and PAPERs 1–11</div>
+    <a href="docs/papers/The NOVAK Foundation Papers (v1.0).pdf" target="_blank">The NOVAK Foundation Papers (v1.0)</a>
     <a href="docs/psychology/PAPER 1 — PSYCHOLOGY.pdf" target="_blank">🧠 PAPER 1 — Psychology</a>
-
     <a href="docs/sociology/PAPER 2 — SOCIOLOGY.pdf" target="_blank">🌐 PAPER 2 — Sociology</a>
-
     <a href="docs/law/PAPER 3 — LAW.pdf" target="_blank">⚖️ PAPER 3 — Law</a>
-
     <a href="docs/mathematics/PAPER 4 — MATHEMATICS & CRYPTOGRAPHY.pdf" target="_blank">📐 PAPER 4 — Mathematics & Cryptography</a>
-
     <a href="docs/ai-governance/PAPER 5 — AI & AUTONOMOUS SYSTEMS.pdf" target="_blank">🤖 PAPER 5 — AI & Autonomous Systems</a>
-
     <a href="docs/economics/PAPER 6 — ECONOMICS.pdf" target="_blank">💰 PAPER 6 — Economics</a>
-
     <a href="docs/civilization/PAPER 7 — CIVILIZATION.pdf" target="_blank">🏛 PAPER 7 — Civilization</a>
-
     <a href="docs/forensics/PAPER 8 — FORENSICS.pdf" target="_blank">🔍 PAPER 8 — Forensics</a>
-
     <a href="docs/national-defense/PAPER 9 — NATIONAL DEFENSE.pdf" target="_blank">🛡 PAPER 9 — National Defense</a>
-
     <a href="docs/ethics/PAPER 10 — ETHICS & PHILOSOPHY.pdf" target="_blank">📜 PAPER 10 — Ethics & Philosophy</a>
-
     <a href="docs/governance/PAPER 11 — GOVERNANCE & POLICY.pdf" target="_blank">🏛 PAPER 11 — Governance & Policy</a>
 
     <div class="dropdown-divider"></div>
@@ -785,8 +782,6 @@ html[data-theme="dark"] .aud-btn.active {
        style="margin-top:0; font-size:16px; line-height:1.55;">
   </div>
  
-
-
  <!-- WHAT IS NOVAK? (Name + NOT Blockchain/Bitcoin/SSL) -->
   <div id="whatIsNovakCard" class="card" style="margin-top:24px; position:relative;">
     <h2 class="section-title">What is NOVAK?</h2>
@@ -957,57 +952,66 @@ html[data-theme="dark"] .aud-btn.active {
 </div>
 <!-- STORY PANEL ends, container stays open -->
 
-<!-- =============================================== -->
-<!--  COLLAPSIBLE — ENGINEERS / CRYPTOGRAPHERS AREA -->
-<!-- =============================================== -->
+<!-- ✅ PART 2 — Try It + Hash Engine + Example Data + File Drop + Games -->
 
+<!-- EIR + QR INSTANT CERTIFICATES -->
 <div class="card" style="margin-top:28px; padding:20px;">
-  <details>
-    <summary style="cursor:pointer; font-size:18px; font-weight:600;">
-    🔧 Show “For Engineers, Cryptographers & Auditors”
-  </summary>
+  <h2 class="section-title">EIR + QR Instant Certificates (For those that already know)</h2> 
 
-    <div style="margin-top:16px; font-size:15px; line-height:1.55;">
+  <p style="margin-top:8px;">
+    Upload any file. NOVAK will compute a SHA-256 HVET, build a local
+    Execution Identity Receipt (EIR), and generate a QR code that binds
+    the file + HVET + timestamp — all <strong>local in your browser</strong>,
+    no server calls.
+  </p>
 
-    <p>
-      Want to see exactly how NOVAK binds 
-      <strong>input → rules → output → receipt</strong>?  
-      This section links directly into the full standards and threat models.
+  <p style="margin-top:6px; font-size:13px; opacity:0.85;">
+    🚫This public demo is for educational purposes only — NOT for HIPAA-regulated environments.
+    Never use real patients, real claims, or real medical documents here — training data only.
+    NOVAK does not collect, store, transmit, or retain data, but user responsibility applies.
+  </p>
+
+  <!-- File picker -->
+  <div style="margin-top:16px;">
+    <input type="file" id="eirFileInput" />
+    <button class="action-btn" style="margin-left:10px;"
+            onclick="handleEirFile()">
+      ⚙️ Generate HVET + EIR + QR
+    </button>
+  </div>
+
+  <!-- Results -->
+  <div id="eirResultBlock" style="margin-top:22px; display:none;">
+
+    <h3 style="font-size:17px;">🔐 NOVAK HVET</h3>
+    <pre id="eirHvet"
+         style="margin-top:8px; font-family:'JetBrains Mono', monospace;
+                font-size:13px; white-space:pre-wrap; background:var(--card);
+                padding:10px; border-radius:8px; border:1px solid var(--border);">
+    </pre>
+
+    <h3 style="font-size:17px; margin-top:18px;">📜 Execution Identity Receipt (EIR)</h3>
+    <pre id="eirText"
+         style="margin-top:8px; font-family:'JetBrains Mono', monospace;
+                font-size:13px; white-space:pre-wrap; background:var(--card);
+                padding:10px; border-radius:8px; border:1px solid var(--border);">
+    </pre>
+
+    <h3 style="font-size:17px; margin-top:18px;">📡 QR Binding (File → HVET → EIR)</h3>
+    <canvas id="eirQrCanvas"
+            style="margin-top:8px; border-radius:8px; background:#fff;"></canvas>
+
+    <p style="margin-top:12px; font-size:13px; opacity:0.8;">
+      Scan this QR from any device. It encodes the full EIR JSON, including
+      filename, size, HVET (SHA-256), and ISO-8601 timestamp.
     </p>
 
-    <ul style="margin-top:18px; line-height:1.6;">
-      <li><strong>Cryptography 101</strong>: hashes, HVET, EIR, and RGAC explained in plain engineering terms</li>
-      <li><strong>Standards SP-1–SP-8</strong>: execution integrity, HVET/EIR/RGAC, conformance & adoption</li>
-      <li><strong>Threat Models NTM-1–NTM-3</strong>: internal, AI/automation, and adversarial drift models</li>
-      <li><strong>Adversarial Test Suites & Appendices</strong>: prompt libraries, gradient vectors, multilingual ambiguity matrices</li>
-    </ul>
+<button class="action-btn" style="margin-top:12px;" onclick="downloadEirPdf()">
+  📄 Download Professional Certificate (PDF)
+</button>
 
-    <div style="margin-top:24px; display:flex; flex-wrap:wrap; gap:12px;">
-
-      <a href="#"
-         style="padding:12px 18px; background:#edf2ff; border-radius:8px; 
-                text-decoration:none; border:1px solid #c7d1ff;">
-         🔐 Cryptography 101 → Hashes & HVET
-      </a>
-
-      <a href="#"
-         style="padding:12px 18px; background:#edf2ff; border-radius:8px; 
-                text-decoration:none; border:1px solid #c7d1ff;">
-         📘 NOVAK Standards (SP-1–SP-8)
-      </a>
-
-      <a href="https://github.com/novakprotocol"
-         target="_blank"
-         style="padding:12px 18px; background:#edf2ff; border-radius:8px; 
-                text-decoration:none; border:1px solid #c7d1ff;">
-         📁 Full GitHub Repository
-      </a>
-
-    </div>
-</details>
+  </div>
 </div>
-
-<!-- ✅ PART 2 — Try It + Hash Engine + Example Data + File Drop + Games -->
 
 <!-- =============================================== -->
 <!-- ✅ COLLAPSIBLE TEST EXAMPLE — PREMIUM EDITION -->
@@ -1021,26 +1025,10 @@ html[data-theme="dark"] .aud-btn.active {
 
     <div style="padding:4px 0 0 0; margin-top:8px;">
 
-    <!-- ================================================= -->
-    <!-- Title + BASIC / EXPERT toggle -->
-    <!-- ================================================= -->
-
-    <div style="display:flex; justify-content:space-between; align-items:center;">
-      <h2 class="section-title" style="font-size:24px;">TEST Example</h2>
-
-      <button id="modeToggle"
-        onclick="toggleHashMode()"
-        style="padding:6px 14px; border:1px solid var(--border); 
-               border-radius:8px; cursor:pointer; background:var(--card);">
-        🔰 Expert View
-      </button>
-    </div>
-
     <p style="margin-top:8px; font-size:16px; line-height:1.6;">
-      If you type <strong>TEST</strong> (all caps) below example datasets, NOVAK produces the following results.
-      Change one letter and everything changes — the <em>avalanche effect</em>.
+      If you type <strong>TEST</strong> (all caps) below example datasets in the "Try It Locally — Hash Any Dataset", NOVAK produces the following results.
+      Change one letter and everything changes — this is known as the <em>avalanche effect</em>.
     </p>
-
 
     <!-- ================================================= -->
     <!-- MAIN SHA-256 EXAMPLE -->
@@ -1062,6 +1050,40 @@ html[data-theme="dark"] .aud-btn.active {
         <span>⚙️ SHA-256</span>
       </div>
     </div>
+
+<!-- ====================================================== -->
+<!-- 2. CLICKABLE DEFINITIONS -->
+<!-- ====================================================== -->
+<br>
+<details class="sub-collapse">
+  <summary>🔢 What is “64 hex characters”?</summary>
+  <div class="sub-card">
+    <p>
+      A SHA-256 hash is 64 characters long, using digits 0–9 and letters a–f.
+      These represent 256 bits of mathematical output.
+    </p>
+  </div>
+</details>
+<br>
+<details class="sub-collapse">
+  <summary>📏 What are “256 bits”?</summary>
+  <div class="sub-card">
+    <p>
+      “Bits” measure information.  
+      256 bits is astronomically large — impossible to brute force.
+    </p>
+  </div>
+</details>
+<br>
+<details class="sub-collapse">
+  <summary>⚙️ What is SHA-256?</summary>
+  <div class="sub-card">
+    <p>
+      SHA-256 is the most widely trusted secure hash in government, banking,  
+      healthcare, cybersecurity, and NOVAK.
+    </p>
+  </div>
+</details>   <!-- ✅ THIS WAS MISSING -->
 
     <!-- ================================================= -->
     <!-- VARIANTS THAT SHOW AVALANCHE EFFECT -->
@@ -1168,11 +1190,11 @@ INPUT  →  [ SHA Blender ]  →  UNIQUE OUTPUT
 
     <p>
       You can put in:
-      <br>• A word
-      • A VA claim 
-      • A VIN  
-      • A PDF  
-      • A medical note  
+      <br>• A word<br>
+      • A VA claim<br> 
+      • A VIN<br>  
+      • A PDF<br>  
+      • A medical note<br>  
       • A whole book
     </p>
 <br>
@@ -1231,7 +1253,7 @@ INPUT  →  [ SHA Blender ]  →  UNIQUE OUTPUT
 <h2>🟪 2. The SHA Family (Versions & Security)</h2>
 
 <p>
-  SHA has several generations — from old and unsafe to modern and secure:
+  SHA comes in several generations — from obsolete and unsafe to modern and federally approved:
 </p>
 
 <div class="sha-table">
@@ -1248,37 +1270,45 @@ INPUT  →  [ SHA Blender ]  →  UNIQUE OUTPUT
 
   <div class="sha-row">
     <div class="sha-name sha-good">SHA-384</div>
-    <div class="sha-desc">🔐 DoD Suite-B ECC-384 cryptography</div>
+    <div class="sha-desc">🔐 DoD Suite-B / ECC-384 compatibility</div>
   </div>
 
-      <div class="sha-row">
-        <div class="sha-name sha-good">SHA-512</div>
-        <div class="sha-desc">🔒 Strongest SHA-2 variant (512-bit state)</div>
-      </div>
+  <div class="sha-row">
+    <div class="sha-name sha-good">SHA-512</div>
+    <div class="sha-desc">🔒 Largest SHA-2 variant — 512-bit internal state</div>
+  </div>
 
-      <div class="sha-row">
-        <div class="sha-name sha-new">SHA-3</div>
-        <div class="sha-desc">🧪 Newest generation (Keccak sponge function)</div>
-      </div>
+  <div class="sha-row">
+    <div class="sha-name sha-new">SHA-3</div>
+    <div class="sha-desc">🧪 Newest generation (Keccak sponge construction)</div>
+  </div>
 
-    </div>
+</div>
 
-    <!-- =================================================== -->
-    <!-- 3. REAL-WORLD USAGE MAP -->
-    <!-- =================================================== -->
-    <hr style="margin:26px 0; opacity:0.35;">
+<!-- =================================================== -->
+<!-- 3. REAL-WORLD USAGE MAP -->
+<!-- =================================================== -->
+<hr style="margin:26px 0; opacity:0.35;">
 
-    <h2>🟩 3. Where SHA Is Used in Real Life</h2>
+<h2>🟩 3. Where SHA Is Used in Real Life</h2>
 
-<pre class="diagram-box">
-VA / Federal Agencies     → SHA-256
-Healthcare Systems        → SHA-256
-Banking & IRS             → SHA-256 / SHA-512
-TLS / HTTPS Certificates  → SHA-256 / SHA-384
-DoD / Nat. Security       → SHA-384
-Bitcoin                   → SHA-256
-Ethereum                  → Keccak (SHA-3 family)
-</pre>
+<table class="novak-table">
+  <thead>
+    <tr>
+      <th>Industry / System</th>
+      <th>Hash Standard Used</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>VA / Federal Agencies</td><td>SHA-256</td></tr>
+    <tr><td>Healthcare Systems</td><td>SHA-256</td></tr>
+    <tr><td>Banking & IRS</td><td>SHA-256 / SHA-512</td></tr>
+    <tr><td>TLS / HTTPS Certificates</td><td>SHA-256 / SHA-384</td></tr>
+    <tr><td>DoD / National Security</td><td>SHA-384</td></tr>
+    <tr><td>Bitcoin</td><td>SHA-256</td></tr>
+    <tr><td>Ethereum</td><td>Keccak (SHA-3 family)</td></tr>
+  </tbody>
+</table>
 
 <p>
   SHA protects websites, banking, federal systems, medical systems,
@@ -1287,135 +1317,153 @@ Ethereum                  → Keccak (SHA-3 family)
 
 <details class="sub-collapse" style="margin-top:32px;">
   <summary>📊 SHA vs MD5 vs CRC (Click to Compare)</summary>
-  <div class="sub-card">
-<pre>
-ALGORITHM | SECURITY     | USE TODAY
-----------|--------------|----------------------
-CRC32     | ❌ None       | File transfers only
-MD5       | ❌ Broken     | Legacy checks
-SHA-256   | ✅ Strong     | NOVAK, VA, DoD, banking
-SHA-3     | 🧪 New       | Crypto research, Ethereum
-</pre>
+  <div class="sub-card" style="padding:0;">
+    <table class="novak-table" style="margin:0;">
+      <thead>
+        <tr>
+          <th>Algorithm</th>
+          <th>Security Status</th>
+          <th>Use Today</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>CRC32</td><td>❌ None</td><td>File transfers only</td></tr>
+        <tr><td>MD5</td><td>❌ Broken</td><td>Legacy systems</td></tr>
+        <tr><td>SHA-256</td><td>✅ Strong</td><td>NOVAK, VA, DoD, banking</td></tr>
+        <tr><td>SHA-3</td><td>🧪 New</td><td>Crypto research, Ethereum</td></tr>
+      </tbody>
+    </table>
   </div>
 </details>
 
-    </pre>
+<!-- =================================================== -->
+<!-- 4. TECHNICAL BREAKDOWN -->
+<!-- =================================================== -->
+<hr style="margin:26px 0; opacity:0.35;">
 
-    <!-- =================================================== -->
-    <!-- 4. TECHNICAL BREAKDOWN -->
-    <!-- =================================================== -->
-    <hr style="margin:26px 0; opacity:0.35;">
+<h2>🧠 4. Technical Breakdown (For Engineers & Auditors)</h2>
 
-    <h2>🧠 4. Technical Breakdown (For Engineers & Auditors)</h2>
+<table class="novak-table">
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Algorithm</td><td>SHA-256</td></tr>
+    <tr><td>Output</td><td>256-bit digest</td></tr>
+    <tr><td>Length</td><td>64 hex characters</td></tr>
+    <tr><td>Speed</td><td>Hardware accelerated (Intel / AMD / ARM)</td></tr>
+    <tr><td>FIPS</td><td>Approved (FIPS 180-4)</td></tr>
+    <tr><td>Use</td><td>Integrity, signatures, decision-gating</td></tr>
+  </tbody>
+</table>
 
-    <pre class="diagram-box">
-Algorithm: SHA-256  
-Output:    256-bit digest  
-Length:    64 hex characters  
-Speed:     Hardware accelerated (Intel / AMD / ARM)  
-FIPS:      Approved (FIPS 180-4)
-Use:       Integrity, digital signatures, decision-gating
-    </pre>
+<p>
+  SHA-256 is collision-resistant:  
+  <strong>No one can create two different documents with the same hash.</strong>
+</p>
 
-    <p>
-      SHA-256 is collision-resistant:  
-      <strong>No one can create two different documents with the same hash.</strong>
-    </p>
+<!-- =================================================== -->
+<!-- 5. AVALANCHE EFFECT -->
+<!-- =================================================== -->
+<hr style="margin:26px 0; opacity:0.35;">
 
-    <!-- =================================================== -->
-    <!-- 5. AVALANCHE EFFECT -->
-    <!-- =================================================== -->
-    <hr style="margin:26px 0; opacity:0.35;">
+<h2>⚡ 5. Avalanche Effect (Why SHA Is Powerful)</h2>
 
-    <h2>⚡ 5. Avalanche Effect (Why SHA Is Powerful)</h2>
+<p>As shown earlier, change one character and everything changes.</p>
 
-    <pre class="diagram-box">
-"TEST" → 94ee0593...
-"TeST" → 8d3b72f1...
-"test" → 9f86d081...
+<table class="novak-table">
+  <thead>
+    <tr><th>Input</th><th>SHA-256 Digest (Shortened)</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>"TEST"</td><td>94ee0593…</td></tr>
+    <tr><td>"TeST"</td><td>8d3b72f1…</td></tr>
+    <tr><td>"test"</td><td>9f86d081…</td></tr>
+  </tbody>
+</table>
 
-ONE tiny change → COMPLETELY different hash.
-    </pre>
+<p>
+  One tiny change → a completely different hash.
+  This reveals tampering even when human eyes cannot.
+</p>
 
-    <p>
-      This makes SHA able to catch invisible tampering that humans cannot see.
-    </p>
 
-    <!-- =================================================== -->
-    <!-- 6. WHY NOVAK USES SHA-256 -->
-    <!-- =================================================== -->
-    <hr style="margin:26px 0; opacity:0.35;">
+<!-- =================================================== -->
+<!-- 6. WHY NOVAK USES SHA-256 -->
+<!-- =================================================== -->
+<hr style="margin:26px 0; opacity:0.35;">
 
-    <h2>🔵 6. Why NOVAK Chooses SHA-256</h2>
+<h2>🔵 6. Why NOVAK Chooses SHA-256</h2>
 
-    <p>NOVAK uses <strong>SHA-256</strong> because it is:</p><br>
+<p>NOVAK uses <strong>SHA-256</strong> because it is:</p>
 
-    <ul style="margin-left:20px;">
-      <li>✔ FIPS-approved and federally recognized</li>
-      <li>✔ Supported natively in WebCrypto (no server required)</li>
-      <li>✔ Resistant to collisions and tampering</li>
-      <li>✔ Hardware-accelerated on all major CPUs</li>
-      <li>✔ Fast enough for real-time execution-gating</li>
-      <li>✔ Trusted across VA, DoD, banking, and security</li>
-    </ul>
+<ul style="margin-left:20px;">
+  <li>✔ FIPS-approved and federally recognized</li>
+  <li>✔ Supported natively in WebCrypto (no server required)</li>
+  <li>✔ Resistant to collisions and tampering</li>
+  <li>✔ Hardware-accelerated on all major CPUs</li>
+  <li>✔ Fast enough for real-time execution-gating</li>
+  <li>✔ Trusted across VA, DoD, banking, cybersecurity</li>
+</ul>
 
-    <p style="margin-top:12px; font-weight:600;">
-      In a full NOVAK deployment:<br>
-      <strong>No system may ACT unless SHA-256 proves the data is unchanged.</strong>
-    </p>
+<p style="margin-top:12px; font-weight:600;">
+  In a full NOVAK deployment:<br><br>
+  <strong>No system may ACT unless SHA-256 proves the data is unchanged.</strong>
+</p>
 
-    <!-- =================================================== -->
-    <!-- 7. WHY NOVAK IS MODULAR (NEW SECTION) -->
-    <!-- =================================================== -->
-    <hr style="margin:26px 0; opacity:0.35;">
 
-    <h2>🌀 7. Why NOVAK Is Modular (Hash-Agnostic Architecture)</h2>
+<!-- =================================================== -->
+<!-- 7. WHY NOVAK IS MODULAR (NEW SECTION) -->
+<!-- =================================================== -->
+<hr style="margin:26px 0; opacity:0.35;">
 
-    <p>
-      NOVAK is not “locked” to SHA-256.  
-      It is built as a <strong>modular cryptographic system</strong> where the hashing engine is 
-      a plug-and-play component.
-    </p><br>
+<h2>🌀 7. Why NOVAK Is Modular (Hash-Agnostic Architecture)</h2>
 
-    <p>
-      This means NOVAK can instantly switch to:
-    </p>
+<p>
+  NOVAK is not “locked” to SHA-256.  
+  It is a <strong>modular cryptographic system</strong> where the hashing engine is 
+  a replaceable component.
+</p>
 
-    <ul style="margin-left:20px;">
-      <li>🔹 SHA-256 (default)</li>
-      <li>🔹 SHA-384 (DoD Suite-B compatibility)</li>
-      <li>🔹 SHA-512 (high-security environments)</li>
-      <li>🔹 SHA-3-256 (Keccak — next-generation hashing)</li>
-      <li>🔹 Any future NIST-approved algorithm</li>
-    </ul>
+<p>Supported hash engines:</p>
 
-    <p>
-      NOVAK’s laws (<strong>L0–L15</strong>) never reference a specific hash function.
-      They only require:
-    </p>
+<ul style="margin-left:20px;">
+  <li>🔹 SHA-256 (default)</li>
+  <li>🔹 SHA-384 (DoD Suite-B)</li>
+  <li>🔹 SHA-512 (high-security deployments)</li>
+  <li>🔹 SHA-3-256 (Keccak)</li>
+  <li>🔹 Any future NIST-approved function</li>
+</ul>
 
-    <pre class="diagram-box">
-"Use a federally-approved, collision-resistant function."
-    </pre>
+<p>
+  NOVAK’s laws (<strong>L0–L15</strong>) never mandate a specific algorithm — only:
+</p>
 
-    <p>
-      Because of this:
-    </p>
-<br>
-    <ul style="margin-left:20px;">
-      <li>✔ NOVAK remains future-proof</li>
-      <li>✔ Agencies can choose the hash that fits their policy</li>
-      <li>✔ Changing the hash does NOT change the NOVAK workflow</li>
-      <li>✔ Hardware acceleration stays fully supported</li>
-    </ul>
+<table class="novak-table">
+  <tbody>
+    <tr><td><strong>“Use a federally-approved, collision-resistant function.”</strong></td></tr>
+  </tbody>
+</table>
 
-    <p style="font-weight:600; margin-top:14px;">
-      NOVAK’s integrity model stays the same — only the math block swaps.
-    </p>
+<p>This guarantees NOVAK remains future-proof:</p>
+
+<ul style="margin-left:20px;">
+  <li>✔ Agencies can choose the algorithm matching their policy</li>
+  <li>✔ Changing algorithms does not change NOVAK workflows</li>
+  <li>✔ Hardware-acceleration stays fully supported</li>
+</ul>
+
+<p style="font-weight:600; margin-top:14px;">
+  NOVAK’s integrity model stays identical — only the math block swaps.
+</p>
 
 <!-- =================================================== -->
 <!-- 8. HOW NOVAK USES SHA DIFFERENTLY (THE GATE MODEL) -->
 <!-- =================================================== -->
+
 <hr style="margin:26px 0; opacity:0.35;">
 
 <h2>🛡️ 8. How NOVAK Uses SHA Differently (SHA → Gate Instead of Log)</h2>
@@ -1438,16 +1486,17 @@ ONE tiny change → COMPLETELY different hash.
 <details class="sub-collapse" style="margin-top:18px;">
   <summary>🟦 Simple Explanation — “How NOVAK Uses SHA”</summary>
   <div class="sub-card">
-    <p>
+<br>    
+<p>
       SHA makes a fingerprint of your data.  
       NOVAK uses that fingerprint as a <strong>lock</strong>.
     </p>
-
+<br>
     <p>
       If <strong>anything</strong> changes — even a single character —
       the fingerprint changes.
     </p>
-
+<br>
     <p style="font-weight:600;">
       NOVAK checks the fingerprint BEFORE the system is allowed to act.
     </p>
@@ -1472,7 +1521,8 @@ ONE tiny change → COMPLETELY different hash.
 <details class="sub-collapse" style="margin-top:18px;">
   <summary>🧠 Deep Technical Explanation — “How NOVAK Uses SHA Architecturally”</summary>
   <div class="sub-card">
-    <p>
+<br>    
+<p>
       Traditional systems compute hashes for:
       <br>• logging  
       • storage integrity  
@@ -1511,6 +1561,84 @@ NOVAK GATE (Allow? Block?)
     </p>
   </div>
 </details>
+
+<!-- =================================================== -->
+<!-- 8B-1. ANIMATION: HR → HD → HO → HVET                -->
+<!-- =================================================== -->
+
+<div class="card" style="margin-top:24px; padding:20px; text-align:center;">
+
+  <h3 style="font-size:20px; margin-bottom:16px;">
+    🔄 NOVAK Hash Flow Animation (HR → HD → HO → HVET)
+  </h3>
+
+  <div id="novakFlowAnim"
+       style="display:flex; justify-content:center; gap:18px;
+              align-items:center; flex-wrap:wrap;">
+
+    <div class="flow-box" id="flowHR">HR<br><small>Rule Hash</small></div>
+    <div class="flow-arrow">→</div>
+
+    <div class="flow-box" id="flowHD">HD<br><small>Data Hash</small></div>
+    <div class="flow-arrow">→</div>
+
+    <div class="flow-box" id="flowHO">HO<br><small>Output Hash</small></div>
+    <div class="flow-arrow">→</div>
+
+    <div class="flow-box final" id="flowHVET">
+      HVET<br>
+      <small>Full Binding</small>
+    </div>
+
+  </div>
+
+  <button onclick="runNovakFlowAnim()"
+          class="action-btn"
+          style="margin-top:20px;">
+    ▶ Play Animation
+  </button>
+
+</div>
+
+<style>
+.flow-box {
+  padding:14px 20px;
+  border:2px solid var(--blue);
+  border-radius:10px;
+  font-size:18px;
+  min-width:80px;
+  background:var(--card);
+  transition:0.35s;
+}
+.flow-box.final {
+  border-color:var(--green);
+  font-weight:700;
+}
+.flow-arrow {
+  font-size:26px;
+  opacity:0.6;
+}
+.flow-box.active {
+  background:var(--blue);
+  color:white;
+  transform:scale(1.15);
+  box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+</style>
+
+<script>
+function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+async function runNovakFlowAnim() {
+  const items = ["flowHR","flowHD","flowHO","flowHVET"];
+  for (let id of items) {
+    document.getElementById(id).classList.add("active");
+    await sleep(650);
+    document.getElementById(id).classList.remove("active");
+  }
+  document.getElementById("flowHVET").classList.add("active");
+}
+</script>
 
 <!-- =================================================== -->
 <!-- 8C. DIAGRAM — SHA TODAY vs NOVAK -->
@@ -1560,7 +1688,7 @@ NOVAK Protocol       | BEFORE action     | Input=Rule=Output match | ✅ YES
 <h3 style="margin-top:26px; font-size:20px;">🔑 The Entire Difference in One Sentence</h3>
 
 <p style="font-weight:700; font-size:17px; margin-top:10px;">
-  <strong>SHA today tells you what happened.</strong><br>
+  <strong>SHA today tells you what happened.</strong><br><br>
   <strong>NOVAK uses SHA to decide what is allowed to happen.</strong>
 </p>
  
@@ -1971,7 +2099,6 @@ async function startAvalanche() {
           style="width:100%; height:170px; margin-top:16px; font-family:'JetBrains Mono', monospace;
                  font-size:14px; padding:12px;"></textarea>
 
-
   <!-- ✅ Hash Algorithm Selector -->
   <div style="margin-top:16px; display:flex; flex-wrap:wrap; gap:18px;">
     <label><input type="checkbox" class="hashAlgo" value="SHA-256" checked> SHA-256</label>
@@ -1993,7 +2120,6 @@ async function startAvalanche() {
     <em>Waiting for input from above...</em>
   </div>
 </div>
-
 
 <!-- =============================================== -->
 <!-- ✅ AUTO-VERIFICATION TOGGLE + HIDDEN BLOCKS -->
@@ -2058,7 +2184,6 @@ async function startAvalanche() {
 <!-- ====================================================== -->
 
   <div class="card" style="margin-top:18px; padding:26px; font-size:17px; line-height:1.65;">
-
 
     <pre id="expertHash"
          style="margin-top:14px; font-family:'JetBrains Mono', monospace; white-space:pre-wrap;"></pre>
@@ -2256,7 +2381,6 @@ async function startAvalanche() {
   </details>
 </div>
 
-  
 <!-- ====================================================== -->
 <!-- COLLAPSIBLE: HOW NOVAK COMPUTES HASHES                 -->
 <!-- ====================================================== -->
@@ -3321,7 +3445,6 @@ Use this hash in NOVAK EIR / HVET to bind audio integrity.`;
         matthew@novakprotocol.com
       </a>
 
-
   </div>
 
 </footer>
@@ -3986,7 +4109,6 @@ document.addEventListener("click", function (e) {
   }
 });
 
-
 /* ============================
    WALKTHROUGH MODE
 =============================*/
@@ -4353,6 +4475,38 @@ function setAudience(aud) {
   document.addEventListener("DOMContentLoaded", () => {
     setAudience('public');
   });
+</script>
+
+<script>
+async function downloadEirPdf() {
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF();
+
+  const eirText = document.getElementById("eirText").textContent;
+  const qrCanvas = document.getElementById("eirQrCanvas");
+
+  pdf.setFont("Helvetica", "bold");
+  pdf.setFontSize(20);
+  pdf.text("NOVAK Execution Identity Receipt (EIR)", 14, 20);
+
+  pdf.setLineWidth(0.5);
+  pdf.line(14, 24, 196, 24);
+
+  pdf.setFontSize(11);
+  pdf.setFont("Helvetica", "normal");
+
+  let y = 34;
+  eirText.split("\n").forEach(line => {
+    pdf.text(line, 14, y);
+    y += 6;
+  });
+
+  // Add QR code
+  const imgData = qrCanvas.toDataURL("image/png");
+  pdf.addImage(imgData, "PNG", 145, 22, 50, 50);
+
+  pdf.save("NOVAK-EIR-Certificate.pdf");
+}
 </script>
 
 </div> <!-- moved container close: fixes alignment -->
@@ -4730,6 +4884,148 @@ document.addEventListener("click", function(e) {
     menu.style.display = "none";
   }
 });
+</script>
+
+<script>
+// 🔥 Override any previous runAvalanche() with a real SHA-256 bit-flip demo
+async function runAvalanche() {
+  const originalText = "TEST";
+
+  // Convert to bytes
+  const encoder = new TextEncoder();
+  const decoder = new TextDecoder();
+  const bytes = encoder.encode(originalText);
+
+  // Flip the lowest bit of the first byte ("T")
+  bytes[0] ^= 0b00000001;
+
+  // Back to text
+  const flippedText = decoder.decode(bytes);
+
+  // Use your existing computeSHA() helper
+  const originalHash = await computeSHA(originalText);
+  const flippedHash  = await computeSHA(flippedText);
+
+  // Build a simple diff line: · = same char, ✘ = changed
+  let diffLine = "";
+  for (let i = 0; i < originalHash.length; i++) {
+    diffLine += (originalHash[i] === flippedHash[i]) ? "·" : "✘";
+  }
+
+  const output = `
+Original text:  ${originalText}
+Original hash:  ${originalHash}
+
+Flipped text:   ${flippedText}  (1 bit changed in first letter)
+Flipped hash:   ${flippedHash}
+
+Diff (· = same, ✘ = changed):
+${diffLine}
+`;
+
+  const box = document.getElementById("avalancheOutput");
+  if (box) {
+    box.textContent = output;
+  }
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+
+<script>
+async function handleEirFile() {
+  const fileInput = document.getElementById("eirFileInput");
+  if (!fileInput.files.length) {
+    alert("Please select a file first.");
+    return;
+  }
+
+  const file = fileInput.files[0];
+  const arrayBuffer = await file.arrayBuffer();
+
+  // Compute SHA-256 HVET
+  const hashBuffer = await crypto.subtle.digest("SHA-256", arrayBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hvet = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+
+  // Display HVET
+  document.getElementById("eirHvet").textContent = hvet;
+
+  // Build EIR JSON
+  const eir = {
+    version: "NOVAK-EIR-1",
+    filename: file.name,
+    size_bytes: file.size,
+    hvet_sha256: hvet,
+    timestamp_iso: new Date().toISOString(),
+    note: "Local-only NOVAK demo — bind this EIR + HVET to your own registry."
+  };
+
+  const eirString = JSON.stringify(eir, null, 2);
+  document.getElementById("eirText").textContent = eirString;
+
+  // Show result block
+  document.getElementById("eirResultBlock").style.display = "block";
+
+  // Generate QR
+  const qr = new QRious({
+    element: document.getElementById("eirQrCanvas"),
+    value: eirString,
+    size: 260,
+    level: "H"
+  });
+}
+</script>
+
+<script>
+// Store last computed digest
+let lastDigestHex = "";
+
+// Call this after computing any SHA-256 hash
+function setDigest(hexDigest) {
+  lastDigestHex = hexDigest;
+  showDigestFormat("hex");
+}
+
+// Convert hex → binary string
+function hexToBinary(hex) {
+  return hex.split("").map(h =>
+    parseInt(h, 16).toString(2).padStart(4, "0")
+  ).join("");
+}
+
+// Convert hex → base64
+function hexToBase64(hex) {
+  const bytes = new Uint8Array(hex.match(/.{1,2}/g).map(b => parseInt(b, 16)));
+  return btoa(String.fromCharCode(...bytes));
+}
+
+// Main viewer logic
+function showDigestFormat(fmt) {
+  const out = document.getElementById("digestOutput");
+  if (!lastDigestHex) {
+    out.textContent = "No digest available yet.";
+    return;
+  }
+
+  let result = "";
+
+  if (fmt === "hex") {
+    result = lastDigestHex;
+  } 
+  else if (fmt === "base64") {
+    result = hexToBase64(lastDigestHex);
+  } 
+  else if (fmt === "binary") {
+    result = hexToBinary(lastDigestHex);
+  }
+
+  out.textContent = result;
+
+  // Highlight active button
+  document.querySelectorAll(".digest-btn").forEach(btn => btn.classList.remove("active"));
+  document.querySelector(`button[onclick="showDigestFormat('${fmt}')"]`).classList.add("active");
+}
 </script>
 
 </body>
