@@ -2398,6 +2398,98 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
     </div>
   </details>
 </div>
+
+<!-- ====================================================== -->
+<!-- 📵 WHAT NOVAK DOES TO ROBOCALLS & TELEMARKETERS        -->
+<!-- ====================================================== -->
+<div id="robocallCard" class="card" style="margin-top:32px; position:relative;">
+  <h2 class="section-title">What NOVAK Does to Robocalls & Telemarketing</h2>
+
+  <p>
+    Robocalls exist because today’s phone networks allow actions first and ask 
+    questions later. Caller ID can be spoofed, automation runs without proof, 
+    and unauthorized scripts execute before anyone checks legitimacy.
+  </p>
+
+  <p style="margin-top:12px; font-weight:600;">
+    NOVAK ends this entirely using Proof-Before-Action execution.
+  </p>
+
+  <h3 style="margin-top:18px;">🚫 Robocalls Cannot Execute</h3>
+  <p>
+    Every attempted call must produce a valid 
+    <strong>Execution Identity Receipt (EIR)</strong>:
+  </p>
+
+  <ul style="margin-left:20px; margin-top:8px;">
+    <li>Input hash must match the real caller</li>
+    <li>Rule hash must match an allowed calling purpose</li>
+    <li>Output hash must match an approved pattern</li>
+    <li>No spoofing, tampering, or hidden automation is possible</li>
+  </ul>
+
+  <p style="margin-top:10px;">
+    If anything fails — even by a single bit — NOVAK mathematically blocks the call 
+    <strong>before it ever rings</strong>.
+  </p>
+
+  <h3 style="margin-top:20px;">🔐 Telemarketing Requires Your Explicit Approval</h3>
+  <p>
+    Marketing, political outreach, surveys, or automated notifications 
+    must prove that:
+  </p>
+
+  <ul style="margin-left:20px; margin-top:8px;">
+    <li>You opted in</li>
+    <li>The caller is genuine</li>
+    <li>The category of call is allowed for you</li>
+  </ul>
+
+  <p style="margin-top:10px;">
+    Without cryptographic permission, the call is rejected by rule. 
+    No exceptions. No loopholes.
+  </p>
+
+  <h3 style="margin-top:20px;">🛡 Stops All Phone-Based Scams</h3>
+  <p>The following scams simply cannot execute:</p>
+
+  <ul style="margin-left:20px; margin-top:8px;">
+    <li>IRS scams</li>
+    <li>Social Security fraud calls</li>
+    <li>Fake Medicare outreach</li>
+    <li>Tech support scams</li>
+    <li>Banking & wire fraud calls</li>
+    <li>AI voice impersonation scams</li>
+    <li>Overseas call-center spoofing</li>
+  </ul>
+
+  <p style="margin-top:14px; font-weight:600;">
+    NOVAK does not reject these calls.  
+    <br>It prevents them from existing.
+  </p>
+
+  <!-- Close X -->
+  <button onclick="document.getElementById('robocallCard').style.display='none'"
+    style="
+      position:absolute;
+      top:14px;
+      right:14px;
+      background:none;
+      border:none;
+      font-size:20px;
+      cursor:pointer;
+    "
+    aria-label="Hide Robocall Card">
+    ✕
+  </button>
+
+  <!-- Confirm hide -->
+  <button class="action-btn"
+          onclick="document.getElementById('robocallCard').style.display='none'"
+          style="margin-top:20px;">
+    ✅ Got it — Hide
+  </button>
+</div>
   
 <!-- ========================================= -->
 <!-- 💻 HOW NOVAK SURVIVES PACKET SNIFFING     -->
