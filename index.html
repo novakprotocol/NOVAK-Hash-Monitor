@@ -3173,6 +3173,147 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
 </details>
 </div>
 
+<!-- ========================================================= -->
+<!-- 🗳️ How NOVAK Protects Voting Today — And Enables Remote Voting Tomorrow -->
+<!-- ========================================================= -->
+
+<div class="card" style="margin-top:28px; padding:20px;">
+  <details>
+    <summary style="cursor:pointer; font-size:18px; font-weight:600;">
+      🗳️ How NOVAK Protects Voting Today — And Enables Secure Remote Voting Tomorrow
+    </summary>
+
+    <div style="margin-top:16px; font-size:15px; line-height:1.6;">
+
+      <!-- ----------------------------------------------- -->
+      <!-- SECTION 1 — How Voting Works Today (No NOVAK)   -->
+      <!-- ----------------------------------------------- -->
+
+      <h3 style="margin-top:8px;">❌ Voting Today — Where Integrity Can Break</h3>
+
+      <p>
+        Whether voting is done <strong>in-person on a machine</strong>, with a <strong>paper scanner</strong>, or via
+        another electronic system, today’s infrastructure still has major blind spots:
+      </p>
+
+      <ul style="margin-left:20px; margin-top:10px;">
+        <li>No real-time verification that the ballot definition (the “rules”) is correct</li>
+        <li>No cryptographic guarantee that the vote you cast is the vote the system stores</li>
+        <li>No binding between: ballot rules → your selections → recorded output</li>
+        <li>Systems must <em>trust</em> machines, memory cards, and software not to silently change anything</li>
+        <li>Audits happen <em>after</em> votes are cast — they do not prevent bad data before it enters the tally</li>
+      </ul>
+
+      <p style="margin-top:10px;">
+        This is why modern election systems still cannot allow phone or web voting — the system has no way to
+        mathematically guarantee integrity at the moment the vote is cast.
+      </p>
+
+      <hr style="margin:24px 0; opacity:0.4;">
+
+
+      <!-- ----------------------------------------------- -->
+      <!-- SECTION 2 — How NOVAK Protects Voting Today     -->
+      <!-- ----------------------------------------------- -->
+
+      <h3 style="margin-top:8px;">✅ With NOVAK — Real-Time Proof-Before-Action Voting Integrity</h3>
+
+      <p>
+        NOVAK enforces cryptographic proof <strong>before a vote is accepted</strong>. Each ballot must pass four
+        integrity checks:
+      </p>
+
+      <ul style="margin-left:20px; margin-top:10px;">
+        <li><strong>HR — Rule Hash</strong>: proves the correct ballot style for that voter</li>
+        <li><strong>HD — Data Hash</strong>: proves the voter’s selections were not changed</li>
+        <li><strong>HO — Output Hash</strong>: proves what the system intends to store</li>
+        <li><strong>HVET — Binding Hash</strong>: mathematically links HR + HD + HO together</li>
+      </ul>
+
+      <p style="margin-top:10px;">
+        If <strong>one bit</strong> of the ballot definition, voter selections, or final stored record is wrong:
+        <span style="font-weight:600;">NOVAK refuses to accept the vote.</span>
+      </p>
+
+      <p>
+        This prevents:
+      </p>
+
+      <ul style="margin-left:20px; margin-top:10px;">
+        <li>Ballot-definition errors</li>
+        <li>Machine misrouting (wrong precinct, wrong contest)</li>
+        <li>Silent tampering or injected data</li>
+        <li>Software glitches changing selections</li>
+        <li>Backend manipulation before tallying</li>
+      </ul>
+
+      <p style="margin-top:12px; font-weight:600;">
+        NOVAK makes election systems self-verifying — fraud and mistakes are blocked in real time,
+        before a vote can enter the tally.
+      </p>
+
+      <hr style="margin:24px 0; opacity:0.4;">
+
+
+      <!-- ------------------------------------------------------- -->
+      <!-- SECTION 3 — How NOVAK Enables Future Remote Voting       -->
+      <!-- ------------------------------------------------------- -->
+
+      <h3 style="margin-top:8px;">📱🌐 How NOVAK Could Enable Secure Phone & Web Voting (Future)</h3>
+
+      <p>
+        Remote voting is currently impossible because systems cannot guarantee that:
+      </p>
+
+      <ul style="margin-left:20px; margin-top:10px;">
+        <li>The correct ballot rules were delivered to the voter</li>
+        <li>The voter’s selections weren’t altered in transit</li>
+        <li>The stored vote matches what the voter cast</li>
+      </ul>
+
+      <p style="margin-top:10px;">
+        With NOVAK, all three problems become solvable:
+      </p>
+
+      <ul style="margin-left:20px; margin-top:10px;">
+        <li><strong>HR</strong> proves the voter received the correct ballot for their district</li>
+        <li><strong>HD</strong> proves their selections were not modified by malware or the network</li>
+        <li><strong>HO + HVET</strong> prove the stored vote matches their intended vote</li>
+        <li><strong>EIR (Execution Identity Receipt)</strong> gives the voter a math-checkable receipt</li>
+      </ul>
+
+      <p style="margin-top:12px; font-weight:600;">
+        The same way NOVAK makes ATM transactions safe, it can make ballots safe — regardless of device,
+        operating system, or network.
+      </p>
+
+      <p>
+        NOVAK doesn’t allow remote voting by itself — it <strong>removes the integrity risks</strong> that prevent it.
+        Once integrity is enforced cryptographically, remote voting becomes technically viable.
+      </p>
+
+      <hr style="margin:24px 0; opacity:0.3;">
+
+
+      <!-- ----------------------------------------------- -->
+      <!-- SECTION 4 — No-Bullshit Summary                 -->
+      <!-- ----------------------------------------------- -->
+
+      <h3>🧠 No-Bullshit Summary</h3>
+      <p>
+        Voting today cannot be safely done online or by phone because nothing checks integrity before a vote is
+        accepted. NOVAK adds that missing layer: the system must mathematically prove a ballot’s correctness,
+        selections, and storage before the vote enters the count.
+      </p>
+
+      <p style="margin-top:12px; font-weight:600;">
+        With NOVAK, remote voting goes from “too risky to attempt” to “cryptographically verifiable.”
+      </p>
+
+    </div>
+  </details>
+</div>
+
 <!-- ========================================= -->
 <!-- 💻 HOW NOVAK SURVIVES PACKET SNIFFING     -->
 <!-- ========================================= -->
