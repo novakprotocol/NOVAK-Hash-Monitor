@@ -1101,16 +1101,35 @@ html[data-theme="dark"] .aud-btn.active {
 
         <h3 style="font-size:17px;">🔐 NOVAK HVET</h3>
         <pre id="eirHvet"
-             style="margin-top:8px; font-family:'JetBrains Mono', monospace;
-                    font-size:13px; white-space:pre-wrap; background:var(--card);
-                    padding:10px; border-radius:8px; border:1px solid var(--border);">
+             style="
+               margin-top:8px;
+               font-family:'JetBrains Mono', monospace;
+               font-size:13px;
+               white-space:pre-wrap;
+               overflow-wrap:anywhere;
+               word-break:break-all;
+               background:var(--card);
+               padding:10px;
+               border-radius:8px;
+               border:1px solid var(--border);
+             ">
         </pre>
+
 
         <h3 style="font-size:17px; margin-top:18px;">📜 Execution Identity Receipt (EIR)</h3>
         <pre id="eirText"
-             style="margin-top:8px; font-family:'JetBrains Mono', monospace;
-                    font-size:13px; white-space:pre-wrap; background:var(--card);
-                    padding:10px; border-radius:8px; border:1px solid var(--border);">
+             style="
+               margin-top:8px;
+               font-family:'JetBrains Mono', monospace;
+               font-size:13px;
+               white-space:pre-wrap;
+               overflow-wrap:anywhere;   /* ✅ allow long hashes to wrap */
+               word-break:break-all;     /* ✅ force-break long tokens if needed */
+               background:var(--card);
+               padding:10px;
+               border-radius:8px;
+               border:1px solid var(--border);
+             ">
         </pre>
 
         <h3 style="font-size:17px; margin-top:18px;">📡 QR Binding (File → HVET → EIR)</h3>
