@@ -637,7 +637,6 @@ html[data-theme="dark"] .aud-btn.active {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <!-- ⭐ NOVAK 12-LAYER ENGINE: REQUIRED LIBRARIES ⭐ -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
 
@@ -1195,74 +1194,98 @@ html[data-theme="dark"] .aud-btn.active {
 </div>
 
 <!-- ======================================================= -->
-<!-- ⭐ GOVERNMENT-GRADE NOVAK CERTIFICATE ENGINE (SECTION 1) -->
+<!-- ⭐ GOVERNMENT-GRADE NOVAK CERTIFICATE ENGINE (COLLAPSIBLE) -->
 <!-- ======================================================= -->
 
-<div class="card" id="novakGovCard"
-     style="
-       margin-top:32px;
-       padding:22px;
-       border:1px solid rgba(80,120,255,0.25);
-       background:rgba(80,120,255,0.06);
-       border-radius:14px;
-       box-shadow:0 2px 6px rgba(0,0,0,0.05);
-     ">
+<div class="card" style="margin-top:28px; padding:20px;">
 
-  <h2 class="section-title">🏛 NOVAK Government-Grade Certificate Generator</h2>
+  <details id="govCollapse">
+    <summary style="cursor:pointer; font-size:18px; font-weight:600;">
+      🏛 NOVAK Government-Grade Certificate Generator — Click to Expand
+    </summary>
 
-  <p style="margin-bottom:18px;">
-    This engine produces the <strong>full SP-2 compliant, 12-Layer + 5-Forensic-Layer</strong>
-    NOVAK Execution Identity Receipt (EIR) — including HVET-derived guilloché,
-    fractal substrate, holographic dispersion, microtext halo (L0–L15 + PL-X + PS-X),
-    triquetra security weave, registry anchors, and complete SP-2 signature bar.
-  </p>
+    <div style="padding:4px 0 0 0; margin-top:8px; position:relative;">
 
-  <!-- File input -->
-  <div style="margin-bottom:16px;">
-    <input type="file" id="govFileInput" />
-<button class="action-btn" onclick="NOVAK_GOV.generate()">
-    ⚙️ Generate Government-Grade Certificate
-</button><button id="govDownloadBtn"
-        class="action-btn"
-        style="margin-top:16px; display:none;"
-        onclick="window.NOVAK_GOV.downloadPDF()">
-  📄 Download Government-Grade Certificate (PDF)
-</button>
+      <p style="margin-bottom:18px; font-size:16px; line-height:1.6;">
+        This engine produces the <strong>full SP-2 compliant, 12-Layer + 5-Forensic-Layer</strong>
+        NOVAK Execution Identity Receipt (EIR) — including HVET-derived guilloché,
+        fractal substrate, holographic dispersion, microtext halo (L0–L15 + PL-X + PS-X),
+        triquetra security weave, registry anchors, and complete SP-2 signature bar.
+      </p>
 
-  </div>
+      <!-- ======================================= -->
+      <!-- FILE INPUT + BUTTONS -->
+      <!-- ======================================= -->
 
-  <!-- Certificate Preview -->
-  <div id="govPreview" style="margin-top:22px; display:none;">
+      <div style="margin-bottom:16px;">
+        <input type="file" id="govFileInput" />
 
-    <!-- REQUIRED 1400×2000 MASTER CANVAS -->
-    <canvas id="govCanvas"
-            width="1400"
-            height="2000"
-            style="
-              display:block;
-              margin:auto;
-              border:1px solid var(--border);
-              border-radius:12px;
-              background:#ffffff;
-            ">
-    </canvas>
+        <button class="action-btn" onclick="NOVAK_GOV.generate()">
+          ⚙️ Generate Government-Grade Certificate
+        </button>
 
-    <!-- Optional debugging output (can be removed later) -->
-    <pre id="govDebug"
-         style="
-           margin-top:16px;
-           font-family:'JetBrains Mono', monospace;
-           font-size:12px;
-           background:var(--card);
-           padding:14px;
-           border:1px solid var(--border);
-           border-radius:8px;
-           display:none;
-           white-space:pre-wrap;
-           overflow-wrap:anywhere;
-         "></pre>
-  </div>
+        <button id="govDownloadBtn"
+                class="action-btn"
+                style="margin-top:16px; display:none;"
+                onclick="NOVAK_GOV.downloadPDF()">
+          📄 Download Government-Grade Certificate (PDF)
+        </button>
+      </div>
 
+
+      <!-- ======================================= -->
+      <!-- SCROLLABLE PREVIEW WINDOW -->
+      <!-- ======================================= -->
+      <div id="govPreview"
+           style="
+             margin-top:22px;
+             display:none;
+             max-height:1200px;
+             overflow-y:auto;
+             overflow-x:auto;
+             border:1px solid var(--border);
+             border-radius:12px;
+             padding:10px;
+             background:var(--card);
+           ">
+
+        <canvas id="govCanvas"
+                width="3000"
+                height="4200"
+                style="
+                  display:block;
+                  margin:auto;
+                  background:#ffffff;
+                  border-radius:8px;
+                ">
+        </canvas>
+
+        <!-- OPTIONAL DEBUG -->
+        <pre id="govDebug"
+             style="
+               margin-top:16px;
+               font-family:'JetBrains Mono';
+               font-size:12px;
+               background:var(--card);
+               padding:14px;
+               border:1px solid var(--border);
+               border-radius:8px;
+               display:none;
+               white-space:pre-wrap;
+               overflow-wrap:anywhere;
+             "></pre>
+
+      </div>
+
+      <!-- ⭐ Bottom-right collapse button -->
+      <button class="collapse-bottom-btn"
+              onclick="document.getElementById('govCollapse').open = false;"
+              style="margin-top:18px;">
+        ▲ Collapse
+      </button>
+
+    </div>
+  </details>
 </div>
 
 <script>
@@ -5380,7 +5403,6 @@ async function downloadEirPdf() {
 }
 </script>
 
-
 </div> <!-- moved container close: fixes alignment -->
 
 <script>
@@ -5429,7 +5451,6 @@ Motion: Summary Judgment`
     textarea.value = examples[type] || "";
     updateHashes();  // IMPORTANT — this recalculates SHA instantly
 }
-
 
 <script>
 let originalSnapshot = "";
@@ -5961,9 +5982,6 @@ function showSection(id, key) {
   localStorage.setItem(key, "false");
 }
 </script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 
 /* ============================================================
    ⭐ GOVERNMENT-GRADE NOVAK CERTIFICATE ENGINE — SECTION 3A
@@ -6544,11 +6562,24 @@ drawHVETMesh(ctx, hvet) {
      PDF EXPORT
      ============================================================ */
   downloadPDF() {
-    const pdf = new jsPDF("p","px",[3000,4200]);
-    pdf.addImage(this.state.canvas.toDataURL("image/png"),"PNG",0,0,3000,4200);
-    pdf.save(this.state.serial + ".pdf");
+    // Safety checks
+    if (!this.state.canvas) {
+      alert("Please generate a certificate before downloading.");
+      return;
+    }
+
+    const { jsPDF } = window.jspdf;     // ✅ UMD jsPDF access
+    const pdf = new jsPDF("p", "px", [3000, 4200]);
+
+    const imgData = this.state.canvas.toDataURL("image/png");
+    pdf.addImage(imgData, "PNG", 0, 0, 3000, 4200);
+
+    const name = this.state.serial ? this.state.serial + ".pdf"
+                                   : "NOVAK-Government-Certificate.pdf";
+    pdf.save(name);
   }
 };
+
 </script>
 
 <script>
