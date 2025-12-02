@@ -19,6 +19,16 @@
 
   <style>
 
+#govPreview {
+  display: none;
+  max-width: 100%;
+  max-height: 100vh;
+  overflow-x: auto;
+  overflow-y: auto;
+  border: 1px solid #333;
+  background: #fafafa;
+}
+
 /* Bottom-right collapse button */
 .collapse-bottom-btn {
   position: absolute;
@@ -1212,6 +1222,11 @@ html[data-theme="dark"] .aud-btn.active {
     <input type="file" id="govFileInput" />
 <button class="action-btn" onclick="NOVAK_GOV.generate()">
     ⚙️ Generate Government-Grade Certificate
+</button><button id="govDownloadBtn"
+        class="action-btn"
+        style="margin-top:16px; display:none;"
+        onclick="window.NOVAK_GOV.downloadPDF()">
+  📄 Download Government-Grade Certificate (PDF)
 </button>
 
   </div>
@@ -1231,14 +1246,6 @@ html[data-theme="dark"] .aud-btn.active {
               background:#ffffff;
             ">
     </canvas>
-
-    <!-- Download -->
-    <button id="govDownloadBtn"
-            class="action-btn"
-            style="margin-top:16px; display:none;"
-            onclick="NOVAK_GOV.downloadPDF()">
-      📄 Download Government-Grade Certificate (PDF)
-    </button>
 
     <!-- Optional debugging output (can be removed later) -->
     <pre id="govDebug"
@@ -5936,498 +5943,490 @@ seg(hex, i, len) {
 
 <script>
 /* ============================================================
-   ⭐ GOVERNMENT-GRADE NOVAK CERTIFICATE ENGINE — UPGRADED VERSION
+   ⭐ TREASURY-GRADE NOVAK CERTIFICATE ENGINE — FULL VERSION
    ============================================================ */
 
 window.NOVAK_GOV = {
+  /* -----------------------------------------
+     INTERNAL STATE
+     ----------------------------------------- */
   state: {
     file: null,
     hvet: "",
+    serial: "",
     palette: {},
     ctx: null,
-    canvas: null,
-    serial: ""
+    canvas: null
   },
 
-  /* ------------------------------------------------------------
-     SAFE UTILITY — prevents NaN, out-of-range reads
-     ------------------------------------------------------------ */
+  /* -----------------------------------------
+     SAFE HEX → INT
+     ----------------------------------------- */
   seg(hex, i, len) {
     if (i >= hex.length) return 0;
-    const sub = hex.substring(i, i + len);
-    const v = parseInt(sub, 16);
+    let v = parseInt(hex.substring(i, i + len), 16);
     return isNaN(v) ? 0 : v;
   },
 
-  /* ------------------------------------------------------------
-     GENERATE (HVET, palette, canvas)
-     ------------------------------------------------------------ */
+  /* -----------------------------------------
+     INITIALIZE + GENERATE
+     ----------------------------------------- */
   async generate() {
     const input = document.getElementById("govFileInput");
-    if (!input || !input.files.length) {
-      alert("Please choose a file.");
+    if (!input?.files?.length) {
+      alert("Please select a file.");
       return;
     }
 
     const file = input.files[0];
     this.state.file = file;
 
-    // SHA-256 HVET
+    // === SHA-256 HVET ===
     const buf = await file.arrayBuffer();
-    const hashBuf = await crypto.subtle.digest("SHA-256", buf);
-    const hvetHex = [...new Uint8Array(hashBuf)]
-      .map(b => b.toString(16).padStart(2,"0"))
+    const hash = await crypto.subtle.digest("SHA-256", buf);
+
+    const hex = [...new Uint8Array(hash)]
+      .map(b => b.toString(16).padStart(2, "0"))
       .join("");
 
-    this.state.hvet = hvetHex;
+    this.state.hvet = hex;
 
-    // Canvas setup
+    // === Setup 3000×4200 Treasury canvas ===
     const canvas = document.getElementById("govCanvas");
-    if (!canvas) {
-      alert("govCanvas not found.");
-      return;
-    }
+    canvas.width = 3000;
+    canvas.height = 4200;
 
     this.state.canvas = canvas;
     this.state.ctx = canvas.getContext("2d");
 
-    // Government palette
+    // Palette
     this.state.palette = {
-      primary:   "#1A4FB3",
-      secondary: "#7A4FB3",
-      tertiary:  "#4FB39A"
+      primary:   "#0A3D91",
+      secondary: "#7A1FB3",
+      tertiary:  "#009E8E",
+      holo1:     "#00C6FF",
+      holo2:     "#0072FF",
+      holo3:     "#FF00E0"
     };
 
     document.getElementById("govPreview").style.display = "block";
 
     await this.render();
-
     document.getElementById("govDownloadBtn").style.display = "block";
   },
 
-  /* ------------------------------------------------------------
-     OUTER SECURITY BORDER
-     ------------------------------------------------------------ */
-  drawBorder(ctx) {
-    const W = ctx.canvas.width;
-    const H = ctx.canvas.height;
+drawHVETMesh(ctx, hvet) {
+  const W = ctx.canvas.width;
+  const H = ctx.canvas.height;
 
+  ctx.save();
+  ctx.globalAlpha = 0.07;
+  ctx.font = "32px JetBrains Mono";
+  ctx.fillStyle = "rgba(0,0,0,0.22)";
+
+  // Rotate canvas ~36°
+  ctx.translate(W/2, H/2);
+  ctx.rotate(Math.PI * -0.2);
+
+  // Create extremely long repeated HVET string for full-page coverage
+  const repeated = hvet.toUpperCase().repeat(2000);  // increased from 400 → 2000
+
+  // Start WAY above canvas so rotation never causes gaps
+  let y = -H * 2;
+
+  // Number of rows required for 4200px rotated canvas
+  const rows = 200;  // increased from 80 → 200
+
+  for (let i = 0; i < rows; i++) {
+    // Extract long slice for ultra-wide diagonal lines
+    let segment = repeated.substring(i * 200, i * 200 + 800);
+
+    ctx.fillText(segment, -W * 2, y);
+    y += 55;   // vertical spacing
+  }
+
+  ctx.restore();
+},
+
+  /* ============================================================
+     2. GAUSSIAN BLUR HVET OVERLAY (fake blur pass)
+     ============================================================ */
+  blurHVET(ctx) {
     ctx.save();
-    ctx.lineWidth = 6;
-    ctx.strokeStyle = "rgba(0,0,0,0.45)";
-    ctx.strokeRect(20, 20, W - 40, H - 40);
+    ctx.globalAlpha = 0.045;
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.restore();
   },
 
-  /* ------------------------------------------------------------
-     NOVAK EIR WATERMARK
-     ------------------------------------------------------------ */
-  drawWatermark(ctx) {
+  /* ============================================================
+     3. SPECTRAL HOLOGRAM BAND
+     ============================================================ */
+  drawHoloBand(ctx) {
     const W = ctx.canvas.width;
-    const H = ctx.canvas.height;
-
     ctx.save();
-    ctx.globalAlpha = 0.06;
-    ctx.font = "140px Inter";
-    ctx.fillStyle = "#1A4FB3";
-    ctx.translate(W / 2, H / 2);
-    ctx.rotate(-0.35);
-    ctx.textAlign = "center";
-    ctx.fillText("NOVAK EIR", 0, 0);
+    let grad = ctx.createLinearGradient(0, 0, W, 0);
+    grad.addColorStop(0.0,  "#00C6FF");
+    grad.addColorStop(0.25, "#0072FF");
+    grad.addColorStop(0.5,  "#FF00E0");
+    grad.addColorStop(0.75, "#0072FF");
+    grad.addColorStop(1.0,  "#00C6FF");
+
+    ctx.globalAlpha = 0.18;
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 180, W, 80);
     ctx.restore();
   },
 
-  /* ------------------------------------------------------------
-     FORENSIC MICROGRID
-     ------------------------------------------------------------ */
-  drawForensicMicrogrid(ctx) {
+  /* ============================================================
+     4. METALLIC TRISKELION WATERMARK
+     ============================================================ */
+  drawTriskelionWatermark(ctx) {
     const W = ctx.canvas.width;
     const H = ctx.canvas.height;
+    const cx = W/2, cy = H/2;
 
     ctx.save();
-    ctx.globalAlpha = 0.065;
-    ctx.strokeStyle = "rgba(120,0,255,0.22)";
-    ctx.lineWidth = 0.6;
+    ctx.globalAlpha = 0.15;
+    ctx.strokeStyle = "rgba(0,0,0,0.28)";
+    ctx.lineWidth = 18;
 
-    const step = 42;
-    for (let x = 0; x < W; x += step) {
-      ctx.beginPath();
-      ctx.moveTo(x, 0);
-      ctx.lineTo(x, H);
-      ctx.stroke();
+    const R = 600;
+    ctx.beginPath();
+    for (let i = 0; i < 3; i++) {
+      let a = (i * Math.PI * 2) / 3;
+      ctx.arc(cx, cy, R, a, a + Math.PI * 1.2);
     }
-    for (let y = 0; y < H; y += step) {
-      ctx.beginPath();
-      ctx.moveTo(0, y);
-      ctx.lineTo(W, y);
-      ctx.stroke();
-    }
-
+    ctx.stroke();
     ctx.restore();
   },
 
-  /* ------------------------------------------------------------
-     FRACTAL SUBSTRATE
-     ------------------------------------------------------------ */
-  drawFractalSubstrate(ctx) {
+  /* ============================================================
+     5. MICROTEXT RIBBON (Bezier path)
+     ============================================================ */
+  drawMicroRibbon(ctx) {
     const W = ctx.canvas.width;
     const H = ctx.canvas.height;
 
-    const seed = this.seg(this.state.hvet, 150, 2);
-    const branches = (seed % 5) + 4;
+    const laws =
+      "L0–L15 • PL-X • PS-X • Deterministic Execution • Proof-Before-Action • Immutable HVET • Replay Resistance • ";
+
+    const txt = laws.repeat(30);
 
     ctx.save();
-    ctx.strokeStyle = "rgba(0,0,0,0.055)";
-    ctx.lineWidth = 0.75;
+    ctx.font = "14px JetBrains Mono";
+    ctx.fillStyle = "rgba(0,0,0,0.65)";
 
-    const cx = W / 2;
-    const cy = H * 0.33;
+    ctx.beginPath();
+    ctx.moveTo(200, 900);
+    ctx.bezierCurveTo(800, 700, 1600, 1100, 2600, 900);
 
-    const drawBranch = (x, y, angle, depth) => {
-      if (depth <= 0) return;
+    ctx.strokeStyle = "rgba(0,0,0,0)";
+    ctx.stroke();
 
-      const len = (seed % 30) + 60 * depth;
-      const nx = x + len * Math.cos(angle);
-      const ny = y + len * Math.sin(angle);
-
-      ctx.beginPath();
-      ctx.moveTo(x, y);
-      ctx.lineTo(nx, ny);
-      ctx.stroke();
-
-      drawBranch(nx, ny, angle + 0.4, depth - 1);
-      drawBranch(nx, ny, angle - 0.4, depth - 1);
-    };
-
-    for (let i = 0; i < branches; i++) {
-      const a = (Math.PI * 2 * i) / branches;
-      drawBranch(cx, cy, a, 4);
+    const len = 2800;
+    for (let i = 0; i < txt.length; i++) {
+      const t = i / txt.length;
+      const x = 200 + (2600-200)*t;
+      const y = 900 + Math.sin(t * Math.PI * 4) * 18;
+      ctx.fillText(txt[i], x, y);
     }
 
     ctx.restore();
   },
 
-  /* ------------------------------------------------------------
-     PRIMARY GUILLOCHE
-     ------------------------------------------------------------ */
+  /* ============================================================
+     6. GUILLOCHÉ SUITE (primary, interference, triquetra)
+     ============================================================ */
   drawGuillochePrimary(ctx, palette) {
-    const W = ctx.canvas.width;
-    const H = ctx.canvas.height;
+    const W = ctx.canvas.width, H = ctx.canvas.height;
+    const cx = W/2, cy = H*0.32, R = 580;
 
-    const cx = W / 2;
-    const cy = H * 0.33;
-    const R  = 460;
-
-    const p1 = this.seg(this.state.hvet, 0, 2) % 27 + 18;
-    const p2 = this.seg(this.state.hvet, 6, 2) % 37 + 22;
+    const p1 = this.seg(this.state.hvet, 0, 2) % 21 + 24;
+    const p2 = this.seg(this.state.hvet, 4, 2) % 31 + 28;
     const phase = (this.seg(this.state.hvet, 12, 2) % 360) * Math.PI/180;
 
     ctx.save();
     ctx.strokeStyle = palette.primary;
-    ctx.lineWidth = 1.05;
+    ctx.lineWidth = 1.4;
     ctx.beginPath();
 
-    for (let t = 0; t < Math.PI * 12; t += 0.0025) {
-      const mod =
-        Math.sin(p1 * t + phase) * 22 +
-        Math.cos(p2 * t) * 14;
-
-      const r = R + mod;
-      const x = cx + r * Math.cos(t);
-      const y = cy + r * Math.sin(t);
-
-      if (t === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
+    for (let t=0; t<Math.PI*14; t+=0.002) {
+      const r = R + Math.sin(p1*t + phase)*26 + Math.cos(p2*t)*18;
+      const x = cx + r*Math.cos(t);
+      const y = cy + r*Math.sin(t);
+      t===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
     }
-
     ctx.stroke();
     ctx.restore();
   },
 
-  /* ------------------------------------------------------------
-     TRIQUETRA SECURITY WEAVE
-     ------------------------------------------------------------ */
-  drawTriquetra(ctx, palette) {
-    const W = ctx.canvas.width;
-    const H = ctx.canvas.height;
+  drawGuillocheInterference(ctx, palette) {
+    const W = ctx.canvas.width, H = ctx.canvas.height;
+    const cx = W/2, cy = H*0.32;
 
-    const cx = W / 2;
-    const cy = H * 0.33;
-
-    const scale = 280;
-    const freq  = (this.seg(this.state.hvet, 80, 2) % 5) + 3;
-    const twist = (this.seg(this.state.hvet, 120, 2) % 360) * Math.PI/180;
+    const base = 560;
+    const h = this.seg(this.state.hvet, 20,2)%100 + 40;
+    const k = this.seg(this.state.hvet, 40,2)%80 + 30;
 
     ctx.save();
+    ctx.globalAlpha = 0.38;
+    ctx.strokeStyle = palette.secondary;
+    ctx.lineWidth = 0.9;
+    ctx.beginPath();
+
+    for (let t=0; t<Math.PI*12; t+=0.0022) {
+      const r = base + Math.sin(t*h)*22 + Math.cos(t*k)*16;
+      const x = cx + r*Math.cos(t);
+      const y = cy + r*Math.sin(t);
+      t===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+    ctx.restore();
+  },
+
+  drawTriquetra(ctx, palette) {
+    const W = ctx.canvas.width, H = ctx.canvas.height;
+    const cx = W/2, cy = H*0.32;
+
+    const scale = 380;
+    const freq = (this.seg(this.state.hvet,80,2)%5)+3;
+    const twist = (this.seg(this.state.hvet,120,2)%360)*Math.PI/180;
+
+    ctx.save();
+    ctx.globalAlpha = 0.45;
     ctx.strokeStyle = palette.tertiary;
-    ctx.globalAlpha = 0.42;
     ctx.lineWidth = 1.2;
     ctx.beginPath();
 
-    for (let t = 0; t <= Math.PI * 2; t += 0.002) {
-      const x = cx + scale * Math.sin(freq * t + twist) * Math.cos(t);
-      const y = cy + scale * Math.sin(freq * t + twist) * Math.sin(t);
-
-      if (t === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    }
-
-    ctx.stroke();
-    ctx.restore();
-  },
-
-  /* ------------------------------------------------------------
-     SECONDARY INTERFERENCE GUILLOCHE
-     (drawn AFTER triquetra for better overlay)
-     ------------------------------------------------------------ */
-  drawGuillocheInterference(ctx, palette) {
-    const W = ctx.canvas.width;
-    const H = ctx.canvas.height;
-
-    const cx = W / 2;
-    const cy = H * 0.33;
-
-    const base = 440;
-    const h = this.seg(this.state.hvet, 20, 2) % 120 + 60;
-    const k = this.seg(this.state.hvet, 40, 2) % 80 + 30;
-
-    ctx.save();
-    ctx.strokeStyle = palette.secondary;
-    ctx.globalAlpha = 0.32;
-    ctx.lineWidth = 0.8;
-    ctx.beginPath();
-
-    for (let t = 0; t < Math.PI * 16; t += 0.002) {
-      const r =
-        base +
-        Math.sin((t * h) % 6.28) * 28 +
-        Math.cos((t * k) % 6.28) * 18;
-
-      const x = cx + r * Math.cos(t);
-      const y = cy + r * Math.sin(t);
-
-      if (t === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
+    for (let t=0; t<=Math.PI*2; t+=0.002) {
+      const x = cx + scale*Math.sin(freq*t+twist)*Math.cos(t);
+      const y = cy + scale*Math.sin(freq*t+twist)*Math.sin(t);
+      t===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
     }
     ctx.stroke();
     ctx.restore();
   },
 
-  /* ------------------------------------------------------------
-     MICROTEXT HALO (center slightly higher for clean ring)
-     ------------------------------------------------------------ */
-  drawMicrotextHalo(ctx) {
+  /* ============================================================
+     7. OUTER REFRACTIVE FRAME
+     ============================================================ */
+  drawFrame(ctx) {
+    const W = ctx.canvas.width;
+    const H = ctx.canvas.height;
+    ctx.save();
+
+    let g = ctx.createLinearGradient(0,0,W,H);
+    g.addColorStop(0,   "#00C6FF");
+    g.addColorStop(0.5, "#FF00E0");
+    g.addColorStop(1,   "#00C6FF");
+
+    ctx.lineWidth = 18;
+    ctx.strokeStyle = g;
+    ctx.strokeRect(40, 40, W-80, H-80);
+
+    ctx.restore();
+  },
+
+  /* ============================================================
+     8. CORNER INTEGRITY SEALS
+     ============================================================ */
+  drawSeals(ctx) {
     const W = ctx.canvas.width;
     const H = ctx.canvas.height;
 
-    const cx = W / 2;
-    const cy = H * 0.38;
-    const R  = 520;
-
-    const laws =
-      "L0 Deterministic Execution • L1 Proof-Before-Action • L2 Canonical Encoding • L3 Immutable HVET • " +
-      "L4 Rule Binding • L5 Data Binding • L6 Output Binding • L7 Temporal Singularity • " +
-      "L8 Replay Resistance • L9 Distributed Verifiability • L10 Interoperable Trust • " +
-      "L11 Zero-Ambiguity Semantics • L12 EIR • L13 RGAC • L14 Safety Gate • L15 Autonomous Correctness • PL-X • PS-X • ";
-
-    const micro = laws.repeat(18);
+    const positions = [
+      [160,160],
+      [W-160,160],
+      [160,H-160],
+      [W-160,H-160],
+    ];
 
     ctx.save();
-    ctx.font = "8.5px JetBrains Mono";
-    ctx.fillStyle = "rgba(20,20,20,0.75)";
-    ctx.translate(cx, cy);
-    ctx.rotate(-Math.PI/2);
+    ctx.font = "44px Inter";
+    ctx.textAlign = "center";
+    ctx.globalAlpha = 0.85;
 
-    for (let i = 0; i < micro.length; i++) {
-      const angle = i * 0.0087;
-      ctx.save();
-      ctx.rotate(angle);
-      ctx.translate(0, -R);
-      ctx.fillText(micro[i], 0, 0);
-      ctx.restore();
-    }
+    positions.forEach(([x,y])=>{
+      ctx.beginPath();
+      ctx.arc(x,y,90,0,Math.PI*2);
+      ctx.fillStyle="white";
+      ctx.fill();
+
+      ctx.strokeStyle="#333";
+      ctx.lineWidth=4;
+      ctx.stroke();
+
+      ctx.fillStyle="#000";
+      ctx.fillText("PS-X",x,y+12);
+    });
 
     ctx.restore();
   },
 
-  /* ------------------------------------------------------------
-     EIR BLOCK
-     ------------------------------------------------------------ */
-  drawEIRBlock(ctx, file, hvetHex) {
-    const now = new Date();
-    const serial =
-      `NOVAK-EIR-${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}-${String(now.getDate()).padStart(2,"0")}-${hvetHex.substring(0,6).toUpperCase()}`;
-
-    this.state.serial = serial;
-
-    ctx.save();
-    ctx.fillStyle = "#000";
-    ctx.font = "30px Inter";
-    ctx.fillText("NOVAK Execution Identity Receipt (EIR)", 140, 1100);
-
-    ctx.font = "18px JetBrains Mono";
-    ctx.fillText("Serial: " + serial,              140, 1150);
-    ctx.fillText("File:   " + file.name,           140, 1180);
-    ctx.fillText("Size:   " + file.size + " bytes",140, 1210);
-    ctx.fillText("Issued: " + now.toISOString(),   140, 1240);
-
-    ctx.fillText("HVET (SHA-256):", 140, 1280);
-
-    ctx.font = "15px JetBrains Mono";
-    const maxWidth = ctx.canvas.width - 240;
-    let line = "";
-    let yy = 1310;
-
-    for (let i = 0; i < hvetHex.length; i++) {
-      const ch = hvetHex[i];
-      const test = line + ch;
-      if (ctx.measureText(test).width > maxWidth) {
-        ctx.fillText(line, 140, yy);
-        yy += 22;
-        line = ch;
-      } else {
-        line = test;
-      }
-    }
-    if (line) ctx.fillText(line, 140, yy);
-
-    ctx.restore();
-  },
-
-  /* ------------------------------------------------------------
-     QR CAPSULE (with subtle shadow)
-     ------------------------------------------------------------ */
-  drawQRCapsule(ctx, file, hvetHex) {
+  /* ============================================================
+     9. QR EXCLUSION MASK + VISIBLE QR
+     ============================================================ */
+  drawQR(ctx, file, hvet) {
     const W = ctx.canvas.width;
+    const x = W - 520;
+    const y = 1100;
 
-    const qr = new QRious({
-      value: JSON.stringify({
-        file: file.name,
-        size: file.size,
-        hvet: hvetHex,
-        serial: this.state.serial,
-        issued: new Date().toISOString()
-      }),
-      size: 260,
+    let payload = {
+      file: file.name,
+      size: file.size,
+      hvet,
+      serial: this.state.serial,
+      issued: new Date().toISOString()
+    };
+
+    let qr = new QRious({
+      value: JSON.stringify(payload),
+      size: 360,
       level: "H"
     });
 
-    const x = W - 420;
-    const y = 1090;
-
     ctx.save();
 
-    // Shadow for raised effect
-    ctx.shadowColor = "rgba(0,0,0,0.25)";
-    ctx.shadowBlur  = 12;
-    ctx.shadowOffsetX = 3;
-    ctx.shadowOffsetY = 4;
+    // Clean underlay
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(x, y, 380, 420);
 
-    ctx.fillStyle = "#ffffff";
-    ctx.fillRect(x, y, 300, 320);
+    // Draw QR
+    ctx.drawImage(qr.canvas, x+10, y+10, 360, 360);
 
-    // Turn off shadow for QR image + text
-    ctx.shadowColor = "transparent";
-    ctx.shadowBlur = 0;
-    ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 0;
-
-    ctx.drawImage(qr.image, x+20, y+20, 260, 260);
-
-    ctx.font = "16px Inter";
     ctx.fillStyle = "#111";
-    ctx.fillText("Scan for EIR", x+40, y+305);
+    ctx.font = "22px Inter";
+    ctx.fillText("Scan for EIR", x+110, y+395);
 
     ctx.restore();
   },
 
-  /* ------------------------------------------------------------
-     SP-2 SIGNATURE BAR
-     ------------------------------------------------------------ */
-  drawSP2Bar(ctx) {
-    const W = ctx.canvas.width;
+  /* ============================================================
+     10. REGISTRY ANCHOR HASH (SHA-512 root)
+     ============================================================ */
+  drawAnchor(ctx, hvet) {
+    ctx.save();
+    ctx.font = "20px JetBrains Mono";
+    ctx.fillStyle = "#000";
+
+    ctx.fillText(
+      "Registry Anchor (SHA-512): " + hvet.substring(0,64).toUpperCase(),
+      140, 1550
+    );
+
+    ctx.restore();
+  },
+
+  /* ============================================================
+     11. EIR BLOCK (text block)
+     ============================================================ */
+  drawEIR(ctx, file, hvet) {
+    const now = new Date();
+    const serial = `NOVAK-EIR-${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}-${String(now.getDate()).padStart(2,"0")}-${hvet.substring(0,6).toUpperCase()}`;
+    this.state.serial = serial;
+
+    ctx.save();
+    ctx.font = "42px Inter";
+    ctx.fillStyle = "#000";
+    ctx.fillText("NOVAK Execution Identity Receipt (EIR)", 140, 980);
+
+    ctx.font = "26px JetBrains Mono";
+    ctx.fillText("Serial: " + serial, 140, 1040);
+    ctx.fillText("File:   " + file.name, 140, 1080);
+    ctx.fillText("Size:   " + file.size + " bytes", 140, 1120);
+    ctx.fillText("Issued: " + now.toISOString(), 140, 1160);
+
+    ctx.fillText("HVET (SHA-256):", 140, 1220);
+
+    ctx.font = "22px JetBrains Mono";
+    let y=1260, line="";
+    const max=2300;
+
+    for (let c of hvet) {
+      let test=line+c;
+      if (ctx.measureText(test).width > max) {
+        ctx.fillText(line,140,y);
+        y+=26;
+        line=c;
+      } else line=test;
+    }
+    if (line) ctx.fillText(line,140,y);
+
+    ctx.restore();
+  },
+
+  /* ============================================================
+     12. DIGITAL SIGNATURE FOOTER
+     ============================================================ */
+  drawFooter(ctx) {
     const H = ctx.canvas.height;
 
     ctx.save();
-    ctx.fillStyle = "rgba(10,20,50,0.88)";
-    ctx.fillRect(0, H - 110, W, 110);
+    ctx.fillStyle="#111";
+    ctx.font="22px JetBrains Mono";
 
-    ctx.fillStyle = "#fff";
-    ctx.font = "18px Inter";
-    ctx.fillText(
-      "SP-2 Compliance: Proof-Before-Action Cryptographic Execution Standard",
-      140, H - 70
-    );
-
-    ctx.font = "13px Inter";
-    ctx.fillText(
-      "NOVAK Protocol • HVET • EIR • RGAC • Safety Gate • L0–L15 • PL-X • PS-X",
-      140, H - 40
-    );
+    ctx.fillText("Digital Signature (PBKDF2/Argon2 Placeholder):", 140, H-180);
+    ctx.fillText("Issuer: NOVAK Integrity Authority", 140, H-140);
+    ctx.fillText("Certificate Serial: " + this.state.serial, 140, H-100);
 
     ctx.restore();
   },
 
-  /* ------------------------------------------------------------
-     MAIN RENDER PIPELINE — UPGRADED ORDER
-     ------------------------------------------------------------ */
+  /* ============================================================
+     MAIN RENDER PIPELINE
+     ============================================================ */
   async render() {
-    const ctx = this.state.ctx;
-    const file = this.state.file;
-    const hvetHex = this.state.hvet;
-    const palette = this.state.palette;
+    const {ctx, file, hvet, palette} = this.state;
+    if (!ctx || !file || !hvet) return;
 
-    if (!ctx || !file || !hvetHex) {
-      console.error("NOVAK_GOV: missing state for render()");
-      return;
-    }
+    const W = ctx.canvas.width;
+    const H = ctx.canvas.height;
 
-    // CLEAR + WHITE BASE
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    ctx.fillStyle = "#ffffff";
-    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    // BASE
+    ctx.fillStyle="#fff";
+    ctx.fillRect(0,0,W,H);
 
-    // BORDER
-    this.drawBorder(ctx);
+    // HVET BACKGROUND SYSTEM
+    this.drawHVETMesh(ctx,hvet);
+    this.blurHVET(ctx);
 
-    // BACKGROUND LAYERS
-    this.drawForensicMicrogrid(ctx);
-    this.drawFractalSubstrate(ctx);
+    // HOLOGRAPHY + WATERMARK + SEALS
+    this.drawHoloBand(ctx);
+    this.drawTriskelionWatermark(ctx);
+    this.drawSeals(ctx);
 
-    // WATERMARK
-    this.drawWatermark(ctx);
+    // GUILLOCHE SUITE
+    this.drawGuillochePrimary(ctx,palette);
+    this.drawGuillocheInterference(ctx,palette);
+    this.drawTriquetra(ctx,palette);
 
-    // SECURITY ARTWORK
-    this.drawGuillochePrimary(ctx, palette);
-    this.drawTriquetra(ctx, palette);
-    this.drawGuillocheInterference(ctx, palette);
+    // MICROTEXT
+    this.drawMicroRibbon(ctx);
 
-    // MICROTEXT RING
-    this.drawMicrotextHalo(ctx);
+    // EIR + QR + ANCHOR + FOOTER
+    this.drawEIR(ctx, file, hvet);
+    this.drawQR(ctx, file, hvet);
+    this.drawAnchor(ctx,hvet);
+    this.drawFooter(ctx);
 
-    // INFO BLOCKS
-    this.drawEIRBlock(ctx, file, hvetHex);
-    this.drawQRCapsule(ctx, file, hvetHex);
-    this.drawSP2Bar(ctx);
+    // FRAME LAST
+    this.drawFrame(ctx);
   },
 
-  /* ------------------------------------------------------------
+  /* ============================================================
      PDF EXPORT
-     ------------------------------------------------------------ */
+     ============================================================ */
   downloadPDF() {
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF("p", "px", [1400, 2000]);
-
-    pdf.addImage(
-      this.state.canvas.toDataURL("image/png"),
-      "PNG",
-      0, 0,
-      1400, 2000
-    );
-
+    const pdf = new jsPDF("p","px",[3000,4200]);
+    pdf.addImage(this.state.canvas.toDataURL("image/png"),"PNG",0,0,3000,4200);
     pdf.save(this.state.serial + ".pdf");
   }
 };
+</script>
+
+<script>
+  window.NOVAK_GOV = window.NOVAK_GOV;
 </script>
 
 </body>
