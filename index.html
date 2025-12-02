@@ -185,25 +185,45 @@
   border-bottom: 1px solid var(--border);
 }
 
-/* DARK MODE SUPPORT */
+/* =======================================================
+   DARK MODE BUTTON CONTRAST FIX — FULL SITE
+   ======================================================= */
+
+html[data-theme="dark"] .pill-btn,
+html[data-theme="dark"] .explain-btn,
+html[data-theme="dark"] .action-btn,
+html[data-theme="dark"] .digest-btn,
 html[data-theme="dark"] .dropdown-btn {
-  color: #fff;
-  border-color: #fff;
+  background: #1e293b !important;   /* dark card */
+  color: #ffffff !important;         /* white text */
+  border-color: #94a3b8 !important;  /* light gray border */
 }
 
+html[data-theme="dark"] .pill-btn:hover,
+html[data-theme="dark"] .explain-btn:hover,
+html[data-theme="dark"] .action-btn:hover,
+html[data-theme="dark"] .digest-btn:hover,
 html[data-theme="dark"] .dropdown-btn:hover {
-  background: #fff;
-  color: #000;
+  background: #334155 !important;   /* slightly brighter */
+  color: #ffffff !important;
 }
 
-html[data-theme="dark"] .dropdown-content {
-  background: var(--card-dark);
-  border-color: var(--border-dark);
+html[data-theme="dark"] .action-btn {
+  background: #3b82f6 !important;   /* blue CTA */
+  color: #ffffff !important;
+  border: none !important;
 }
 
-html[data-theme="dark"] .dropdown-content a:hover {
-  background: #1e293b;
+html[data-theme="dark"] .action-btn:hover {
+  background: #2563eb !important;
 }
+
+html[data-theme="dark"] .pill-btn.active {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border-color: #ffffff !important;
+}
+
   
 /* ========== FIX TOP GAP (B) ========== */
 html {
@@ -3522,7 +3542,7 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
 <p>Watch a directory in real time (requires watchdog) pip install watchdog python -m monitor.novak_monitor watch /etc --chain receipts.jsonl</p><br>
 
   </ul>
-  <a href="monitor/readme.md" target="_blank">View Code & Docs →</a>
+  <a href="monitor/README.md" target="_blank">View Code & Docs →</a>
 </div>
 
 
