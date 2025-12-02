@@ -14,6 +14,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono&display=swap"
         rel="stylesheet" />
 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+
   <style>
 
 /* Bottom-right collapse button */
@@ -623,6 +626,11 @@ html[data-theme="dark"] .aud-btn.active {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
+<!-- ⭐ NOVAK 12-LAYER ENGINE: REQUIRED LIBRARIES ⭐ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
@@ -1175,6 +1183,247 @@ html[data-theme="dark"] .aud-btn.active {
     </div> <!-- end inner -->
   </details>
 </div>
+
+<!-- ======================================================= -->
+<!-- ⭐ GOVERNMENT-GRADE NOVAK CERTIFICATE ENGINE (SECTION 1) -->
+<!-- ======================================================= -->
+
+<div class="card" id="novakGovCard"
+     style="
+       margin-top:32px;
+       padding:22px;
+       border:1px solid rgba(80,120,255,0.25);
+       background:rgba(80,120,255,0.06);
+       border-radius:14px;
+       box-shadow:0 2px 6px rgba(0,0,0,0.05);
+     ">
+
+  <h2 class="section-title">🏛 NOVAK Government-Grade Certificate Generator</h2>
+
+  <p style="margin-bottom:18px;">
+    This engine produces the <strong>full SP-2 compliant, 12-Layer + 5-Forensic-Layer</strong>
+    NOVAK Execution Identity Receipt (EIR) — including HVET-derived guilloché,
+    fractal substrate, holographic dispersion, microtext halo (L0–L15 + PL-X + PS-X),
+    triquetra security weave, registry anchors, and complete SP-2 signature bar.
+  </p>
+
+  <!-- File input -->
+  <div style="margin-bottom:16px;">
+    <input type="file" id="govFileInput" />
+<button class="action-btn" onclick="NOVAK_GOV.generate()">
+    ⚙️ Generate Government-Grade Certificate
+</button>
+
+  </div>
+
+  <!-- Certificate Preview -->
+  <div id="govPreview" style="margin-top:22px; display:none;">
+
+    <!-- REQUIRED 1400×2000 MASTER CANVAS -->
+    <canvas id="govCanvas"
+            width="1400"
+            height="2000"
+            style="
+              display:block;
+              margin:auto;
+              border:1px solid var(--border);
+              border-radius:12px;
+              background:#ffffff;
+            ">
+    </canvas>
+
+    <!-- Download -->
+    <button id="govDownloadBtn"
+            class="action-btn"
+            style="margin-top:16px; display:none;"
+            onclick="NOVAK_GOV.downloadPDF()">
+      📄 Download Government-Grade Certificate (PDF)
+    </button>
+
+    <!-- Optional debugging output (can be removed later) -->
+    <pre id="govDebug"
+         style="
+           margin-top:16px;
+           font-family:'JetBrains Mono', monospace;
+           font-size:12px;
+           background:var(--card);
+           padding:14px;
+           border:1px solid var(--border);
+           border-radius:8px;
+           display:none;
+           white-space:pre-wrap;
+           overflow-wrap:anywhere;
+         "></pre>
+  </div>
+
+</div>
+
+<script>
+// -----------------------------
+// NOVAK PROFESSIONAL EDITION
+// FULL 12-LAYER + 5 FORENSIC LAYERS
+// -----------------------------
+
+async function generate12LayerCertificate() {
+  const fileInput = document.getElementById("proFileInput");
+  if (!fileInput.files.length) {
+    alert("Please choose a file first.");
+    return;
+  }
+
+  const file = fileInput.files[0];
+  const arrayBuffer = await file.arrayBuffer();
+
+  // Compute SHA-256 HVET
+  const hashBuffer = await crypto.subtle.digest("SHA-256", arrayBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hvet = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+
+  // Generate serial number
+  const serial = "NOVAK-EIR-" + Date.now().toString(36).toUpperCase();
+
+  // Registry log (stored locally)
+  const entry = {
+    filename: file.name,
+    size: file.size,
+    hvet,
+    serial,
+    timestamp: new Date().toISOString()
+  };
+  localStorage.setItem("NOVAK_REG_LAST", JSON.stringify(entry));
+
+  // Initialize canvas
+  const canvas = document.getElementById("proCanvas");
+  const ctx = canvas.getContext("2d");
+
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // -------------------------------------------------
+  // LAYER 1 — DIAGONAL HVET MICROTEXT GRID
+  // -------------------------------------------------
+  ctx.save();
+  ctx.globalAlpha = 0.08;
+  ctx.font = "22px JetBrains Mono";
+  ctx.fillStyle = "#1A4FB3";
+
+  ctx.rotate(-0.25); 
+  for (let y = -200; y < 1600; y += 80) {
+    ctx.fillText(hvet, -600, y);
+  }
+  ctx.restore();
+
+  // -------------------------------------------------
+  // LAYER 2 — NOVAK WATERMARK
+  // -------------------------------------------------
+  ctx.font = "150px Inter";
+  ctx.fillStyle = "rgba(0,0,0,0.06)";
+  ctx.fillText("NOVAK", 260, 400);
+
+  // -------------------------------------------------
+  // LAYER 3 — MULTI-COLOR GUILLOCHÉ FRAME
+  // -------------------------------------------------
+  ctx.save();
+  ctx.lineWidth = 3;
+  for (let i = 0; i < 32; i++) {
+    ctx.strokeStyle = `hsl(${(i * 12) % 360}, 80%, 55%)`;
+    ctx.beginPath();
+    guilloche(ctx, 550, 700, 420 - i * 4, 12 + i / 2, 0.0035 + i * 0.0004);
+    ctx.stroke();
+  }
+  ctx.restore();
+
+  // -------------------------------------------------
+  // LAYER 4 — HOLOGRAM SWEEP (STATIC SNAPSHOT)
+  // -------------------------------------------------
+  const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+  gradient.addColorStop(0, "rgba(80,180,255,0.10)");
+  gradient.addColorStop(0.5, "rgba(255,255,255,0.00)");
+  gradient.addColorStop(1, "rgba(80,180,255,0.10)");
+
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // -------------------------------------------------
+  // LAYER 5 — UV MICROTEXT SIMULATION
+  // -------------------------------------------------
+  ctx.font = "10px JetBrains Mono";
+  ctx.fillStyle = "rgba(120,0,255,0.11)";
+  for (let i = 0; i < 40; i++) {
+    ctx.fillText("UV-" + hvet.substring(i * 8, i * 8 + 8), 40, 900 + i * 12);
+  }
+
+  // -------------------------------------------------
+  // LAYER 6 — MAIN TEXT BLOCK
+  // -------------------------------------------------
+  ctx.fillStyle = "#000";
+  ctx.font = "22px JetBrains Mono";
+  ctx.fillText("Execution Identity Receipt (EIR)", 60, 540);
+  ctx.font = "16px JetBrains Mono";
+  ctx.fillText("Serial: " + serial, 60, 570);
+  ctx.fillText("Filename: " + file.name, 60, 600);
+  ctx.fillText("Size: " + file.size + " bytes", 60, 630);
+  ctx.fillText("SHA-256 HVET:", 60, 660);
+
+  // HVET wrapping
+  for (let i = 0; i < hvet.length; i += 64) {
+    ctx.fillText(hvet.substring(i, i + 64), 60, 690 + (i / 64) * 26);
+  }
+
+  // -------------------------------------------------
+  // LAYER 7 — QR CODE (NO BACKGROUND)
+  // -------------------------------------------------
+  const qr = new QRious({
+    value: JSON.stringify(entry),
+    size: 260,
+    level: 'H'
+  });
+
+  ctx.drawImage(qr.image, 760, 1080, 260, 260);
+
+  document.getElementById("proPreview").style.display = "block";
+
+  // Save for PDF export
+  window.__NOVAK_PRO_CANVAS = canvas;
+}
+
+// -------------------------------------------------
+// GUILLOCHÉ FUNCTION
+// -------------------------------------------------
+function guilloche(ctx, cx, cy, r, loops, step) {
+  ctx.beginPath();
+  for (let t = 0; t < Math.PI * 2 * loops; t += step) {
+    let x = cx + r * Math.cos(t) + 12 * Math.cos(14 * t);
+    let y = cy + r * Math.sin(t) + 12 * Math.sin(15 * t);
+    ctx.lineTo(x, y);
+  }
+  ctx.closePath();
+}
+
+// -------------------------------------------------
+// PDF EXPORT
+// -------------------------------------------------
+function download12LayerPdf() {
+  if (!window.__NOVAK_PRO_CANVAS) {
+    alert("Please generate a certificate first.");
+    return;
+  }
+
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF("p", "px", [1100, 1400]);
+
+  pdf.addImage(
+    window.__NOVAK_PRO_CANVAS.toDataURL("image/png"),
+    "PNG",
+    0,
+    0,
+    1100,
+    1400
+  );
+
+  pdf.save("NOVAK-12Layer-Pro-Certificate.pdf");
+}
+</script>
 
 <!-- =============================================== -->
 <!-- ✅ COLLAPSIBLE TEST EXAMPLE — PREMIUM EDITION -->
@@ -3541,10 +3790,43 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
 
 <p>Watch a directory in real time (requires watchdog) pip install watchdog python -m monitor.novak_monitor watch /etc --chain receipts.jsonl</p><br>
 
-  </ul>
-  <a href="monitor/README.md" target="_blank">View Code & Docs →</a>
-</div>
+  <button class="pill-btn" onclick="window.open('https://github.com/novakprotocol/NOVAK-Hash-Monitor/README.md', '_blank')">
+    📘 Read Documentation
+  </button>
 
+<!-- =============================== -->
+<!-- 🚨 NOVAK PbA Monitor — Feature Card -->
+<!-- =============================== -->
+<div class="card" style="margin-top:24px;">
+  <h2 class="section-title">NOVAK PbA Monitor</h2>
+  <p>
+    The first implementation of the NOVAK <b>Proof-Before-Action (PbA)</b> cryptographic
+    primitive. Enforces <b>deterministic execution integrity</b> before any system is allowed
+    to act — a capability never before available in security or automation systems.
+  </p>
+
+  <ul class="feature-list">
+    <li>✔ Real-time OS monitoring (Linux/macOS/Windows)</li>
+    <li>✔ HVET generation (Rule + Data + Output + Time)</li>
+    <li>✔ EIR receipts (self-authenticating execution proofs)</li>
+    <li>✔ Tamper-evident chained ledgers (RGAC)</li>
+    <li>✔ Merkle anchoring for external verification</li>
+    <li>✔ Baseline and re-verification scans</li>
+    <li>✔ Cryptographic Safety Gate (no action without proof)</li>
+  </ul>
+<br>
+  <button class="pill-btn" onclick="window.open('https://github.com/novakprotocol/NOVAK-Hash-Monitor/novak_pba_monitor', '_blank')">
+    🔍 View Repository
+  </button>
+
+  <button class="pill-btn" onclick="window.open('https://github.com/novakprotocol/NOVAK-Hash-Monitor/novak_pba_monitor/README.md', '_blank')">
+    📘 Read Documentation
+  </button>
+
+  <button class="action-btn" onclick="window.open('https://pypi.org/project/novak_pba_monitor', '_blank')">
+    🚀 Install via PyPI (NOT WORKING)
+  </button>
+</div>
 
 <!-- ====================================================== -->
 <!-- ✅ FIXED: Deterministic Execution Integrity block -->
@@ -5545,6 +5827,607 @@ function showSection(id, key) {
   document.getElementById(id).style.display = "block";
   localStorage.setItem(key, "false");
 }
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+
+/* ============================================================
+   ⭐ GOVERNMENT-GRADE NOVAK CERTIFICATE ENGINE — SECTION 3A
+   Core bootstrap + HVET color science + utility framework
+   ============================================================ */
+
+window.NOVAK_GOV = {
+  state: {
+    file: null,
+    hvet: "",
+    palette: {},
+    ctx: null,
+    canvas: null
+  },
+
+  /* ------------------------------------------------------------
+     PUBLIC ENTRYPOINT
+     ------------------------------------------------------------ */
+  async generate() {
+    const input = document.getElementById("govFileInput");
+    if (!input.files.length) {
+      alert("Please select a file.");
+      return;
+    }
+
+    this.state.file = input.files[0];
+    const buffer = await this.state.file.arrayBuffer();
+
+    // Compute SHA-256 HVET
+    const hashBuffer = await crypto.subtle.digest("SHA-256", buffer);
+    const hvetHex = Array.from(new Uint8Array(hashBuffer))
+      .map(b => b.toString(16).padStart(2, "0"))
+      .join("");
+
+    this.state.hvet = hvetHex;
+
+    // Prepare canvas
+    this.state.canvas = document.getElementById("govCanvas");
+    this.state.ctx = this.state.canvas.getContext("2d");
+
+    // Build color palette
+    this.state.palette = this.makePaletteFromHVET(hvetHex);
+
+    // Render certificate
+    await this.render();
+
+    // Show preview + download button
+    document.getElementById("govPreview").style.display = "block";
+    document.getElementById("govDownloadBtn").style.display = "block";
+  },
+
+  /* ============================================================
+     🔷 HVET → COLOR SCIENCE ENGINE
+     Creates a deterministic palette from HVET hex.
+     ============================================================ */
+
+  makePaletteFromHVET(hex) {
+    // Extract six spectral bands (12 hex chars = 6 bytes)
+    const band = i => parseInt(hex.substring(i, i + 2), 16);
+
+    const r = band(0);
+    const g = band(2);
+    const b = band(4);
+
+    const h1 = (r * 1.2 + g * 0.5) % 360;
+    const h2 = (g * 1.7 + b * 0.4) % 360;
+    const h3 = (b * 1.3 + r * 0.8) % 360;
+
+    const clamp = v => Math.max(0, Math.min(100, v));
+
+    const s1 = clamp(40 + (r % 60));
+    const s2 = clamp(45 + (g % 55));
+    const s3 = clamp(50 + (b % 50));
+
+    const l1 = clamp(45 + (r % 20));
+    const l2 = clamp(50 + (g % 20));
+    const l3 = clamp(55 + (b % 20));
+
+    return {
+      primary:   `hsl(${h1}, ${s1}%, ${l1}%)`,
+      secondary: `hsl(${h2}, ${s2}%, ${l2}%)`,
+      tertiary:  `hsl(${h3}, ${s3}%, ${l3}%)`,
+      holo1:     `hsla(${h1}, ${s1}%, ${l1}%, 0.35)`,
+      holo2:     `hsla(${h2}, ${s2}%, ${l2}%, 0.35)`,
+      holo3:     `hsla(${h3}, ${s3}%, ${l3}%, 0.35)`
+    };
+  },
+
+  /* ------------------------------------------------------------
+     UTILITY: Convert degrees → radians
+     ------------------------------------------------------------ */
+  rad(d) { return d * Math.PI / 180; },
+
+  /* ------------------------------------------------------------
+     UTILITY: HVET sub-segment reader
+     ------------------------------------------------------------ */
+seg(hex, i, len) {
+  if (i >= hex.length) return 0;
+  const sub = hex.substring(i, i + len);
+  return parseInt(sub || "0", 16);
+}
+};
+
+<script>
+/* ============================================================
+   ⭐ GOVERNMENT-GRADE NOVAK CERTIFICATE ENGINE — UPGRADED VERSION
+   ============================================================ */
+
+window.NOVAK_GOV = {
+  state: {
+    file: null,
+    hvet: "",
+    palette: {},
+    ctx: null,
+    canvas: null,
+    serial: ""
+  },
+
+  /* ------------------------------------------------------------
+     SAFE UTILITY — prevents NaN, out-of-range reads
+     ------------------------------------------------------------ */
+  seg(hex, i, len) {
+    if (i >= hex.length) return 0;
+    const sub = hex.substring(i, i + len);
+    const v = parseInt(sub, 16);
+    return isNaN(v) ? 0 : v;
+  },
+
+  /* ------------------------------------------------------------
+     GENERATE (HVET, palette, canvas)
+     ------------------------------------------------------------ */
+  async generate() {
+    const input = document.getElementById("govFileInput");
+    if (!input || !input.files.length) {
+      alert("Please choose a file.");
+      return;
+    }
+
+    const file = input.files[0];
+    this.state.file = file;
+
+    // SHA-256 HVET
+    const buf = await file.arrayBuffer();
+    const hashBuf = await crypto.subtle.digest("SHA-256", buf);
+    const hvetHex = [...new Uint8Array(hashBuf)]
+      .map(b => b.toString(16).padStart(2,"0"))
+      .join("");
+
+    this.state.hvet = hvetHex;
+
+    // Canvas setup
+    const canvas = document.getElementById("govCanvas");
+    if (!canvas) {
+      alert("govCanvas not found.");
+      return;
+    }
+
+    this.state.canvas = canvas;
+    this.state.ctx = canvas.getContext("2d");
+
+    // Government palette
+    this.state.palette = {
+      primary:   "#1A4FB3",
+      secondary: "#7A4FB3",
+      tertiary:  "#4FB39A"
+    };
+
+    document.getElementById("govPreview").style.display = "block";
+
+    await this.render();
+
+    document.getElementById("govDownloadBtn").style.display = "block";
+  },
+
+  /* ------------------------------------------------------------
+     OUTER SECURITY BORDER
+     ------------------------------------------------------------ */
+  drawBorder(ctx) {
+    const W = ctx.canvas.width;
+    const H = ctx.canvas.height;
+
+    ctx.save();
+    ctx.lineWidth = 6;
+    ctx.strokeStyle = "rgba(0,0,0,0.45)";
+    ctx.strokeRect(20, 20, W - 40, H - 40);
+    ctx.restore();
+  },
+
+  /* ------------------------------------------------------------
+     NOVAK EIR WATERMARK
+     ------------------------------------------------------------ */
+  drawWatermark(ctx) {
+    const W = ctx.canvas.width;
+    const H = ctx.canvas.height;
+
+    ctx.save();
+    ctx.globalAlpha = 0.06;
+    ctx.font = "140px Inter";
+    ctx.fillStyle = "#1A4FB3";
+    ctx.translate(W / 2, H / 2);
+    ctx.rotate(-0.35);
+    ctx.textAlign = "center";
+    ctx.fillText("NOVAK EIR", 0, 0);
+    ctx.restore();
+  },
+
+  /* ------------------------------------------------------------
+     FORENSIC MICROGRID
+     ------------------------------------------------------------ */
+  drawForensicMicrogrid(ctx) {
+    const W = ctx.canvas.width;
+    const H = ctx.canvas.height;
+
+    ctx.save();
+    ctx.globalAlpha = 0.065;
+    ctx.strokeStyle = "rgba(120,0,255,0.22)";
+    ctx.lineWidth = 0.6;
+
+    const step = 42;
+    for (let x = 0; x < W; x += step) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, H);
+      ctx.stroke();
+    }
+    for (let y = 0; y < H; y += step) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(W, y);
+      ctx.stroke();
+    }
+
+    ctx.restore();
+  },
+
+  /* ------------------------------------------------------------
+     FRACTAL SUBSTRATE
+     ------------------------------------------------------------ */
+  drawFractalSubstrate(ctx) {
+    const W = ctx.canvas.width;
+    const H = ctx.canvas.height;
+
+    const seed = this.seg(this.state.hvet, 150, 2);
+    const branches = (seed % 5) + 4;
+
+    ctx.save();
+    ctx.strokeStyle = "rgba(0,0,0,0.055)";
+    ctx.lineWidth = 0.75;
+
+    const cx = W / 2;
+    const cy = H * 0.33;
+
+    const drawBranch = (x, y, angle, depth) => {
+      if (depth <= 0) return;
+
+      const len = (seed % 30) + 60 * depth;
+      const nx = x + len * Math.cos(angle);
+      const ny = y + len * Math.sin(angle);
+
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(nx, ny);
+      ctx.stroke();
+
+      drawBranch(nx, ny, angle + 0.4, depth - 1);
+      drawBranch(nx, ny, angle - 0.4, depth - 1);
+    };
+
+    for (let i = 0; i < branches; i++) {
+      const a = (Math.PI * 2 * i) / branches;
+      drawBranch(cx, cy, a, 4);
+    }
+
+    ctx.restore();
+  },
+
+  /* ------------------------------------------------------------
+     PRIMARY GUILLOCHE
+     ------------------------------------------------------------ */
+  drawGuillochePrimary(ctx, palette) {
+    const W = ctx.canvas.width;
+    const H = ctx.canvas.height;
+
+    const cx = W / 2;
+    const cy = H * 0.33;
+    const R  = 460;
+
+    const p1 = this.seg(this.state.hvet, 0, 2) % 27 + 18;
+    const p2 = this.seg(this.state.hvet, 6, 2) % 37 + 22;
+    const phase = (this.seg(this.state.hvet, 12, 2) % 360) * Math.PI/180;
+
+    ctx.save();
+    ctx.strokeStyle = palette.primary;
+    ctx.lineWidth = 1.05;
+    ctx.beginPath();
+
+    for (let t = 0; t < Math.PI * 12; t += 0.0025) {
+      const mod =
+        Math.sin(p1 * t + phase) * 22 +
+        Math.cos(p2 * t) * 14;
+
+      const r = R + mod;
+      const x = cx + r * Math.cos(t);
+      const y = cy + r * Math.sin(t);
+
+      if (t === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+
+    ctx.stroke();
+    ctx.restore();
+  },
+
+  /* ------------------------------------------------------------
+     TRIQUETRA SECURITY WEAVE
+     ------------------------------------------------------------ */
+  drawTriquetra(ctx, palette) {
+    const W = ctx.canvas.width;
+    const H = ctx.canvas.height;
+
+    const cx = W / 2;
+    const cy = H * 0.33;
+
+    const scale = 280;
+    const freq  = (this.seg(this.state.hvet, 80, 2) % 5) + 3;
+    const twist = (this.seg(this.state.hvet, 120, 2) % 360) * Math.PI/180;
+
+    ctx.save();
+    ctx.strokeStyle = palette.tertiary;
+    ctx.globalAlpha = 0.42;
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+
+    for (let t = 0; t <= Math.PI * 2; t += 0.002) {
+      const x = cx + scale * Math.sin(freq * t + twist) * Math.cos(t);
+      const y = cy + scale * Math.sin(freq * t + twist) * Math.sin(t);
+
+      if (t === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+
+    ctx.stroke();
+    ctx.restore();
+  },
+
+  /* ------------------------------------------------------------
+     SECONDARY INTERFERENCE GUILLOCHE
+     (drawn AFTER triquetra for better overlay)
+     ------------------------------------------------------------ */
+  drawGuillocheInterference(ctx, palette) {
+    const W = ctx.canvas.width;
+    const H = ctx.canvas.height;
+
+    const cx = W / 2;
+    const cy = H * 0.33;
+
+    const base = 440;
+    const h = this.seg(this.state.hvet, 20, 2) % 120 + 60;
+    const k = this.seg(this.state.hvet, 40, 2) % 80 + 30;
+
+    ctx.save();
+    ctx.strokeStyle = palette.secondary;
+    ctx.globalAlpha = 0.32;
+    ctx.lineWidth = 0.8;
+    ctx.beginPath();
+
+    for (let t = 0; t < Math.PI * 16; t += 0.002) {
+      const r =
+        base +
+        Math.sin((t * h) % 6.28) * 28 +
+        Math.cos((t * k) % 6.28) * 18;
+
+      const x = cx + r * Math.cos(t);
+      const y = cy + r * Math.sin(t);
+
+      if (t === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    ctx.restore();
+  },
+
+  /* ------------------------------------------------------------
+     MICROTEXT HALO (center slightly higher for clean ring)
+     ------------------------------------------------------------ */
+  drawMicrotextHalo(ctx) {
+    const W = ctx.canvas.width;
+    const H = ctx.canvas.height;
+
+    const cx = W / 2;
+    const cy = H * 0.38;
+    const R  = 520;
+
+    const laws =
+      "L0 Deterministic Execution • L1 Proof-Before-Action • L2 Canonical Encoding • L3 Immutable HVET • " +
+      "L4 Rule Binding • L5 Data Binding • L6 Output Binding • L7 Temporal Singularity • " +
+      "L8 Replay Resistance • L9 Distributed Verifiability • L10 Interoperable Trust • " +
+      "L11 Zero-Ambiguity Semantics • L12 EIR • L13 RGAC • L14 Safety Gate • L15 Autonomous Correctness • PL-X • PS-X • ";
+
+    const micro = laws.repeat(18);
+
+    ctx.save();
+    ctx.font = "8.5px JetBrains Mono";
+    ctx.fillStyle = "rgba(20,20,20,0.75)";
+    ctx.translate(cx, cy);
+    ctx.rotate(-Math.PI/2);
+
+    for (let i = 0; i < micro.length; i++) {
+      const angle = i * 0.0087;
+      ctx.save();
+      ctx.rotate(angle);
+      ctx.translate(0, -R);
+      ctx.fillText(micro[i], 0, 0);
+      ctx.restore();
+    }
+
+    ctx.restore();
+  },
+
+  /* ------------------------------------------------------------
+     EIR BLOCK
+     ------------------------------------------------------------ */
+  drawEIRBlock(ctx, file, hvetHex) {
+    const now = new Date();
+    const serial =
+      `NOVAK-EIR-${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}-${String(now.getDate()).padStart(2,"0")}-${hvetHex.substring(0,6).toUpperCase()}`;
+
+    this.state.serial = serial;
+
+    ctx.save();
+    ctx.fillStyle = "#000";
+    ctx.font = "30px Inter";
+    ctx.fillText("NOVAK Execution Identity Receipt (EIR)", 140, 1100);
+
+    ctx.font = "18px JetBrains Mono";
+    ctx.fillText("Serial: " + serial,              140, 1150);
+    ctx.fillText("File:   " + file.name,           140, 1180);
+    ctx.fillText("Size:   " + file.size + " bytes",140, 1210);
+    ctx.fillText("Issued: " + now.toISOString(),   140, 1240);
+
+    ctx.fillText("HVET (SHA-256):", 140, 1280);
+
+    ctx.font = "15px JetBrains Mono";
+    const maxWidth = ctx.canvas.width - 240;
+    let line = "";
+    let yy = 1310;
+
+    for (let i = 0; i < hvetHex.length; i++) {
+      const ch = hvetHex[i];
+      const test = line + ch;
+      if (ctx.measureText(test).width > maxWidth) {
+        ctx.fillText(line, 140, yy);
+        yy += 22;
+        line = ch;
+      } else {
+        line = test;
+      }
+    }
+    if (line) ctx.fillText(line, 140, yy);
+
+    ctx.restore();
+  },
+
+  /* ------------------------------------------------------------
+     QR CAPSULE (with subtle shadow)
+     ------------------------------------------------------------ */
+  drawQRCapsule(ctx, file, hvetHex) {
+    const W = ctx.canvas.width;
+
+    const qr = new QRious({
+      value: JSON.stringify({
+        file: file.name,
+        size: file.size,
+        hvet: hvetHex,
+        serial: this.state.serial,
+        issued: new Date().toISOString()
+      }),
+      size: 260,
+      level: "H"
+    });
+
+    const x = W - 420;
+    const y = 1090;
+
+    ctx.save();
+
+    // Shadow for raised effect
+    ctx.shadowColor = "rgba(0,0,0,0.25)";
+    ctx.shadowBlur  = 12;
+    ctx.shadowOffsetX = 3;
+    ctx.shadowOffsetY = 4;
+
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(x, y, 300, 320);
+
+    // Turn off shadow for QR image + text
+    ctx.shadowColor = "transparent";
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+
+    ctx.drawImage(qr.image, x+20, y+20, 260, 260);
+
+    ctx.font = "16px Inter";
+    ctx.fillStyle = "#111";
+    ctx.fillText("Scan for EIR", x+40, y+305);
+
+    ctx.restore();
+  },
+
+  /* ------------------------------------------------------------
+     SP-2 SIGNATURE BAR
+     ------------------------------------------------------------ */
+  drawSP2Bar(ctx) {
+    const W = ctx.canvas.width;
+    const H = ctx.canvas.height;
+
+    ctx.save();
+    ctx.fillStyle = "rgba(10,20,50,0.88)";
+    ctx.fillRect(0, H - 110, W, 110);
+
+    ctx.fillStyle = "#fff";
+    ctx.font = "18px Inter";
+    ctx.fillText(
+      "SP-2 Compliance: Proof-Before-Action Cryptographic Execution Standard",
+      140, H - 70
+    );
+
+    ctx.font = "13px Inter";
+    ctx.fillText(
+      "NOVAK Protocol • HVET • EIR • RGAC • Safety Gate • L0–L15 • PL-X • PS-X",
+      140, H - 40
+    );
+
+    ctx.restore();
+  },
+
+  /* ------------------------------------------------------------
+     MAIN RENDER PIPELINE — UPGRADED ORDER
+     ------------------------------------------------------------ */
+  async render() {
+    const ctx = this.state.ctx;
+    const file = this.state.file;
+    const hvetHex = this.state.hvet;
+    const palette = this.state.palette;
+
+    if (!ctx || !file || !hvetHex) {
+      console.error("NOVAK_GOV: missing state for render()");
+      return;
+    }
+
+    // CLEAR + WHITE BASE
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+    // BORDER
+    this.drawBorder(ctx);
+
+    // BACKGROUND LAYERS
+    this.drawForensicMicrogrid(ctx);
+    this.drawFractalSubstrate(ctx);
+
+    // WATERMARK
+    this.drawWatermark(ctx);
+
+    // SECURITY ARTWORK
+    this.drawGuillochePrimary(ctx, palette);
+    this.drawTriquetra(ctx, palette);
+    this.drawGuillocheInterference(ctx, palette);
+
+    // MICROTEXT RING
+    this.drawMicrotextHalo(ctx);
+
+    // INFO BLOCKS
+    this.drawEIRBlock(ctx, file, hvetHex);
+    this.drawQRCapsule(ctx, file, hvetHex);
+    this.drawSP2Bar(ctx);
+  },
+
+  /* ------------------------------------------------------------
+     PDF EXPORT
+     ------------------------------------------------------------ */
+  downloadPDF() {
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF("p", "px", [1400, 2000]);
+
+    pdf.addImage(
+      this.state.canvas.toDataURL("image/png"),
+      "PNG",
+      0, 0,
+      1400, 2000
+    );
+
+    pdf.save(this.state.serial + ".pdf");
+  }
+};
 </script>
 
 </body>
