@@ -16,6 +16,26 @@
 
   <style>
 
+/* Bottom-right collapse button */
+.collapse-bottom-btn {
+  position: absolute;
+  bottom: 12px;
+  right: 14px;
+  padding: 6px 12px;
+  font-size: 13px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: 6px;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: 0.2s;
+}
+
+.collapse-bottom-btn:hover {
+  opacity: 1;
+  background: var(--border);
+}
+
 /* FIX LEFT SIDE STANDARDS DROPDOWN */
 .standards-menu {
   left: 0 !important;
@@ -70,7 +90,6 @@
   white-space: normal !important;
   padding: 10px 16px !important;
 }
-
 
 /* =============================== */
 /* NOVAK Documentation Dropdown    */
@@ -613,9 +632,8 @@ html[data-theme="dark"] .aud-btn.active {
   <a href="docs/standards/SP-2 — HVET EIR RGAC Cryptographic Standard.pdf" target="_blank">Cryptography 101</a>
 
   <div class="dropdown-divider"></div>
-
-  <div class="dropdown-header">NOVAK Standards (SP-1 → SP-9)</div>
-  <a href="docs/standards/SP-1 — NOVAK Execution Integrity Standard (Full GitHub-Ready Document).pdf" target="_blank">SP-1 — Execution Integrity</a>
+    <div class="dropdown-header">NOVAK Standards (SP-1 → SP-9)</div>
+  <a href="docs/standards/SP-1 — NOVAK Execution Integrity Standard.pdf" target="_blank">SP-1 — Execution Integrity</a>
   <a href="docs/standards/SP-2 — HVET EIR RGAC Cryptographic Standard.pdf" target="_blank">SP-2 — HVET / EIR / RGAC</a>
   <a href="docs/standards/SP-3 — Safety Gate + PL-X + PS-X Standard.pdf" target="_blank">SP-3 — Safety Gate + PL-X</a>
   <a href="docs/standards/SP-4 — NOVAK Implementation Requirements.pdf" target="_blank">SP-4 — Implementation Spec</a>
@@ -626,7 +644,6 @@ html[data-theme="dark"] .aud-btn.active {
   <a href="docs/standards/SP-9 — NOVAK Federal Multi-Agency Deployment Standard.pdf" target="_blank">SP-9 — Multi-Domain Compliance</a>
 
   <div class="dropdown-divider"></div>
-
   <div class="dropdown-header">Threat Models (NTM-1 → NTM-3)</div>
   <a href="docs/threat-models/NTM-1 — NOVAK THREAT MODEL.pdf" target="_blank">NTM-1 — Base Threat Model</a>
   <a href="docs/threat-models/NTM-2 — NOVAK Red Team Adversarial Test Suite.pdf" target="_blank">NTM-2 — Red Team Test Suite</a>
@@ -634,7 +651,6 @@ html[data-theme="dark"] .aud-btn.active {
   <a href="docs/threat-models/NTM-3 — NOVAK Adversarial AI Test Suite (Full Formal Edition).pdf" target="_blank">NTM-3 — Adversarial Model</a>
 
   <div class="dropdown-divider"></div>
-
   <div class="dropdown-header">Whitepapers</div>
   <a href="docs/whitepapers/PART_1__Executive_Summary.pdf" target="_blank">PART 1 — Executive Summary</a>
   <a href="docs/whitepapers/PART 2 — WHAT NOVAK IS.pdf" target="_blank">PART 2 — What NOVAK Is</a>
@@ -648,7 +664,6 @@ html[data-theme="dark"] .aud-btn.active {
   <a href="docs/whitepapers/PART_10__Final_Summary.pdf" target="_blank">PART 10 — Final Summary</a>
 
   <div class="dropdown-divider"></div>
-
   <div class="dropdown-header">Appendices</div>
   <a href="docs/apendices/apendices/Appendix A — Adversarial Prompt Library.pdf" target="_blank">Appendix A — Glossary</a>
   <a href="docs/apendices/APPENDIX B GRADIENT-SPACE ADVERSARIAL SIMULATION VECTORS.pdf" target="_blank">Appendix B — Math Notation</a>
@@ -704,7 +719,6 @@ html[data-theme="dark"] .aud-btn.active {
     <div class="dropdown-divider"></div>
 
     <div class="dropdown-header">NOVAK Learning Series - SPs</div>
-
     <a href="docs/learning/NOVAK Learning Series - SP-1 Execution Integrity Standard.pdf" target="_blank">SP-1 Execution Integrity Standard</a>
     <a href="docs/learning/NOVAK Learning Series - SP-2 Cryptographic Standard.pdf" target="_blank">SP-2 Cryptographic Standard</a>
     <a href="docs/learning/NOVAK Learning Series - SP-3 Safety Gate Standard.pdf" target="_blank">SP-3 Safety Gate Standard</a>
@@ -718,7 +732,6 @@ html[data-theme="dark"] .aud-btn.active {
     <div class="dropdown-divider"></div>
 
     <div class="dropdown-header">NOVAK Learning Series - LAWS</div>
-
     <a href="docs/learning/NOVAK Learning Series - NOVAK Law L0 The Prime Directive.pdf" target="_blank">Law L0 The Prime Directive (Zeroth Law)</a>
     <a href="docs/learning/NOVAK Learning Series - NOVAK Law L1 Deterministic Rule Execution.pdf" target="_blank">Law L1 Deterministic Rule Execution</a>
     <a href="docs/learning/NOVAK Learning Series - NOVAK Law L2 Rule Hash.pdf" target="_blank">Law L2 Rule Hash</a>
@@ -737,13 +750,11 @@ html[data-theme="dark"] .aud-btn.active {
     <a href="docs/learning/NOVAK Learning Series - NOVAK Law L15 Full Disclosure Rule.pdf" target="_blank">Law L15 Full Disclosure Rule</a>
 
     <div class="dropdown-header">NOVAK Learning Series - LAWS Addenda</div>
-
     <a href="docs/learning/NOVAK Learning Series - Industry Addenda PL-X & PS-X.pdf" target="_blank">Industry Addenda PL-X & PS-X</a>
 
     <div class="dropdown-divider"></div>
-
+	
     <div class="dropdown-header">NOVAK Learning Series - Threat Models</div>
-
     <a href="docs/learning/NOVAK Learning Series - NTM-1 NOVAK Threat Model.pdf" target="_blank">NTM-1 NOVAK Threat Model</a>
     <a href="docs/learning/NOVAK Learning Series - NTM-2 Red Team Adversarial Test Suite.pdf" target="_blank">NTM-2 Red Team Adversarial Test Suite</a>
     <a href="docs/learning/NOVAK Learning Series - NTM-3 Adversarial AI Test Suite.pdf" target="_blank">NTM-3 Adversarial AI Test Suite</a>
@@ -754,7 +765,6 @@ html[data-theme="dark"] .aud-btn.active {
     <div class="dropdown-divider"></div>
 
     <div class="dropdown-header">NOVAK Learning Series - Novak Overview</div>
-
     <a href="docs/learning/NOVAK Learning Series - NOVAK Part 1 Executive Summary.pdf" target="_blank">Part 1 Executive Summary</a>
     <a href="docs/learning/NOVAK Learning Series - NOVAK Part 2 - What Novak Is.pdf" target="_blank">Part 2 - What Novak Is</a>
     <a href="docs/learning/NOVAK Learning Series - NOVAK Part 3 Scientific Foundations.pdf" target="_blank">Part 3 Scientific Foundations</a>
@@ -785,7 +795,6 @@ html[data-theme="dark"] .aud-btn.active {
     <div class="dropdown-divider"></div>
 
     <div class="dropdown-header">Core Docs</div>
-
     <a href="docs/NOVAK_Architecture.pdf" target="_blank">📐 Architecture</a>
     <a href="docs/NOVAK_LightPaper.pdf" target="_blank">💡 Light Paper</a>
     <a href="docs/NOVAK_Executive_Brief.pdf" target="_blank">📊 Executive Brief</a>
@@ -831,54 +840,57 @@ html[data-theme="dark"] .aud-btn.active {
 <!-- ✅ MAIN CONTENT START -->
 <div class="container">
 
-  <!-- ====================================================== -->
-  <!-- ⭐ 60-SECOND NOVAK OVERVIEW — COLLAPSIBLE -->
-  <!-- ====================================================== -->
-  <details class="novak-collapse" style="margin-top:32px;">
-    <summary style="cursor:pointer; font-size:20px; padding:14px 0;">
-      ⏱️ 60-Second NOVAK Overview (For Everyone)
-    </summary>
+<!-- ====================================================== -->
+<!-- ⭐ 60-SECOND NOVAK OVERVIEW — COLLAPSIBLE -->
+<!-- ====================================================== -->
+<details class="novak-collapse" style="margin-top:15px;">
+  <summary style="cursor:pointer; font-size:20px; padding:14px 0;">
+    ⏱️ 60-Second NOVAK Overview (For Everyone)
+  </summary>
 
-    <div class="card" style="padding:26px; margin-top:16px; font-size:16px; line-height:1.6;">
+  <div class="card" style="padding:26px; margin-top:16px; font-size:16px; line-height:1.6; position:relative;">
 
-      <h2 style="margin-top:0;">What NOVAK Does — In Plain English</h2>
+    <p>If we could eliminate catastrophic system failures, prevent wrongful decisions, and save the government over $100 billion a year — not afterward, but at the moment of execution — would you hear me out and want see how?</p><br>
+
+    <h3 style="margin-top:0;">What NOVAK Does — In Plain English</h3>
+    <br>
+    <p><strong>NOVAK prevents computers from acting on wrong information.</strong></p>
+    <br>
+    <p>
+      Before any automated system — VA claims, AI, robots, finance, healthcare —
+      is allowed to <em>make a decision</em>, NOVAK forces it to prove:
+    </p>
+    <br>
+    <ul style="margin-left:20px;">
+      <li>✔ The <strong>input</strong> is unchanged</li>
+      <li>✔ The <strong>rule</strong> used is correct</li>
+      <li>✔ The <strong>output</strong> matches that rule</li>
+      <li>✔ Nothing was silently altered, corrupted, or tampered with</li>
+    </ul>
+
+    <p style="margin-top:15px;">NOVAK is the world’s first <strong>proof-before-action</strong> system.</p>
+
+    <h3 style="margin-top:26px;">Why It Matters</h3>
+    <ul style="margin-left:20px;">
       <br>
-      <p><strong>NOVAK prevents computers from acting on wrong information.</strong></p>
-      <br>
-      <p>
-        Before any automated system — VA claims, AI, robots, finance, healthcare —
-        is allowed to <em>make a decision</em>, NOVAK forces it to prove:
-      </p>
-      <br>
-      <ul style="margin-left:20px;">
-        <li>✔ The <strong>input</strong> is unchanged</li>
-        <li>✔ The <strong>rule</strong> used is correct</li>
-        <li>✔ The <strong>output</strong> matches that rule</li>
-        <li>✔ Nothing was silently altered, corrupted, or tampered with</li>
-      </ul>
+      <li>✔ Stops fraud before it happens</li>
+      <li>✔ Stops automation errors before harm occurs</li>
+      <li>✔ Blocks corrupted data from executing</li>
+      <li>✔ Makes government systems provable and traceable</li>
+      <li>✔ Works in real time, locally, without blockchain</li>
+    </ul>
 
-      <p style="margin-top:18px;">
+    <p style="margin-top:22px; font-weight:600;">
+      NOVAK is the safety layer automation should have had for 50 years.
+    </p>
 
+    <!-- ⭐ Bottom-right collapse button -->
+    <button class="collapse-bottom-btn" onclick="collapseDetails(this)">
+      ▲ Collapse
+    </button>
 
-        NOVAK is the world’s first <strong>proof-before-action</strong> system.
-      </p>
-
-      <h3 style="margin-top:26px;">Why It Matters</h3>
-      <ul style="margin-left:20px;">
-        <br>
-        <li>✔ Stops fraud before it happens</li>
-        <li>✔ Stops automation errors before harm occurs</li>
-        <li>✔ Blocks corrupted data from executing</li>
-        <li>✔ Makes government systems provable and traceable</li>
-        <li>✔ Works in real time, locally, without blockchain</li>
-      </ul>
-
-      <p style="margin-top:22px; font-weight:600;">
-        NOVAK is the safety layer automation should have had for 50 years.
-      </p>
-
-    </div>
-  </details>
+  </div>
+</details>
 
   <!-- ================================================================ -->
   <!-- ✅ AUDIENCE SELECTOR + WHY NOVAK + WHAT IS NOVAK SECTION         -->
@@ -935,25 +947,15 @@ html[data-theme="dark"] .aud-btn.active {
       to execute.
     </p>
 
-    <!-- Close X -->
-    <button onclick="dismissWhatIsNovak()"
-      style="
-        position:absolute;
-        top:14px;
-        right:14px;
-        background:none;
-        border:none;
-        font-size:20px;
-        cursor:pointer;
-      "
-      aria-label="Hide What is NOVAK section">
-      ✕
-    </button>
+<button class="action-btn" onclick="hideSection('whatIsNovakCard','hideWhatIsNovak')">
+  ✅ Got it — Hide
+</button>
 
-    <!-- Confirm hide -->
-    <button onclick="dismissWhatIsNovak()" class="action-btn" style="margin-top:18px;">
-      ✅ Got it — Hide
-    </button>
+<button onclick="hideSection('whatIsNovakCard','hideWhatIsNovak')"
+  style="position:absolute; top:14px; right:14px; background:none; border:none; font-size:20px; cursor:pointer;">
+  ✕
+</button>
+
   </div>
 
     <!-- WHY NOVAK — WHY NOW? -->
@@ -981,25 +983,15 @@ html[data-theme="dark"] .aud-btn.active {
       proof-before-action execution integrity.
     </p>
 
-    <!-- Close X -->
-    <button onclick="dismissWhyNovak()"
-      style="
-        position:absolute;
-        top:14px;
-        right:14px;
-        background:none;
-        border:none;
-        font-size:20px;
-        cursor:pointer;
-      "
-      aria-label="Hide Why NOVAK section">
-      ✕
-    </button>
+<button class="action-btn" onclick="hideSection('whyNovakCard','hideWhyNovak')">
+  ✅ Got it — Hide
+</button>
 
-    <!-- Confirm hide -->
-    <button onclick="dismissWhyNovak()" class="action-btn" style="margin-top:18px;">
-      ✅ Got it — Hide
-    </button>
+<button onclick="hideSection('whyNovakCard','hideWhyNovak')"
+  style="position:absolute; top:14px; right:14px; background:none; border:none; font-size:20px; cursor:pointer;">
+  ✕
+</button>
+
   </div>
 
  <!-- WHAT CHANGES WITH NOVAK -->
@@ -1026,25 +1018,14 @@ html[data-theme="dark"] .aud-btn.active {
       </p>
     </div>
 
-    <!-- Close X -->
-    <button onclick="dismissWhatChanges()"
-      style="
-        position:absolute;
-        top:14px;
-        right:14px;
-        font-size:20px;
-        background:none;
-        border:none;
-        cursor:pointer;
-      "
-      aria-label="Hide What Changes With NOVAK">
-      ✕
-    </button>
+<button class="action-btn" onclick="hideSection('whatChangesCard','hideWhatChanges')">
+  ✅ Got it — Hide
+</button>
 
-  <!-- Confirm hide -->
-  <button class="action-btn" onclick="dismissWhatChanges()" style="margin-top:18px;">
-    ✅ Got it — Hide
-  </button>
+<button onclick="hideSection('whatChangesCard','hideWhatChanges')"
+  style="position:absolute; top:14px; right:14px; background:none; border:none; font-size:20px; cursor:pointer;">
+  ✕
+</button>
 
 </div> <!-- closes WHAT CHANGES WITH NOVAK only -->
 
@@ -1074,62 +1055,105 @@ html[data-theme="dark"] .aud-btn.active {
 <!-- ✅ PART 2 — Try It + Hash Engine + Example Data + File Drop + Games -->
 
 <!-- EIR + QR INSTANT CERTIFICATES -->
-<div class="card" style="margin-top:28px; padding:20px;">
-  <h2 class="section-title">EIR + QR Instant Certificates (For those that already know)</h2> 
+<div class="card"
+     style="
+       margin-top:28px;
+       padding:20px;
+       background:rgba(0, 200, 0, 0.06);       /* faint green verification tint */
+       border:1px solid rgba(0, 160, 0, 0.18); /* subtle green verification border */
+       box-shadow:0 2px 6px rgba(0,0,0,0.04);  /* gentle lift */
+       border-radius:14px;
+       position:relative;                     /* required for bottom-right collapse */
+     ">
 
-  <p style="margin-top:8px;">
-    Upload any file. NOVAK will compute a SHA-256 HVET, build a local
-    Execution Identity Receipt (EIR), and generate a QR code that binds
-    the file + HVET + timestamp — all <strong>local in your browser</strong>,
-    no server calls.
-  </p>
+  <details class="novak-collapse">
+    <summary style="cursor:pointer; font-size:20px; padding:6px 0;">
+      🔐 EIR + QR Instant Certificates
+      <span style="opacity:0.6; font-size:0.85em;">(For those that already know)</span>
+    </summary>
 
-  <p style="margin-top:6px; font-size:13px; opacity:0.85;">
-    🚫This public demo is for educational purposes only — NOT for HIPAA-regulated environments.
-    Never use real patients, real claims, or real medical documents here — training data only.
-    NOVAK does not collect, store, transmit, or retain data, but user responsibility applies.
-  </p>
+    <div style="margin-top:14px;">
 
-  <!-- File picker -->
-  <div style="margin-top:16px;">
-    <input type="file" id="eirFileInput" />
-    <button class="action-btn" style="margin-left:10px;"
-            onclick="handleEirFile()">
-      ⚙️ Generate HVET + EIR + QR
-    </button>
-  </div>
+      <p style="margin-top:8px;">
+        Upload any file. NOVAK will compute a SHA-256 HVET, build a local
+        Execution Identity Receipt (EIR), and generate a QR code that binds
+        the file + HVET + timestamp — all <strong>local in your browser</strong>,
+        no server calls.
+      </p>
 
-  <!-- Results -->
-  <div id="eirResultBlock" style="margin-top:22px; display:none;">
+      <p style="margin-top:6px; font-size:13px; opacity:0.85;">
+        🚫 This public demo is for educational purposes only — NOT for HIPAA-regulated environments.
+        Never use real patients, real claims, or real medical documents here — training data only.
+        NOVAK does not collect, store, transmit, or retain data, but user responsibility applies.
+      </p>
 
-    <h3 style="font-size:17px;">🔐 NOVAK HVET</h3>
-    <pre id="eirHvet"
-         style="margin-top:8px; font-family:'JetBrains Mono', monospace;
-                font-size:13px; white-space:pre-wrap; background:var(--card);
-                padding:10px; border-radius:8px; border:1px solid var(--border);">
-    </pre>
+      <!-- File picker -->
+      <div style="margin-top:18px;">
+        <input type="file" id="eirFileInput" />
+        <button class="action-btn" style="margin-left:10px;"
+                onclick="handleEirFile()">
+          ⚙️ Generate HVET + EIR + QR
+        </button>
+      </div>
 
-    <h3 style="font-size:17px; margin-top:18px;">📜 Execution Identity Receipt (EIR)</h3>
-    <pre id="eirText"
-         style="margin-top:8px; font-family:'JetBrains Mono', monospace;
-                font-size:13px; white-space:pre-wrap; background:var(--card);
-                padding:10px; border-radius:8px; border:1px solid var(--border);">
-    </pre>
+      <!-- Results -->
+      <div id="eirResultBlock" style="margin-top:24px; display:none;">
 
-    <h3 style="font-size:17px; margin-top:18px;">📡 QR Binding (File → HVET → EIR)</h3>
-    <canvas id="eirQrCanvas"
-            style="margin-top:8px; border-radius:8px; background:#fff;"></canvas>
+        <h3 style="font-size:17px;">🔐 NOVAK HVET</h3>
+        <pre id="eirHvet"
+             style="
+               margin-top:8px;
+               font-family:'JetBrains Mono', monospace;
+               font-size:13px;
+               white-space:pre-wrap;
+               overflow-wrap:anywhere;
+               word-break:break-all;
+               background:var(--card);
+               padding:10px;
+               border-radius:8px;
+               border:1px solid var(--border);
+             ">
+        </pre>
 
-    <p style="margin-top:12px; font-size:13px; opacity:0.8;">
-      Scan this QR from any device. It encodes the full EIR JSON, including
-      filename, size, HVET (SHA-256), and ISO-8601 timestamp.
-    </p>
 
-<button class="action-btn" style="margin-top:12px;" onclick="downloadEirPdf()">
-  📄 Download Professional Certificate (PDF)
-</button>
+        <h3 style="font-size:17px; margin-top:18px;">📜 Execution Identity Receipt (EIR)</h3>
+        <pre id="eirText"
+             style="
+               margin-top:8px;
+               font-family:'JetBrains Mono', monospace;
+               font-size:13px;
+               white-space:pre-wrap;
+               overflow-wrap:anywhere;   /* ✅ allow long hashes to wrap */
+               word-break:break-all;     /* ✅ force-break long tokens if needed */
+               background:var(--card);
+               padding:10px;
+               border-radius:8px;
+               border:1px solid var(--border);
+             ">
+        </pre>
 
-  </div>
+        <h3 style="font-size:17px; margin-top:18px;">📡 QR Binding (File → HVET → EIR)</h3>
+        <canvas id="eirQrCanvas"
+                style="margin-top:8px; border-radius:8px; background:#fff;"></canvas>
+
+        <p style="margin-top:12px; font-size:13px; opacity:0.8;">
+          Scan this QR from any device. It encodes the full EIR JSON, including
+          filename, size, HVET (SHA-256), and ISO-8601 timestamp.
+        </p>
+
+        <button class="action-btn" style="margin-top:12px;" onclick="downloadEirPdf()">
+          📄 Download Professional Certificate (PDF)
+        </button>
+
+      </div>
+
+      <!-- ⭐ Bottom-right collapse button -->
+      <button class="collapse-bottom-btn" onclick="collapseDetails(this)">
+        ▲ Collapse
+      </button>
+
+    </div> <!-- end inner -->
+  </details>
 </div>
 
 <!-- =============================================== -->
@@ -1142,144 +1166,153 @@ html[data-theme="dark"] .aud-btn.active {
       🧪 TEST Example — Click to Expand
     </summary>
 
-    <div style="padding:4px 0 0 0; margin-top:8px;">
+    <div style="padding:4px 0 0 0; margin-top:8px; position:relative;">
 
-    <p style="margin-top:8px; font-size:16px; line-height:1.6;">
-      If you type <strong>TEST</strong> (all caps) below example datasets in the "Try It Locally — Hash Any Dataset", NOVAK produces the following results.
-      Change one letter and everything changes — this is known as the <em>avalanche effect</em>.
-    </p>
+      <p style="margin-top:8px; font-size:16px; line-height:1.6;">
+        If you type <strong>TEST</strong> (all caps) below example datasets in the "Try It Locally — Hash Any Dataset", NOVAK produces the following results.
+        Change one letter and everything changes — this is known as the <em>avalanche effect</em>.
+      </p>
 
-    <!-- ================================================= -->
-    <!-- MAIN SHA-256 EXAMPLE -->
-    <!-- ================================================= -->
+      <!-- ================================================= -->
+      <!-- MAIN SHA-256 EXAMPLE -->
+      <!-- ================================================= -->
 
-    <div style="margin-top:26px;">
-      <strong style="font-size:17px;">TEST → SHA-256</strong>
+      <div style="margin-top:26px;">
+        <strong style="font-size:17px;">TEST → SHA-256</strong>
 
-      <div class="hash-box">
-        <span class="hash-value">
-          94ee059335e587e501cc4bf90613e0814f00a7b08bc7c648fd865a2af6a22c2
-        </span>
-        <button class="copy-btn" onclick="copyHash(this)">📋</button>
+        <div class="hash-box">
+          <span class="hash-value">
+            94ee059335e587e501cc4bf90613e0814f00a7b08bc7c648fd865a2af6a22c2
+          </span>
+          <button class="copy-btn" onclick="copyHash(this)">📋</button>
+        </div>
+
+        <div class="hash-meta">
+          <span>🔢 64 hex chars</span>
+          <span>📏 256 bits</span>
+          <span>⚙️ SHA-256</span>
+        </div>
       </div>
 
-      <div class="hash-meta">
-        <span>🔢 64 hex chars</span>
-        <span>📏 256 bits</span>
-        <span>⚙️ SHA-256</span>
-      </div>
-    </div>
+      <!-- ====================================================== -->
+      <!-- 2. CLICKABLE DEFINITIONS -->
+      <!-- ====================================================== -->
+      <br>
+      <details class="sub-collapse">
+        <summary>🔢 What is “64 hex characters”?</summary>
+        <div class="sub-card">
+          <p>
+            A SHA-256 hash is 64 characters long, using digits 0–9 and letters a–f.
+            These represent 256 bits of mathematical output.
+          </p>
+        </div>
+      </details>
 
-<!-- ====================================================== -->
-<!-- 2. CLICKABLE DEFINITIONS -->
-<!-- ====================================================== -->
-<br>
-<details class="sub-collapse">
-  <summary>🔢 What is “64 hex characters”?</summary>
-  <div class="sub-card">
-    <p>
-      A SHA-256 hash is 64 characters long, using digits 0–9 and letters a–f.
-      These represent 256 bits of mathematical output.
-    </p>
-  </div>
-</details>
-<br>
-<details class="sub-collapse">
-  <summary>📏 What are “256 bits”?</summary>
-  <div class="sub-card">
-    <p>
-      “Bits” measure information.  
-      256 bits is astronomically large — impossible to brute force.
-    </p>
-  </div>
-</details>
-<br>
-<details class="sub-collapse">
-  <summary>⚙️ What is SHA-256?</summary>
-  <div class="sub-card">
-    <p>
-      SHA-256 is the most widely trusted secure hash in government, banking,  
-      healthcare, cybersecurity, and NOVAK.
-    </p>
-  </div>
-</details>   <!-- ✅ THIS WAS MISSING -->
+      <br>
+      <details class="sub-collapse">
+        <summary>📏 What are “256 bits”?</summary>
+        <div class="sub-card">
+          <p>
+            “Bits” measure information.  
+            256 bits is astronomically large — impossible to brute force.
+          </p>
+        </div>
+      </details>
 
-    <!-- ================================================= -->
-    <!-- VARIANTS THAT SHOW AVALANCHE EFFECT -->
-    <!-- ================================================= -->
+      <br>
+      <details class="sub-collapse">
+        <summary>⚙️ What is SHA-256?</summary>
+        <div class="sub-card">
+          <p>
+            SHA-256 is the most widely trusted secure hash in government, banking,  
+            healthcare, cybersecurity, and NOVAK.
+          </p>
+        </div>
+      </details>
 
-    <p style="margin-top:26px; font-weight:600; font-size:16px;">
-      Change one letter — watch the avalanche effect:
-    </p>
+      <!-- ================================================= -->
+      <!-- VARIANTS THAT SHOW AVALANCHE EFFECT -->
+      <!-- ================================================= -->
 
-    <div class="variant-block">
-      <strong>Test →</strong>
-      <div class="hash-box hash-warn">
-        <span class="hash-value">
-          532eaabd9574880dbf76b9b8cc00832c20a6ec113d682299550d7a6e0f345e25
-        </span>
-        <button class="copy-btn" onclick="copyHash(this)">📋</button>
-      </div>
-    </div>
+      <p style="margin-top:26px; font-weight:600; font-size:16px;">
+        Change one letter — watch the avalanche effect:
+      </p>
 
-    <div class="variant-block">
-      <strong>test →</strong>
-      <div class="hash-box hash-warn">
-        <span class="hash-value">
-          9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08
-        </span>
-        <button class="copy-btn" onclick="copyHash(this)">📋</button>
-      </div>
-    </div>
-
-    <div class="variant-block">
-      <strong>tEsT →</strong>
-      <div class="hash-box hash-warn">
-        <span class="hash-value">
-          876c5e143c421959adff3ed91b82556c433a279b6369e70592d2c9dc73455ce
-        </span>
-        <button class="copy-btn" onclick="copyHash(this)">📋</button>
-      </div>
-    </div>
-
-    <!-- ================================================= -->
-    <!-- EXPERT MODE: MULTI-HASH COMPARISON -->
-    <!-- ================================================= -->
-
-    <div id="expertPanel" style="display:none; margin-top:34px;">
-      <h3 style="margin-bottom:12px;">🔬 Multi-Algorithm Comparison</h3>
-
-      <p>Select an algorithm below:</p>
-
-      <div style="display:flex; gap:12px; margin-top:10px;">
-        <button class="pill-btn" onclick="showAlgo('sha256')">SHA-256</button>
-        <button class="pill-btn" onclick="showAlgo('sha512')">SHA-512</button>
-        <button class="pill-btn" onclick="showAlgo('sha384')">SHA-384</button>
+      <div class="variant-block">
+        <strong>Test →</strong>
+        <div class="hash-box hash-warn">
+          <span class="hash-value">
+            532eaabd9574880dbf76b9b8cc00832c20a6ec113d682299550d7a6e0f345e25
+          </span>
+          <button class="copy-btn" onclick="copyHash(this)">📋</button>
+        </div>
       </div>
 
-      <div id="algoResult" style="margin-top:20px;"></div>
-    </div>
+      <div class="variant-block">
+        <strong>test →</strong>
+        <div class="hash-box hash-warn">
+          <span class="hash-value">
+            9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08
+          </span>
+          <button class="copy-btn" onclick="copyHash(this)">📋</button>
+        </div>
+      </div>
 
-    <!-- ================================================= -->
-    <!-- Animated Avalanche Demo -->
-    <!-- ================================================= -->
+      <div class="variant-block">
+        <strong>tEsT →</strong>
+        <div class="hash-box hash-warn">
+          <span class="hash-value">
+            876c5e143c421959adff3ed91b82556c433a279b6369e70592d2c9dc73455ce
+          </span>
+          <button class="copy-btn" onclick="copyHash(this)">📋</button>
+        </div>
+      </div>
 
-    <div style="margin-top:42px;">
-      <h3>⚡ Avalanche Effect Visualizer</h3>
-      <p style="margin-bottom:8px;">Click to flip one bit and watch the entire hash explode.</p>
+      <!-- ================================================= -->
+      <!-- EXPERT MODE: MULTI-HASH COMPARISON -->
+      <!-- ================================================= -->
 
-      <button onclick="runAvalanche()" style="padding:10px 18px; border-radius:8px; border:1px solid var(--border); cursor:pointer;">
-        🔥 Flip 1 Bit
+      <div id="expertPanel" style="display:none; margin-top:34px;">
+        <h3 style="margin-bottom:12px;">🔬 Multi-Algorithm Comparison</h3>
+
+        <p>Select an algorithm below:</p>
+
+        <div style="display:flex; gap:12px; margin-top:10px;">
+          <button class="pill-btn" onclick="showAlgo('sha256')">SHA-256</button>
+          <button class="pill-btn" onclick="showAlgo('sha512')">SHA-512</button>
+          <button class="pill-btn" onclick="showAlgo('sha384')">SHA-384</button>
+        </div>
+
+        <div id="algoResult" style="margin-top:20px;"></div>
+      </div>
+
+      <!-- ================================================= -->
+      <!-- Animated Avalanche Demo -->
+      <!-- ================================================= -->
+
+      <div style="margin-top:42px;">
+        <h3>⚡ Avalanche Effect Visualizer</h3>
+        <p style="margin-bottom:8px;">Click to flip one bit and watch the entire hash explode.</p>
+
+        <button onclick="runAvalanche()" style="padding:10px 18px; border-radius:8px; border:1px solid var(--border); cursor:pointer;">
+          🔥 Flip 1 Bit
+        </button>
+
+        <pre id="avalancheOutput"
+             style="margin-top:14px; padding:14px; background:var(--card);
+                    border:1px solid var(--border); font-family:'JetBrains Mono';
+                    min-height:80px; white-space:pre-wrap;"></pre>
+        
+      </div>
+
+      <!-- ⭐ Bottom-right collapse button -->
+      <button class="collapse-bottom-btn" onclick="collapseDetails(this)">
+        ▲ Collapse
       </button>
 
-      <pre id="avalancheOutput"
-           style="margin-top:14px; padding:14px; background:var(--card);
-                  border:1px solid var(--border); font-family:'JetBrains Mono';
-                  min-height:80px; white-space:pre-wrap;"></pre>
-      
-    </div> <!-- end TEST inner content -->
+    </div>
   </details>
-</div> <!-- end TEST Example card -->
+</div>
 
 <!-- ======================================================= -->
 <!-- ⭐ NOVAK SHA EDUCATION SUITE — SINGLE EXPANDABLE MODULE -->
@@ -1291,48 +1324,48 @@ html[data-theme="dark"] .aud-btn.active {
       🔐 NOVAK SHA Knowledge Center — Simple → Deep → Interactive → Technical → Diagrams → NOVAK Use
     </summary>
 
-    <div style="padding:2px 0 0 0; margin-top:10px; font-size:16px; line-height:1.6;">
+    <div style="padding:2px 0 0 0; margin-top:10px; font-size:16px; line-height:1.6; position:relative;">
 
-    <!-- =================================================== -->
-    <!-- 1. SIMPLE EXPLANATION -->
-    <!-- =================================================== -->
-    <h2 style="margin-top:0;">🟦 1. SHA Explained (Simple Terms)</h2>
+      <!-- =================================================== -->
+      <!-- 1. SIMPLE EXPLANATION -->
+      <!-- =================================================== -->
+      <h2 style="margin-top:0;">🟦 1. SHA Explained (Simple Terms)</h2>
 
-    <p>
-      <strong>SHA</strong> stands for <strong>Secure Hash Algorithm</strong>.
-      Think of it like putting information into a magic blender:
-    </p>
+      <p>
+        <strong>SHA</strong> stands for <strong>Secure Hash Algorithm</strong>.
+        Think of it like putting information into a magic blender:
+      </p>
 
-    <pre class="diagram-box">
+      <pre class="diagram-box">
 INPUT  →  [ SHA Blender ]  →  UNIQUE OUTPUT
-    </pre>
+      </pre>
 <br>
-    <p>
-      You can put in:
-      <br>• A word<br>
-      • A VA claim<br> 
-      • A VIN<br>  
-      • A PDF<br>  
-      • A medical note<br>  
-      • A whole book
-    </p>
+      <p>
+        You can put in:
+        <br>• A word<br>
+        • A VA claim<br> 
+        • A VIN<br>  
+        • A PDF<br>  
+        • A medical note<br>  
+        • A whole book
+      </p>
 <br>
-    <p>
-      SHA turns it all into a <strong>64 hex character one-way fingerprint</strong>.
-    </p>
+      <p>
+        SHA turns it all into a <strong>64 hex character one-way fingerprint</strong>.
+      </p>
 <br>
-    <p style="font-weight:600;">
-      Change even ONE letter → the entire fingerprint becomes totally different.
-    </p>
+      <p style="font-weight:600;">
+        Change even ONE letter → the entire fingerprint becomes totally different.
+      </p>
 <br>
-    <p>
-      One tiny change gives a totally different fingerprint.  
-      This is how NOVAK spots invisible tampering.
-    </p>
+      <p>
+        One tiny change gives a totally different fingerprint.  
+        This is how NOVAK spots invisible tampering.
+      </p>
     
-<!-- ====================================================== -->
-<!-- 2. CLICKABLE DEFINITIONS -->
-<!-- ====================================================== -->
+      <!-- ====================================================== -->
+      <!-- 2. CLICKABLE DEFINITIONS -->
+      <!-- ====================================================== -->
 <br>
 <details class="sub-collapse">
   <summary>🔢 What is “64 hex characters”?</summary>
@@ -1362,11 +1395,11 @@ INPUT  →  [ SHA Blender ]  →  UNIQUE OUTPUT
       healthcare, cybersecurity, and NOVAK.
     </p>
   </div>
-</details>   <!-- ✅ THIS WAS MISSING -->
+</details>
 
-<!-- =================================================== -->
-<!-- 2. SHA FAMILY OVERVIEW WITH COLOR CODE -->
-<!-- =================================================== -->
+      <!-- =================================================== -->
+      <!-- 2. SHA FAMILY OVERVIEW WITH COLOR CODE -->
+      <!-- =================================================== -->
 <hr style="margin:26px 0; opacity:0.35;">
 
 <h2>🟪 2. The SHA Family (Versions & Security)</h2>
@@ -1404,9 +1437,9 @@ INPUT  →  [ SHA Blender ]  →  UNIQUE OUTPUT
 
 </div>
 
-<!-- =================================================== -->
-<!-- 3. REAL-WORLD USAGE MAP -->
-<!-- =================================================== -->
+      <!-- =================================================== -->
+      <!-- 3. REAL-WORLD USAGE MAP -->
+      <!-- =================================================== -->
 <hr style="margin:26px 0; opacity:0.35;">
 
 <h2>🟩 3. Where SHA Is Used in Real Life</h2>
@@ -1455,9 +1488,9 @@ INPUT  →  [ SHA Blender ]  →  UNIQUE OUTPUT
   </div>
 </details>
 
-<!-- =================================================== -->
-<!-- 4. TECHNICAL BREAKDOWN -->
-<!-- =================================================== -->
+      <!-- =================================================== -->
+      <!-- 4. TECHNICAL BREAKDOWN -->
+      <!-- =================================================== -->
 <hr style="margin:26px 0; opacity:0.35;">
 
 <h2>🧠 4. Technical Breakdown (For Engineers & Auditors)</h2>
@@ -1484,9 +1517,9 @@ INPUT  →  [ SHA Blender ]  →  UNIQUE OUTPUT
   <strong>No one can create two different documents with the same hash.</strong>
 </p>
 
-<!-- =================================================== -->
-<!-- 5. AVALANCHE EFFECT -->
-<!-- =================================================== -->
+      <!-- =================================================== -->
+      <!-- 5. AVALANCHE EFFECT -->
+      <!-- =================================================== -->
 <hr style="margin:26px 0; opacity:0.35;">
 
 <h2>⚡ 5. Avalanche Effect (Why SHA Is Powerful)</h2>
@@ -1509,10 +1542,9 @@ INPUT  →  [ SHA Blender ]  →  UNIQUE OUTPUT
   This reveals tampering even when human eyes cannot.
 </p>
 
-
-<!-- =================================================== -->
-<!-- 6. WHY NOVAK USES SHA-256 -->
-<!-- =================================================== -->
+      <!-- =================================================== -->
+      <!-- 6. WHY NOVAK USES SHA-256 -->
+      <!-- =================================================== -->
 <hr style="margin:26px 0; opacity:0.35;">
 
 <h2>🔵 6. Why NOVAK Chooses SHA-256</h2>
@@ -1520,11 +1552,11 @@ INPUT  →  [ SHA Blender ]  →  UNIQUE OUTPUT
 <p>NOVAK uses <strong>SHA-256</strong> because it is:</p><br>
 
 <ul style="margin-left:20px;">
-  ✔ FIPS-approved and federally recognized
-  ✔ Supported natively in WebCrypto (no server required)
-  ✔ Resistant to collisions and tampering
-  ✔ Hardware-accelerated on all major CPUs
-  <✔ Fast enough for real-time execution-gating
+  ✔ FIPS-approved and federally recognized<br>
+  ✔ Supported natively in WebCrypto (no server required)<br>
+  ✔ Resistant to collisions and tampering<br>
+  ✔ Hardware-accelerated on all major CPUs<br>
+  ✔ Fast enough for real-time execution-gating<br>
   ✔ Trusted across VA, DoD, banking, cybersecurity
 </ul>
 
@@ -1533,10 +1565,9 @@ INPUT  →  [ SHA Blender ]  →  UNIQUE OUTPUT
   <strong>No system may ACT unless SHA-256 proves the data is unchanged.</strong>
 </p>
 
-
-<!-- =================================================== -->
-<!-- 7. WHY NOVAK IS MODULAR (NEW SECTION) -->
-<!-- =================================================== -->
+      <!-- =================================================== -->
+      <!-- 7. WHY NOVAK IS MODULAR -->
+      <!-- =================================================== -->
 <hr style="margin:26px 0; opacity:0.35;">
 
 <h2>🌀 7. Why NOVAK Is Modular (Hash-Agnostic Architecture)</h2>
@@ -1546,32 +1577,32 @@ INPUT  →  [ SHA Blender ]  →  UNIQUE OUTPUT
   It is a <strong>modular cryptographic system</strong> where the hashing engine is 
   a replaceable component.
 </p>
-
+<br>
 <p>Supported hash engines:</p>
-
+<br>
 <ul style="margin-left:20px;">
-🔹 SHA-256 (default)
-🔹 SHA-384 (DoD Suite-B)
-🔹 SHA-512 (high-security deployments)
-🔹 SHA-3-256 (Keccak)
+🔹 SHA-256 (default)<br>
+🔹 SHA-384 (DoD Suite-B)<br>
+🔹 SHA-512 (high-security deployments)<br>
+🔹 SHA-3-256 (Keccak)<br>
 🔹 Any future NIST-approved function
 </ul>
-
+<br>
 <p>
   NOVAK’s laws (<strong>L0–L15</strong>) never mandate a specific algorithm — only:
 </p>
-
+<br>
 <table class="novak-table">
   <tbody>
     <tr><td><strong>“Use a federally-approved, collision-resistant function.”</strong></td></tr>
   </tbody>
 </table>
-
+<br>
 <p>This guarantees NOVAK remains future-proof:</p>
-
+<br>
 <ul style="margin-left:20px;">
-✔ Agencies can choose the algorithm matching their policy
-✔ Changing algorithms does not change NOVAK workflows
+✔ Agencies can choose the algorithm matching their policy<br>
+✔ Changing algorithms does not change NOVAK workflows<br>
 ✔ Hardware-acceleration stays fully supported
 </ul>
 
@@ -1579,9 +1610,9 @@ INPUT  →  [ SHA Blender ]  →  UNIQUE OUTPUT
   NOVAK’s integrity model stays identical — only the math block swaps.
 </p>
 
-<!-- =================================================== -->
-<!-- 8. HOW NOVAK USES SHA DIFFERENTLY (THE GATE MODEL) -->
-<!-- =================================================== -->
+      <!-- =================================================== -->
+      <!-- 8. HOW NOVAK USES SHA DIFFERENTLY (THE GATE MODEL) -->
+      <!-- =================================================== -->
 
 <hr style="margin:26px 0; opacity:0.35;">
 
@@ -1682,7 +1713,7 @@ NOVAK GATE (Allow? Block?)
 </details>
 
 <!-- =================================================== -->
-<!-- 8B-1. ANIMATION: HR → HD → HO → HVET                -->
+<!-- 8B-1. ANIMATION: HR → HD → HO → HVET -->
 <!-- =================================================== -->
 
 <div class="card" style="margin-top:24px; padding:20px; text-align:center;">
@@ -1759,9 +1790,9 @@ async function runNovakFlowAnim() {
 }
 </script>
 
-<!-- =================================================== -->
-<!-- 8C. DIAGRAM — SHA TODAY vs NOVAK -->
-<!-- =================================================== -->
+      <!-- =================================================== -->
+      <!-- 8C. DIAGRAM — SHA TODAY vs NOVAK -->
+      <!-- =================================================== -->
 
 <h3 style="margin-top:26px; font-size:20px; text-align:center;">
 📊 SHA Today vs NOVAK — Side-By-Side
@@ -1782,9 +1813,9 @@ NOVAK Protocol       | BEFORE action     | Input=Rule=Output match | ✅ YES
   NOVAK is the <strong>first system</strong> to use SHA as a <em>pre-execution cryptographic gate</em>.
 </p>
 
-<!-- =================================================== -->
-<!-- 8D. WHY THIS ISN'T DONE TODAY -->
-<!-- =================================================== -->
+      <!-- =================================================== -->
+      <!-- 8D. WHY THIS ISN'T DONE TODAY -->
+      <!-- =================================================== -->
 
 <h3 style="margin-top:32px; font-size:20px;">❓ Why Isn’t This Already Being Done?</h3>
 
@@ -1800,9 +1831,9 @@ NOVAK Protocol       | BEFORE action     | Input=Rule=Output match | ✅ YES
   for automated action.
 </p>
 
-<!-- =================================================== -->
-<!-- 8E. THE ENTIRE DIFFERENCE SUMMARIZED -->
-<!-- =================================================== -->
+      <!-- =================================================== -->
+      <!-- 8E. THE ENTIRE DIFFERENCE SUMMARIZED -->
+      <!-- =================================================== -->
 
 <h3 style="margin-top:26px; font-size:20px;">🔑 The Entire Difference in One Sentence</h3>
 
@@ -1810,7 +1841,12 @@ NOVAK Protocol       | BEFORE action     | Input=Rule=Output match | ✅ YES
   <strong>SHA today tells you what happened.</strong><br><br>
   <strong>NOVAK uses SHA to decide what is allowed to happen.</strong>
 </p>
- 
+
+      <!-- ⭐ Bottom-right collapse button -->
+      <button class="collapse-bottom-btn" onclick="collapseDetails(this)">
+        ▲ Collapse
+      </button>
+
     </div> <!-- end SHA inner content -->
   </details>
 </div> <!-- end SHA Knowledge Center card -->
@@ -1939,50 +1975,61 @@ ${mutated}
 <!-- ===================================================== -->
 <!-- Example Dataset Loader                                 -->
 <!-- ===================================================== -->
+
 <script>
 function loadExample(type) {
-  const input = document.getElementById("novakInput");
-  if (!input) return;
+  // Use the main NOVAK input box
+  const textarea = document.getElementById("novakInput");
+  if (!textarea) return;
 
   const examples = {
-    va: `VA Disability Claim Example:
-- Veteran: John Doe
-- Claim Type: PTSD
-- Evidence: Service records, buddy statement
-- C&P Exam: Pending
-- Status: Under Review`,
+    va: `VA Disability Claim Example
+--------------------------------
+Veteran: John Doe
+SSN: 123-45-6789
+Condition: Lumbar Spine Degeneration
+Claim Date: 2024-02-10
+Notes: Chronic pain, range of motion loss.`,
+    
+    finance: `Financial Transaction Example
+--------------------------------
+FROM: ACC# 4882203
+TO: ACC# 2293842
+AMOUNT: $4,900.22
+TYPE: ACH TRANSFER
+DATE: 2025-01-02`,
 
-    finance: `Financial Transaction Example:
-{
-  "from": "Account 3321",
-  "to": "Account 9944",
-  "amount": 1275.33,
-  "currency": "USD",
-  "timestamp": "2025-01-14T09:33:22Z"
-}`,
+    robotics: `Robotics Command Example
+--------------------------------
+MOVE_ARM: +12.2°
+GRIP: CLOSE
+TARGET: COORD(4.2, 9.1, 1.0)
+AUTH: SESSION-99821`,
 
-    robotics: `Robotics Command Packet:
-MOVE 12.8m
-ROTATE 43°
-GRIPPER: OPEN
-SCAN: TARGET-LOCK
-EXECUTE: BLOCK-12`,
+    system: `System Log Example
+--------------------------------
+[WARN] 2025-11-01T14:05:22Z CHECKSUM_MISMATCH
+[INFO] 2025-11-01T14:05:23Z RETRYING
+[OK]   2025-11-01T14:05:24Z SUCCESS`,
 
-    system: `AI System Log Entry:
-[INFO] Model checkpoint loaded.
-[WARN] Drift detected in layer 13.
-[TRACE] Integrity recheck triggered.`,
-
-    legal: `Legal Filing Example:
-Case #22-4819-B
-Plaintiff: Jane Smith
-Defendant: Northstar Holdings
-Filing: Motion to Compel Discovery
-Submitted: 10/22/2025`
+    legal: `Legal Filing Example
+--------------------------------
+Case: 2025-CV-99231
+Plaintiff: A. Johnson
+Defendant: R. Smith
+Motion: Summary Judgment`
   };
 
-  input.value = examples[type] || "";
-  updateHashes();   // Auto-run hashing when dataset loads
+  const value = examples[type] || "";
+  textarea.value = value;
+
+  // Recalculate hashes + update the live avalanche view
+  if (typeof updateHashes === "function") {
+    updateHashes();
+  }
+  if (typeof updateAutoDiff === "function") {
+    updateAutoDiff(value);
+  }
 }
 </script>
 
@@ -2032,9 +2079,10 @@ async function updateHashes() {
     return;
   }
 
-const selected = [...document.querySelectorAll('.hashAlgo')]
+const selected = Array.from(document.querySelectorAll('.hashAlgo'))
   .filter(c => c.checked)
   .map(c => c.value);
+
 
   let html = "";
   let sha256Hash = null;
@@ -2195,14 +2243,13 @@ async function startAvalanche() {
         Select a dataset below — it instantly loads into the input below so you can hash it locally.
       </p>
 
-      <div class="pill-row" style="margin-top:16px; display:flex; flex-wrap:wrap; gap:14px;">
-<button class="dataset-btn" onclick="loadExample('va')">🩺 VA Disability Claim</button>
-<button class="dataset-btn" onclick="loadExample('finance')">💰 Financial Transaction</button>
-<button class="dataset-btn" onclick="loadExample('robotics')">🤖 Robotics Command</button>
-<button class="dataset-btn" onclick="loadExample('system')">🧠 System Log</button>
-<button class="dataset-btn" onclick="loadExample('legal')">⚖️ Legal Filing</button>
-
-      </div>
+<div class="pill-row" style="margin-top:16px; display:flex; flex-wrap:wrap; gap:14px;">
+  <button class="dataset-btn" onclick="setDatasetExample('va')">🩺 VA Disability Claim</button>
+  <button class="dataset-btn" onclick="setDatasetExample('finance')">💰 Financial Transaction</button>
+  <button class="dataset-btn" onclick="setDatasetExample('robotics')">🤖 Robotics Command</button>
+  <button class="dataset-btn" onclick="setDatasetExample('system')">🧠 System Log</button>
+  <button class="dataset-btn" onclick="setDatasetExample('legal')">⚖️ Legal Filing</button>
+</div>
     </div>
   </details>
 </div>
@@ -2212,12 +2259,15 @@ async function startAvalanche() {
 
   <h3 class="section-title" style="font-size:20px;">Try It Locally — Hash Any Dataset</h3>
 
+<button id="resetTryIt" class="action-btn" style="margin-top:10px;">
+  🔄 Reset Input & Hashes
+</button>
+
 <textarea id="novakInput"
           oninput="updateAutoDiff(this.value)"
           placeholder="Example: VA claim, invoice, contract, JSON, SQL, XML..."
           style="width:100%; height:170px; margin-top:16px; font-family:'JetBrains Mono', monospace;
                  font-size:14px; padding:12px;"></textarea>
-
 
 
   <!-- ✅ Hash Algorithm Selector -->
@@ -2283,21 +2333,65 @@ async function startAvalanche() {
         Waiting for input…
       </div>
 
-      <!-- LIVE NOVAK CHAIN: HR / HD / HO / HVET -->
-      <div id="liveNovakChain" style="margin-top:18px; font-family:'JetBrains Mono', monospace; font-size:13px;">
-        <strong>HR (Rule Hash):</strong>
-        <pre id="liveHR" class="diagram-box" style="margin-top:4px; white-space:pre-wrap;"></pre>
+<!-- ========================================= -->
+<!-- 🔗 LIVE NOVAK CHAIN — One-Line Hash Layout -->
+<!-- ========================================= -->
 
-        <strong>HD (Data Hash):</strong>
-        <pre id="liveHD" class="diagram-box" style="margin-top:4px; white-space:pre-wrap;"></pre>
+<style>
+  .novak-hash-row {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+  }
+  .novak-hash-box {
+    flex: 1;
+    min-width: 220px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+  }
+  .novak-hash-box label {
+    font-weight: 600;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .novak-hash-box code {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 15px;
+    word-break: break-all;
+    display: block;
+    padding: 6px 0;
+  }
+</style>
 
-        <strong>HO (Output Hash):</strong>
-        <pre id="liveHO" class="diagram-box" style="margin-top:4px; white-space:pre-wrap;"></pre>
+<div class="novak-hash-row" id="liveNovakChain">
 
-        <strong>HVET (Binding Hash = HR + HD + HO):</strong>
-        <pre id="liveHVET" class="diagram-box" style="margin-top:4px; white-space:pre-wrap;"></pre>
-      </div>
+  <div class="novak-hash-box">
+    <label>HR (Rule Hash)</label>
+    <code id="liveHR"></code>
+  </div>
 
+  <div class="novak-hash-box">
+    <label>HD (Data Hash)</label>
+    <code id="liveHD"></code>
+  </div>
+
+  <div class="novak-hash-box">
+    <label>HO (Output Hash)</label>
+    <code id="liveHO"></code>
+  </div>
+
+  <div class="novak-hash-box">
+    <label>HVET (HR + HD + HO)</label>
+    <code id="liveHVET"></code>
+  </div>
+
+</div>
 
       <!-- RGAC -->
       <div class="card" style="margin-top:26px; padding:18px;">
@@ -2325,7 +2419,6 @@ async function startAvalanche() {
     <pre id="expertHash"
          style="margin-top:14px; font-family:'JetBrains Mono', monospace; white-space:pre-wrap;"></pre>
 
-    <hr style="margin:32px 0; opacity:0.4;">
 
     <!-- ====================================================== -->
     <!-- MODE 2: DIGEST VIEWER                                 -->
@@ -2386,43 +2479,45 @@ async function startAvalanche() {
 <!-- Avalanche stats will be injected here -->
 </pre>
 
-      <!-- RECEIPT -->
-      <div class="card" style="margin-top:26px; padding:20px;">
-        <h2 class="section-title">Integrity Receipt</h2>
-
-        <p>
-          NOVAK generates a tamper-proof receipt proving what existed, when, and under what rules —
-          useful for courts, claims, audits, cybersecurity, safety systems, and AI oversight.
-        </p>
-
-        <button class="action-btn" onclick="generateReceipt()" style="margin-top:12px;">
-          Generate Receipt
-        </button>
-
-<!-- JSON receipt -->
-<pre id="receiptOutput"
-     style="margin-top:16px;
-            font-family:'JetBrains Mono', monospace;
-            font-size:14px;
-            white-space:pre-wrap;"></pre>
-
-<!-- QR code -->
-<div id="qrContainer" 
-     style="margin-top:20px; text-align:center;"></div>
-
-<!-- JSON download link -->
-<a id="jsonDownloadLink"
-   style="margin-top:18px; display:none; text-decoration:underline; cursor:pointer;">
-   ⬇ Download Receipt JSON
-</a>
-
-      </div>
-
-    </div><!-- inner NOVAK block -->
+     </div><!-- inner NOVAK block -->
 
   </div><!-- autoVerifyBlock -->
 
 </div><!-- outer wrapper -->
+
+<!-- =============================================== -->
+<!-- 🔏 NOVAK INTEGRITY RECEIPT (SEPARATE CARD) -->
+<!-- =============================================== -->
+
+<div class="card" style="margin-top:28px; padding:20px;">
+  <h2 class="section-title">Integrity Receipt</h2>
+
+  <p>
+    NOVAK generates a tamper-proof receipt proving what existed, when, and under what rules —
+    useful for courts, claims, audits, cybersecurity, safety systems, and AI oversight.
+  </p>
+
+  <button class="action-btn" onclick="generateReceipt()" style="margin-top:12px;">
+    Generate Receipt
+  </button>
+
+  <!-- JSON receipt -->
+  <pre id="receiptOutput"
+       style="margin-top:16px;
+              font-family:'JetBrains Mono', monospace;
+              font-size:14px;
+              white-space:pre-wrap;"></pre>
+
+  <!-- QR code -->
+  <div id="qrContainer" 
+       style="margin-top:20px; text-align:center;"></div>
+
+  <!-- JSON download link -->
+  <a id="jsonDownloadLink"
+     style="margin-top:18px; display:none; text-decoration:underline; cursor:pointer;">
+     ⬇ Download Receipt JSON
+  </a>
+</div>
 
 <!-- =============================================== -->
 <!-- 📌 WHAT CAN I DO WITH THIS HASH? -->
@@ -2701,16 +2796,16 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
 </div>
 
 <!-- ======================================================= -->
-<!-- 🚫 WHY NOVAK MAKES MALWARE & SPYWARE IMPOSSIBLE -->
+<!-- 🛡️ WHY NOVAK MAKES MALWARE & SPYWARE IMPOSSIBLE -->
 <!-- ======================================================= -->
 
 <div class="card" style="margin-top:28px; padding:22px;">
   <details>
     <summary style="cursor:pointer; font-size:18px; font-weight:600;">
-      🚫 Why NOVAK Makes Malware & Spyware Impossible
+      🧱 Why NOVAK Makes Malware & Spyware Impossible
     </summary>
 
-    <div style="margin-top:14px; line-height:1.6;">
+    <div style="margin-top:14px; line-height:1.6; position:relative;">
 
       <h2 style="margin-bottom:10px; font-size:22px;">
         The End of Antivirus — The Beginning of Proof-Before-Action Security
@@ -2780,6 +2875,11 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
         <strong>Just math.</strong>
       </p>
 
+      <!-- ⭐ Bottom-right collapse button -->
+      <button class="collapse-bottom-btn" onclick="collapseDetails(this)">
+        ▲ Collapse
+      </button>
+
     </div>
   </details>
 </div>
@@ -2791,79 +2891,82 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
 <div class="card" style="margin-top:28px; padding:22px;">
   <details>
     <summary style="cursor:pointer; font-size:18px; font-weight:600;">
-    🚫 What NOVAK Does to Robocalls & Telemarketing
+      📵 What NOVAK Does to Robocalls & Telemarketing
     </summary>
 
-    <div style="margin-top:14px; line-height:1.6;">
+    <div style="margin-top:14px; line-height:1.6; position:relative;">
 
-  </summary>
+      <p>
+        Robocalls exist because today’s phone networks allow actions first and ask questions later.
+        Caller ID can be spoofed, automation runs without proof, and unauthorized scripts execute before
+        anyone checks legitimacy.
+      </p>
 
-    <p>
-      Robocalls exist because today’s phone networks allow actions first and ask questions later.
-      Caller ID can be spoofed, automation runs without proof, and unauthorized scripts execute before
-      anyone checks legitimacy.
-    </p>
+      <p style="margin-top:12px;">
+        NOVAK ends this entirely using Proof-Before-Action execution.
+      </p>
 
-    <p style="margin-top:12px;">
-      NOVAK ends this entirely using Proof-Before-Action execution.
-    </p>
+      <!-- 🚫 Robocalls Cannot Execute -->
+      <h3 style="margin-top:22px;">🚫 Robocalls Cannot Execute</h3>
 
-    <!-- 🚫 Robocalls Cannot Execute -->
-    <h3 style="margin-top:22px;">🚫 Robocalls Cannot Execute</h3>
+      <p>
+        Every attempted call must produce a valid <strong>Execution Identity Receipt (EIR)</strong>:
+      </p>
 
-    <p>
-      Every attempted call must produce a valid <strong>Execution Identity Receipt (EIR)</strong>:
-    </p>
+      <ul style="margin-left:20px; margin-top:8px;">
+        <li>Input hash must match the real caller</li>
+        <li>Rule hash must match an allowed calling purpose</li>
+        <li>Output hash must match an approved pattern</li>
+        <li>No spoofing, tampering, or hidden automation is possible</li>
+      </ul>
 
-    <ul style="margin-left:20px; margin-top:8px;">
-      <li>Input hash must match the real caller</li>
-      <li>Rule hash must match an allowed calling purpose</li>
-      <li>Output hash must match an approved pattern</li>
-      <li>No spoofing, tampering, or hidden automation is possible</li>
-    </ul>
+      <p style="margin-top:8px; font-weight:600;">
+        If anything fails — even a single bit — NOVAK mathematically blocks the call 
+        <strong>before it ever rings.</strong>
+      </p>
 
-    <p style="margin-top:8px; font-weight:600;">
-      If anything fails — even a single bit — NOVAK mathematically blocks the call 
-      <strong>before it ever rings.</strong>
-    </p>
+      <!-- 🔐 Telemarketing Requires Approval -->
+      <h3 style="margin-top:26px;">🔐 Telemarketing Requires Your Explicit Approval</h3>
 
-    <!-- 🔐 Telemarketing Requires Approval -->
-    <h3 style="margin-top:26px;">🔐 Telemarketing Requires Your Explicit Approval</h3>
+      <p>
+        Marketing, political outreach, surveys, or automated notifications must prove that:
+      </p>
 
-    <p>
-      Marketing, political outreach, surveys, or automated notifications must prove that:
-    </p>
+      <ul style="margin-left:20px; margin-top:8px;">
+        <li>You opted in</li>
+        <li>The caller is genuine</li>
+        <li>The category of call is allowed for you</li>
+      </ul>
 
-    <ul style="margin-left:20px; margin-top:8px;">
-      <li>You opted in</li>
-      <li>The caller is genuine</li>
-      <li>The category of call is allowed for you</li>
-    </ul>
+      <p style="margin-top:8px;">
+        Without cryptographic permission, the call is rejected by rule.
+        <strong>No exceptions. No loopholes.</strong>
+      </p>
 
-    <p style="margin-top:8px;">
-      Without cryptographic permission, the call is rejected by rule.
-      <strong>No exceptions. No loopholes.</strong>
-    </p>
+      <!-- 🛑 Stops All Phone-Based Scams -->
+      <h3 style="margin-top:26px;">🛑 Stops All Phone-Based Scams</h3>
 
-    <!-- 🛑 Stops All Phone-Based Scams -->
-    <h3 style="margin-top:26px;">🛑 Stops All Phone-Based Scams</h3>
+      <p>The following scams simply cannot execute:</p>
 
-    <p>The following scams simply cannot execute:</p>
+      <ul style="margin-left:20px; margin-top:8px;">
+        <li>IRS scams</li>
+        <li>Social Security fraud calls</li>
+        <li>Fake Medicare outreach</li>
+        <li>Tech support scams</li>
+        <li>Banking & wire fraud calls</li>
+        <li>AI voice impersonation scams</li>
+        <li>Overseas call-center spoofing</li>
+      </ul>
 
-    <ul style="margin-left:20px; margin-top:8px;">
-      <li>IRS scams</li>
-      <li>Social Security fraud calls</li>
-      <li>Fake Medicare outreach</li>
-      <li>Tech support scams</li>
-      <li>Banking & wire fraud calls</li>
-      <li>AI voice impersonation scams</li>
-      <li>Overseas call-center spoofing</li>
-    </ul>
+      <p style="margin-top:10px; font-weight:600;">
+        NOVAK does not reject these calls.<br><br>
+        It prevents them from existing.
+      </p>
 
-    <p style="margin-top:10px; font-weight:600;">
-      NOVAK does not reject these calls.<br><br>
-      It prevents them from existing.
-    </p>
+      <!-- ⭐ Bottom-right collapse button -->
+      <button class="collapse-bottom-btn" onclick="collapseDetails(this)">
+        ▲ Collapse
+      </button>
 
     </div>
   </details>
@@ -2876,62 +2979,66 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
 <div class="card" style="margin-top:28px; padding:22px;">
   <details>
     <summary style="cursor:pointer; font-size:18px; font-weight:600;">
-    🏛️ What NOVAK Does to Title Theft (Property, Vehicles, Deeds)
-  </summary>
+      🏛️ What NOVAK Does to Title Theft (Property, Vehicles, Deeds)
+    </summary>
 
-    <div style="margin-top:14px; line-height:1.6;">
+    <div style="margin-top:14px; line-height:1.6; position:relative;">
 
-  </summary>
+      <p>
+        Title theft exists because current systems accept documents and transfers 
+        <strong>without cryptographic proof</strong> that the input, rules, or output are correct. 
+        Criminals exploit paperwork, PDF editing, identity fraud, or insider access.
+      </p>
 
-    <p>
-      Title theft exists because current systems accept documents and transfers 
-      <strong>without cryptographic proof</strong> that the input, rules, or output are correct. 
-      Criminals exploit paperwork, PDF editing, identity fraud, or insider access.
-    </p>
+      <ul style="margin-left:20px; margin-top:12px;">
+        <li>Forged deeds or signatures</li>
+        <li>Fake title documents</li>
+        <li>Tampered PDFs and registry entries</li>
+        <li>Unauthorized ownership transfers</li>
+        <li>Deed manipulation during refinancing</li>
+        <li>Elder exploitation title transfers</li>
+        <li>VIN/title swapping for vehicles</li>
+      </ul>
 
-    <ul style="margin-left:20px; margin-top:12px;">
-      <li>Forged deeds or signatures</li>
-      <li>Fake title documents</li>
-      <li>Tampered PDFs and registry entries</li>
-      <li>Unauthorized ownership transfers</li>
-      <li>Deed manipulation during refinancing</li>
-      <li>Elder exploitation title transfers</li>
-      <li>VIN/title swapping for vehicles</li>
-    </ul>
+      <h3 style="margin-top:24px;">🔐 NOVAK Forces Proof-Before-Action</h3>
+      <br> 
+      <p>
+        With NOVAK, a title cannot be transferred unless all three match exactly:
+      </p>
+      <br>
+      <ul style="margin-left:20px;">
+✔ The <strong>input document</strong> is unchanged
+✔ The <strong>rule</strong> (state law) is correct
+✔ The <strong>output</strong> (new owner) matches the rule
+✔ The entire chain forms an unbroken <strong>Execution Identity Receipt (EIR)</strong>
+      </ul>
 
-    <h3 style="margin-top:24px;">🔐 NOVAK Forces Proof-Before-Action</h3>
-<br> 
-   <p>
-      With NOVAK, a title cannot be transferred unless all three match exactly:
-    </p>
-<br>
-    <ul style="margin-left:20px;">
-      <li>✔ The <strong>input document</strong> is unchanged</li>
-      <li>✔ The <strong>rule</strong> (state law) is correct</li>
-      <li>✔ The <strong>output</strong> (new owner) matches the rule</li>
-      <li>✔ The entire chain forms an unbroken <strong>Execution Identity Receipt (EIR)</strong></li>
-    </ul>
+      <p style="margin-top:12px;">
+        If anything is tampered with — even 1 bit — NOVAK mathematically refuses the transfer.
+      </p>
 
-    <p style="margin-top:12px;">
-      If anything is tampered with — even 1 bit — NOVAK mathematically refuses the transfer.
-    </p>
+      <h3 style="margin-top:24px;">🚫 This Eliminates Entire Classes of Title Fraud</h3>
 
-    <h3 style="margin-top:24px;">🚫 This Eliminates Entire Classes of Title Fraud</h3>
-    <ul style="margin-left:20px;">
-      <li>❌ Forged real estate transfers</li>
-      <li>❌ Fraudulent vehicle title swaps</li>
-      <li>❌ Mortgage/title manipulation</li>
-      <li>❌ Registry tampering</li>
-      <li>❌ Fake lien releases</li>
-      <li>❌ Deed fraud during escrow or refinancing</li>
-      <li>❌ Fake ownership filings</li>
-      <li>❌ Synthetic identity title theft schemes</li>
-    </ul>
+      <ul style="margin-left:20px;">
+❌ Forged real estate transfers
+❌ Fraudulent vehicle title swaps
+❌ Mortgage/title manipulation
+❌ Registry tampering
+❌ Fake lien releases
+❌ Deed fraud during escrow or refinancing
+❌ Fake ownership filings
+❌ Synthetic identity title theft schemes
+      </ul>
 
-    <p style="margin-top:16px; font-weight:600;">
-      NOVAK makes title fraud <strong>mathematically impossible to execute</strong> — 
-      not detected later, but prevented entirely.
-    </p>
+      <p style="margin-top:16px; font-weight:600;">
+        NOVAK makes title fraud <strong>mathematically impossible to execute</strong> — 
+        not detected later, but prevented entirely.
+      </p>
+
+      <!-- ⭐ Bottom-right collapse button -->
+      <button class="collapse-bottom-btn" onclick="collapseDetails(this)">
+        ▲ Collapse
+      </button>
 
     </div>
   </details>
@@ -2943,65 +3050,274 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
 <div class="card" style="margin-top:28px; padding:20px;">
   <details>
     <summary style="cursor:pointer; font-size:18px; font-weight:600;">
-    🪪 What NOVAK Does to Identity Theft & Synthetic Identity Fraud
-  </summary>
+      🪪 What NOVAK Does to Identity Theft & Synthetic Identity Fraud
+    </summary>
 
-    <div style="margin-top:16px; font-size:15px; line-height:1.55;">
+    <div style="margin-top:16px; font-size:15px; line-height:1.55; position:relative;">
 
-    <p>
-      Identity theft and synthetic identity fraud thrive because systems accept 
-      <strong>information without mathematical proof of correctness</strong>.  
-      Criminals assemble identities from stolen SSNs, forged documents, edited PDFs, 
-      or mismatched data that no current system detects before harm occurs.
-    </p>
+      <p>
+        Identity theft and synthetic identity fraud thrive because systems accept 
+        <strong>information without mathematical proof of correctness</strong>.  
+        Criminals assemble identities from stolen SSNs, forged documents, edited PDFs, 
+        or mismatched data that no current system detects before harm occurs.
+      </p>
 
-    <ul style="margin-left:20px; margin-top:12px;">
-      <li>Unauthorized loan applications</li>
-      <li>Credit accounts opened in someone else’s name</li>
-      <li>Benefit fraud using stolen or fake identities</li>
-      <li>Medical identity theft</li>
-      <li>SSN misuse or substitution</li>
-      <li>Synthetic identity construction from partial data</li>
-      <li>Stolen or forged government documents</li>
-    </ul>
+      <ul style="margin-left:20px; margin-top:12px;">
+        <li>Unauthorized loan applications</li>
+        <li>Credit accounts opened in someone else’s name</li>
+        <li>Benefit fraud using stolen or fake identities</li>
+        <li>Medical identity theft</li>
+        <li>SSN misuse or substitution</li>
+        <li>Synthetic identity construction from partial data</li>
+        <li>Stolen or forged government documents</li>
+      </ul>
 
-    <h3 style="margin-top:24px;">🔐 NOVAK Forces Proof-Before-Action</h3>
-    <p>
-      With NOVAK, no identity-based action can occur unless:
-    </p>
+      <h3 style="margin-top:24px;">🔐 NOVAK Forces Proof-Before-Action</h3>
+      <p>
+        With NOVAK, no identity-based action can occur unless:
+      </p>
 
-    <ul style="margin-left:20px;">
-      <li>✔ The <strong>input identity data</strong> is unchanged</li>
-      <li>✔ The <strong>rules</strong> for the action are correct (loan, claim, account, etc.)</li>
-      <li>✔ The <strong>output</strong> follows those rules exactly</li>
-      <li>✔ The entire process forms a cryptographically linked <strong>EIR</strong></li>
-    </ul>
+      <ul style="margin-left:20px;">
+✔ The <strong>input identity data</strong> is unchanged
+✔ The <strong>rules</strong> for the action are correct (loan, claim, account, etc.)
+✔ The <strong>output</strong> follows those rules exactly
+✔ The entire process forms a cryptographically linked <strong>EIR</strong>
+      </ul>
 
-    <p style="margin-top:12px;">
-      If the identity data is mismatched, forged, synthetic, or tampered with — 
-      NOVAK refuses the action <strong>before execution</strong>.
-    </p>
+      <p style="margin-top:12px;">
+        If the identity data is mismatched, forged, synthetic, or tampered with — 
+        NOVAK refuses the action <strong>before execution</strong>.
+      </p>
 
-    <h3 style="margin-top:24px;">🚫 This Eliminates Entire Classes of Identity Fraud</h3>
-    <ul style="margin-left:20px;">
-      <li>❌ Synthetic identities created from fragments</li>
-      <li>❌ Credit accounts opened under a stolen SSN</li>
-      <li>❌ Fake benefit claims</li>
-      <li>❌ Unauthorized medical billing under another name</li>
-      <li>❌ Fraudulent loan applications</li>
-      <li>❌ Passport / ID document tampering</li>
-      <li>❌ Insider manipulation of identity data</li>
-    </ul>
+      <h3 style="margin-top:24px;">🚫 This Eliminates Entire Classes of Identity Fraud</h3>
+      <ul style="margin-left:20px;">
+❌ Synthetic identities created from fragments
+❌ Credit accounts opened under a stolen SSN
+❌ Fake benefit claims
+❌ Unauthorized medical billing under another name
+❌ Fraudulent loan applications
+❌ Passport / ID document tampering
+❌ Insider manipulation of identity data
+      </ul>
 
-    <p style="margin-top:16px; font-weight:600;">
-      NOVAK makes identity fraud <strong>mathematically impossible</strong>.  
-      No guessing. No heuristics. Just immutable cryptographic proof.
-    </p>
+      <p style="margin-top:16px; font-weight:600;">
+        NOVAK makes identity fraud <strong>mathematically impossible</strong>.  
+        No guessing. No heuristics. Just immutable cryptographic proof.
+      </p>
+
+      <!-- ⭐ Bottom-right collapse button -->
+      <button class="collapse-bottom-btn" onclick="collapseDetails(this)">
+        ▲ Collapse
+      </button>
 
     </div>
   </details>
 </div>
 
+<!-- ======================================================= -->
+<!-- 🏪 Everyday Example — How NOVAK Protects an ATM Purchase -->
+<!-- ======================================================= -->
+<div class="card" style="margin-top:28px; padding:20px;">
+  <details>
+    <summary style="cursor:pointer; font-size:18px; font-weight:600;">
+    🏪 Everyday Example — How NOVAK Protects an ATM Purchase
+  </summary>
+<br>
+    <p>
+      Imagine you're buying groceries with your debit card. Today’s systems simply
+      <strong>trust whatever arrives</strong> from the store’s payment terminal.
+      They assume the amount, merchant ID, and account details are correct.  
+      This is why fraud, spoofing, and silent tampering are still possible.
+    </p>
+
+    <h3 style="margin-top:18px;">❌ Without NOVAK (Today)</h3>
+
+    <ul style="margin-left:20px;">
+      <li>No rule verification</li>
+      <li>No data integrity check</li>
+      <li>No validation of the output before money moves</li>
+      <li>Systems can be tricked by altered or injected data</li>
+    </ul>
+
+    <p style="margin-top:10px;">
+      Your bank only reviews logs <em>after</em> the purchase — it cannot stop the fraud in real-time.
+    </p>
+
+    <h3 style="margin-top:22px;">✅ With NOVAK (Proof-Before-Action)</h3>
+<br>
+    <p>NOVAK performs a cryptographic integrity check before approving anything:</p>
+
+    <ul style="margin-left:20px;">
+      <li><strong>HR</strong> = fingerprint of the bank’s rule for card purchases</li>
+      <li><strong>HD</strong> = fingerprint of the purchase data (amount, merchant, card data)</li>
+      <li><strong>HO</strong> = fingerprint of the expected outcome (your account − amount)</li>
+      <li><strong>HVET</strong> = binds HR + HD + HO together</li>
+      <li><strong>EIR</strong> = tamper-proof receipt of the entire transaction</li>
+    </ul>
+
+    <p style="margin-top:12px;">
+      If even <strong>one bit</strong> of the amount, rule, or account changes:
+      <strong>NOVAK instantly blocks the purchase.</strong>
+    </p>
+
+    <p style="margin-top:12px; font-weight:600;">
+      NOVAK ensures the transaction is correct <em>before</em> money moves —  
+      eliminating fraud, spoofing, silent tampering, and mis-routing.
+    </p>
+
+    <!-- ⭐ Bottom-right collapse button -->
+    <button class="collapse-bottom-btn" onclick="collapseDetails(this)">
+      ▲ Collapse
+    </button>
+
+</details>
+</div>
+
+<!-- ========================================================= -->
+<!-- 🗳️ How NOVAK Protects Voting Today — And Enables Remote Voting Tomorrow -->
+<!-- ========================================================= -->
+
+<div class="card" style="margin-top:28px; padding:20px; position:relative;">
+  <details>
+    <summary style="cursor:pointer; font-size:18px; font-weight:600;">
+      🗳️ How NOVAK Protects Voting Today — And Enables Secure Remote Voting Tomorrow
+    </summary>
+
+    <div style="margin-top:16px; font-size:15px; line-height:1.6; position:relative;">
+
+      <!-- ----------------------------------------------- -->
+      <!-- SECTION 1 — How Voting Works Today (No NOVAK)   -->
+      <!-- ----------------------------------------------- -->
+
+      <h3 style="margin-top:8px;">❌ Voting Today — Where Integrity Can Break</h3>
+
+      <p>
+        Whether voting is done <strong>in-person on a machine</strong>, with a <strong>paper scanner</strong>, or another electronic system, today’s infrastructure still has major blind spots:
+      </p>
+
+      <ul style="margin-left:20px; margin-top:10px;">
+        <li>No real-time verification that the ballot definition (“rules”) is correct</li>
+        <li>No cryptographic guarantee the vote you cast is the vote recorded</li>
+        <li>No binding between: ballot rules → selections → stored output</li>
+        <li>Systems assume machines and software haven’t silently altered anything</li>
+        <li>Audits occur after the fact — not at the moment of voting</li>
+      </ul>
+
+      <p style="margin-top:10px;">
+        This is why phone or web voting is not allowed today: systems cannot prove correctness <em>before</em> recording the vote.
+      </p>
+
+      <hr style="margin:24px 0; opacity:0.4;">
+
+
+      <!-- ----------------------------------------------- -->
+      <!-- SECTION 2 — How NOVAK Protects Voting Today     -->
+      <!-- ----------------------------------------------- -->
+
+      <h3 style="margin-top:8px;">✅ With NOVAK — Proof-Before-Action Voting Integrity</h3>
+
+      <p>NOVAK enforces cryptographic proof <strong>before a vote is accepted</strong>:</p>
+
+      <ul style="margin-left:20px; margin-top:10px;">
+        <li><strong>HR — Rule Hash</strong>: correct ballot style for that voter</li>
+        <li><strong>HD — Data Hash</strong>: voter selections unchanged</li>
+        <li><strong>HO — Output Hash</strong>: matches intended stored record</li>
+        <li><strong>HVET — Binding Hash</strong>: links HR + HD + HO together</li>
+      </ul>
+
+      <p style="margin-top:10px;">
+        If <strong>one bit</strong> is wrong: NOVAK blocks the vote from entering the tally.
+      </p>
+
+      <ul style="margin-left:20px; margin-top:10px;">
+        <li>Ballot-definition errors</li>
+        <li>Machine misrouting</li>
+        <li>Silent software tampering</li>
+        <li>Incorrect storage</li>
+        <li>Backend manipulation</li>
+      </ul>
+
+      <p style="margin-top:12px; font-weight:600;">
+        NOVAK stops mistakes and fraud at the moment of voting — not later.
+      </p>
+
+      <hr style="margin:24px 0; opacity:0.4;">
+
+
+      <!-- ----------------------------------------------- -->
+      <!-- SECTION 3 — Remote Voting Enablement (Future)   -->
+      <!-- ----------------------------------------------- -->
+
+      <h3 style="margin-top:8px;">📱🌐 How NOVAK Could Enable Secure Phone & Web Voting</h3>
+
+      <p>
+        Remote voting is impossible today because the system cannot verify:
+      </p>
+
+      <ul style="margin-left:20px; margin-top:10px;">
+        <li>Correct ballot rules delivered to the voter</li>
+        <li>Selections weren’t altered by malware or the network</li>
+        <li>The stored vote matches the intended vote</li>
+      </ul>
+
+      <p style="margin-top:10px;">
+        With NOVAK, these become solvable:
+      </p>
+
+      <ul style="margin-left:20px; margin-top:10px;">
+        <li><strong>HR</strong> guarantees correct ballot</li>
+        <li><strong>HD</strong> guarantees unchanged selections</li>
+        <li><strong>HO + HVET</strong> guarantee correct stored vote</li>
+        <li><strong>EIR receipts</strong> give voter-verifiable proof</li>
+      </ul>
+
+      <p style="margin-top:12px; font-weight:600;">
+        Once integrity is cryptographically enforced, remote voting becomes technically viable without increasing risk.
+      </p>
+
+      <hr style="margin:24px 0; opacity:0.3;">
+
+
+      <!-- ----------------------------------------------- -->
+      <!-- SECTION 4 — No-BS Summary                       -->
+      <!-- ----------------------------------------------- -->
+
+      <h3>🧠 No-Bullshit Summary</h3>
+
+      <p>
+        Voting today cannot move online because integrity is not enforced at the moment of action.  
+        NOVAK adds that missing layer — mathematical proof-before-action — making both today’s machines
+        safer and tomorrow’s remote voting possible.
+      </p>
+
+      <p style="margin-top:12px; font-weight:700;">
+        NOVAK doesn’t guess. It proves.
+      </p>
+
+      <!-- ====================================================== -->
+      <!-- ⭐ Bottom-right collapse button                         -->
+      <!-- ====================================================== -->
+      <button 
+        onclick="this.closest('details').removeAttribute('open')" 
+        class="collapse-bottom-btn"
+        style="
+          position:absolute;
+          bottom:6px;
+          right:6px;
+          padding:6px 12px;
+          font-size:13px;
+          border-radius:6px;
+          background:var(--card);
+          border:1px solid var(--border);
+          cursor:pointer;
+        ">
+        ▲ Collapse
+      </button>
+
+    </div>
+  </details>
+</div>
+	
 <!-- ========================================= -->
 <!-- 💻 HOW NOVAK SURVIVES PACKET SNIFFING     -->
 <!-- ========================================= -->
@@ -3011,7 +3327,7 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
       💻 How NOVAK Survives Packet Sniffing (Explained for Everyone)
     </summary>
 
-    <div style="margin-top:16px; font-size:15px; line-height:1.55;">
+    <div style="margin-top:16px; font-size:15px; line-height:1.55; position:relative;">
       
       <h3 style="font-size:17px; margin-bottom:8px;">🧒 What is Packet Sniffing? (6th Grade Time Machine!)</h3>
 
@@ -3111,79 +3427,81 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
         Sniff all you want — you cannot bypass NOVAK without breaking math.
       </strong></p>
 
+      <!-- ⭐ Bottom-right collapse button -->
+      <button class="collapse-bottom-btn" onclick="collapseDetails(this)">
+        ▲ Collapse
+      </button>
+
     </div>
   </details>
 </div>
 
 <!-- ========================================= -->
-<!-- 💻 Why TLS, Blockchain & Bitcoin Cannot Prevent Automated Harm — but NOVAK Can    -->
+<!-- 💻 Why TLS, Blockchain & Bitcoin Cannot Prevent Automated Harm — but NOVAK Can -->
 <!-- ========================================= -->
 <div class="card" style="margin-top:28px; padding:20px;">
   <details>
-    <summary style="cursor:pointer; font-size:18px; font-weight:600;">🔍 Why TLS, Blockchain & Bitcoin Cannot Prevent Automated Harm — but NOVAK Can</summary>
+    <summary style="cursor:pointer; font-size:18px; font-weight:600;">
+      🔍 Why TLS, Blockchain & Bitcoin Cannot Prevent Automated Harm — but NOVAK Can
+    </summary>
 
-  <div class="collapse-inner">
-<br>
-  <h4>❌ TLS / SSL</h4>
-  <ul>
-    <li>Encrypts transmission — not correctness</li>
-    <li>Assumes data and rules are already valid</li>
-    <li>Cannot stop wrongful automation</li>
-    <li>Protects communication — not decisions</li>
-  </ul>
-<br>
-  <h4>❌ Blockchain</h4>
-  <ul>
-    <li>Records history after execution</li>
-    <li>Slow, expensive, consensus-dependent</li>
-    <li>Cannot fix wrong decisions already made</li>
-    <li>Makes immutable logs — not integrity</li>
-  </ul>
-<br>
-  <h4>❌ Bitcoin & Cryptocurrency</h4>
-  <ul>
-    <li>Designed for ownership & payments</li>
-    <li>Not medical, legal, or operationally authoritative</li>
-    <li>Solves accounting — not correctness</li>
-    <li>Proves who paid — not whether a decision was right</li>
-  </ul>
-<br>
-  <h4>❌ Logging, Audits & SIEM</h4>
-  <ul>
-    <li>Detect failure AFTER damage</li>
-    <li>Human investigation required</li>
-    <li>Finds harm — doesn’t stop it</li>
-  </ul>
-<br>
-  <h3>✅ NOVAK Protocol</h3>
-<br>
-  <ul>
-    <li>Requires mathematical <strong>proof-before-action</strong></li>
-    <li>Binds input → rule → output cryptographically</li>
-    <li><strong>Blocks execution</strong> if anything changes</li>
-    <li>Generates tamper-proof receipts instantly</li>
-    <li>No tokens, mining, blockchain, or consensus</li>
-    <li>Runs locally, offline, everywhere</li>
-    <li>Protects humans, veterans, taxpayers, and national security</li>
-  </ul>
+    <div class="collapse-inner" style="position:relative; margin-top:16px; font-size:15px; line-height:1.55;">
 
-  </div>
-</details>
+      <br>
+      <h4>❌ TLS / SSL</h4>
+      <ul>
+        <li>Encrypts transmission — not correctness</li>
+        <li>Assumes data and rules are already valid</li>
+        <li>Cannot stop wrongful automation</li>
+        <li>Protects communication — not decisions</li>
+      </ul>
 
-</div>  <!-- Just addeded this - MATT -->
+      <br>
+      <h4>❌ Blockchain</h4>
+      <ul>
+        <li>Records history after execution</li>
+        <li>Slow, expensive, consensus-dependent</li>
+        <li>Cannot fix wrong decisions already made</li>
+        <li>Makes immutable logs — not integrity</li>
+      </ul>
 
-<!-- ✅ AI TRANSPARENCY MODE -->
-<div class="card" style="margin:32px 0 40px 0;" id="transparencyCard">
-  <h2 class="section-title">AI Transparency Mode</h2>
+      <br>
+      <h4>❌ Bitcoin & Cryptocurrency</h4>
+      <ul>
+        <li>Designed for ownership & payments</li>
+        <li>Not medical, legal, or operationally authoritative</li>
+        <li>Solves accounting — not correctness</li>
+        <li>Proves who paid — not whether a decision was right</li>
+      </ul>
 
-  <p>
-    NOVAK makes automated decisions explainable, provable, lawful, and auditable —
-    instead of mysterious and unchallengeable.
-  </p>
+      <br>
+      <h4>❌ Logging, Audits & SIEM</h4>
+      <ul>
+        <li>Detect failure AFTER damage</li>
+        <li>Human investigation required</li>
+        <li>Finds harm — doesn’t stop it</li>
+      </ul>
 
-  <button onclick="toggleTransparency()" class="action-btn" style="margin-top:16px;">
-    Enable Transparency View
-  </button>
+      <br>
+      <h3>✅ NOVAK Protocol</h3>
+      <br>
+      <ul>
+        <li>Requires mathematical <strong>proof-before-action</strong></li>
+        <li>Binds input → rule → output cryptographically</li>
+        <li><strong>Blocks execution</strong> if anything changes</li>
+        <li>Generates tamper-proof receipts instantly</li>
+        <li>No tokens, mining, blockchain, or consensus</li>
+        <li>Runs locally, offline, everywhere</li>
+        <li>Protects humans, veterans, taxpayers, and national security</li>
+      </ul>
+
+      <!-- ⭐ Bottom-right collapse button -->
+      <button class="collapse-bottom-btn" onclick="collapseDetails(this)">
+        ▲ Collapse
+      </button>
+
+    </div>
+  </details>
 </div>
 
 <!-- 🧠 Backend Card -->
@@ -3217,7 +3535,7 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
       ⚖️ Deterministic Execution Integrity
     </summary>
 
-    <div style="margin-top:18px; padding:26px; font-size:17px; line-height:1.65;">
+    <div style="margin-top:18px; padding:20px; font-size:17px; line-height:1.65;">
 
       Asimov gave robots fictional ethics.<br><br>
       <p style="margin:0;">Turing defined when a machine is allowed to compute.</p>
@@ -3260,9 +3578,6 @@ Timestamp:         <span id="novakTimestamp">[local time]</span>
     <button class="pill-btn" onclick="startGame('tamper')">🕵️ Spot the Tampering</button>
     <button class="pill-btn" onclick="startGame('memory')">🧠 Hash Memory Match</button>
     <button class="pill-btn" onclick="startGame('fraud')">🚨 Fraud Detector</button>
-    <button class="pill-btn" onclick="startGame('avalanche')">⚡ Avalanche Animation (NOT WORKING)</button>
-    <button class="pill-btn" onclick="startGame('hashrace')">🏁 Hash Race (Reaction Game)</button>
-
   </details>
 </div>
 
@@ -3397,7 +3712,6 @@ Ain’t no cage for this brain—
 I’m ’bout to break the chain!
 
 [Bridge / Breakdown]
-(beat drops to filtered 808 + vocal echo)
 Gotta fight my way, gotta earn my crown,
 Every time they push, I won’t back down.
 Blood in my mouth, still I laugh insane—
@@ -3417,7 +3731,7 @@ I’M! BOUT! TO! BREAK! THE! CHAIN!
 </div>
 
 <!-- =============================================== -->
-<!-- 🔧 FIXED GAME ENGINE FOR HASH RACE + AVALANCHE -->
+<!-- 🔧 FIXED GAME ENGINE -->
 <!-- =============================================== -->
 
 <script>
@@ -3432,92 +3746,6 @@ function startGame(which) {
   if (which === "memory") return startMemoryMatch();
   if (which === "fraud") return startFraudDetector();
 }
-
-/* ============================== */
-/* 🏁 HASH RACE — Reaction Timer   */
-/* ============================== */
-function startHashRace() {
-  const box = document.getElementById("gameBox");
-  box.innerHTML = `
-    <h2>🏁 Hash Race — Reaction Challenge</h2>
-    <p>Wait for GREEN, then hash as fast as you can!</p>
-    <button id="raceBtn" style="padding:14px 22px; font-size:18px;">Wait...</button>
-    <div id="raceResult" style="margin-top:18px; font-size:18px;"></div>
-  `;
-
-  const btn = document.getElementById("raceBtn");
-  const result = document.getElementById("raceResult");
-
-  btn.disabled = true;
-
-  const wait = Math.random() * 3000 + 2000;
-
-  setTimeout(() => {
-    btn.textContent = "GO! (Click!)";
-    btn.style.background = "#16a34a";
-    btn.style.color = "white";
-    btn.disabled = false;
-    var start = performance.now();
-
-    btn.onclick = () => {
-      const end = performance.now();
-      const ms = Math.round(end - start);
-      result.innerHTML = `⏱ Reaction Time: <strong>${ms} ms</strong>`;
-    };
-
-  }, wait);
-}
-
-/* ================================== */
-/* ⚡ AVALANCHE DEMO (FULLY WORKING)  */
-/* ================================== */
-function startAvalancheDemo() {
-  const box = document.getElementById("gameBox");
-  box.innerHTML = `
-    <h2>⚡ Avalanche Effect Demo</h2>
-    <p>One-bit change → massive SHA-256 output changes.</p>
-
-    <textarea id="av1" style="width:100%; height:70px; margin-top:10px;">NOVAK</textarea>
-    <textarea id="av2" style="width:100%; height:70px; margin-top:10px;">NOVAK.</textarea>
-
-    <button onclick="runAvalanche()" style="margin-top:16px;" class="action-btn">Compute Hashes</button>
-
-    <pre id="avOut" style="margin-top:18px; padding:14px; background:var(--card); border:1px solid var(--border); border-radius:8px;">Waiting…</pre>
-  `;
-}
-
-async function runAvalanche() {
-  const t1 = document.getElementById("av1").value;
-  const t2 = document.getElementById("av2").value;
-
-  const h1 = await digestText(t1);
-  const h2 = await digestText(t2);
-
-  let diff = "";
-  for (let i = 0; i < h1.length; i++) {
-    diff += (h1[i] === h2[i]) ? " " : "▲";
-  }
-
-  document.getElementById("avOut").textContent =
-`Input A SHA-256:
-${h1}
-
-Input B SHA-256:
-${h2}
-
-Diff Map:
-${diff}
-`;
-}
-
-async function digestText(txt) {
-  const enc = new TextEncoder().encode(txt);
-  const buf = await crypto.subtle.digest("SHA-256", enc);
-  return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,"0")).join("");
-}
-
-</script>
-
 
 <!-- ============================= -->
 <!-- 🎧 AUDIO PLAYER JS LOGIC      -->
@@ -3643,21 +3871,15 @@ Use this hash in NOVAK EIR / HVET to bind audio integrity.`;
   <p>
     The NOVAK Protocol exists because truth has intrinsic value — and wrongdoing,
     deception, and hidden harm must be revealed, not rewarded.
-  </p>
-
-  <br>
+  </p><br>
 
   <p>
     Mathematical integrity reflects moral integrity — honesty, accountability, and justice.
-  </p>
-
-  <br>
+  </p><br>
 
   <p style="font-weight:600;">
     Everything good in this work belongs to God. Everything flawed belongs to me.
-  </p>
-
-  <br>
+  </p><br>
 
   <p>
     May this technology protect the vulnerable, restrain corruption,
@@ -4466,7 +4688,6 @@ startStoryMode = function() {
   
 </script>
 
-
 <script>
 (function () {
   const autoToggle  = document.getElementById('autoVerifyToggle');
@@ -4678,9 +4899,10 @@ async function downloadEirPdf() {
   const { jsPDF } = window.jspdf;
   const pdf = new jsPDF();
 
-  const eirText = document.getElementById("eirText").textContent;
+  const eirText  = document.getElementById("eirText").textContent.trim();
   const qrCanvas = document.getElementById("eirQrCanvas");
 
+  // Header
   pdf.setFont("Helvetica", "bold");
   pdf.setFontSize(20);
   pdf.text("NOVAK Execution Identity Receipt (EIR)", 14, 20);
@@ -4688,22 +4910,41 @@ async function downloadEirPdf() {
   pdf.setLineWidth(0.5);
   pdf.line(14, 24, 196, 24);
 
-  pdf.setFontSize(11);
+  // Body text
   pdf.setFont("Helvetica", "normal");
+  pdf.setFontSize(11);
 
-  let y = 34;
+  const leftMargin   = 14;
+  const topMargin    = 34;
+  const maxTextWidth = 120;  // leave room on the right for the QR
+
+  let y = topMargin;
+
   eirText.split("\n").forEach(line => {
-    pdf.text(line, 14, y);
-    y += 6;
+    // Wrap long lines (e.g., SHA-256 digest) so nothing is cut off
+    const wrappedLines = pdf.splitTextToSize(line, maxTextWidth);
+
+    wrappedLines.forEach(wLine => {
+      // Basic page-break safety if the EIR ever gets long
+      if (y > 280) {
+        pdf.addPage();
+        pdf.setFont("Helvetica", "normal");
+        pdf.setFontSize(11);
+        y = 20;
+      }
+      pdf.text(wLine, leftMargin, y);
+      y += 6;
+    });
   });
 
-  // Add QR code
+  // Add QR code in the upper-right
   const imgData = qrCanvas.toDataURL("image/png");
-  pdf.addImage(imgData, "PNG", 145, 22, 50, 50);
+  pdf.addImage(imgData, "PNG", 145, 30, 50, 50);
 
   pdf.save("NOVAK-EIR-Certificate.pdf");
 }
 </script>
+
 
 </div> <!-- moved container close: fixes alignment -->
 
@@ -4843,58 +5084,6 @@ function countBitDifferences(a, b) {
   return diff;
 }
 </script>
-
-<script>
-
-<!-- ========================================================= -->
-<!-- FINAL CLEAN SCRIPT BLOCK — FIXED & STABLE                 -->
-<!-- ========================================================= -->
-<script>
-/* SHA-256 helper */
-async function computeSHA(str) {
-  const buf = new TextEncoder().encode(str);
-  const hash = await crypto.subtle.digest("SHA-256", buf);
-  return Array.from(new Uint8Array(hash))
-      .map(b => b.toString(16).padStart(2,"0"))
-      .join("");
-}
-
-/* Update main NOVAK hashes + RGAC + visuals */
-async function updateHashes() {
-  const input = document.getElementById("novakInput").value;
-
-  if (!input.trim()) {
-    document.getElementById("liveHR").textContent = "";
-    document.getElementById("liveHD").textContent = "";
-    document.getElementById("liveHO").textContent = "";
-    document.getElementById("liveHVET").textContent = "";
-    document.getElementById("rgacChain").textContent = "Waiting for input…";
-    return;
-  }
-
-  const HR = await computeSHA("RULE::" + input);
-  const HD = await computeSHA("DATA::" + input);
-  const HO = await computeSHA("OUTPUT::" + input);
-  const HVET = await computeSHA(HR + HD + HO);
-
-  document.getElementById("liveHR").textContent = HR;
-  document.getElementById("liveHD").textContent = HD;
-  document.getElementById("liveHO").textContent = HO;
-  document.getElementById("liveHVET").textContent = HVET;
-
-  document.getElementById("rgacChain").textContent =
-    `Data #1 → Rule #2 → Output #3 → Verifier #4 → Receipt #5\nHVET = ${HVET}`;
-}
-
-/* Register input listener */
-document.addEventListener("DOMContentLoaded", () => {
-  const input = document.getElementById("novakInput");
-  if (input) {
-    input.addEventListener("input", updateHashes);
-  }
-});
-</script>
-
 
 <!-- ====================================================== -->
 <!-- NOVAK INTEGRITY RECEIPT ENGINE                         -->
@@ -5175,6 +5364,167 @@ document.getElementById("standardsSearch").addEventListener("keyup", function ()
   });
 });
 
+</script>
+
+<script>
+function collapseDetails(el) {
+  const details = el.closest("details");
+  if (!details) return;
+
+  details.open = false;
+
+  // Scroll back to the summary so user doesn’t need to scroll manually
+  const summary = details.querySelector("summary");
+  if (summary) {
+    summary.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+}
+</script>
+
+<!-- ===================================================== -->
+<!-- SINGLE-SOURCE Example Dataset Loader                  -->
+<!-- ===================================================== -->
+<script>
+  function setDatasetExample(type) {
+    // Main NOVAK input box
+    const box = document.getElementById("novakInput");
+    if (!box) return;
+
+    // Canonical example texts
+    const examples = {
+      va: `VA Disability Claim Example
+--------------------------------
+Veteran: John Doe
+Claim #: 27-982271
+Condition: Lumbar Spine Degeneration
+Rating Requested: 70%
+Filed: 2024-10-17`,
+
+      finance: `Financial Transaction Example
+--------------------------------
+Wire Transfer: $82,750
+Sender: Redwood Logistics
+Recipient: Meridian Aerospace
+Routing: 021000021`,
+
+      robotics: `Robotics Command Example
+--------------------------------
+Robot Command: LIFT-PALLET
+Warehouse Zone: C7
+Weight Limit: 225 kg
+Authorization: Level-3 Supervisor`,
+
+      system: `System Log Example
+--------------------------------
+[WARN] 2025-11-01T14:05:22Z CHECKSUM_MISMATCH
+[INFO] 2025-11-01T14:05:23Z RETRYING
+[OK]   2025-11-01T14:05:24Z SUCCESS`,
+
+      legal: `Legal Filing Example
+--------------------------------
+Court Filing — Motion to Compel
+Docket #: 5:24-cv-1772
+Filed: March 4, 2025
+Jurisdiction: 9th Circuit`
+    };
+
+    // Load the chosen example
+    const value = examples[type] || "";
+    box.value = value;
+
+    // Re-run your existing hash + auto-diff logic if present
+    if (typeof updateHashes === "function") {
+      updateHashes();
+    }
+    if (typeof updateAutoDiff === "function") {
+      updateAutoDiff(value);
+    }
+  }
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const resetBtn = document.getElementById("resetTryIt");
+
+  if (resetBtn) {
+    resetBtn.addEventListener("click", () => {
+
+      /* Reset input text */
+      const input = document.getElementById("novakInput");
+      if (input) input.value = "";
+
+      /* Reset SHA outputs */
+      const sha256 = document.getElementById("sha256Output");
+      if (sha256) sha256.textContent = "";
+
+      /* Reset HR / HD / HO / HVET */
+      const hr = document.getElementById("liveHR");
+      const hd = document.getElementById("liveHD");
+      const ho = document.getElementById("liveHO");
+      const hvet = document.getElementById("liveHVET");
+
+      if (hr) hr.textContent = "";
+      if (hd) hd.textContent = "";
+      if (ho) ho.textContent = "";
+      if (hvet) hvet.textContent = "";
+
+      /* Reset auto-verification status */
+      const status = document.getElementById("autoVerifyStatus");
+      if (status) {
+        status.textContent = "Waiting for input…";
+        status.style.borderColor = "var(--border)";
+      }
+
+      /* Reset RGAC */
+      const rgacChain = document.getElementById("rgacChain");
+      const rgac = document.getElementById("rgac");
+
+      if (rgacChain) {
+        rgacChain.innerHTML = "<em>Waiting for input…</em>";
+      } else if (rgac) {
+        rgac.innerHTML = "<em>Waiting for input…</em>";
+      }
+
+    });
+  }
+
+});
+</script>
+
+<script>
+// -----------------------------
+// Remember Hide/Show State
+// -----------------------------
+const sections = [
+  { id: "whatIsNovakCard", key: "hideWhatIsNovak" },
+  { id: "whyNovakCard",    key: "hideWhyNovak" },
+  { id: "whatChangesCard", key: "hideWhatChanges" }
+];
+
+// Apply remembered state on load
+window.addEventListener("DOMContentLoaded", () => {
+  sections.forEach(sec => {
+    const el = document.getElementById(sec.id);
+    const hidden = localStorage.getItem(sec.key);
+
+    if (hidden === "true") {
+      el.style.display = "none";
+    }
+  });
+});
+
+// Hide function (called by buttons)
+function hideSection(id, key) {
+  document.getElementById(id).style.display = "none";
+  localStorage.setItem(key, "true");
+}
+
+// UN-hide function (if you want to expose a restore button later)
+function showSection(id, key) {
+  document.getElementById(id).style.display = "block";
+  localStorage.setItem(key, "false");
+}
 </script>
 
 </body>
