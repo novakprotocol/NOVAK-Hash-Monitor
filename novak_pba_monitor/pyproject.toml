@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "novak_pba_monitor"
+version = "1.0.0"
+description = "NOVAK Protocol — Proof-Before-Action monitor with HVET, EIR chaining, Merkle anchoring, and OS integrity hooks."
+authors = [
+  { name = "Matthew Novak" }
+]
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "watchdog",
+    "blake3",
+]
+
+[project.scripts]
+novak-pba = "novak_pba_monitor.cli:run"
