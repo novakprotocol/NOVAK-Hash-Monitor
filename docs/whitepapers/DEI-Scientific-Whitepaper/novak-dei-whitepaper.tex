@@ -1,0 +1,208 @@
+\documentclass{article}
+\usepackage{graphicx}
+
+\documentclass[11pt]{article}
+
+% --------------------------------------------------
+% Packages
+% --------------------------------------------------
+\usepackage{amsmath, amssymb}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{titlesec}
+
+\geometry{
+  a4paper,
+  margin=1in
+}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% --------------------------------------------------
+% DOCUMENT
+% --------------------------------------------------
+\begin{document}
+
+\begin{center}
+{\LARGE \textbf{A Scientific Examination of a New Class of Deterministic Execution-Integrity Primitives}\\[6pt]
+{\large Matthew Novak --- 2025}
+\end{center}
+
+\begin{abstract}
+This whitepaper identifies and formally characterizes a new family of cryptographic
+primitives, forensic constructs, and execution-governance mechanisms collectively
+referred to as the \textit{NOVAK Deterministic Execution Integrity Framework}. Unlike prior art in
+digital signatures, attestations, or blockchain consensus, the NOVAK system introduces
+a \textit{pre-action verification} model enabling deterministic validation of Rule, Data,
+and Output before execution.
+
+The paper examines five foundational primitives discovered in the NOVAK framework:
+Proof-Before-Action (PbA), Hash-Verified Execution Trace (HVET), Execution Identity
+Receipt (EIR), Recursive Global Audit Chain (RGAC), and the Deterministic Safety Gate.
+These primitives, together with a novel cryptographic-forensic visualization layer,
+constitute a distinct and previously unseen integrity architecture.
+
+This work argues that NOVAK establishes a new scientific discipline:
+\textbf{Deterministic Execution Integrity (DEI)}.
+\end{abstract}
+\newpage
+
+\section{Introduction}
+
+Modern systems rely on post-hoc mechanisms such as logging, digital signatures,
+attestations, and blockchain-based consensus. These approaches cannot prevent
+rule-evasion, silent manipulation, or post-output tampering.
+
+The NOVAK system introduces the cryptographic requirement of \textit{Proof-Before-Action}
+(PbA), meaning no computation proceeds until its governing rules, inputs, and expected
+outputs are cryptographically registered and validated.
+
+PbA represents a structural inversion of the modern security model and forms the core
+discovery of this research.
+
+\newpage
+\section{Discovery 1: Proof-Before-Action (PbA)}
+
+\subsection{Definition}
+
+A Proof-Before-Action primitive canonically hashes the governing rule $R$, data $D$,
+output $O$, and timestamp $t$ into a single deterministic tuple:
+
+\[
+    \text{HVET} = H(R \parallel D \parallel O \parallel t)
+\]
+
+The system must produce this proof \textit{before} executing the action.
+
+PbA is neither a signature nor a log; it is an execution prerequisite. No existing
+cryptographic or regulatory standard defines this behavior, making PbA an original
+contribution.
+
+\newpage
+\section{Discovery 2: Hash-Verified Execution Trace (HVET)}
+
+\subsection{Definition}
+
+HVET binds rule identity, data payload, output state, and timestamp into one immutable,
+audit-aligned fingerprint:
+
+\[
+    \text{HVET} = \text{SHA-256}(H_R \parallel H_D \parallel H_O \parallel t)
+\]
+
+A single-bit change in any component produces a completely different execution trace.
+
+HVET differs from classical logs and attestations by being both pre-execution and
+post-verifiable. Its dual use as a forensic visualization seed (Section~\ref{forensic})
+is also novel.
+
+\newpage
+\section{Discovery 3: Execution Identity Receipt (EIR)}
+
+The Execution Identity Receipt is a self-contained artifact representing an execution
+event, including:
+
+\begin{itemize}
+    \item rule hash
+    \item data hash
+    \item output hash
+    \item HVET
+    \item timestamp
+    \item PS-X compliance state
+    \item RGAC anchor
+\end{itemize}
+
+No prior structure combines legal compliance, cryptographic binding, and visual
+tamper-evidence in a single receipt format.
+
+\newpage
+\section{Discovery 4: Recursive Global Audit Chain (RGAC)}
+
+RGAC is a deterministic audit mechanism defined as:
+
+\[
+A_{n+1} = H(A_n \parallel \text{EIR}_n)
+\]
+
+It is:
+
+\begin{itemize}
+    \item globally consistent,
+    \item tamper-evident,
+    \item non-consensus-based,
+    \item lightweight,
+    \item infinitely extensible.
+\end{itemize}
+
+RGAC is not a blockchain, Merkle tree, or append-only log. It is a new audit-chain
+structure with zero distributed overhead.
+
+\newpage
+\section{Discovery 5: Deterministic Safety Gate}
+
+The Safety Gate enforces:
+
+\[
+\text{Action allowed} \Longleftrightarrow \text{PbA valid}.
+\]
+
+It ensures that no system can take an action without cryptographic verification of rule,
+data, and output correctness. This extends cryptographic guarantees into runtime safety.
+
+\newpage
+\section{Discovery 6: Cryptographic-Forensic Visualization Layer}
+\label{forensic}
+
+NOVAK introduces the first HTML-only treasury-grade forensic visualization system.
+Elements are fully deterministic and HVET-seeded:
+
+\begin{itemize}
+    \item hash-derived guilloché patterns
+    \item holographic dispersion fields
+    \item fractal forensic substrate
+    \item microtext halo containing L0--L15 + PL-X + PS-X
+    \item triquetra security weave
+    \item PS-X corner seals
+    \item tamper-evident microprint border field
+\end{itemize}
+
+These elements historically require specialized printing machinery; here they are
+generated algorithmically and reproducibly from the execution hash.
+
+\newpage
+\section{Discovery 7: A New Field --- Deterministic Execution Integrity (DEI)}
+
+Together, PbA, HVET, EIR, RGAC, and the Safety Gate define a new execution model
+that:
+
+\begin{itemize}
+    \item validates correctness before action,
+    \item ensures immutability of execution state,
+    \item binds legal, forensic, and cryptographic guarantees into one mechanism,
+    \item operates independently of consensus systems.
+\end{itemize}
+
+We propose the formal term \textbf{Deterministic Execution Integrity (DEI)} for this field.
+
+\newpage
+\section{Conclusion}
+
+The NOVAK discoveries constitute:
+
+\begin{itemize}
+    \item a new cryptographic primitive (PbA),
+    \item a new canonical execution fingerprint (HVET),
+    \item a new universal receipt format (EIR),
+    \item a new deterministic audit chain (RGAC),
+    \item a new safety enforcement model,
+    \item a new HTML-based forensic visualization system.
+\end{itemize}
+
+Based on comparison with existing standards and published literature, NOVAK represents
+a new class of deterministic integrity architecture and a foundational contribution to secure
+automation, regulatory technology, and applied cryptography.
+
+\end{document}
