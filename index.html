@@ -6085,15 +6085,11 @@ seg(hex, i, len) {
 }
 };
 
+<!-- ============================================================ -->
+<!--  ⭐ TREASURY-GRADE NOVAK CERTIFICATE ENGINE — HYBRID C       -->
+<!-- ============================================================ -->
 <script>
-/* ============================================================
-   ⭐ TREASURY-GRADE NOVAK CERTIFICATE ENGINE — FULL VERSION
-   ============================================================ */
-
 window.NOVAK_GOV = {
-  /* -----------------------------------------
-     INTERNAL STATE
-     ----------------------------------------- */
   state: {
     file: null,
     hvet: "",
@@ -6103,18 +6099,14 @@ window.NOVAK_GOV = {
     canvas: null
   },
 
-  /* -----------------------------------------
-     SAFE HEX → INT
-     ----------------------------------------- */
+  /* ---------------------- SAFE HEX → INT ---------------------- */
   seg(hex, i, len) {
     if (i >= hex.length) return 0;
     let v = parseInt(hex.substring(i, i + len), 16);
     return isNaN(v) ? 0 : v;
   },
 
-  /* -----------------------------------------
-     INITIALIZE + GENERATE
-     ----------------------------------------- */
+  /* ------------------------- GENERATE -------------------------- */
   async generate() {
     const input = document.getElementById("govFileInput");
     if (!input?.files?.length) {
@@ -6135,7 +6127,7 @@ window.NOVAK_GOV = {
 
     this.state.hvet = hex;
 
-    // === Setup 3000×4200 Treasury canvas ===
+    // === 3000×4200 Treasury Canvas ===
     const canvas = document.getElementById("govCanvas");
     canvas.width = 3000;
     canvas.height = 4200;
@@ -6143,7 +6135,6 @@ window.NOVAK_GOV = {
     this.state.canvas = canvas;
     this.state.ctx = canvas.getContext("2d");
 
-    // Palette
     this.state.palette = {
       primary:   "#0A3D91",
       secondary: "#7A1FB3",
@@ -6153,48 +6144,43 @@ window.NOVAK_GOV = {
       holo3:     "#FF00E0"
     };
 
-    document.getElementById("govPreview").style.display = "block";
+    // Show preview container
+    const prev = document.getElementById("govPreview");
+    if (prev) prev.style.display = "block";
 
     await this.render();
-    document.getElementById("govDownloadBtn").style.display = "block";
+
+    // Show the download button
+    const btn = document.getElementById("govDownloadBtn");
+    if (btn) btn.style.display = "inline-block";
   },
 
-drawHVETMesh(ctx, hvet) {
-  const W = ctx.canvas.width;
-  const H = ctx.canvas.height;
+  /* ---------------- HVET MICROTEXT BACKGROUND ----------------- */
+  drawHVETMesh(ctx, hvet) {
+    const W = ctx.canvas.width;
+    const H = ctx.canvas.height;
 
-  ctx.save();
-  ctx.globalAlpha = 0.07;
-  ctx.font = "32px JetBrains Mono";
-  ctx.fillStyle = "rgba(0,0,0,0.22)";
+    ctx.save();
+    ctx.globalAlpha = 0.07;
+    ctx.font = "32px JetBrains Mono";
+    ctx.fillStyle = "rgba(0,0,0,0.22)";
 
-  // Rotate canvas ~36°
-  ctx.translate(W/2, H/2);
-  ctx.rotate(Math.PI * -0.2);
+    ctx.translate(W/2, H/2);
+    ctx.rotate(Math.PI * -0.2);
 
-  // Create extremely long repeated HVET string for full-page coverage
-  const repeated = hvet.toUpperCase().repeat(2000);  // increased from 400 → 2000
+    const repeated = hvet.toUpperCase().repeat(2000);
+    let y = -H * 2;
 
-  // Start WAY above canvas so rotation never causes gaps
-  let y = -H * 2;
+    for (let i = 0; i < 200; i++) {
+      let segment = repeated.substring(i * 200, i * 200 + 800);
+      ctx.fillText(segment, -W * 2, y);
+      y += 55;
+    }
 
-  // Number of rows required for 4200px rotated canvas
-  const rows = 200;  // increased from 80 → 200
+    ctx.restore();
+  },
 
-  for (let i = 0; i < rows; i++) {
-    // Extract long slice for ultra-wide diagonal lines
-    let segment = repeated.substring(i * 200, i * 200 + 800);
-
-    ctx.fillText(segment, -W * 2, y);
-    y += 55;   // vertical spacing
-  }
-
-  ctx.restore();
-},
-
-  /* ============================================================
-     2. GAUSSIAN BLUR HVET OVERLAY (fake blur pass)
-     ============================================================ */
+  /* ------------------------ BLUR OVERLAY ----------------------- */
   blurHVET(ctx) {
     ctx.save();
     ctx.globalAlpha = 0.045;
@@ -6203,12 +6189,11 @@ drawHVETMesh(ctx, hvet) {
     ctx.restore();
   },
 
-  /* ============================================================
-     3. SPECTRAL HOLOGRAM BAND
-     ============================================================ */
+  /* ------------------- HOLOGRAPHIC SPECTRUM -------------------- */
   drawHoloBand(ctx) {
     const W = ctx.canvas.width;
     ctx.save();
+
     let grad = ctx.createLinearGradient(0, 0, W, 0);
     grad.addColorStop(0.0,  "#00C6FF");
     grad.addColorStop(0.25, "#0072FF");
@@ -6219,12 +6204,11 @@ drawHVETMesh(ctx, hvet) {
     ctx.globalAlpha = 0.18;
     ctx.fillStyle = grad;
     ctx.fillRect(0, 180, W, 80);
+
     ctx.restore();
   },
 
-  /* ============================================================
-     4. METALLIC TRISKELION WATERMARK
-     ============================================================ */
+  /* ------------------ TRISKELION WATERMARK --------------------- */
   drawTriskelionWatermark(ctx) {
     const W = ctx.canvas.width;
     const H = ctx.canvas.height;
@@ -6245,33 +6229,19 @@ drawHVETMesh(ctx, hvet) {
     ctx.restore();
   },
 
-  /* ============================================================
-     5. MICROTEXT RIBBON (Bezier path)
-     ============================================================ */
+  /* -------------------- MICROTEXT RIBBON ----------------------- */
   drawMicroRibbon(ctx) {
-    const W = ctx.canvas.width;
-    const H = ctx.canvas.height;
-
-    const laws =
-      "L0–L15 • PL-X • PS-X • Deterministic Execution • Proof-Before-Action • Immutable HVET • Replay Resistance • ";
-
-    const txt = laws.repeat(30);
+    const txt = (
+      "L0–L15 • PL-X • PS-X • Deterministic Execution • Proof-Before-Action • Immutable HVET • Replay Resistance • "
+    ).repeat(30);
 
     ctx.save();
     ctx.font = "14px JetBrains Mono";
     ctx.fillStyle = "rgba(0,0,0,0.65)";
 
-    ctx.beginPath();
-    ctx.moveTo(200, 900);
-    ctx.bezierCurveTo(800, 700, 1600, 1100, 2600, 900);
-
-    ctx.strokeStyle = "rgba(0,0,0,0)";
-    ctx.stroke();
-
-    const len = 2800;
     for (let i = 0; i < txt.length; i++) {
       const t = i / txt.length;
-      const x = 200 + (2600-200)*t;
+      const x = 200 + (2600 - 200) * t;
       const y = 900 + Math.sin(t * Math.PI * 4) * 18;
       ctx.fillText(txt[i], x, y);
     }
@@ -6279,12 +6249,10 @@ drawHVETMesh(ctx, hvet) {
     ctx.restore();
   },
 
-  /* ============================================================
-     6. GUILLOCHÉ SUITE (primary, interference, triquetra)
-     ============================================================ */
+  /* --------------------- GUILLOCHÉ SUITE ----------------------- */
   drawGuillochePrimary(ctx, palette) {
     const W = ctx.canvas.width, H = ctx.canvas.height;
-    const cx = W/2, cy = H*0.32, R = 580;
+    const cx = W/2, cy = H * 0.32, R = 580;
 
     const p1 = this.seg(this.state.hvet, 0, 2) % 21 + 24;
     const p2 = this.seg(this.state.hvet, 4, 2) % 31 + 28;
@@ -6296,11 +6264,12 @@ drawHVETMesh(ctx, hvet) {
     ctx.beginPath();
 
     for (let t=0; t<Math.PI*14; t+=0.002) {
-      const r = R + Math.sin(p1*t + phase)*26 + Math.cos(p2*t)*18;
+      const r = R + Math.sin(p1*t+phase)*26 + Math.cos(p2*t)*18;
       const x = cx + r*Math.cos(t);
       const y = cy + r*Math.sin(t);
       t===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
     }
+
     ctx.stroke();
     ctx.restore();
   },
@@ -6325,6 +6294,7 @@ drawHVETMesh(ctx, hvet) {
       const y = cy + r*Math.sin(t);
       t===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
     }
+
     ctx.stroke();
     ctx.restore();
   },
@@ -6348,16 +6318,16 @@ drawHVETMesh(ctx, hvet) {
       const y = cy + scale*Math.sin(freq*t+twist)*Math.sin(t);
       t===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
     }
+
     ctx.stroke();
     ctx.restore();
   },
 
-  /* ============================================================
-     7. OUTER REFRACTIVE FRAME
-     ============================================================ */
+  /* ------------------------- FRAME ---------------------------- */
   drawFrame(ctx) {
     const W = ctx.canvas.width;
     const H = ctx.canvas.height;
+
     ctx.save();
 
     let g = ctx.createLinearGradient(0,0,W,H);
@@ -6372,9 +6342,7 @@ drawHVETMesh(ctx, hvet) {
     ctx.restore();
   },
 
-  /* ============================================================
-     8. CORNER INTEGRITY SEALS
-     ============================================================ */
+  /* --------------------- CORNER SEALS ------------------------- */
   drawSeals(ctx) {
     const W = ctx.canvas.width;
     const H = ctx.canvas.height;
@@ -6408,9 +6376,7 @@ drawHVETMesh(ctx, hvet) {
     ctx.restore();
   },
 
-  /* ============================================================
-     9. QR EXCLUSION MASK + VISIBLE QR
-     ============================================================ */
+  /* --------------------------- QR ----------------------------- */
   drawQR(ctx, file, hvet) {
     const W = ctx.canvas.width;
     const x = W - 520;
@@ -6431,12 +6397,9 @@ drawHVETMesh(ctx, hvet) {
     });
 
     ctx.save();
-
-    // Clean underlay
     ctx.fillStyle = "#fff";
     ctx.fillRect(x, y, 380, 420);
 
-    // Draw QR
     ctx.drawImage(qr.canvas, x+10, y+10, 360, 360);
 
     ctx.fillStyle = "#111";
@@ -6446,9 +6409,7 @@ drawHVETMesh(ctx, hvet) {
     ctx.restore();
   },
 
-  /* ============================================================
-     10. REGISTRY ANCHOR HASH (SHA-512 root)
-     ============================================================ */
+  /* -------------------- REGISTRY ANCHOR ----------------------- */
   drawAnchor(ctx, hvet) {
     ctx.save();
     ctx.font = "20px JetBrains Mono";
@@ -6456,18 +6417,19 @@ drawHVETMesh(ctx, hvet) {
 
     ctx.fillText(
       "Registry Anchor (SHA-512): " + hvet.substring(0,64).toUpperCase(),
-      140, 1550
+      140,
+      1550
     );
 
     ctx.restore();
   },
 
-  /* ============================================================
-     11. EIR BLOCK (text block)
-     ============================================================ */
+  /* -------------------------- EIR ------------------------------ */
   drawEIR(ctx, file, hvet) {
     const now = new Date();
-    const serial = `NOVAK-EIR-${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}-${String(now.getDate()).padStart(2,"0")}-${hvet.substring(0,6).toUpperCase()}`;
+    const serial =
+      `NOVAK-EIR-${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}-${String(now.getDate()).padStart(2,"0")}-${hvet.substring(0,6).toUpperCase()}`;
+
     this.state.serial = serial;
 
     ctx.save();
@@ -6484,31 +6446,42 @@ drawHVETMesh(ctx, hvet) {
     ctx.fillText("HVET (SHA-256):", 140, 1220);
 
     ctx.font = "22px JetBrains Mono";
-    let y=1260, line="";
-    const max=2300;
+
+    let y = 1260, line = "";
+    const maxWidth = 2300;
 
     for (let c of hvet) {
-      let test=line+c;
-      if (ctx.measureText(test).width > max) {
-        ctx.fillText(line,140,y);
-        y+=26;
-        line=c;
-      } else line=test;
+      let test = line + c;
+      if (ctx.measureText(test).width > maxWidth) {
+        ctx.fillText(line, 140, y);
+        y += 26;
+        line = c;
+      } else line = test;
     }
-    if (line) ctx.fillText(line,140,y);
+    if (line) ctx.fillText(line, 140, y);
 
     ctx.restore();
+
+    // 🔎 Also update the textual EIR block below the canvas
+    const eirEl = document.getElementById("eirText");
+    if (eirEl) {
+      eirEl.textContent =
+        "NOVAK Execution Identity Receipt (EIR)\n\n" +
+        "Serial: " + serial + "\n" +
+        "File:   " + file.name + "\n" +
+        "Size:   " + file.size + " bytes\n" +
+        "Issued: " + now.toISOString() + "\n\n" +
+        "HVET (SHA-256):\n" + hvet;
+    }
   },
 
-  /* ============================================================
-     12. DIGITAL SIGNATURE FOOTER
-     ============================================================ */
+  /* ------------------------- FOOTER ---------------------------- */
   drawFooter(ctx) {
     const H = ctx.canvas.height;
 
     ctx.save();
-    ctx.fillStyle="#111";
-    ctx.font="22px JetBrains Mono";
+    ctx.fillStyle = "#111";
+    ctx.font = "22px JetBrains Mono";
 
     ctx.fillText("Digital Signature (PBKDF2/Argon2 Placeholder):", 140, H-180);
     ctx.fillText("Issuer: NOVAK Integrity Authority", 140, H-140);
@@ -6517,72 +6490,68 @@ drawHVETMesh(ctx, hvet) {
     ctx.restore();
   },
 
-  /* ============================================================
-     MAIN RENDER PIPELINE
-     ============================================================ */
+  /* --------------------- MAIN RENDER --------------------------- */
   async render() {
-    const {ctx, file, hvet, palette} = this.state;
+    const { ctx, file, hvet, palette } = this.state;
     if (!ctx || !file || !hvet) return;
 
     const W = ctx.canvas.width;
     const H = ctx.canvas.height;
 
-    // BASE
-    ctx.fillStyle="#fff";
+    ctx.fillStyle = "#fff";
     ctx.fillRect(0,0,W,H);
 
-    // HVET BACKGROUND SYSTEM
-    this.drawHVETMesh(ctx,hvet);
+    this.drawHVETMesh(ctx, hvet);
     this.blurHVET(ctx);
 
-    // HOLOGRAPHY + WATERMARK + SEALS
     this.drawHoloBand(ctx);
     this.drawTriskelionWatermark(ctx);
     this.drawSeals(ctx);
 
-    // GUILLOCHE SUITE
-    this.drawGuillochePrimary(ctx,palette);
-    this.drawGuillocheInterference(ctx,palette);
-    this.drawTriquetra(ctx,palette);
+    this.drawGuillochePrimary(ctx, palette);
+    this.drawGuillocheInterference(ctx, palette);
+    this.drawTriquetra(ctx, palette);
 
-    // MICROTEXT
     this.drawMicroRibbon(ctx);
 
-    // EIR + QR + ANCHOR + FOOTER
     this.drawEIR(ctx, file, hvet);
     this.drawQR(ctx, file, hvet);
-    this.drawAnchor(ctx,hvet);
+    this.drawAnchor(ctx, hvet);
     this.drawFooter(ctx);
 
-    // FRAME LAST
     this.drawFrame(ctx);
   },
 
-  /* ============================================================
-     PDF EXPORT
-     ============================================================ */
+  /* ------------------------- DOWNLOAD -------------------------- */
   downloadPDF() {
-    // Safety checks
     if (!this.state.canvas) {
       alert("Please generate a certificate before downloading.");
       return;
     }
 
-    const { jsPDF } = window.jspdf;     // ✅ UMD jsPDF access
+    // Ensure jsPDF UMD is present
+    if (!window.jspdf || !window.jspdf.jsPDF) {
+      alert("jsPDF is not loaded. Make sure jspdf.umd.min.js is included before this script.");
+      return;
+    }
+
+    const { jsPDF } = window.jspdf;
     const pdf = new jsPDF("p", "px", [3000, 4200]);
 
-    const imgData = this.state.canvas.toDataURL("image/png");
-    pdf.addImage(imgData, "PNG", 0, 0, 3000, 4200);
+    const img = this.state.canvas.toDataURL("image/png");
+    pdf.addImage(img, "PNG", 0, 0, 3000, 4200);
 
-    const name = this.state.serial ? this.state.serial + ".pdf"
-                                   : "NOVAK-Government-Certificate.pdf";
+    const name = this.state.serial
+      ? this.state.serial + ".pdf"
+      : "NOVAK-Government-Certificate.pdf";
+
     pdf.save(name);
   }
 };
-
 </script>
 
 <script>
+  // Ensure global access
   window.NOVAK_GOV = window.NOVAK_GOV;
 </script>
 
