@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
@@ -238,6 +239,7 @@ html[data-theme="dark"] .pill-btn.active {
   border-color: #ffffff !important;
 }
 
+  
 /* ========== FIX TOP GAP (B) ========== */
 html {
   scroll-padding-top: 50px; /* header height */
@@ -6366,21 +6368,127 @@ window.NOVAK_GOV = {
     ctx.restore();
   },
 
-  /* =====================================================================
-     3. NOVAK LOGO WATERMARK (Triquetra Background)
-     ===================================================================== */
-  drawNovakLogoWatermark(ctx) {
-    const img = this.state.watermarkImg;
-    if (!img || !img.complete) return;
+/* =====================================================================
+   3. NOVAK EMBLEM V3 — SHA-256 Driven Holographic Core
+   Replaces watermark and renders BEFORE foil strip
+   ===================================================================== */
+drawNovakEmblemV3(ctx, hvet) {
+  const W = ctx.canvas.width;
+  const H = ctx.canvas.height;
 
-    const W = ctx.canvas.width;
-    const H = ctx.canvas.height;
+  // Center point for emblem
+  const cx = W / 2;
+  const cy = H * 0.42;        // natural placement for centered identity stamp
+  const R  = 620;
 
-    ctx.save();
-    ctx.globalAlpha = 0.08;
-    ctx.drawImage(img, W / 2 - 850, H / 2 - 850, 1700, 1700);
-    ctx.restore();
-  },
+  ctx.save();
+
+  /* ------------------------------------------------------------
+     A. Background radial rainbow bloom (Fourier-based)
+     ------------------------------------------------------------ */
+  const h1 = parseInt(hvet.substring(0, 2), 16) % 360;
+  const h2 = parseInt(hvet.substring(4, 6), 16) % 360;
+  const h3 = parseInt(hvet.substring(8, 10), 16) % 360;
+
+  const g = ctx.createRadialGradient(cx, cy, R * 0.05, cx, cy, R * 1.15);
+  g.addColorStop(0.00, `hsla(${h1}, 85%, 65%, 0.78)`);
+  g.addColorStop(0.35, `hsla(${h2}, 85%, 60%, 0.74)`);
+  g.addColorStop(0.70, `hsla(${h3}, 82%, 62%, 0.70)`);
+  g.addColorStop(1.00, `hsla(${(h1 + h2) % 360}, 88%, 50%, 0.60)`);
+
+  ctx.globalAlpha = 0.78;
+  ctx.fillStyle = g;
+  ctx.beginPath();
+  ctx.arc(cx, cy, R * 1.15, 0, Math.PI * 2);
+  ctx.fill();
+
+  /* ------------------------------------------------------------
+     B. Concentric Fourier rings (deterministic wobble)
+     ------------------------------------------------------------ */
+  ctx.globalAlpha = 0.33;
+
+  for (let i = 0; i < 34; i++) {
+    const rr = R * (0.30 + i * 0.018);
+    const phase = (parseInt(hvet.substring(i * 2, i * 2 + 2), 16) % 360) * Math.PI / 180;
+
+    ctx.strokeStyle = `hsla(${(h1 + i * 7) % 360}, 90%, 60%, 0.55)`;
+    ctx.lineWidth   = 1.2;
+
+    ctx.beginPath();
+    for (let t = 0; t < Math.PI * 2; t += 0.005) {
+      const wobble =
+        Math.sin(t * (6 + (i % 5)) + phase) * 3.8;
+      const x = cx + (rr + wobble) * Math.cos(t);
+      const y = cy + (rr + wobble) * Math.sin(t);
+      t === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+  }
+
+  /* ------------------------------------------------------------
+     C. HVET-based Phyllotaxis spiral (golden ratio)
+     ------------------------------------------------------------ */
+  ctx.globalAlpha = 0.85;
+  const N = 2600;
+  const phi = (Math.PI * (3 - Math.sqrt(5)));  // golden angle
+  const seed = parseInt(hvet.substring(0, 6), 16) % 360;
+
+  for (let n = 0; n < N; n++) {
+    const t = n * phi;
+    const r = Math.sqrt(n) * 3.2;
+
+    const x = cx + r * Math.cos(t + seed);
+    const y = cy + r * Math.sin(t + seed);
+
+    const hue = (h1 + n * 0.08) % 360;
+    ctx.fillStyle = `hsla(${hue}, 82%, 62%, 0.45)`;
+
+    ctx.beginPath();
+    ctx.arc(x, y, 1.1, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  /* ------------------------------------------------------------
+     D. Grid Overlay — currency-grade alignment mesh
+     ------------------------------------------------------------ */
+  ctx.globalAlpha = 0.12;
+  ctx.strokeStyle = "rgba(255,255,255,0.55)";
+  ctx.lineWidth = 1;
+
+  const step = 34;
+  for (let x = cx - R; x < cx + R; x += step) {
+    ctx.beginPath();
+    ctx.moveTo(x, cy - R);
+    ctx.lineTo(x, cy + R);
+    ctx.stroke();
+  }
+  for (let y = cy - R; y < cy + R; y += step) {
+    ctx.beginPath();
+    ctx.moveTo(cx - R, y);
+    ctx.lineTo(cx + R, y);
+    ctx.stroke();
+  }
+
+  /* ------------------------------------------------------------
+     E. NOVAK Identity Text (holographic ink)
+     ------------------------------------------------------------ */
+  ctx.globalAlpha = 0.96;
+  ctx.font = "bold 130px Inter, system-ui, sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  const tg = ctx.createLinearGradient(cx - 300, cy - 100, cx + 300, cy + 200);
+  tg.addColorStop(0.00, "#0A3D91");
+  tg.addColorStop(0.50, "#7A1FB3");
+  tg.addColorStop(1.00, "#009E8E");
+
+  ctx.fillStyle = tg;
+  ctx.shadowColor = "rgba(0,0,0,0.35)";
+  ctx.shadowBlur = 18;
+  ctx.fillText("NOVAK", cx, cy);
+
+  ctx.restore();
+},
 
   /* =====================================================================
      4. CENTER VERTICAL WOVEN HVET SPECTRAL FOIL STRIP
@@ -7057,7 +7165,7 @@ window.NOVAK_GOV = {
     this.drawHeatmapLayer(ctx, hvet);
 
     // NOVAK watermark (if loaded)
-    this.drawNovakLogoWatermark(ctx);
+this.drawNovakEmblemV3(ctx, hvet);
 
     // Foil strip
     this.drawSpectralFoil(ctx, hvet);
