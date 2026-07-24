@@ -1,0 +1,25 @@
+{
+  "schema_version": "n.tier3.scorecard.v1",
+  "app_id": "com.novak.password_threat_lab",
+  "status": "candidate",
+  "dimensions": {
+    "primary_user_path": "implemented-locally",
+    "invalid_input_handling": "implemented-locally",
+    "core_tests": "configured",
+    "app_manifest": "present",
+    "surface_manifest": "present",
+    "n_sdt_truth_and_handoff": "present",
+    "repoops_local_gate": "configured",
+    "nvibe": "limitation-note-only",
+    "human_review": "pending",
+    "draft_pull_request": "pending-at-packet-time",
+    "merged": false,
+    "pages_verified": false,
+    "hosted_ci_passed": false,
+    "mvp_ready": false,
+    "production_ready": false,
+    "production_grade": false,
+    "formal_security_audit": false
+  },
+  "claim_boundary": "Local candidate evidence only. No readiness, hosted-CI, deployment, production, security, or audit claim."
+}
