@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en" data-ready="false">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A local-only educational password threat model comparing pattern-aware classical estimates, random search, Grover query complexity, and Shor's separate public-key threat.">
+  <meta name="color-scheme" content="dark light">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Password Threat Lab — Classical and Quantum Context</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/sections.css">
+  <script src="assets/estimator.js" defer></script>
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to analysis</a>
+
+  <header class="site-header">
+    <div class="shell header-row">
+      <a class="brand" href="../" aria-label="Return to NOVAK Hash Monitor">
+        <span class="brand-mark" aria-hidden="true">N</span>
+        <span>
+          <strong>NOVAK</strong>
+          <small>Password Threat Lab</small>
+        </span>
+      </a>
+      <nav aria-label="Page sections">
+        <a href="#analyzer">Analyzer</a>
+        <a href="#threat-map">Threat map</a>
+        <a href="#method">Method</a>
+        <a href="#sources">Sources</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero shell" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span aria-hidden="true"></span> Local-only educational model</p>
+        <h1 id="hero-title">Password strength is a threat-model question.</h1>
+        <p class="lede">
+          Compare a pattern-aware classical estimate with a random-character upper bound, then place Grover's and Shor's algorithms in the correct cryptographic context.
+        </p>
+        <div class="hero-points" aria-label="Privacy properties">
+          <span>No account</span>
+          <span>No analytics</span>
+          <span>No password transmission</span>
+          <span>No third-party scripts</span>
+        </div>
+      </div>
+      <aside class="hero-note" aria-label="Important limitation">
+        <p class="note-kicker">Use a sample, not a credential</p>
+        <p>Enter a structurally similar example. Browser extensions, screen capture, and a compromised device remain outside this page's control.</p>
+      </aside>
+    </section>
+
+    <section id="analyzer" class="analyzer-section shell" aria-labelledby="analyzer-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-number">01 / Analyzer</p>
+          <h2 id="analyzer-title">Estimate the search cost</h2>
+        </div>
+        <p>Results are scenarios, not guarantees. Hash choice, cost parameters, hardware, attacker strategy, and password reuse all matter.</p>
+      </div>
+
+      <div class="privacy-banner" role="note">
+        <strong>Local-processing boundary:</strong>
+        The value stays in this browser tab. It is not placed in a URL, stored in browser storage, hashed, logged, or sent to a server by this application.
+      </div>
+
+      <div class="analyzer-grid">
+        <div class="control-panel">
+          <div class="field-group">
+            <div class="label-row">
+              <label for="passwordInput">Representative password sample</label>
+              <span id="characterCount" class="counter">0 / 256</span>
+            </div>
+            <div class="password-control">
+              <input
+                id="passwordInput"
+                name="password-sample"
+                type="password"
+                maxlength="256"
+                autocomplete="new-password"
+                autocapitalize="none"
+                spellcheck="false"
+                inputmode="text"
+                aria-describedby="sampleHelp"
+                placeholder="Use a made-up sample — never a real password"
+              >
+              <button id="toggleVisibility" class="input-button" type="button" aria-pressed="false">Show</button>
+              <button id="clearInput" class="input-button" type="button">Clear</button>
+            </div>
+            <p id="sampleHelp" class="field-help">Pasting is allowed. The page deliberately does not prevent password-manager behavior.</p>
+          </div>
+
+          <div class="field-group">
+            <label for="attackProfile">Classical attack scenario</label>
+            <select id="attackProfile" aria-describedby="profileDescription"></select>
+            <p id="profileDescription" class="field-help">Illustrative assumptions load from local JSON.</p>
+          </div>
+
+          <div id="customRateGroup" class="field-group" hidden>
+            <label for="customRate">Custom guesses per second</label>
+            <input id="customRate" type="number" min="1" max="1000000000000000000" step="1" value="1000000" inputmode="numeric">
+            <p class="field-help">Use a measured rate for the exact hash, parameters, software, and hardware when available.</p>
+          </div>
+
+          <div class="assumption-box">
+            <p class="assumption-title">What this model does</p>
+            <ul>
+              <li>Checks a bounded set of common, sequence, repeat, date, suffix, and passphrase patterns.</li>
+              <li>Uses logarithmic math so long inputs do not overflow.</li>
+              <li>Shows average guesses, not worst-case exhaustion.</li>
+            </ul>
+            <p id="configStatus" class="config-status">Loading local assumptions…</p>
+          </div>
+        </div>
+
+        <div class="results-panel" aria-live="polite" aria-atomic="false">
+          <p id="analysisStatus" class="sr-only">No sample is being analyzed.</p>
+
+          <div id="emptyState" class="empty-state">
+            <div class="empty-icon" aria-hidden="true">∅</div>
+            <h3>No sample in memory</h3>
+            <p>Enter a made-up value to calculate classical estimates and an illustrative Grover query proxy.</p>
+          </div>
+
+          <div id="resultState" hidden>
+            <div class="strength-header">
+              <div>
+                <p class="result-kicker">Pattern-aware assessment</p>
+                <h3 id="strengthLabel">—</h3>
+              </div>
+              <progress id="strengthMeter" max="5" value="1" aria-label="Estimated strength on a five-point scale">1 of 5</progress>
+            </div>
+
+            <div class="method-callout">
+              <span>Cheapest detected strategy</span>
+              <strong id="patternMethod">—</strong>
+              <p id="patternExplanation">—</p>
+            </div>
+
+            <div class="metric-grid">
+              <article class="metric-card primary-metric">
+                <p>Pattern-aware estimate</p>
+                <strong id="patternTime">—</strong>
+                <dl>
+                  <div><dt>Average guess work</dt><dd id="patternBits">—</dd></div>
+                  <div><dt>Estimated guesses</dt><dd id="patternGuesses">—</dd></div>
+                </dl>
+              </article>
+
+              <article class="metric-card">
+                <p>Random-model upper bound</p>
+                <strong id="randomTime">—</strong>
+                <dl>
+                  <div><dt>Average guess work</dt><dd id="randomBits">—</dd></div>
+                  <div><dt>Estimated guesses</dt><dd id="randomGuesses">—</dd></div>
+                </dl>
+              </article>
+
+              <article class="metric-card quantum-metric">
+                <p>Grover query proxy</p>
+                <strong id="groverQueries">—</strong>
+                <dl>
+                  <div><dt>Square-root query work</dt><dd id="groverBits">—</dd></div>
+                  <div><dt>Wall-clock prediction</dt><dd>Not provided</dd></div>
+                </dl>
+              </article>
+            </div>
+
+            <p class="selected-rate"><span>Scenario</span><strong id="selectedRate">—</strong></p>
+
+            <div class="insight-grid">
+              <section>
+                <h4>Detected signals</h4>
+                <ul id="patternSignals" class="compact-list"></ul>
+              </section>
+              <section>
+                <h4>Practical response</h4>
+                <ul id="suggestions" class="compact-list"></ul>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="threat-map" class="threat-section shell" aria-labelledby="threat-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-number">02 / Threat map</p>
+          <h2 id="threat-title">Three different attack surfaces</h2>
+        </div>
+        <p>Conflating password guessing, Grover's algorithm, and Shor's algorithm produces misleading crack-time claims.</p>
+      </div>
+
+      <div class="threat-grid">
+        <article class="threat-card">
+          <p class="threat-tag">Classical / password hashes</p>
+          <h3>Dictionary, mask, and brute-force attacks</h3>
+          <p>An attacker with an offline verifier tests likely choices and patterns first. The storage algorithm and cost settings can change throughput by many orders of magnitude.</p>
+          <dl>
+            <div><dt>Target</dt><dd>Password verifier</dd></div>
+            <div><dt>Primary defense</dt><dd>Unique length, blocklists, rate limits, costly salted hashing</dd></div>
+          </dl>
+        </article>
+
+        <article class="threat-card">
+          <p class="threat-tag">Quantum / symmetric search</p>
+          <h3>Grover's square-root query advantage</h3>
+          <p>Grover reduces an unstructured search from roughly N checks to roughly √N oracle queries. A query count is not a quantum clock: the verifier must be implemented reversibly and fault-tolerantly.</p>
+          <dl>
+            <div><dt>Target</dt><dd>Unstructured key or password search</dd></div>
+            <div><dt>Shown here</dt><dd>Random-space query proxy only</dd></div>
+          </dl>
+        </article>
+
+        <article class="threat-card featured-card">
+          <p class="threat-tag">Quantum / public-key cryptography</p>
+          <h3>Shor is the structural migration threat</h3>
+          <p>Shor attacks the mathematical problems behind widely deployed RSA and elliptic-curve systems. That is separate from directly guessing a stored password hash.</p>
+          <dl>
+            <div><dt>Target</dt><dd>Vulnerable key establishment and digital signatures</dd></div>
+            <div><dt>Response</dt><dd>Inventory, migration planning, and standardized PQC</dd></div>
+          </dl>
+        </article>
+      </div>
+    </section>
+
+    <section class="guidance-section shell" aria-labelledby="guidance-title">
+      <div class="guidance-copy">
+        <p class="section-number">03 / Action</p>
+        <h2 id="guidance-title">What improves the real outcome</h2>
+        <p>A dramatic timer is less useful than controlling the attack path.</p>
+      </div>
+      <div class="guidance-list">
+        <article>
+          <span>01</span>
+          <div><h3>Use unique generated secrets</h3><p>Length and randomness defeat pattern-first guessing better than predictable composition substitutions.</p></div>
+        </article>
+        <article>
+          <span>02</span>
+          <div><h3>Protect the verifier</h3><p>Apply rate limiting online and salted, costed password hashing for offline resistance.</p></div>
+        </article>
+        <article>
+          <span>03</span>
+          <div><h3>Add phishing-resistant MFA</h3><p>Password length does not stop phishing, malware, session theft, or social engineering.</p></div>
+        </article>
+        <article>
+          <span>04</span>
+          <div><h3>Manage cryptographic migration separately</h3><p>PQC planning belongs in the public-key inventory and protocol lifecycle, not inside a password meter.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="method" class="method-section shell" aria-labelledby="method-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-number">04 / Method</p>
+          <h2 id="method-title">Transparent assumptions</h2>
+        </div>
+        <p>This bounded educational model does not claim to reproduce Hashcat, zxcvbn, a breach corpus, or a fault-tolerant quantum resource estimate.</p>
+      </div>
+
+      <div class="method-grid">
+        <article>
+          <h3>Pattern-aware estimate</h3>
+          <p>The lowest-cost bundled strategy wins. Patterns include common values, basic leetspeak, word-plus-number suffixes, sequences, repeats, date-like values, and visibly separated phrases.</p>
+        </article>
+        <article>
+          <h3>Random-model upper bound</h3>
+          <p>The calculator infers the character classes present and estimates the average position in that complete search space. Human-chosen values rarely behave like uniform random samples.</p>
+        </article>
+        <article>
+          <h3>Classical time</h3>
+          <p>Estimated average guesses are divided by a selected illustrative rate. Real results depend on the exact verifier, hardware, software, optimization, and attack budget.</p>
+        </article>
+        <article>
+          <h3>Quantum query proxy</h3>
+          <p>The displayed Grover value is the square root of the random-model average search work. No seconds are shown because oracle depth, error correction, hardware, and serial query costs are not modeled.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="sources" class="sources-section shell" aria-labelledby="sources-title">
+      <div>
+        <p class="section-number">05 / Primary sources</p>
+        <h2 id="sources-title">Read the standards, not the headline</h2>
+      </div>
+      <ul class="source-list">
+        <li>
+          <a href="https://pages.nist.gov/800-63-4/sp800-63b.html" rel="noopener noreferrer">NIST SP 800-63B — Authentication and password verifier requirements</a>
+          <span>Length, blocklists, rate limiting, password managers, and salted costed hashing.</span>
+        </li>
+        <li>
+          <a href="https://csrc.nist.gov/Presentations/2024/practical-cost-of-grover-for-aes-key-recovery" rel="noopener noreferrer">NIST CSRC — Practical cost of Grover for AES key recovery</a>
+          <span>Square-root query advantage and practical resource context.</span>
+        </li>
+        <li>
+          <a href="https://www.nist.gov/publications/quantum-cryptanalysis-shor-grover-and-beyond" rel="noopener noreferrer">NIST — Quantum cryptanalysis: Shor, Grover, and beyond</a>
+          <span>Algorithmic context and cryptanalytic scope.</span>
+        </li>
+        <li>
+          <a href="https://www.nist.gov/news-events/news/2024/08/announcing-approval-three-federal-information-processing-standards-fips" rel="noopener noreferrer">NIST — Approval of FIPS 203, 204, and 205</a>
+          <span>Standardized post-quantum key-establishment and signature mechanisms.</span>
+        </li>
+        <li>
+          <a href="https://www.nccoe.nist.gov/publications/fact-sheet/migration-post-quantum-cryptography-fact-sheet" rel="noopener noreferrer">NCCoE — Migration to post-quantum cryptography</a>
+          <span>Cryptographic inventory and migration framing.</span>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-grid">
+      <div>
+        <strong>Password Threat Lab</strong>
+        <p>Public educational demonstration. All analysis occurs locally in the browser.</p>
+      </div>
+      <div>
+        <p><strong>Claim boundary:</strong> heuristic estimate, not a security audit, benchmark, breach check, quantum forecast, or authentication decision.</p>
+        <p>Part of the NOVAK Hash Monitor repository. Parent repository terms apply.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

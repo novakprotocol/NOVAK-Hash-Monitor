@@ -1,0 +1,41 @@
+{
+  "schema_version": "n.password-threat.attack-profiles.v1",
+  "profiles": [
+    {
+      "id": "online_rate_limited",
+      "label": "Online login — rate limited",
+      "guesses_per_second": 5,
+      "description": "Illustrative endpoint protected by throttling, lockouts, or bot controls."
+    },
+    {
+      "id": "offline_memory_hard",
+      "label": "Offline memory-hard password hash",
+      "guesses_per_second": 500,
+      "description": "Illustrative Argon2id or scrypt-style scenario. Real throughput depends on parameters and hardware."
+    },
+    {
+      "id": "offline_slow_kdf",
+      "label": "Offline slower password KDF",
+      "guesses_per_second": 100000,
+      "description": "Illustrative bcrypt or PBKDF2-style scenario. This is not a benchmark."
+    },
+    {
+      "id": "offline_fast_hash",
+      "label": "Offline fast hash — one accelerator",
+      "guesses_per_second": 10000000000,
+      "description": "Illustrative 10 billion guesses per second for a fast hash."
+    },
+    {
+      "id": "offline_fast_cluster",
+      "label": "Offline fast hash — GPU cluster",
+      "guesses_per_second": 100000000000,
+      "description": "Illustrative 100 billion guesses per second. Hash choice and hardware determine real rates."
+    }
+  ],
+  "default_profile_id": "offline_fast_hash",
+  "limits": {
+    "maximum_password_characters": 256,
+    "maximum_custom_guesses_per_second": 1000000000000000000
+  },
+  "claim_boundary": "Scenario inputs are educational assumptions, not hardware benchmarks."
+}
