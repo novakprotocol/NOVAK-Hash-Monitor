@@ -1,0 +1,81 @@
+{
+  "schema_version": "n.app.manifest.v1",
+  "app_id": "com.novak.password_threat_lab",
+  "app_name": "Password Threat Lab",
+  "description": "Local-only educational web surface for comparing bounded pattern-aware password estimates, random search, Grover query complexity, and Shor's separate public-key threat.",
+  "tier": "tier3-reference-candidate",
+  "runtime": {
+    "language": "HTML, CSS, browser JavaScript; Python reference and local server",
+    "entrypoint": "python serve.py",
+    "deployment": "static GitHub Pages subpath",
+    "third_party_runtime_dependencies": [],
+    "data_contract": "same-origin JSON attack profiles"
+  },
+  "commands": [
+    {
+      "id": "lab.estimate",
+      "title": "Estimate Password Search Cost",
+      "description": "Calculate bounded pattern-aware, random-space, and Grover query-work estimates for a transient representative sample.",
+      "risk": "low",
+      "authority_scope": "current browser tab only",
+      "mutates_state": false,
+      "requires_approval": false,
+      "dry_run_supported": true,
+      "evidence_receipt": false,
+      "redacts_output": true
+    },
+    {
+      "id": "lab.select_profile",
+      "title": "Select Classical Scenario",
+      "description": "Choose a local illustrative attack-rate profile or enter a bounded custom rate.",
+      "risk": "low",
+      "authority_scope": "current browser tab only",
+      "mutates_state": false,
+      "requires_approval": false,
+      "dry_run_supported": true,
+      "evidence_receipt": false,
+      "redacts_output": true
+    },
+    {
+      "id": "lab.clear",
+      "title": "Clear Representative Sample",
+      "description": "Remove the transient representative sample from the input and reset the result panel.",
+      "risk": "low",
+      "authority_scope": "current browser tab only",
+      "mutates_state": true,
+      "requires_approval": false,
+      "dry_run_supported": false,
+      "evidence_receipt": false,
+      "redacts_output": true
+    },
+    {
+      "id": "app.about",
+      "title": "Read Method and Sources",
+      "description": "Review assumptions, limitations, threat-model separation, and primary-source links.",
+      "risk": "low",
+      "authority_scope": "read-only web content",
+      "mutates_state": false,
+      "requires_approval": false,
+      "dry_run_supported": true,
+      "evidence_receipt": false,
+      "redacts_output": false
+    }
+  ],
+  "security": {
+    "local_first": true,
+    "network": "same-origin static assets only; optional user-initiated primary-source links",
+    "submitted_value_transmission": "none",
+    "browser_storage": "none",
+    "filesystem": "none in the public runtime",
+    "secrets": "none",
+    "input_lifetime": "transient browser memory; explicitly cleared on pagehide and by user action",
+    "audit": "local contract and browser-smoke evidence only; not a formal security audit",
+    "human_approval": "required for merge, Pages or repository settings, workflow, license, package, release, visibility, and claim changes"
+  },
+  "claim_boundaries": [
+    "Heuristic educational estimate, not a cracking benchmark or breach-corpus lookup.",
+    "Grover output is query complexity only, not a quantum wall-clock forecast.",
+    "Shor and PQC content describes a separate public-key migration threat.",
+    "Local proof is not hosted CI, production readiness, production-grade status, or a formal security audit."
+  ]
+}

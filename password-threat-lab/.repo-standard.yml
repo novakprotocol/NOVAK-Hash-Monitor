@@ -1,0 +1,38 @@
+schema: n.repo-standard.v1
+profile: scoped-public-pages-surface
+repo_class: web-app-extension
+parent_repository: novakprotocol/NOVAK-Hash-Monitor
+scope_root: password-threat-lab
+route_decision: extend-existing
+status: tier3-reference-candidate
+language_policy:
+  primary: browser-javascript
+  reference: python-standard-library
+  java: forbidden
+privacy:
+  local_first: true
+  submitted_value_transmission: none
+  browser_storage: none
+quality_gates:
+  - python scripts/check_napp_contract.py
+  - python scripts/check_surface_contract.py
+  - python scripts/check_static_site.py
+  - python -m unittest discover -s tests -v
+  - node tests/test_browser_contract.mjs
+  - python scripts/browser_smoke.py
+  - python scripts/quality_gate.py --write-report reports/local-proof.json
+claim_boundaries:
+  - no production-ready claim
+  - no production-grade claim
+  - no hosted-CI-green claim
+  - no secure-or-audited claim
+  - no quantum wall-clock prediction
+hard_gates:
+  - merge
+  - branch deletion
+  - Pages or repository settings
+  - workflows
+  - secrets
+  - license
+  - package or release
+  - visibility

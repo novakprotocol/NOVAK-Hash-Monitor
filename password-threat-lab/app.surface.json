@@ -1,0 +1,49 @@
+{
+  "schema": "n.surface.v1",
+  "app_id": "com.novak.password_threat_lab",
+  "name": "Password Threat Lab",
+  "commands": [
+    {
+      "id": "lab.estimate",
+      "title": "Estimate Password Search Cost",
+      "category": "Analyzer",
+      "risk": "low",
+      "surfaces": [
+        { "kind": "web", "path": "#analyzer", "order": 100 },
+        { "kind": "launcher", "order": 100 },
+        { "kind": "menu", "path": "Analyzer/Estimate Search Cost", "order": 100 }
+      ]
+    },
+    {
+      "id": "lab.select_profile",
+      "title": "Select Classical Scenario",
+      "category": "Analyzer",
+      "risk": "low",
+      "surfaces": [
+        { "kind": "web", "path": "#attackProfile", "order": 200 },
+        { "kind": "menu", "path": "Analyzer/Select Scenario", "order": 200 }
+      ]
+    },
+    {
+      "id": "lab.clear",
+      "title": "Clear Representative Sample",
+      "category": "Analyzer",
+      "risk": "low",
+      "surfaces": [
+        { "kind": "web", "path": "#clearInput", "order": 300 },
+        { "kind": "menu", "path": "Analyzer/Clear Sample", "order": 300 }
+      ]
+    },
+    {
+      "id": "app.about",
+      "title": "Read Method and Sources",
+      "category": "Help",
+      "risk": "low",
+      "surfaces": [
+        { "kind": "web", "path": "#method", "order": 400 },
+        { "kind": "menu", "path": "Help/Method and Sources", "order": 900 },
+        { "kind": "palette", "group": "Help", "order": 900 }
+      ]
+    }
+  ]
+}
