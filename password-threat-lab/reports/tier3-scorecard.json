@@ -1,0 +1,77 @@
+{
+  "schema_version": "n.tier3.scorecard.v1",
+  "app_id": "com.novak.password_threat_lab",
+  "assessment": "candidate-local-proof-pass",
+  "mvp_ready": false,
+  "production_ready": false,
+  "production_grade": false,
+  "formal_security_audit": false,
+  "hosted_ci_green": false,
+  "dimensions": {
+    "primary_user_path": {
+      "state": "locally-checked",
+      "evidence": [
+        "index.html",
+        "assets/app.js",
+        "assets/estimator.js"
+      ]
+    },
+    "privacy_boundary": {
+      "state": "locally-checked",
+      "evidence": [
+        "scripts/check_static_site.py",
+        "docs/nvibe/SCAN_EVIDENCE.md"
+      ]
+    },
+    "core_tests": {
+      "state": "locally-checked",
+      "evidence": [
+        "tests/test_reference_estimator.py",
+        "tests/test_browser_contract.mjs",
+        "reports/local-proof.json"
+      ]
+    },
+    "napp_contract": {
+      "state": "locally-checked",
+      "evidence": [
+        "app.manifest.json",
+        "app.surface.json"
+      ]
+    },
+    "current_truth_and_handoff": {
+      "state": "locally-checked",
+      "evidence": [
+        "docs/n-sdt/current-truth.md",
+        "docs/n-sdt/handoff.md"
+      ]
+    },
+    "before_exposure_risk": {
+      "state": "bounded-limitation-note",
+      "evidence": [
+        "docs/nvibe/SCAN_EVIDENCE.md"
+      ]
+    },
+    "human_review": {
+      "state": "pending",
+      "evidence": []
+    },
+    "pages_deployment": {
+      "state": "not-claimed",
+      "evidence": []
+    },
+    "visual_review": {
+      "state": "local-review-recorded",
+      "evidence": [
+        "docs/VISUAL_REVIEW.md",
+        "reports/local-proof.json"
+      ]
+    },
+    "local_quality_gate": {
+      "state": "pass",
+      "evidence": [
+        "reports/local-proof.json"
+      ]
+    }
+  },
+  "claim_boundary": "Local proof passed for the candidate source tree. Human review, final-head verification, authorized merge, and Pages observation remain required; no production, audit, benchmark, or quantum-feasibility claim is made."
+}
